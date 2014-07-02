@@ -1,0 +1,245 @@
+body {
+  background-color:#2C5463;
+}
+
+
+.testStyle {
+	border:1px solid #ccc;
+	background:#FFF;
+	padding:10px 30px;
+	border-radius:10px;
+	box-shadow:0px 0px 20px rgba(0,0,0, 0.1);
+	min-height:100px;
+}
+
+.gameName {
+   display: -moz-inline-stack;
+   display: inline-block;
+   width: 103px;
+   height: 32px;
+   background: url("http://dabuttonfactory.com/b.png?t=Your%20tex&f=Calibri-Bold&ts=24&tc=ffffff00&tshs=1&tshc=22222200&it=png&c=round&bgt=gradient&bgc=47c&ebgc=238&hp=10&vp=8") no-repeat;
+   line-height: 32px;
+   vertical-align: text-middle;
+   text-align: center;
+   color: #ffffff;
+   font-family: Calibri;
+   font-size: 24px;
+   font-weight: bold;
+   font-style: normal;
+   text-shadow: #222222 1px 1px 0;
+ 
+}
+
+.game li {
+	margin-bottom: 5px;
+}
+
+.gameName:hover {
+-webkit-transition: all .2s ease-in-out;	 
+background: url("http://dabuttonfactory.com/b.png?t=Your%20tex&f=Calibri-Bold&ts=24&tc=ffffff00&tshs=1&tshc=22222200&it=png&c=round&bgt=gradient&bgc=bcc4d1&ebgc=313d7a&hp=10&vp=8") no-repeat;
+}
+
+.header {
+	color: white;
+	background: #83d244;
+	line-height:35px;
+	vertical-align: text-middle;
+}
+
+.progressBar {
+	width:70%;
+	background-color: #83d244;
+	border:0;
+	height: 10px;
+	border-radius: 9px;
+}
+
+
+
+#rectangle {
+	width: 200px;
+	height: 100px;
+	background: red;
+}
+
+.button{
+	background-image: -webkit-linear-gradient(top, #edf0dd, white);
+	background-image: linear-gradient(top, #f4f1ee, #fff);
+	border-radius: 50%;
+	box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, .3), inset 0px 1px 1px 1px silver, inset 0px -3px 1px 1px rgba(204,198,197,.5);
+	float:left;
+	height: 180px;
+	margin: 0 30px 30px 0;
+	position: relative;
+	width: 180px;			
+	-webkit-transition: all .1s linear;
+	transition: all .1s linear;
+}
+
+.button:after{
+	color:#e9e6e4;
+	content: "";
+	display: block;
+	font-size: 30px;
+	height: 30px;
+	text-decoration: none;
+	text-shadow: 0px -1px 1px #bdb5b4, 1px 1px 1px white;
+	position: absolute;
+	width: 30px;
+}
+
+.button:hover{
+	background-image: -webkit-linear-gradient(top, white, #edf0dd);
+	background-image: linear-gradient(top, #fff, #f4f1ee);
+	color:#0088cc;
+}
+
+.tick:after{
+	content: "✔";
+	left:23px;
+	top:20px;
+}
+
+.cross:after{
+	content: "✖";
+	left: 24px;
+	top: 19px;
+}
+
+.questionmark:after{
+	content: "?";
+	left: 24px;
+	top: 19px;
+	color:#83d244;
+	text-shadow:0px 0px 6px #83d244;
+}
+
+.factorspan:after{
+	content: "Factorspan";
+	left: 20px;
+	top: 70px;
+	color:#6fdd18;
+
+}
+
+.factorspan:hover:after{
+	content: "Factorspan";
+	left: 20px;
+	top: 70px;
+}
+
+.passageAlignment:after{
+	content: "Passage alignment";
+	left: 25px;
+	top: 63px;
+	color:#6fdd18;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px; 
+}
+
+.passageAlignment:hover:after{
+	content: "Passage alignment";
+	left: 25px;
+	top: 63px;
+}
+
+.relationDirection:after{
+	content: "Relation direction";
+	left: 30px;
+	top: 63px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px; 
+	color:#6fdd18;
+}
+
+.relationDirection:hover:after{
+	content: "Relation direction";
+	left: 30px;
+	top: 63px;
+}
+
+.relationExtraction:after{
+	content: "Relation extraction";
+	left: 30px;
+	top: 63px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px; 
+}
+
+.relationExtraction:hover:after{
+	content: "Relation extraction";
+	left: 30px;
+}
+
+.factorExtraction:after{
+	content: "Factor extraction";
+	left: 30px;
+	top: 63px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 30px; 
+}
+
+.factorExtraction:hover:after{
+	content: "Factor extraction";
+	left: 30px;
+}
+
+.tick:hover:after{
+	color:#68a836;
+	text-shadow:0px 0px 6px #83d244;
+}
+
+.cross:hover:after{
+	color:#eb2f2f;
+	text-shadow:0px 0px 6px #eb2f2f;
+}
+
+.button:active{
+	background-image: -webkit-linear-gradient(top, #efedec, #f7f4f4);
+	background-image: linear-gradient(top, #efedec, #f7f4f4);
+	box-shadow: 0 3px 5px 0 rgba(0,0,0,.4), inset 0px -3px 1px 1px rgba(204,198,197,.5);
+}
+
+.button:active:after{
+	color:#dbd2d2;
+	text-shadow: 0px -1px 1px #bdb5b4, 0px 1px 1px white;
+}
+
+
+nav {
+  background-color:#2C5463;
+  height:20px;
+}
+ 
+ 
+nav ul {
+  font-family: Arial, Verdana;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align:center
+}
+ 
+nav ul li {
+  display: block;
+  position: relative;
+  float: left;
+}
+ 
+nav li ul { 
+  display: none; 
+}
+ 
+nav ul li a {
+}
+
+		
+
+		
+
+
