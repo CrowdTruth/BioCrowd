@@ -1,4 +1,4 @@
-@extends('layout') 
+@extends('layout')
 
 @section('content')
 	<div id="popUpDiv" style="display:none; padding:13px; top:200px;">

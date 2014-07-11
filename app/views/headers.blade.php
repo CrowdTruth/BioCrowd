@@ -1,100 +1,102 @@
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script
-	type="text/javascript" src="jquery.tablesorter/jquery.tablesorter.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-theme.css" rel="stylesheet">
+<link href="css/gamestyle.css" rel="stylesheet">
+<link href="jquery.tablesorter/themes/blue/style.css" rel="stylesheet">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.tablesorter/jquery.tablesorter.js"></script>
 <script>
-			$(function () {
-				var tabs = $('div[id^=tab]');
-				var imgs = $('div[id^=img]');
-				tabs.hide();
-				imgs.hide();
-				$('#tab1').show();
-				$('.tabs a').click(function () {
-					var tab_id = $(this).attr('href'); 
-					tabs.hide();
-					$(tab_id).show(); 
-				});
-				
+	$(function () {
+		var tabs = $('div[id^=tab]');
+		var imgs = $('div[id^=img]');
+		tabs.hide();
+		imgs.hide();
+		$('#tab1').show();
+		$('.tabs a').click(function () {
+			var tab_id = $(this).attr('href'); 
+			tabs.hide();
+			$(tab_id).show(); 
+		});
+		
+		$('.block').hide();
+		$('#option1').show();
+			$('#selectField1,#selectField2').change(function () {
 				$('.block').hide();
-				$('#option1').show();
-					$('#selectField1,#selectField2').change(function () {
-						$('.block').hide();
-						$('#'+$(this).val()).fadeIn();
-					});
-					
-
-
-				
-				<!--/highlight the clicked tab in the sidebar/-->
-				$('#tabs li a').click(function() {
-					$(this).closest("li").addClass('highlight').siblings().removeClass('highlight');
-					return(false);   // no default behavior from clicking on the link
-				});
-				
+				$('#'+$(this).val()).fadeIn();
 			});
-		</script>
-<script type='text/javascript'>
-			<!--/show the right content based on the selected element in the dropdown list of the sidebar/-->
-			$(document).ready(function(){
-				$("#myTable").tablesorter(); 
-	
-				$('#view1').show();
-				$('#view2a').hide();
-				$('#view2b').hide();
-				$('#view3').hide();
-			$.viewMap = {
-				'view1' : $('#view1'),
-				'view2' : $('#view2a'),
-				'view3' : $('#view3')
-			  };
-
-			  $('#viewSelector').change(function() {
-				// hide all
-				$.each($.viewMap, function() { this.hide(); });
-				// show current
-				$.viewMap[$(this).val()].show();
-			  });
-			})
 			
-			$(window).load(function(){
-				$(document).ready(function () {
-					$('.sidebar_dropdown_content_performance').hide();
-					$('#performance1').show();
-					$('#selectField_performance').change(function () {
-						$('.sidebar_dropdown_content_performance').hide();
-						$('#'+$(this).val()).fadeIn();
-					});
-					
-					$('.sidebar_dropdown_content_collection').hide();
-					$('#collection1').show();
-					$('#selectField_collection').change(function () {
-						$('.sidebar_dropdown_content_collection').hide();
-						$('#'+$(this).val()).fadeIn();
-					});	
+	
+	
+		
+		<!--/highlight the clicked tab in the sidebar/-->
+		$('#tabs li a').click(function() {
+			$(this).closest("li").addClass('highlight').siblings().removeClass('highlight');
+			return(false);   // no default behavior from clicking on the link
+		});
+		
+	});
+</script>
+<script type='text/javascript'>
+	<!--/show the right content based on the selected element in the dropdown list of the sidebar/-->
+	$(document).ready(function(){
+		$("#myTable").tablesorter(); 
 
-					$('.sidebar_dropdown_content_challenges').hide();
-					$('#challenges1').show();
-					$('#selectField_challenges').change(function () {
-						$('.sidebar_dropdown_content_challenges').hide();
-						$('#'+$(this).val()).fadeIn();
-					});	
+		$('#view1').show();
+		$('#view2a').hide();
+		$('#view2b').hide();
+		$('#view3').hide();
+	$.viewMap = {
+		'view1' : $('#view1'),
+		'view2' : $('#view2a'),
+		'view3' : $('#view3')
+	  };
 
-					$('.showhide').click(function() {
-						if($('.sidebar').hasClass('hidden'))
-						{
-							$('.maincolumn').removeClass('col-xs-12').addClass('col-xs-9');
-							$('.hideButton').text('hide');
-							$('.sidebar').removeClass('hidden');
-						} else {
-							$('.maincolumn').removeClass('col-xs-9').addClass('col-xs-12');
-							$('.sidebar').addClass('hidden');
-							$('.hideButton').text('show');
-						}
-					});
-					
-				}); 
-			});	 
-		</script>
+	  $('#viewSelector').change(function() {
+		// hide all
+		$.each($.viewMap, function() { this.hide(); });
+		// show current
+		$.viewMap[$(this).val()].show();
+	  });
+	})
+	
+	$(window).load(function(){
+		$(document).ready(function () {
+			$('.sidebar_dropdown_content_performance').hide();
+			$('#performance1').show();
+			$('#selectField_performance').change(function () {
+				$('.sidebar_dropdown_content_performance').hide();
+				$('#'+$(this).val()).fadeIn();
+			});
+			
+			$('.sidebar_dropdown_content_collection').hide();
+			$('#collection1').show();
+			$('#selectField_collection').change(function () {
+				$('.sidebar_dropdown_content_collection').hide();
+				$('#'+$(this).val()).fadeIn();
+			});	
+
+			$('.sidebar_dropdown_content_challenges').hide();
+			$('#challenges1').show();
+			$('#selectField_challenges').change(function () {
+				$('.sidebar_dropdown_content_challenges').hide();
+				$('#'+$(this).val()).fadeIn();
+			});	
+
+			$('.showhide').click(function() {
+				if($('.sidebar').hasClass('hidden'))
+				{
+					$('.maincolumn').removeClass('col-xs-12').addClass('col-xs-9');
+					$('.hideButton').text('hide');
+					$('.sidebar').removeClass('hidden');
+				} else {
+					$('.maincolumn').removeClass('col-xs-9').addClass('col-xs-12');
+					$('.sidebar').addClass('hidden');
+					$('.hideButton').text('show');
+				}
+			});
+			
+		}); 
+	});	 
+</script>
 <script>
 			$(document).ready( function() {
 				$("#link,#closeLink").click( function () { popup('popUpDiv')});
@@ -149,9 +151,8 @@
 				toggle('blanket');
 				toggle(windowname);		
 			}
-		</script>
-<script
-	type="text/javascript" src="https://www.google.com/jsapi"></script>
+</script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
       google.load("visualization", "1", {packages:["corechart"]});
       google.setOnLoadCallback(drawChart);
@@ -174,10 +175,10 @@
         var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
         chart.draw(data, options);
       }
-    </script>
+</script>
 <script type="text/javascript">
       google.load('visualization', '1', {packages: ['table']});
-    </script>
+</script>
 <script type="text/javascript">
     function drawVisualization() {
       // Create and populate the data table.
@@ -195,7 +196,7 @@
     
 
     google.setOnLoadCallback(drawVisualization);
-    </script>
+</script>
 <script type="text/javascript">
     function drawVisualization() {
       // Create and populate the data table.
@@ -212,7 +213,7 @@
     }
 
     google.setOnLoadCallback(drawVisualization);
-    </script>
+</script>
 <script type="text/javascript">
       google.load("visualization", "1", {packages:["treemap"]});
       google.setOnLoadCallback(drawChart);
@@ -225,8 +226,8 @@
           ['Losses: 8',    'Win/Loss ratio',             40,                               1],
 
         ]);
-
-    </script>
+      }
+</script>
 <script>
 		function fullVersion() {
 			 alert("This will be available in the full version!"); 
@@ -235,16 +236,16 @@
 		function addedToCollection() {
 			 alert("This article has been added to your collection!"); 
 		};
-	</script>
+</script>
 <script>
 	//new test
 	document.getElementById('options').onchange = function() {
-    var i = 1;
-    var myDiv = document.getElementById(i);
-    while(myDiv) {
-        myDiv.style.display = 'none';
-        myDiv = document.getElementById(++i);
-    }
-    document.getElementById(this.value).style.display = 'block';
-};
-	</script>
+	    var i = 1;
+	    var myDiv = document.getElementById(i);
+	    while(myDiv) {
+	        myDiv.style.display = 'none';
+	        myDiv = document.getElementById(++i);
+	    }
+	    document.getElementById(this.value).style.display = 'block';
+	};
+</script>

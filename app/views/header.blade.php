@@ -15,5 +15,7 @@
 			<div style="height: 8px;">&nbsp;</div>12.000.342 annotations in total<br />&nbsp;&nbsp;&nbsp;&nbsp;5.234 annotations this week</span>
 		</b>
 	</div>
-	<a href="logout"><h5 style="text-align:right; margin-top:2px; margin-bottom:-13px; color:black; font-size:15px;"><button class="logoutButton">logout</button></h5></a>
+	@if (Auth::check())
+		 <a href="logout"><h5 style="text-align:right; margin-top:2px; margin-bottom:-13px; color:black; font-size:15px;"><button class="logoutButton">logout</button></h5></a>
+	@endif
 </div>

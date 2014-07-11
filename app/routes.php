@@ -18,7 +18,17 @@ Route::get('/', array('before' => 'auth', function()
 
 Route::get ('login' , 'LoginController@requestLogin');
 Route::post('login' , 'LoginController@doLogin');
+Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
 // Game logic
-Route::get('game_menu', 'GameController@listGames');
+Route::get('game_menu', 'GameListController@listGames');
+
+// Game mechanics added 'on the flight'
+//   Each game mechanics will need:
+//   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
+//   any VIER declared by the controller
+//   a CONTROLLER -- A controller class / function
+$url = 'factspan';
+$controller = 'FactorSpanController@playGame';
+Route::get($url, $controller);
