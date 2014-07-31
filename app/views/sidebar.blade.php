@@ -3,7 +3,7 @@
 			<div class="id_box"style="background:none;width:250px;height:100px;position:relative;left:20px;top:20px">
 				<img src="img/BlankImage.png" style="width:90px;height:80px;position:relative;left:-30px;top:-10px;-moz-border-radius:9px; -webkit-border-radius:9px; border-radius:9px;"></img>
 				<div class="player_info" style="width:170px;height:50px;position:relative;left:80px;top:-83px; font-size:14px;">
-					<b>Dr. Wilson</b><br />Factorspan pro
+					<b>Dr. Wilson</b><br/>Factorspan pro
 					<hr style="margin-bottom:4px; margin-top:5px; border-top:1px solid grey" / >
 					Reputation points:&nbsp;&nbsp;50&nbsp;<image src="img/coins.png"></image>
 				</div>

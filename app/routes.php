@@ -27,8 +27,28 @@ Route::get('game_menu', 'GameListController@listGames');
 // Game mechanics added 'on the flight'
 //   Each game mechanics will need:
 //   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
-//   any VIER declared by the controller
+//   any VIEW declared by the controller
 //   a CONTROLLER -- A controller class / function
-$url = 'factspan';
-$controller = 'FactorSpanController@playGame';
-Route::get($url, $controller);
+Route::get('playGame', 'GameController@playGame');
+Route::post('submitGame', 'GameController@submitGame');
+
+
+// Administrator module routes -- maybe even put in another file ?
+Route::get ('adminlogin' , 'AdminController@requestLogin');
+Route::post('adminlogin' , 'AdminController@doLogin');
+Route::get('adminlogout' , 'AdminController@requestLogout');
+
+Route::get ('admin', array('before' => 'adminauth', 'uses' => 'AdminController@home'));
+// Route::get ('admin', 'AdminController@home');
+
+Route::get('adminlistuser', array('before' => 'adminauth', 'uses' => 'AdminController@listUsersView'));
+Route::post('adminlistuser', array('before' => 'adminauth', 'uses' => 'AdminController@listUsersAction'));
+
+Route::get('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserView'));
+Route::post('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserAction'));
+
+Route::get('adminlistgame', array('before' => 'adminauth', 'uses' => 'AdminController@listGameView'));
+Route::post('adminlistgame', array('before' => 'adminauth', 'uses' => 'AdminController@listGameAction'));
+
+Route::get('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameView'));
+Route::post('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameAction'));

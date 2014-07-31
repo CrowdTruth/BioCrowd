@@ -15,7 +15,7 @@ return array(
 	|
 	*/
 
-	'driver' => 'eloquent',
+	//'driver' => 'eloquent',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return array(
 	|
 	*/
 
-	'model' => 'User',
+	//'model' => 'User',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -41,8 +41,20 @@ return array(
 	|
 	*/
 
-	'table' => 'users',
+	//'table' => 'users',
 
+	'multi' => array(
+			'admin' => array(
+					'driver' => 'eloquent',
+					'model' => 'AdminUser'
+			),
+			'user' => array(
+					'driver' => 'eloquent',
+					'model' => 'User'
+			)
+	),
+	
+		
 	/*
 	|--------------------------------------------------------------------------
 	| Password Reminder Settings

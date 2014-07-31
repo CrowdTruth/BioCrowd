@@ -1,87 +1,86 @@
-@extends('layout') @section('extraheaders')
-<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-@stop
+@extends('layout')
 
 @section('content')
-
-@if (Session::has('flash_error'))
-	<font color='RED'>{{ Session::get('flash_error') }}</font>
-@endif
-
-<div class="container">
-	<div class="row">
-		<div class="span6" style="float: none; margin: 0 auto;">
-			<div class="container-fluid" style="vertical-align: middle;">
-				<div class="accordion" id="accordion2">
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse"
-								data-parent="#accordion2" href="#collapseOne"> Login </a>
-						</div>
-						<div id="collapseOne" class="accordion-body collapse" style="height: 0px;">
-							<div class="accordion-inner">
-								{{ Form::open(array('url' => 'login', 'method' => 'POST')) }}
-									<div>
-										{{ Form::label('email:', 'Email:') }}
-										{{ Form::text('email', Input::old('email')) }}
-									</div>
-									<div>
-										{{ Form::label('password', 'Password') }}
-										{{ Form::password('password') }}
-									</div>
-									<div>
-										{{ Form::submit('Login') }}
-									</div>
-								{{ Form::close() }}
+	<div class="panel-group" id="accordion">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						href="#collapseOne"> Login </a>
+				</h4>
+			</div>
+			<div id="collapseOne" class="panel-collapse collapse in">
+				<div class="panel-body">
+					{{ Form::open(array('url' => 'login', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
+						<div class="form-group">
+							{{ Form::label('email', 'Email:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
 							</div>
 						</div>
-					</div>
-					<div class="accordion-group">
-						<div class="accordion-heading">
-							<a class="accordion-toggle" data-toggle="collapse"
-								data-parent="#accordion2" href="#collapseTwo"> Sign up </a>
-						</div>
-						<div id="collapseTwo" class="accordion-body collapse">
-							<div class="accordion-inner">
-								{{ Form::open(array('url' => 'register', 'method' => 'POST')) }}
-									<div>
-										{{ Form::label('email:', 'Email:') }}
-										{{ Form::text('email', Input::old('email')) }}
-									</div>
-									<div>
-										{{ Form::label('name:', 'Name:') }}
-										{{ Form::text('name', Input::old('name')) }}
-									</div>
-									<div>
-										{{ Form::label('password', 'Password') }}
-										{{ Form::password('password') }}
-									</div>
-									<div>
-										{{ Form::label('password2', 'Re-type password') }}
-										{{ Form::password('password2') }}
-									</div>
-									<div>
-										{{ Form::label('code', 'Invitation code') }}
-										{{ Form::text('code', Input::old('code')) }}
-									</div>
-									<div>
-										{{ Form::submit('Login') }}
-									</div>
-								{{ Form::close() }}
+						<div class="form-group">
+							{{ Form::label('password', 'Password:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::password('password', array('class' => 'form-control')) }}
 							</div>
 						</div>
-					</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-4">
+								{{ Form::submit('Login') }}
+							</div>
+						</div>
+					{{ Form::close() }}
+				</div>
+			</div>
+		</div>
+		<div class="panel panel-success">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion"
+						href="#collapseTwo"> Register </a>
+				</h4>
+			</div>
+			<div id="collapseTwo" class="panel-collapse collapse">
+				<div class="panel-body">
+					{{ Form::open(array('url' => 'register', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
+						<div class="form-group">
+							{{ Form::label('email', 'Email:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ Form::label('name', 'Name:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ Form::label('password', 'Password:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::password('password', array('class' => 'form-control')) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ Form::label('password2', 'Re-type password:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::password('password2', array('class' => 'form-control')) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ Form::label('code', 'Invitation code:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::text('code', Input::old('code'), array('class' => 'form-control')) }}
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-4">
+								{{ Form::submit('Login') }}
+							</div>
+						</div>
+						{{ Form::close() }}
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-
-<script src="jquery-2.0.2.min.js"></script>
-<script src="bootstrap/js/bootstrap.js"></script>
-<script>
-	$(document).ready(function() {
-			$('#collapseOne').collapse('show');
-	});
-</script>
 @stop

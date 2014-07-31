@@ -79,3 +79,32 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+// Add views for admin module
+View::addLocation(app_path().'/views/admin');
+
+// Create <li> elements for nav bar as class 'active' if they are celected.
+HTML::macro('headerLink', function($url, $text) {
+	$class = ( URL::current()==$url ) ? ' class="active"' : '';
+	return '<li'.$class.'><a href="'.$url.'">'.$text.'</a></li>';
+});
+
+HTML::macro('headerMenuOpen', function($urls, $text) {
+	/**
+	 * $urls    List of URL's which form part of this menu
+	 * $text    Text displayed on the menu button
+	 */
+	$class = 'dropdown';
+	$myUrls = '';
+	foreach($urls as $url) {
+		if(URL::current()==$url) {
+			$class = 'dropdown active';
+			break;
+		}
+	}
+	return '<li class="'.$class.'"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$text.'<span class="caret"></span></a><ul class="dropdown-menu" role="menu">';
+});
+
+HTML::macro('headerMenuClose', function() {
+	return '</ul></li>';
+});

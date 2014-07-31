@@ -9,7 +9,7 @@ class LoginController extends BaseController {
 	public function doLogin() {
 		$email = Input::get('email');
 		$pass  = Input::get('password');
-		if( Auth::attempt( array('email' => $email, 'password' => $pass) )){
+		if( Auth::user()->attempt( array('email' => $email, 'password' => $pass) )){
 			return Redirect::to('/');
 		} else {
 			return Redirect::to('login')->with('flash_error', 'Invalid email/password combination.')->withInput();

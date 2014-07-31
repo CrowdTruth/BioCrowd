@@ -7,9 +7,9 @@ class GameListController extends GameController {
 				'number' => 0,
 				'items'  => array(
 						array(
-								'link' => 'factspan',
+								'link' => 'playGame?game=FactorSpanController',
 								'image' => 'img/factorspan.png',
-								'text' => 'Factorspan',
+								'text' => 'Factor span',
 								'enabled' => true
 						),
 						array(
@@ -18,6 +18,7 @@ class GameListController extends GameController {
 								'text' => 'Factor validation',
 								'enabled' => true
 						)
+						
 				)
 		);
 		$level1 = array(
@@ -197,7 +198,7 @@ class GameListController extends GameController {
 		);
 
 		$levels = array($level0, $level1, $level2, $level3, $level4, $level5, $level6);
-
+		
 		return View::make('gameMenu')->with('levels', $levels);
 	}
 }
