@@ -23,4 +23,7 @@ class AdminUser extends Eloquent implements UserInterface {
 	 */
 	protected $hidden = array('password');
 
+	public function permissions() {
+		return $this->belongsToMany('AdminPermission', 'admin_permission_admin_user', 'admin_user_id', 'admin_permission_id');
+	}
 }

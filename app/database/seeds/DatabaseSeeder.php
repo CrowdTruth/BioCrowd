@@ -11,7 +11,6 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
 		User::create(array(
 				'email' => 'neocarlitos@gmail.com',
 				'name' => 'Neo',
@@ -20,8 +19,25 @@ class DatabaseSeeder extends Seeder {
 
 		AdminUser::create(array(
 				'username' => 'admin',
-				'password' => Hash::make('123456'),
-				'permissions' => 1
+				'password' => Hash::make('123456')
 		));
+
+		AdminPermission::create(array(
+				'name' => 'Users',
+				'description' => 'Manage users'
+		));
+
+		AdminPermission::create(array(
+				'name' => 'Games',
+				'description' => 'Manage games'
+		));
+
+		// Grant all permissions to root user
+		$root = AdminUser::where('username', '=', 'admin')->first();
+		$perms = AdminPermission::all();
+		foreach($perms as $perm) {
+			$root->permissions()->save($perm);
+		}
+		$root->save();
 	}
 }

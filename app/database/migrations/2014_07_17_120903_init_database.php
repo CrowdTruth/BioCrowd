@@ -12,16 +12,6 @@ class InitDatabase extends Migration {
 	 */
 	public function up()
 	{
-		//
-		Schema::create('admin_users', function($table)
-		{
-			$table->increments('id');
-			$table->string('username')->unique();
-			$table->string('password');
-			$table->integer('permissions');
-			$table->timestamps();
-		});
-		
 		Schema::create('users', function($table)
 		{
 			$table->increments('id');
@@ -30,6 +20,29 @@ class InitDatabase extends Migration {
 			$table->string('password');
 			$table->string('remember_token');
 			$table->timestamps();
+		});
+
+		Schema::create('admin_users', function($table)
+		{
+			$table->increments('id');
+			$table->string('username')->unique();
+			$table->string('password');
+			$table->timestamps();
+		});
+
+		Schema::create('admin_permissions', function($table)
+		{
+			$table->increments('id');
+			$table->string('name')->unique();
+			$table->string('description');
+		});
+
+		Schema::create('admin_permission_admin_user', function($table)
+		{
+			$table->integer('admin_user_id')->unsigned();
+			$table->foreign('admin_user_id')->references('id')->on('admin_users');
+			$table->integer('admin_permission_id')->unsigned();
+			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 	}
 
@@ -40,7 +53,9 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('admin_users');
 		Schema::drop('users');
+		Schema::drop('admin_permission_admin_user');
+		Schema::drop('admin_users');
+		Schema::drop('admin_permissions');
 	}
 }

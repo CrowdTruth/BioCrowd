@@ -14,6 +14,7 @@ class GameController extends BaseController {
 		$controller = Input::get('game');
 		// Validate game exists (else return to game list)
 		// Forward request to corresponding game controller.
+		// Validate $controller is a GameController class
 		return call_user_func($controller.'::getView');
 	}
 	

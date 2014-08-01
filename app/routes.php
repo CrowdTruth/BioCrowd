@@ -52,3 +52,8 @@ Route::post('adminlistgame', array('before' => 'adminauth', 'uses' => 'AdminCont
 
 Route::get('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameView'));
 Route::post('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameAction'));
+
+
+Route::get('test', function() {
+	return View::make('test');
+});
