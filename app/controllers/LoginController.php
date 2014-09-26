@@ -37,7 +37,8 @@ class LoginController extends BaseController {
 			$user->name = $name;
 			$user->password = Hash::make($pass);
 			$user->save();
-			return 'Register user: ' . $email . ' , ' . $pass  . ' , ' . $pass2 . ' , ' . $code . '<br>Login & redirect to game';
+			
+			return $this->doLogin();
 		} catch (Exception $e) {
 			return 'Could not create user: ' . $email . '  => ' . $e;
 		}
