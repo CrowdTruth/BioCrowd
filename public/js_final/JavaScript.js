@@ -365,7 +365,7 @@ require(['jquery-noconflict'], function(jQuery) {
   //adding low and high to the ratings
   $(".confidence tr td:first-child").text("Uncertain");
   $(".confidence tr td:last-child").text("Certain");
-};
+});
 
 function inputFocus(i){
     if(i.value==i.defaultValue){ i.value=""; i.style.color="#000"; }

@@ -254,8 +254,8 @@
   
   <div class="row">
     <div class="span7">
-      <a href="/DrDetective/public/img/110803_a1_ch00.png" class="fullsizeimage" target="_blank" title="Click to open a full-size version in a new tab">Click for the full-size image</a><BR>
-      <img class="annotatable" src="/DrDetective/public/img/110803_a1_ch00.png" />
+      <a href="img/110803_a1_ch00.png" class="fullsizeimage" target="_blank" title="Click to open a full-size version in a new tab">Click for the full-size image</a><BR>
+      <img class="annotatable" src="img/110803_a1_ch00.png" />
     </div>
     <div class="span4">
     <label>How many CELLS are in this image?*</label><br>
