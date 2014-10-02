@@ -17,6 +17,12 @@ class GameListController extends GameController {
 								'image' => 'img/factor_validation1.png',
 								'text' => 'Factor validation',
 								'enabled' => true
+						),
+						array(
+								'link' => 'playGame?game=CellExController',
+								'image' => 'img/factor_validation1.png',
+								'text' => 'Cell extraction',
+								'enabled' => true
 						)
 						
 				)
