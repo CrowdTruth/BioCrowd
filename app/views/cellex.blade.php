@@ -259,7 +259,7 @@
     </div>
     <div class="span4">
     <label>How many CELLS are in this image?*</label><br>
-    <input type= "text" name="nrflowers" validates="required positiveInteger" value="Number of flowers" gold="true" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)"><br>
+    <input type= "text" name="nrcells" validates="required positiveInteger" value="Number of cells" gold="true" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)"><br>
     <label class="instructions">Count every cell you see on the image. Click for the full-size image if needed.</label>
       <p>
       <div class="cml_field">
@@ -272,19 +272,15 @@
       <br>
       <form action="" label="Certainty*" validates="required" class="confidence">
       Choose how certain you are of the correctness of the position of the cells?<br>
-        <input type="radio" name="nrflowertags" label="0">0<br>
-        <input type="radio" name="nrflowertags" label="1">1<br>
-        <input type="radio" name="nrflowertags" label="2">2<br>
-        <input type="radio" name="nrflowertags" label="3">3<br>
-        <input type="radio" name="nrflowertags" label="4">4<br>
-        <input type="radio" name="nrflowertags" label="5">5<br>
-        <input type="radio" name="nrflowertags" label="6">6<br>
-        <input type="radio" name="nrflowertags" label="More">More
+        <input type="radio" name="nrcelltags" label="0">0<br>
+        <input type="radio" name="nrcelltags" label="1">1<br>
+        <input type="radio" name="nrcelltags" label="2">2<br>
+        <input type="radio" name="nrcelltags" label="3">3<br>
+        <input type="radio" name="nrcelltags" label="4">4<br>
+        <input type="radio" name="nrcelltags" label="5">5<br>
+        <input type="radio" name="nrcelltags" label="6">6<br>
+        <input type="radio" name="nrcelltags" label="More">More
       </form>
-      <br>
-      <label>Please provide a reference on how you got the answer to these questions*</label><br>
-      <textarea rows="4" cols="70" name="references" validates="required minLength:10" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)">Describe the search strategy you used, or the website you used to find the flower name, or the reason you already knew the names of the flowers.</textarea>
-
     </div>
   </div>
 </div>
