@@ -1,8 +1,8 @@
-require(['jquery-noconflict'], function(jQuery) {
+require(['jquery'], function(jQuery) {
   //Ensure MooTools is where it must be
-  Window.implement('$', function(el, nc) {
+  /*Window.implement('$', function(el, nc) {
     return document.id(el, nc, this.document);
-  });
+  });*/
   var $ = window.jQuery;
   // Use `$` in here.
   window.setTimeout(function() {
