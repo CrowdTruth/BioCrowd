@@ -1,6 +1,6 @@
 <?php
 class LoginController extends BaseController {
-	private static $INVITE_CODE = 'CrowdWatson';
+	private static $INVITE_CODE = 'm0ng0';
 
 	public function requestLogin() {
 		return View::make('login');

@@ -18,9 +18,13 @@
 				<center><h1 style="font-family:arial; font-size:18px; color:#5E5C5C;"><b>Please select the type of game you would like to play</b></h1></center>
 
 				@foreach($levels as $level)
-					@if ( $level['number'] > 0 )
+					@if ( $level['number'] > 1 )
 						<div class='col-xs-12' style='background:none;'>
 							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled><img src='img/lock.png' style="width:26px;height:26px;position:relative;left:-10px;top:0px"></img>Level {{{ $level['number'] }}}</button>
+						</div>
+					@else
+						<div class='col-xs-12' style='background:none;'>
+							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level {{{ $level['number'] }}}</button>
 						</div>
 					@endif
 

@@ -297,15 +297,5 @@
 
 @section('sidebar')
 	@parent
-	<div class='col-xs-3 sidebar contentbox' style="height: 500px; width: 320px; color: #333; padding: 30px; background: white; text-align: center">
-		<span style='font-size: 17px;'><b>Beat the average score of the crowd to win the game!</b></span> <br /> 
-		<span style='font-size: 15px;'>The crowd: &nbsp;&nbsp;&nbsp;&nbsp;
-			<span id="crowdScore">40</span>
-		</span> <br /> 
-		<span style='font-size: 15px;'>Your score:&nbsp;&nbsp;&nbsp;&nbsp;
-			<span id="userScore">0</span>
-		</span> <br /> <br />
-		<span style='font-size: 14px;'><b>Score breakdown</b></span>
-		<span id="breakdownScore" style='overflow: auto; font-size: 18px; background: none;'></span>
-	</div>
+	@include('sidebarExtras')
 @stop

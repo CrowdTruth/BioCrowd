@@ -1,15 +1,15 @@
 <div class="challenges contentbox" style="margin-top:0px; width:320px;margin-bottom:20px;">
-	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Challenges&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-	<img src="img/challenges.png"></img>
-	<center><a href="challenges.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the challenges page</b></a></center>
+	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
+	<img src="img/achievements.png"></img>
+	<center><a href="challenges.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the achievements page</b></a></center>
 		
 </div>
 
 <div class="performance contentbox" style="width:320px; padding:7px;">
 	<center><b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Performance measures&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></center>
 	<div id="tab1">
-		<center><img src="img/score_line.png"></img><img src="img/sidebar_leaderboard.png"></img></center><br />
-		<center><a href="leaderboard.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the performance page</b></a></center>
+		<center><img src="img/score_line_2.png"></img><img src="img/sidebar_leaderboard_2.png"></img></center><br />
+		<center><a href="leaderboard.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the leaderboard</b></a></center>
 	</div>
 	
 </div>
@@ -29,27 +29,6 @@
 			<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
 			<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li><br />
 		</ul>
-	</div>
-	<div id="option2" class="block">
-		<br />
-		<ul style="list-style-type: none; margin-left:-10px;">
-			<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
-			<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li><br />
-			<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
-			<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li><br />
-		</ul>
-	</div>
-	<div id="option3" class="block">
-		<br />
-		<ul style="list-style-type: none; margin-left:-10px;">
-				<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
-				<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li><br />
-				<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
-				<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li><br />
-				<li><a href="article.html" style="color:black;">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></li><br />
-				<li><a href="article2.html" style="color:black;">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></li>
-				<br />
-			</ul>
 	</div>
 </div>
 
