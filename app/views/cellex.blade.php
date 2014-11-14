@@ -1,9 +1,8 @@
 @extends('layout')
 
 @section('extraheaders')
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="/js_final/jquery.min.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" ></script>
 	<script>
 		var list = ["<tr><td>Agreement +10</tr>","<tr><td>Pioneer +10</td></tr>","<tr><td style='color:green'>Three in a row +10</td></tr>","<tr><td style='color:orange'>Flawless +50</td></tr>"];
 		
@@ -266,7 +265,7 @@
         <span class="legend">Tag each individual CELL by drawing a bounding box around it.</span><br>
         <label class="instructions">For each box fill in the fields of the popup.</label>
         <div class="border">
-          Number of bounding boxes: <span class="nrTags">0</span>
+          Number of bounding boxes: <span class="nrTags" id="nrTags">0</span>
         </div>
       </div>
       <br>

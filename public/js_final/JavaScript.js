@@ -92,6 +92,7 @@ require(['jquery'], function(jQuery) {
     });
 
     anno.addHandler('onAnnotationCreated', function(annotation) {
+    	console.log('Hi handler');
       //flower name or I don't know explanantion are stored in the annotation text
       //also add the choice ("name", "unable", "fantasy" to the annotation)
       //get the image for which the annotation was created
@@ -134,10 +135,8 @@ require(['jquery'], function(jQuery) {
 
   function updateRectangleCount(image) {
     //get the right labels objects
-    var img = $("img[src='" + image + "']");
-    var nrRectangles = img.parents(".customTask").find(".nrTags");
     var count = anno.getAnnotations(image).length;
-    nrRectangles.text(count);
+    $('#nrTags').html(count)
   }
 
   /**
