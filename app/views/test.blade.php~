@@ -1,0 +1,6 @@
+@extends('layout')
+
+@section('content')
+ <h1>Hello test view!</h1>
+@stop
+
