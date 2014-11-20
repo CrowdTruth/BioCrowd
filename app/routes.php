@@ -32,6 +32,9 @@ Route::get('game_menu', 'GameListController@listGames');
 Route::get('playGame', 'GameController@playGame');
 Route::post('submitGame', 'GameController@submitGame');
 
+//Submit mechanics
+Route::post('submitCellEx','SubmitController@submitAnnotation');
+
 
 // Administrator module routes -- maybe even put in another file ?
 Route::get ('adminlogin' , 'AdminController@requestLogin');

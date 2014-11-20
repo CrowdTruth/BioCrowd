@@ -280,7 +280,7 @@
         <input type="radio" name="nrcelltags" label="6">6<br>
         <input type="radio" name="nrcelltags" label="More">More
       </form>
-      {{ Form::open(array('url' => 'foo/bar')) }}
+      {{ Form::open(array('url' => 'submitCellEx')) }}
       {{ Form::hidden('test-inputname','test-value') }}
       <table width="100%">
       <tr><td align="center">{{ Form::submit('Submit Annotation') }}</td></tr>
