@@ -280,7 +280,7 @@
         <input type="radio" name="nrcelltags" label="6">6<br>
         <input type="radio" name="nrcelltags" label="More">More
       </form>
-      {{ Form::open(array('url' => 'submitJugement')) }}
+      {{ Form::open(array('url' => 'submitJudgement')) }}
       
       {{ Form::hidden('user_id','2', array('id' => 'user_id')) }}
       {{ Form::hidden('task_id','1', array('id' => 'task_id')) }}

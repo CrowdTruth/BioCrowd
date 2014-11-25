@@ -72,7 +72,6 @@ class InitDatabase extends Migration {
 			$table->longText('response');
 			$table->timestamps();
 		});
-		
 	}
 
 	/**

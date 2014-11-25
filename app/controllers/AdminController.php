@@ -70,11 +70,27 @@ class AdminController extends BaseController {
 	
 	public function newTaskView() {
 		// TODO: Check user is allowed to create new tasks
-		return View::make('admin.newtask');
+		$taskTypes = TaskType::all();
+		$taskTypesForm = [];
+		foreach ($taskTypes as $taskType) {
+			$taskTypesForm[$taskType->id] = $taskType->name;
+		}
+		return View::make('admin.newtask')->with('taskTypes', $taskTypesForm);
 	}
 	
 	public function newTaskAction() {
-		// TODO: implement this method
-		return 'Implement method newTaskAction...';
+		// TODO: Check user is allowed to create new tasks
+		$taskTypeId = Input::get('taskType');
+		$data  = Input::get('data');
+		
+		$taskType = TaskType::where('id', '=', $taskTypeId)->first();
+		
+		// TODO: Instead of creating a new Task, we should create a
+		// new TaskOfParticularType_extends_Task
+		// TaskOfParticularType should 'know' how to save $data in its expected format.
+		$task = new Task($taskTypeId, $data);
+		$task->save();
+
+		return Redirect::to('admin')->with('flash_message', 'Task successfully created');
 	}
 }

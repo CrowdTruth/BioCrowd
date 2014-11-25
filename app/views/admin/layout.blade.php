@@ -25,10 +25,18 @@
 
 		@if (Session::has('flash_error'))
 			<!-- Begin error -->
-			<div class="alert">
-				<font color='RED'>{{ Session::get('flash_error') }}</font>
+			<div class="alert alert-danger">
+				{{ Session::get('flash_error') }}
 			</div>
 			<!-- End error -->
+		@endif
+		
+		@if (Session::has('flash_message'))
+			<!-- Begin message -->
+			<div class="alert alert-info">
+				{{ Session::get('flash_message') }}
+			</div>
+			<!-- End message -->
 		@endif
 
 		<div class='col-xs-12'>

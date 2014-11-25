@@ -9,7 +9,7 @@ class CellExController {
 		return View::make('cellex');
 	}
 	
-	public static function submitJugement() {
+	public static function submitJudgement() {
 		return 'Cell extraction results to be validated and saved';
 	}
 }

@@ -21,19 +21,19 @@ Route::post('login' , 'LoginController@doLogin');
 Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
-// Task logic
-Route::get('Task_menu', 'TaskListController@listTasks');
+// Game logic
+Route::get('game_menu', 'GameListController@listGames');
 
-// Task mechanics added 'on the flight'
-//   Each Task mechanics will need:
-//   a URL        -- URL to map (Matching URL's provided by TaskListController@listTasks
+// Game mechanics added 'on the flight'
+//   Each game mechanics will need:
+//   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
 //   any VIEW declared by the controller
 //   a CONTROLLER -- A controller class / function
-Route::get('playTask', 'TaskController@playTask');
-Route::post('submitTask', 'TaskController@submitTask');
+Route::get('playGame', 'GameController@playGame');
+Route::post('submitGame', 'GameController@submitGame');
 
 //Submit mechanics
-Route::post('submitJugement','SubmitController@submitJugement');
+Route::post('submitJudgement','SubmitController@submitJudgement');
 
 
 // Administrator module routes -- maybe even put in another file ?
@@ -55,8 +55,6 @@ Route::post('adminlistTask', array('before' => 'adminauth', 'uses' => 'AdminCont
 
 Route::get('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskView'));
 Route::post('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskAction'));
-
-
 
 Route::get('test', function() {
 	return View::make('test');

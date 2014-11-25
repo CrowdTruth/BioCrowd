@@ -9,4 +9,10 @@ class Task extends Eloquent {
 	 */
 	protected $table = 'tasks';
 
+	
+	public function __construct($taskType, $data, $attributes = [])  {
+		parent::__construct($attributes); // Eloquent
+		$this->task_type = $taskType;
+		$this->data = $data;
+	}
 }
