@@ -280,10 +280,13 @@
         <input type="radio" name="nrcelltags" label="6">6<br>
         <input type="radio" name="nrcelltags" label="More">More
       </form>
-      {{ Form::open(array('url' => 'submitCellEx')) }}
-      {{ Form::hidden('test-inputname','test-value') }}
+      {{ Form::open(array('url' => 'submitJugement')) }}
+      
+      {{ Form::hidden('user_id','2', array('id' => 'user_id')) }}
+      {{ Form::hidden('task_id','1', array('id' => 'task_id')) }}
+      {{ Form::hidden('response','abc', array('id' => 'response')) }}
       <table width="100%">
-      <tr><td align="center">{{ Form::submit('Submit Annotation') }}</td></tr>
+      <tr><td align="center">{{ Form::submit('Submit') }}</td></tr>
       </table>
       {{ Form::close() }}
     </div>

@@ -33,7 +33,7 @@ Route::get('playGame', 'GameController@playGame');
 Route::post('submitGame', 'GameController@submitGame');
 
 //Submit mechanics
-Route::post('submitCellEx','SubmitController@submitAnnotation');
+Route::post('submitJugement','SubmitController@submitJugement');
 
 
 // Administrator module routes -- maybe even put in another file ?

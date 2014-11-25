@@ -22,22 +22,28 @@ class DatabaseSeeder extends Seeder {
 				'password' => Hash::make('123456')
 		));
 
-		AdminPermission::create(array(
-				'name' => 'Users',
-				'description' => 'Manage users'
+//		AdminPermission::create(array(
+//				'name' => 'Users',
+//				'description' => 'Manage users'
+//		));
+		
+		TaskType::create(array(
+				'name' => 'CellEx',
+				'description' => 'Extracting cells from microscopic images'
 		));
 
-		AdminPermission::create(array(
-				'name' => 'Games',
-				'description' => 'Manage games'
+		$cellExTask = TaskType::where('name', '=', 'CellEx')->first();
+		Task::create(array(
+				'task_type' => $cellExTask->id,
+				'data' => 'img/110803_a1_ch00.png'
 		));
 
 		// Grant all permissions to root user
 		$root = AdminUser::where('username', '=', 'admin')->first();
-		$perms = AdminPermission::all();
-		foreach($perms as $perm) {
-			$root->permissions()->save($perm);
-		}
-		$root->save();
+//		$perms = AdminPermission::all();
+//		foreach($perms as $perm) {
+//			$root->permissions()->save($perm);
+//		}
+//		$root->save();
 	}
 }

@@ -1,28 +1,24 @@
 <?php
+class SubmitController extends BaseController{
 
-//@extends('/app/config/database.php') Can we include this file for the database info?
+	/**
+	 * Submit the annotationdata made by the user to the database. 
+	 */
 
-/**
- * Submit the annotationdata made by the user to the database. 
- */
-
-function submitAnnotation() {
-		// Make a connection to the database
-		connectToDB();
-	}
-	
-function connectToDB(){
-	$dbconn=mysql_connect('localhost', 'crowdtruth', 'crowdtruth');
-	
-	//print_r($connections); use this to print the connections variable from /app/config/database.php
-	
-	if (!$dbconn) {
-		die('Could not connect: ' . mysql_error());
-	}
-	else{
-		//mysql_select_db(dbname(), $dbconn);
-		//return $dbconn;
-		echo "we did it!"
+	function submitJugement() {
+		//Put the post data into php variables
+		$user_id = Input::get('user_id');
+		$task_id = Input::get('task_id');
+		$response = Input::get('response');
+		
+		//Create and Submit the Jugement model
+		$jugement = new Jugement;
+		$jugement->user_id = $user_id;
+		$jugement->task_id = $task_id;
+		$jugement->response = $response;
+		//date variable updated automatically, but timezone is incorrect. 
+		$jugement->save();
+		
+		return Redirect::to('game_menu');
 	}
 }
-	
