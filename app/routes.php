@@ -21,16 +21,16 @@ Route::post('login' , 'LoginController@doLogin');
 Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
-// Game logic
-Route::get('game_menu', 'GameListController@listGames');
+// Task logic
+Route::get('Task_menu', 'TaskListController@listTasks');
 
-// Game mechanics added 'on the flight'
-//   Each game mechanics will need:
-//   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
+// Task mechanics added 'on the flight'
+//   Each Task mechanics will need:
+//   a URL        -- URL to map (Matching URL's provided by TaskListController@listTasks
 //   any VIEW declared by the controller
 //   a CONTROLLER -- A controller class / function
-Route::get('playGame', 'GameController@playGame');
-Route::post('submitGame', 'GameController@submitGame');
+Route::get('playTask', 'TaskController@playTask');
+Route::post('submitTask', 'TaskController@submitTask');
 
 //Submit mechanics
 Route::post('submitJugement','SubmitController@submitJugement');
@@ -50,11 +50,12 @@ Route::post('adminlistuser', array('before' => 'adminauth', 'uses' => 'AdminCont
 Route::get('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserView'));
 Route::post('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserAction'));
 
-Route::get('adminlistgame', array('before' => 'adminauth', 'uses' => 'AdminController@listGameView'));
-Route::post('adminlistgame', array('before' => 'adminauth', 'uses' => 'AdminController@listGameAction'));
+Route::get('adminlistTask', array('before' => 'adminauth', 'uses' => 'AdminController@listTaskView'));
+Route::post('adminlistTask', array('before' => 'adminauth', 'uses' => 'AdminController@listTaskAction'));
 
-Route::get('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameView'));
-Route::post('admincreategame', array('before' => 'adminauth', 'uses' => 'AdminController@newGameAction'));
+Route::get('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskView'));
+Route::post('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskAction'));
+
 
 
 Route::get('test', function() {

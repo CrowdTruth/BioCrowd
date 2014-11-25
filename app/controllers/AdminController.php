@@ -55,24 +55,27 @@ class AdminController extends BaseController {
 		return 'Implement method listUsersAction...';
 	}
 
-	public function listGameView() {
-		// TODO: implement this method
-		return 'Implement method listGameView...';
+	public function listTaskView() {
+		// TODO: Add pagination ?
+		// TODO: Create a GameTask model
+		// $tasks = GameTask::all();
+		$tasks = [ 'Task1', 'Task2', 'Task3' ];
+		return View::make('adminlisttasks')->with('tasks', $tasks);
 	}
 
-	public function listGameAction() {
+	public function listTaskAction() {
 		// TODO: implement this method
-		return 'Implement method listGameAction...';
+		return 'Implement method listTaskAction...';
 	}
 	
-	public function newGameView() {
+	public function newTaskView() {
 		// TODO: implement this method
-		return 'Implement method newGameView...';
+		return 'Implement method newTaskView...';
 	}
 	
-	public function newGameAction() {
+	public function newTaskAction() {
 		// TODO: implement this method
-		return 'Implement method newGameAction...';
+		return 'Implement method newTaskAction...';
 	}
 	
 }
