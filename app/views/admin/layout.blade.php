@@ -19,7 +19,7 @@
 	<div class="container">
 		@if (Auth::admin()->check())
 			<!-- Begin header -->
-			@include('adminheader')
+			@include('admin.header')
 			<!-- End header -->
 		@endif
 

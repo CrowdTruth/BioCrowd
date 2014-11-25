@@ -1,4 +1,4 @@
-@extends('adminlayout')
+@extends('admin.layout')
 
 @section('content')
 	<h2>List all available tasks</h2>

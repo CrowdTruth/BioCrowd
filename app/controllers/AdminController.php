@@ -4,7 +4,7 @@ class AdminController extends BaseController {
 	 * Redirect to the Login page.
 	 */
 	public function requestLogin() {
-		return View::make('adminlogin');
+		return View::make('admin.login');
 	}
 
 	/**
@@ -33,11 +33,11 @@ class AdminController extends BaseController {
 	 * Redirect to admin home screen.
 	 */
 	public function home() {
-		return View::make('adminhome');
+		return View::make('admin.home');
 	}
 
 	public function newUserView() {
-		return View::make('adminnewuser');
+		return View::make('admin.newuser');
 	}
 	
 	public function newUserAction() {
@@ -47,7 +47,7 @@ class AdminController extends BaseController {
 
 	public function listUsersView() {
 		$users = AdminUser::all();
-		return View::make('adminlistuser')->with('users', $users);
+		return View::make('admin.listuser')->with('users', $users);
 	}
 
 	public function listUsersAction() {
@@ -60,7 +60,7 @@ class AdminController extends BaseController {
 		// TODO: Create a GameTask model
 		// $tasks = GameTask::all();
 		$tasks = [ 'Task1', 'Task2', 'Task3' ];
-		return View::make('adminlisttasks')->with('tasks', $tasks);
+		return View::make('admin.listtasks')->with('tasks', $tasks);
 	}
 
 	public function listTaskAction() {
@@ -69,13 +69,12 @@ class AdminController extends BaseController {
 	}
 	
 	public function newTaskView() {
-		// TODO: implement this method
-		return 'Implement method newTaskView...';
+		// TODO: Check user is allowed to create new tasks
+		return View::make('admin.newtask');
 	}
 	
 	public function newTaskAction() {
 		// TODO: implement this method
 		return 'Implement method newTaskAction...';
 	}
-	
 }
