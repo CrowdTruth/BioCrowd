@@ -62,7 +62,7 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
-		Schema::create('jugements', function($table)
+		Schema::create('judgements', function($table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -82,7 +82,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('jugements');
+		Schema::drop('judgements');
 		Schema::drop('users');
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');

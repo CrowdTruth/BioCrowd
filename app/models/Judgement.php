@@ -1,12 +1,11 @@
 <?php
 
-class Jugement extends Eloquent {
+class Judgement extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'jugements';
-
+	protected $table = 'judgements';
 }
