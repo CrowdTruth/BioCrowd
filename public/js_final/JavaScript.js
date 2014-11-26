@@ -18,10 +18,10 @@ require(['jquery'], function(jQuery) {
   $('<link>').appendTo($('head')).attr({
     type: 'text/css',
     rel: 'stylesheet'
-  }).attr('href', 'https://www.st.ewi.tudelft.nl/~jasper/annotorious-0.6.2/css/theme-dark/annotorious-dark.css');
+  }).attr('href', '/css_final/annotorious-dark.css');
 
   //load the script
-  $.getScript("https://www.st.ewi.tudelft.nl/~jasper/annotorious-0.6.2/annotorious.min.js", function(data, textStatus, jqxhr) {
+  $.getScript("/js_final/annotorious.min.js", function(data, textStatus, jqxhr) {
     //for each annotatable image add the information to the editor on first load
     anno.addHandler('onEditorShown', function(annotation) {
       //change the type and certainty values in the editor when updating
@@ -31,7 +31,7 @@ require(['jquery'], function(jQuery) {
         $("img[src='" + annotation.src + "']").parents(".customTask").find(".tagtypeselection input[value='" + type + "']").click();
         $("img[src='" + annotation.src + "']").parents(".customTask").find(".ratings input[value='" + certainty + "']").prop("checked", true);
       }
-
+      
       //get all the editors (not all editors exist during startup, so execute this each time)
       $(".annotorious-editor").each(function() {
         //check if the editor already was updated
@@ -137,6 +137,24 @@ require(['jquery'], function(jQuery) {
     //get the right labels objects
     var count = anno.getAnnotations(image).length;
     $('#nrTags').html(count)
+    console.log('Gives a string representing the image object');
+    console.log(JSON.stringify(anno.getAnnotations(image))); //Gives a string representing the image object
+    console.log('Gives the image object');
+    console.log(anno.getAnnotations(image)); //Gives the image object
+    console.log('Gives the exact same thing as above.');
+    console.log(anno.getAnnotations(image['shapes'])); //Givies the exact same thing as above. 
+    console.log('Gives the exact same thing as above.');
+    console.log(anno.getAnnotations(image.shapes)); //Givies the exact same thing as above. 
+    console.log('Gives an undefined object');
+    console.log(anno.getAnnotations(image).shapes); //Gives an undefined object
+    //The ones below are derived from http://api.jquery.com/get/
+    //shouldn't work anyways since that page is trying to get html elements (list elements) and we are trying to get JavaScript variables. 
+    console.log('Gives an undefined object');
+    console.log($("image").get(1)); //Gives an undefined object
+    console.log('Gives an undefined object');
+    console.log($("image")[1]); //Gives an undefined object
+    console.log('Gives an empty array');
+    console.log($("image").get()); //Gives an empty array
   }
 
   /**
