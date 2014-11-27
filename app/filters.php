@@ -43,7 +43,7 @@ Route::filter('auth', function()
 Route::filter('adminauth', function()
 {
 	if (Auth::admin()->guest()) {
-		return Redirect::to('adminlogin');
+		return Redirect::to('admin/login');
 	}
 });
 

@@ -13,9 +13,10 @@ class DatabaseSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
+		$this->command->info('Create admin user: '.($this->adminUser).'...');
 		AdminUser::create( [
-			'username' => $adminUser,
-			'password' => Hash::make($adminPassword)
+			'username' => $this->adminUser,
+			'password' => Hash::make($this->adminPassword)
 		] );
 		
 		AdminPermission::create( [
@@ -24,7 +25,8 @@ class DatabaseSeeder extends Seeder {
 		] );
 		
 		// Grant all permissions to root user
-		$root = AdminUser::where('username', '=', $adminUser)->first();
+		$this->command->info('Grant ALL permissions to '.$this->adminUser.'...');
+		$root = AdminUser::where('username', '=', $this->adminUser)->first();
 		$perms = AdminPermission::all();
 		foreach($perms as $perm) {
 			$root->permissions()->save($perm);
@@ -32,6 +34,7 @@ class DatabaseSeeder extends Seeder {
 		$root->save();
 		
 		// TODO: Remove seeded user neocarlitos for final release
+		$this->command->info('Create test user neocarlitos@gmail.com');
 		User::create( [ 
 				'email' => 'neocarlitos@gmail.com',
 				'name' => 'Neo',
@@ -39,11 +42,11 @@ class DatabaseSeeder extends Seeder {
 		] );
 
 		// TODO: Remove seeded CellEx task for final release
-		TaskType::create( [ 
-				'name' => 'CellEx',
-				'description' => 'Extracting cells from microscopic images'
-		] );
+		$this->command->info('Create test CellExTaskType');
+		$taskType = new TaskType(new CellExTaskType());
+		$taskType->save();
 
+		$this->command->info('Create test Task: CellEx with image: 110803_a1_ch00.png');
 		$cellExTask = TaskType::where('name', '=', 'CellEx')->first();
 		Task::create( [ 
 				'task_type' => $cellExTask->id,

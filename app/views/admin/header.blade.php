@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="admin">Admin</a>
+			<a class="navbar-brand" href="{{ URL::action('AdminController@home') }}">Admin</a>
 		</div>
 
 		<!-- Collect the nav links, forms, and other content for toggling -->
@@ -13,11 +13,14 @@
 					{{ HTML::headerLink(URL::action('AdminController@newUserView'), 'Create user') }}
 					{{ HTML::headerLink(URL::action('AdminController@listUsersView'), 'List users') }}
 				{{ HTML::headerMenuClose() }}
+
 				{{ HTML::headerMenuOpen([	URL::action('AdminController@newTaskView'),
-											URL::action('AdminController@listTaskView')
+											URL::action('AdminController@listTaskView'),
+											URL::action('AdminController@listTaskTypeView')
 										], 'Tasks') }}
 					{{ HTML::headerLink(URL::action('AdminController@newTaskView'), 'Create task') }}
 					{{ HTML::headerLink(URL::action('AdminController@listTaskView'), 'List all tasks') }}
+					{{ HTML::headerLink(URL::action('AdminController@listTaskTypeView'), 'List all task types') }}
 				{{ HTML::headerMenuClose() }}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

@@ -8,11 +8,9 @@ class Task extends Eloquent {
 	 * @var string
 	 */
 	protected $table = 'tasks';
-
 	
-	public function __construct($taskType, $data, $attributes = [])  {
-		parent::__construct($attributes); // Eloquent
-		$this->task_type = $taskType;
-		$this->data = $data;
+	public function taskType() {
+		// TODO: This might be better with an Eloquent belongsTo, but I can't get it to work...
+		return TaskType::where('id', '=', $this->task_type)->first();
 	}
 }

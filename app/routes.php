@@ -11,10 +11,10 @@
 |
 */
 
-Route::get('/', array('before' => 'auth', function()
+Route::get('/', [ 'before' => 'auth', function()
 {
 	return View::make('home');
-}));
+} ] );
 
 Route::get ('login' , 'LoginController@requestLogin');
 Route::post('login' , 'LoginController@doLogin');
@@ -37,24 +37,26 @@ Route::post('submitJudgement','SubmitController@submitJudgement');
 
 
 // Administrator module routes -- maybe even put in another file ?
-Route::get ('adminlogin' , 'AdminController@requestLogin');
-Route::post('adminlogin' , 'AdminController@doLogin');
-Route::get('adminlogout' , 'AdminController@requestLogout');
+Route::get ('admin/login' , 'AdminController@requestLogin');
+Route::post('admin/login' , 'AdminController@doLogin');
+Route::get('admin/logout' , 'AdminController@requestLogout');
 
-Route::get ('admin', array('before' => 'adminauth', 'uses' => 'AdminController@home'));
-// Route::get ('admin', 'AdminController@home');
+Route::get ('admin', [ 'before' => 'adminauth', 'uses' => 'AdminController@home' ] );
 
-Route::get('adminlistuser', array('before' => 'adminauth', 'uses' => 'AdminController@listUsersView'));
-Route::post('adminlistuser', array('before' => 'adminauth', 'uses' => 'AdminController@listUsersAction'));
+Route::get('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@listUsersView' ] );
+Route::post('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@listUsersAction' ] );
 
-Route::get('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserView'));
-Route::post('admincreateuser', array('before' => 'adminauth', 'uses' => 'AdminController@newUserAction'));
+Route::get('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserView' ] );
+Route::post('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserAction' ] );
 
-Route::get('adminlistTask', array('before' => 'adminauth', 'uses' => 'AdminController@listTaskView'));
-Route::post('adminlistTask', array('before' => 'adminauth', 'uses' => 'AdminController@listTaskAction'));
+Route::get('admin/listTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskView' ] );
+Route::post('admin/listTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskAction' ] );
 
-Route::get('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskView'));
-Route::post('admincreateTask', array('before' => 'adminauth', 'uses' => 'AdminController@newTaskAction'));
+Route::get('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskView' ] );
+Route::post('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskAction' ] );
+
+Route::get('admin/listTaskType', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskTypeView' ] );
+Route::get('admin/listTaskTypeAction', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskTypeAction' ] );
 
 Route::get('test', function() {
 	return View::make('test');
