@@ -254,7 +254,7 @@
   <div class="row">
     <div class="span7">
       <a href="img/110803_a1_ch00.png" class="fullsizeimage" target="_blank" title="Click to open a full-size version in a new tab">Click for the full-size image</a><BR>
-      <img class="annotatable" src="img/110803_a1_ch00.png" />
+      <img class="annotatable" id="annotatableImage" src="img/110803_a1_ch00.png" />
     </div>
     <div class="span4">
     <label>How many CELLS are in this image?*</label><br>
@@ -284,7 +284,8 @@
       
       {{ Form::hidden('user_id','2', array('id' => 'user_id')) }}
       {{ Form::hidden('task_id','1', array('id' => 'task_id')) }}
-      {{ Form::hidden('response','abc', array('id' => 'response')) }}
+      <!-- {{ Form::hidden('response','test', array('id' => 'response')) }} -->
+      {{ Form::hidden('response','', array('id' => 'response')) }}
       <table width="100%">
       <tr><td align="center">{{ Form::submit('Submit') }}</td></tr>
       </table>

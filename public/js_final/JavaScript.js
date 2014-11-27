@@ -13,6 +13,7 @@ require(['jquery'], function(jQuery) {
   var timers = new Object();
   var timings = new Object();
   var startTime = new Date().getTime();
+  var response = [];
 
   //load the annotorius dark style sheet
   $('<link>').appendTo($('head')).attr({
@@ -136,25 +137,31 @@ require(['jquery'], function(jQuery) {
   function updateRectangleCount(image) {
     //get the right labels objects
     var count = anno.getAnnotations(image).length;
-    $('#nrTags').html(count)
-    console.log('Gives a string representing the image object');
-    console.log(JSON.stringify(anno.getAnnotations(image))); //Gives a string representing the image object
-    console.log('Gives the image object');
-    console.log(anno.getAnnotations(image)); //Gives the image object
-    console.log('Gives the exact same thing as above.');
-    console.log(anno.getAnnotations(image['shapes'])); //Givies the exact same thing as above. 
-    console.log('Gives the exact same thing as above.');
-    console.log(anno.getAnnotations(image.shapes)); //Givies the exact same thing as above. 
-    console.log('Gives an undefined object');
-    console.log(anno.getAnnotations(image).shapes); //Gives an undefined object
-    //The ones below are derived from http://api.jquery.com/get/
-    //shouldn't work anyways since that page is trying to get html elements (list elements) and we are trying to get JavaScript variables. 
-    console.log('Gives an undefined object');
-    console.log($("image").get(1)); //Gives an undefined object
-    console.log('Gives an undefined object');
-    console.log($("image")[1]); //Gives an undefined object
-    console.log('Gives an empty array');
-    console.log($("image").get()); //Gives an empty array
+    $('#nrTags').html(count);
+    
+    updateFormData(image);
+  }
+  
+  function updateFormData(image){
+	//Put the location data in the POST data of the page 
+	    var boxDecimalX = anno.getAnnotations(image)[0].shapes[0].geometry.x;
+	    var boxDecimalY = anno.getAnnotations(image)[0].shapes[0].geometry.y;
+	    var boxDecimalWidth = anno.getAnnotations(image)[0].shapes[0].geometry.width;
+	    var boxDecimalHeight = anno.getAnnotations(image)[0].shapes[0].geometry.height;
+	    //Determine the image height and width for decimal to pixel conversion
+	    var img = document.getElementById('annotatableImage'); 
+	    var boxXCoordinate = boxDecimalX * img.clientHeight;
+	    var boxYCoordinate = boxDecimalY * img.clientWidth;
+	    var boxWidth = boxDecimalWidth * img.clientWidth;
+	    var boxHeight = boxDecimalHeight * img.clientHeight;
+	    //Push the new variables to the response array. 
+	    var tempResponse = {};
+	    tempResponse["boxXCoordinate"] = boxXCoordinate;
+	    tempResponse["boxYCoordinate"] = boxYCoordinate;
+	    tempResponse["boxWidth"] = boxWidth;
+	    tempResponse["boxHeight"] = boxHeight;
+	    response.push(tempResponse);
+	    document.getElementById("response").value = JSON.stringify(response);
   }
 
   /**
