@@ -1,5 +1,5 @@
 <?php
-class DummyTaskType extends TaskTypeHandler {
+class DummyGameType extends GameTypeHandler {
 
 	public function getName() {
 		return 'Dummy';
@@ -15,5 +15,9 @@ class DummyTaskType extends TaskTypeHandler {
 	
 	public function parseInputs($inputs) {
 		return 'Should return data ;-)';
+	}
+
+	public function getThumbnail() {
+		return 'img/factor_validation1.png';
 	}
 }

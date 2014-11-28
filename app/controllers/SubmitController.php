@@ -19,6 +19,6 @@ class SubmitController extends BaseController{
 		//date variable updated automatically, but timezone is incorrect. 
 		$judgement->save();
 		
-		return Redirect::to('game_menu');
+		return Redirect::to('gameMenu');
 	}
 }

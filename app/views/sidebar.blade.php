@@ -15,6 +15,6 @@
 	</div>
 
 	<div class="startplaying" style="width:320px; margin-top:-20px;">
-		<a href="game_menu" style="color:black;"><button class='startButton'><b>Play games and help others</b><br /><span style="font-size:12px;">currently 10 people online</span></button></a>
+		<a href="gameMenu" style="color:black;"><button class='startButton'><b>Play games and help others</b><br /><span style="font-size:12px;">currently 10 people online</span></button></a>
 	</div>
 @show

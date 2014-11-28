@@ -55,18 +55,17 @@ class AdminController extends BaseController {
 		return 'Implement method listUsersAction...';
 	}
 
-	public function listTaskView() {
+	public function listGamesView() {
 		// TODO: Add pagination ?
-		$tasks = Task::all();
-		$displayTasks = [];
-		foreach($tasks as $task) {
-			array_push($displayTasks, [ 
-				'id' 	=> $task->id,
-				'type'	=> $task->taskType()->name,
-				'data'	=> $task->data
+		$games = Game::all();
+		$displayGames = [];
+		foreach($games as $game) {
+			array_push($displayGames, [ 
+				'id' 	=> $game->id,
+				'type'	=> $game->gameType()->name,
 			]);
 		}
-		return View::make('admin.listtasks')->with('tasks', $displayTasks);
+		return View::make('admin.listgames')->with('games', $displayGames);
 	}
 
 	public function listTaskAction() {
@@ -103,10 +102,8 @@ class AdminController extends BaseController {
 		
 		// TODO: check whether call comes from ADMIN or API
 		
-		// TODO: Instead of creating a new Task, we should create a
 		$taskTypeClass = $taskType->handler_class;
 		$taskTypeHandler = new $taskTypeClass();
-		
 		$data = $taskTypeHandler->parseInputs(Input::all());
 		$task = new Task($taskType, $data);
 		$task->save();
@@ -115,51 +112,49 @@ class AdminController extends BaseController {
 		return Redirect::to('admin')->with('flash_message', 'Task successfully created');
 	}
 
-	public function listTaskTypeView() {
+	public function listGameTypesView() {
 		// Load list of available (in file) tasks
-		$HANDLERS_DIR = '../app/models/tasktypes/handlers';
-		$taskTypeFiles = File::files($HANDLERS_DIR);
-		foreach($taskTypeFiles as &$fileName) {
+		$HANDLERS_DIR = '../app/models/gametypes/handlers';
+		$gameTypeFiles = File::files($HANDLERS_DIR);
+		foreach($gameTypeFiles as &$fileName) {
 			$fileName = str_replace($HANDLERS_DIR.'/', '', $fileName);
 			$fileName = str_replace('.php', '', $fileName);
 		}
 		
-		// Load list of TaskTypes in database
+		// Load list of GameTypes in database
 		$avlNames = [];
-		foreach(TaskType::all() as $taskType) {
-			$avlNames[$taskType->name] = $taskType;
+		foreach(GameType::all() as $gameType) {
+			$avlNames[$gameType->name] = $gameType;
 		}
 		
-		$allTaskTypes = [];
-		foreach ($taskTypeFiles as $taskTypeClass) {
-			$taskTypeInstance = new $taskTypeClass();
-			$taskTypeName = $taskTypeInstance->getName();
-			
+		$allGameTypes = [];
+		foreach ($gameTypeFiles as $gameHandlerClass) {
 			// Check if $taskType is a valid TaskType
-			if(is_subclass_of($taskTypeInstance, 'TaskTypeHandler')) {
+			if(is_subclass_of($gameHandlerClass, 'GameTypeHandler')) {
+				$gameHandler = new $gameHandlerClass();
+				$gameTypeName = $gameHandler->getName();
 				// Check if $taskType exists in $taskTypesDB
-				$allTaskTypes[$taskTypeName] = [
-					'name' 			=> $taskTypeName,
-					'installed' 	=> array_key_exists($taskTypeName, $avlNames),
-					'handledFile'	=> $taskTypeClass
+				$allGameTypes[$gameTypeName] = [
+					'name' 			=> $gameTypeName,
+					'installed' 	=> array_key_exists($gameTypeName, $avlNames),
+					'handledFile'	=> $gameHandlerClass
 				];
 			}
 		}
-		
 		// TODO: Check if we have a Tasks in DB which do not have files ?
 		
 		// Return list of 
 		//  - name -> Name of the task
 		//  - installed -> yes/no
 		//  - task handledFile -> TaskTypeHandler file for the task
-		return View::make('admin.listtasktypes')->with('taskTypes', $allTaskTypes);
+		return View::make('admin.listgametypes')->with('gameTypes', $allGameTypes);
 	}
 	
-	public function listTaskTypeAction() {
+	public function listGameTypesAction() {
 		$handlerClass = Input::get('handler');
 		$handler = new $handlerClass();
-		$taskType = new TaskType($handler);
-		$taskType->save();
-		return Redirect::to('admin')->with('flash_message', 'Task type successfully created');
+		$gameType = new GameType($handler);
+		$gameType->save();
+		return Redirect::to('admin/listGameTypes')->with('flash_message', 'Game type successfully installed');
 	}
 }

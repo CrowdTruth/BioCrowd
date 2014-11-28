@@ -1,5 +1,5 @@
 <?php
-class CellExTaskType extends TaskTypeHandler {
+class CellExGameType extends GameTypeHandler {
 
 	public function getName() {
 		return 'CellEx';
@@ -20,5 +20,9 @@ class CellExTaskType extends TaskTypeHandler {
 
 	public function parseInputs($inputs) {
 		return $inputs['cellExImage'];
+	}
+	
+	public function getThumbnail() {
+		return 'img/factor_validation1.png';
 	}
 }

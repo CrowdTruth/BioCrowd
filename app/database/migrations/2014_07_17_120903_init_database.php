@@ -45,20 +45,28 @@ class InitDatabase extends Migration {
 			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 		
-		Schema::create('task_types', function($table)
+		Schema::create('game_types', function($table)
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->string('handler_class');
 			$table->string('description');
+			$table->string('handler_class');
+			$table->string('thumbnail');
+		});
+		
+		Schema::create('games', function($table)
+		{
+			$table->increments('id');
+			$table->integer('game_type')->unsigned();
+			$table->foreign('game_type')->references('id')->on('game_types');
+			$table->integer('level')->default(1);
 		});
 		
 		Schema::create('tasks', function($table)
 		{
 			$table->increments('id');
-			$table->integer('task_type')->unsigned();
-			$table->foreign('task_type')->references('id')->on('task_types');
-			$table->integer('level')->default(1);
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
 			$table->string('data');
 			$table->timestamps();
 		});
@@ -68,8 +76,8 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('task_id')->unsigned();
-			$table->foreign('task_id')->references('id')->on('tasks');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
 			$table->longText('response');
 			$table->timestamps();
 		});
@@ -83,11 +91,12 @@ class InitDatabase extends Migration {
 	public function down()
 	{
 		Schema::drop('judgements');
-		Schema::drop('users');
+		Schema::drop('tasks');
+		Schema::drop('games');
+		Schema::drop('game_types');
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');
 		Schema::drop('admin_permissions');
-		Schema::drop('tasks');
-		Schema::drop('task_types');
+		Schema::drop('users');
 	}
 }

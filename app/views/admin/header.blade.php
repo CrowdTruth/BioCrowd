@@ -14,13 +14,11 @@
 					{{ HTML::headerLink(URL::action('AdminController@listUsersView'), 'List users') }}
 				{{ HTML::headerMenuClose() }}
 
-				{{ HTML::headerMenuOpen([	URL::action('AdminController@newTaskView'),
-											URL::action('AdminController@listTaskView'),
-											URL::action('AdminController@listTaskTypeView')
-										], 'Tasks') }}
-					{{ HTML::headerLink(URL::action('AdminController@newTaskView'), 'Create task') }}
-					{{ HTML::headerLink(URL::action('AdminController@listTaskView'), 'List all tasks') }}
-					{{ HTML::headerLink(URL::action('AdminController@listTaskTypeView'), 'List all task types') }}
+				{{ HTML::headerMenuOpen([	URL::action('AdminController@listGamesView'),
+											URL::action('AdminController@listGameTypesView')
+										], 'Games') }}
+					{{ HTML::headerLink(URL::action('AdminController@listGamesView'), 'List all games') }}
+					{{ HTML::headerLink(URL::action('AdminController@listGameTypesView'), 'List all game types') }}
 				{{ HTML::headerMenuClose() }}
 			</ul>
 			<ul class="nav navbar-nav navbar-right">

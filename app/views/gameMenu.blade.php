@@ -17,18 +17,18 @@
 				<center><h1 style="font-family:arial; font-size:28px; color:black;"><b>Welcome Dr. Wilson!</b></h1></center>
 				<center><h1 style="font-family:arial; font-size:18px; color:#5E5C5C;"><b>Please select the type of game you would like to play</b></h1></center>
 
-				@foreach($levels as $level)
-					@if ( $level['number'] > 1 )
+				@foreach($levels as $number => $items)
+					@if ( $number > 0 )
 						<div class='col-xs-12' style='background:none;'>
-							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled><img src='img/lock.png' style="width:26px;height:26px;position:relative;left:-10px;top:0px"></img>Level {{{ $level['number'] }}}</button>
+							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled><img src='img/lock.png' style="width:26px;height:26px;position:relative;left:-10px;top:0px"></img>Level {{{ ($number+1) }}}</button>
 						</div>
 					@else
 						<div class='col-xs-12' style='background:none;'>
-							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level {{{ $level['number'] }}}</button>
+							<button class='levelButton' style="width:100%; height: 35px; font-size:12px;" disabled>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Level {{{ $number+1 }}}</button>
 						</div>
 					@endif
 
-					@foreach($level['items'] as $item)
+					@foreach($items as $item)
 						@if ( $item['enabled'] )
 							<div class='col-xs-6' style='background:none; margin-bottom:10px; margin-top:10px;'>
 								<a href="{{{ $item['link'] }}}" style="color:#333"><center><img class='gameIcon' src='{{{ $item['image'] }}}'><br/>{{{ $item['text'] }}}</img></center></a>

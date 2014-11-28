@@ -22,7 +22,7 @@ Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
 // Game logic
-Route::get('game_menu', 'GameListController@listGames');
+Route::get('gameMenu', 'GameListController@listGames');
 
 // Game mechanics added 'on the flight'
 //   Each game mechanics will need:
@@ -49,14 +49,14 @@ Route::post('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminControl
 Route::get('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserView' ] );
 Route::post('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserAction' ] );
 
-Route::get('admin/listTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskView' ] );
-Route::post('admin/listTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskAction' ] );
+Route::get('admin/listGames', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGamesView' ] );
+Route::post('admin/listGames', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGamesAction' ] );
 
 Route::get('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskView' ] );
 Route::post('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskAction' ] );
 
-Route::get('admin/listTaskType', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskTypeView' ] );
-Route::get('admin/listTaskTypeAction', [ 'before' => 'adminauth', 'uses' => 'AdminController@listTaskTypeAction' ] );
+Route::get('admin/listGameTypes', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesView' ] );
+Route::get('admin/listGameTypesAction', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesAction' ] );
 
 Route::get('test', function() {
 	return View::make('test');
