@@ -58,8 +58,8 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->integer('task_type')->unsigned();
 			$table->foreign('task_type')->references('id')->on('task_types');
+			$table->integer('level')->default(1);
 			$table->string('data');
-			$table->longText('response');
 			$table->timestamps();
 		});
 		

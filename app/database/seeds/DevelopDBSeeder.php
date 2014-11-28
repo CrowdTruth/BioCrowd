@@ -24,9 +24,17 @@ class DevelopDBSeeder extends Seeder {
 
 		$this->command->info('Create test Task: CellEx with image: 110803_a1_ch00.png');
 		$cellExTask = TaskType::where('name', '=', 'CellEx')->first();
-		Task::create( [ 
-				'task_type' => $cellExTask->id,
-				'data' => 'img/110803_a1_ch00.png'
-		] );
+		$data = 'img/110803_a1_ch00.png';
+		$task = new Task($cellExTask, $data);
+		$task->save();
+		
+		$data = 'img/110803_a1_ch01.png';
+		$task = new Task($cellExTask, $data);
+		$task->save();
+
+		$data = 'img/110803_a1_ch00.png';
+		$task = new Task($cellExTask, $data);
+		$task->level = 2;
+		$task->save();
 	}
 }
