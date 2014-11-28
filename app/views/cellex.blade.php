@@ -284,7 +284,6 @@
       
       {{ Form::hidden('user_id','2', array('id' => 'user_id')) }}
       {{ Form::hidden('task_id','1', array('id' => 'task_id')) }}
-      <!-- {{ Form::hidden('response','test', array('id' => 'response')) }} -->
       {{ Form::hidden('response','', array('id' => 'response')) }}
       <table width="100%">
       <tr><td align="center">{{ Form::submit('Submit') }}</td></tr>

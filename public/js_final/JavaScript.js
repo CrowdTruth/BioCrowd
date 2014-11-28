@@ -135,33 +135,52 @@ require(['jquery'], function(jQuery) {
   }
 
   function updateRectangleCount(image) {
-    //get the right labels objects
-    var count = anno.getAnnotations(image).length;
-    $('#nrTags').html(count);
+        //get the right labels objects
+        var count = anno.getAnnotations(image).length;
+        $('#nrTags').html(count);
     
-    updateFormData(image);
+        updateFormData(image,count);
   }
   
-  function updateFormData(image){
-	//Put the location data in the POST data of the page 
-	    var boxDecimalX = anno.getAnnotations(image)[0].shapes[0].geometry.x;
-	    var boxDecimalY = anno.getAnnotations(image)[0].shapes[0].geometry.y;
-	    var boxDecimalWidth = anno.getAnnotations(image)[0].shapes[0].geometry.width;
-	    var boxDecimalHeight = anno.getAnnotations(image)[0].shapes[0].geometry.height;
+  /**
+   * Fills in the response data in the form of the page 
+   */
+  function updateFormData(image,count){
+	    //Get the coordinates from the newest annotation object
+	    var boxData = getCoordinates(image,count-1); //count -1 because the array will start at 0. 
+	    //Push the new variables to the response dictionary. 
+	    var tempResponse = {};
+	    tempResponse["x"] = boxData[0];
+	    tempResponse["y"] = boxData[1];
+	    tempResponse["width"] = boxData[2];
+	    tempResponse["height"] = boxData[3];
+	    response.push(tempResponse);
+	    console.log(response);
+	    document.getElementById("response").value = JSON.stringify(response);
+  }
+  
+  /**
+   * Gets the coordinates from the newest annotation object 
+   */
+  function getCoordinates(image,count){
+	    var boxDecimalX = anno.getAnnotations(image)[count].shapes[0].geometry.x;
+	    var boxDecimalY = anno.getAnnotations(image)[count].shapes[0].geometry.y;
+	    var boxDecimalWidth = anno.getAnnotations(image)[count].shapes[0].geometry.width;
+	    var boxDecimalHeight = anno.getAnnotations(image)[count].shapes[0].geometry.height;
+	    
 	    //Determine the image height and width for decimal to pixel conversion
 	    var img = document.getElementById('annotatableImage'); 
+	    
+	    //convert to pixels
 	    var boxXCoordinate = boxDecimalX * img.clientHeight;
 	    var boxYCoordinate = boxDecimalY * img.clientWidth;
 	    var boxWidth = boxDecimalWidth * img.clientWidth;
 	    var boxHeight = boxDecimalHeight * img.clientHeight;
-	    //Push the new variables to the response array. 
-	    var tempResponse = {};
-	    tempResponse["boxXCoordinate"] = boxXCoordinate;
-	    tempResponse["boxYCoordinate"] = boxYCoordinate;
-	    tempResponse["boxWidth"] = boxWidth;
-	    tempResponse["boxHeight"] = boxHeight;
-	    response.push(tempResponse);
-	    document.getElementById("response").value = JSON.stringify(response);
+	    
+	    //Put it all in an array
+	    var boxData = [boxXCoordinate,boxYCoordinate,boxWidth,boxHeight];
+	    
+	    return boxData;
   }
 
   /**

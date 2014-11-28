@@ -17,6 +17,12 @@ class DevelopDBSeeder extends Seeder {
 				'name' => 'Neo',
 				'password' => Hash::make('123456')
 		] );
+		
+		User::create( [
+			'email' => 'loeloe87@hotmail.com',
+			'name' => 'Merel',
+			'password' => Hash::make('Merel')
+		] );
 
 		$this->command->info('Create test CellExTaskType');
 		$taskType = new TaskType(new CellExTaskType());
