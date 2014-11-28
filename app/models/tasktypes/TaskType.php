@@ -16,6 +16,7 @@ class TaskType extends Eloquent {
 		if($taskTypeHandler!=null) {
 			$this->name = $taskTypeHandler->getName();
 			$this->description = $taskTypeHandler->getDescription();
+			$this->handler_class = get_class($taskTypeHandler);
 		}
 	}
 }

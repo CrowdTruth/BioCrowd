@@ -79,11 +79,19 @@ class AdminController extends BaseController {
 		
 		// List id=> name pairs for available task types
 		$taskTypes = TaskType::all();
-		$taskTypesForm = [];
+		
+		$ttIdName = [];
+		$ttIdDiv = [];
 		foreach ($taskTypes as $taskType) {
-			$taskTypesForm[$taskType->id] = $taskType->name;
+			$taskTypeClass = $taskType->handler_class;
+			$taskTypeHandler = new $taskTypeClass();
+			
+			$ttIdName[$taskType->id] = $taskType->name;
+			$ttIdDiv[$taskType->id] = $taskTypeHandler->getDataDiv();
 		}
-		return View::make('admin.newtask')->with('taskTypes', $taskTypesForm);
+		return View::make('admin.newtask')
+				->with('taskTypesNames', $ttIdName)
+				->with('taskTypesDivs', $ttIdDiv);
 	}
 	
 	public function newTaskAction() {
@@ -96,18 +104,25 @@ class AdminController extends BaseController {
 		// TODO: check whether call comes from ADMIN or API
 		
 		// TODO: Instead of creating a new Task, we should create a
-		// new TaskOfParticularType_extends_Task
-		// TaskOfParticularType should 'know' how to save $data in its expected format.
-		// $task = new Task($taskTypeId, $data);
-		// $task->save();
-
+		$taskTypeClass = $taskType->handler_class;
+		$taskTypeHandler = new $taskTypeClass();
+		
+		$data = $taskTypeHandler->parseInputs(Input::all());
+		$task = new Task($taskType, $data);
+		$task->save();
+		
 		// TODO: Return error messages on ADMIN or API format
 		return Redirect::to('admin')->with('flash_message', 'Task successfully created');
 	}
 
 	public function listTaskTypeView() {
 		// Load list of available (in file) tasks
-		$taskTypeFiles = [ 'CellExTaskType' ];
+		$HANDLERS_DIR = '../app/models/tasktypes/handlers';
+		$taskTypeFiles = File::files($HANDLERS_DIR);
+		foreach($taskTypeFiles as &$fileName) {
+			$fileName = str_replace($HANDLERS_DIR.'/', '', $fileName);
+			$fileName = str_replace('.php', '', $fileName);
+		}
 		
 		// Load list of TaskTypes in database
 		$avlNames = [];

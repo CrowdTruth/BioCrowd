@@ -33,24 +33,7 @@ class DatabaseSeeder extends Seeder {
 		}
 		$root->save();
 		
-		// TODO: Remove seeded user neocarlitos for final release
-		$this->command->info('Create test user neocarlitos@gmail.com');
-		User::create( [ 
-				'email' => 'neocarlitos@gmail.com',
-				'name' => 'Neo',
-				'password' => Hash::make('123456')
-		] );
-
-		// TODO: Remove seeded CellEx task for final release
-		$this->command->info('Create test CellExTaskType');
-		$taskType = new TaskType(new CellExTaskType());
-		$taskType->save();
-
-		$this->command->info('Create test Task: CellEx with image: 110803_a1_ch00.png');
-		$cellExTask = TaskType::where('name', '=', 'CellEx')->first();
-		Task::create( [ 
-				'task_type' => $cellExTask->id,
-				'data' => 'img/110803_a1_ch00.png'
-		] );
+		// TODO: Remove DevelopDBSeeder for final release
+		$this->call('DevelopDBSeeder');
 	}
 }

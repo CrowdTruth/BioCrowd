@@ -45,5 +45,9 @@
 			<!-- End content -->
 		</div>
 	</div>
+
+<!-- Begin body-javascript -->
+@yield('body-javascript')
+<!-- End body-javascript -->
 </body>
 </html>

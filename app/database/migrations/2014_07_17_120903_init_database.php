@@ -49,6 +49,7 @@ class InitDatabase extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('handler_class');
 			$table->string('description');
 		});
 		
