@@ -10,6 +10,8 @@ class GameListController extends GameController {
 		//		INNER JOIN game_types ON (games.game_type=game_types.id)
 		//		GROUP BY game_id;
 
+		
+		
 		// TODO: Fetch task_id of tasks this user has already given judgements for
 		
 		$userId = Auth::user()->get()->id;
@@ -20,7 +22,7 @@ class GameListController extends GameController {
 			->join('game_types', 'games.game_type', '=', 'game_types.id')
 			->groupBy('game_id')
 			->orderBy('level')
-			->select('name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))
+			->select('games.id as gameId','name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))
 			->get();
 
 		// Build list to return to user
@@ -35,7 +37,8 @@ class GameListController extends GameController {
 			}
 			
 			$item = [ 
-				'link' => 'playGame?game=CellExController',	// TODO: use game_id from database
+				// 'link' => 'playGame?game=CellExController',	// TODO: use game_id from database
+				'link' => 'playGame?gameId='.$game->gameId,
 				'image' => $game->thumbnail,
 				'text' => $game->name,
 				'enabled' => true		// TODO: get from DB
@@ -60,7 +63,6 @@ class GameListController extends GameController {
 		$level5 = [];
 		$level6 = [];
 		$levels = [ $level1, $level2, $level3, $level4, $level5, $level6 ]; */
-		
 		return View::make('gameMenu')->with('levels', $levels);
 	}
 }

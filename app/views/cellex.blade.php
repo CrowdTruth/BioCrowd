@@ -254,7 +254,7 @@
   <div class="row">
     <div class="span7">
       <a href="img/110803_a1_ch00.png" class="fullsizeimage" target="_blank" title="Click to open a full-size version in a new tab">Click for the full-size image</a><BR>
-      <img class="annotatable" id="annotatableImage" src="img/110803_a1_ch00.png" />
+      <img class="annotatable" id="annotatableImage" src="{{ $image }}" />
     </div>
     <div class="span4">
     <label>How many CELLS are in this image?*</label><br>
@@ -280,11 +280,11 @@
         <input type="radio" name="nrcelltags" label="6">6<br>
         <input type="radio" name="nrcelltags" label="More">More
       </form>
-      {{ Form::open(array('url' => 'submitJudgement')) }}
-      
-      {{ Form::hidden('user_id','2', array('id' => 'user_id')) }}
-      {{ Form::hidden('task_id','1', array('id' => 'task_id')) }}
-      {{ Form::hidden('response','', array('id' => 'response')) }}
+
+      {{ Form::open(array('url' => 'submitGame')) }}
+      {{ Form::hidden('gameId', $gameId) }}
+      {{ Form::hidden('taskId', $taskId) }}
+      {{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
       <table width="100%">
       <tr><td align="center">{{ Form::submit('Submit') }}</td></tr>
       </table>

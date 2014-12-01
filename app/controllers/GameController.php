@@ -11,18 +11,28 @@ class GameController extends BaseController {
 	
 	public function playGame() {
 		// Get parameter which game ?
-		$controller = Input::get('game');
+		$gameId = Input::get('gameId');
+		$game = Game::find($gameId);
 		// Validate game exists (else return to game list)
+		
 		// Forward request to corresponding game controller.
+		$handlerClass = $game->gameType()->handler_class;
 		// Validate $controller is a GameController class
-		return call_user_func($controller.'::getView');
+		$handler = new $handlerClass();
+		
+		return $handler->getView($game);
 	}
 	
 	public function submitGame() {
 		// Get parameter which game ?
-		$controller = Input::get('controller');
-		// Validate controller (else return to game list)
-		// Forward request to corresponding game controller
-		return call_user_func($controller.'::submitGame');
+		$gameId = Input::get('gameId');
+		$game = Game::find($gameId);
+		// Forward request to corresponding game controller.
+		
+		$handlerClass = $game->gameType()->handler_class;
+		// Validate $controller is a GameController class
+		$handler = new $handlerClass();
+		
+		return $handler->processResponse($game);
 	}
 }

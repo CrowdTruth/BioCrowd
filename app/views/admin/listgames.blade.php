@@ -15,11 +15,13 @@
 			<tr>
 				<td style="width:40%">{{ $game['id'] }}</td>
 				<td style="width:40%">{{ $game['type'] }}</td>
+				<td style="width:40%">Add tasks</td>
 			</tr>
 		@endforeach
 			<tr>
 				<td style="width:40%"></td>
 				<td style="width:40%">Add new ??</td>
+				<td style="width:40%"></td>
 			</tr>
 		</tbody>
 	</table>

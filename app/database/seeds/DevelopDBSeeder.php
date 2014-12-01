@@ -37,13 +37,13 @@ class DevelopDBSeeder extends Seeder {
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch01.png');
-		$data = 'img/110803_a1_ch01.png';
+		$this->command->info('Create test Game: CellEx with image: 110803_a1b_ch00.png');
+		$data = 'img/110803_a1b_ch00.png';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch02.png');
-		$data = 'img/110803_a1_ch02.png';
+		$this->command->info('Create test Game: CellEx with image: 110803_a2a_ch00.png');
+		$data = 'img/110803_a2a_ch00.png';
 		$task = new Task($game, $data);
 		$task->save();
 		
@@ -56,14 +56,28 @@ class DevelopDBSeeder extends Seeder {
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch01.png');
-		$data = 'img/110803_a1_ch01.png';
+		$this->command->info('Create test Game: CellEx with image: 110803_a1b_ch00.png');
+		$data = 'img/110803_a1b_ch00.png';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch02.png');
-		$data = 'img/110803_a1_ch02.png';
+		$this->command->info('Create test Game: CellEx with image: 110803_a2a_ch00.png');
+		$data = 'img/110803_a2a_ch00.png';
 		$task = new Task($game, $data);
+		$task->save();
+		
+		$this->command->info('Create test DummyGameType');
+		$gameType = new GameType(new DummyGameType());
+		$gameType->save();
+		
+		$game = new Game($gameType);
+		$game->level = 1;
+		$game->save();
+		
+		$this->command->info('Create test Game: Dummy');
+		$task = new Task($game, 'Dummy task 1');
+		$task->save();
+		$task = new Task($game, 'Dummy task 2');
 		$task->save();
 	}
 }

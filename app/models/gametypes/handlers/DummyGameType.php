@@ -20,4 +20,12 @@ class DummyGameType extends GameTypeHandler {
 	public function getThumbnail() {
 		return 'img/factor_validation1.png';
 	}
+	
+	public function getView($game) {
+		return View::make('dummygame')->with('gameId', $game->id);
+	}
+	
+	public function processResponse($game) {
+		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
+	}
 }

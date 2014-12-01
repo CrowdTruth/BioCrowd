@@ -19,6 +19,11 @@ class Game extends Eloquent {
 
 	public function gameType() {
 		// TODO: this could be more ELOQUENT, but for the moment, I can't do it
-		return GameType::where('id', '=', $this->game_type)->first();
+		return GameType::find($this->game_type);
+	}
+	
+	public function tasks() {
+		// TODO: this could be more ELOQUENT, but for the moment, I can't do it
+		return Task::where('game_id','=',$this->game_type)->get();
 	}
 }
