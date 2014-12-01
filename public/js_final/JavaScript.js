@@ -51,7 +51,7 @@ require(['jquery'], function(jQuery) {
         $(this).find("form textarea").after(getStarRating());
 
         //set the placeholder to the right text
-        $(this).find(".annotorious-editor-text").attr("placeholder", "Please enter the flower name (min. 4 characters)");
+        $(this).find(".annotorious-editor-text").attr("style", "display:none;");
 
         //add event when "i know the name" is selected
         $(this).find("form .tagtypename").change(function(data) {
