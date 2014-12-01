@@ -10,7 +10,7 @@ class GameListController extends GameController {
 		//		INNER JOIN game_types ON (games.game_type=game_types.id)
 		//		GROUP BY game_id;
 
-		// TODO: Fetch task_id of tasks this user has already given judgements for
+		// TODO: Fetch game_id of tasks this user has already given judgements for
 		
 		$userId = Auth::user()->get()->id;
 		$userCompletedTasks = [ -1 ];
