@@ -42,13 +42,13 @@ require(['jquery'], function(jQuery) {
         }
         //update the editor
         //disable the save buttons
-        $(this).find(".annotorious-editor-button-save").hide();
-        $(this).find(".annotorious-editor-button-container").prepend("<span style='font-size: x-small;vertical-align: sub;'>Fill the fields to enable save button</span>");
+       // $(this).find(".annotorious-editor-button-save").hide();
+        //$(this).find(".annotorious-editor-button-container").prepend("<span style='font-size: x-small;vertical-align: sub;'>Fill the fields to enable save button</span>");
 
         //add the radio buttons
-        $(this).find("form").prepend("<div class='tagtypeselection'><label class='radio inline' title='Select this option if you know the name of the flower'>  <input type='radio' name='tagtype' class='tagtypename' value='name' checked='checked' >I know the name</label><label class='radio inline' title='Select this option if you don\'t know the name of the flower'>  <input type='radio' value='unable' name='tagtype' class='tagtypeunable' > Don\'t know</label><label class='radio inline' title='Select this option if you think the flower is a fantasy flower'> <input type='radio' value='fantasy' name='tagtype' class='tagtypefantasy' > Fantasy</label></div>");
+        //$(this).find("form").prepend("<div class='tagtypeselection'><label class='radio inline' title='Select this option if you know the name of the flower'>  <input type='radio' name='tagtype' class='tagtypename' value='name' checked='checked' >I know the name</label><label class='radio inline' title='Select this option if you don\'t know the name of the flower'>  <input type='radio' value='unable' name='tagtype' class='tagtypeunable' > Don\'t know</label><label class='radio inline' title='Select this option if you think the flower is a fantasy flower'> <input type='radio' value='fantasy' name='tagtype' class='tagtypefantasy' > Fantasy</label></div>");
         //add the certainty score
-        $(this).find("form textarea").after(getStarRating());
+        //$(this).find("form textarea").after(getStarRating());
 
         //set the placeholder to the right text
         $(this).find(".annotorious-editor-text").attr("style", "display:none;");
