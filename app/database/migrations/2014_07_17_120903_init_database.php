@@ -61,7 +61,7 @@ class InitDatabase extends Migration {
 			$table->foreign('game_type')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
 			$table->string('name');
-			$table->string('instructions');
+			$table->string('instructions', 1000); // (maybe with more than 100)
 		});
 		
 		Schema::create('tasks', function($table)

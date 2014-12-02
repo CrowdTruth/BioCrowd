@@ -33,7 +33,8 @@ class DevelopDBSeeder extends Seeder {
 		$game->name = 'Basic cell tagging';
 		$game->instructions = ''
 				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>CLICK on all the cells to DRAW A SQUARE AROUND THE CELL, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>';
+				.'<p>Draw a square around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>'
+				.'<p>Do not count cells that are less then 50% visible</p>';
 		$game->save();
 		
 		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch00.png');

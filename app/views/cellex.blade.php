@@ -246,33 +246,17 @@
   
   <div class="row">
     <div class="span7">
-      <a href="img/110803_a1_ch00.png" class="fullsizeimage" target="_blank" title="Click to open a full-size version in a new tab">Click for the full-size image</a><BR>
       <img class="annotatable" id="annotatableImage" src="{{ $image }}" />
     </div>
     <div class="span4">
-    <label>How many CELLS are in this image?*</label><br>
-    <input type= "text" name="nrcells" validates="required positiveInteger" value="Number of cells" gold="true" style="color:#888;" onfocus="inputFocus(this)" onblur="inputBlur(this)"><br>
-    <label class="instructions">Count every cell you see on the image. Click for the full-size image if needed.</label>
       <p>
       <div class="cml_field">
-        <span class="legend">Tag each individual CELL by drawing a bounding box around it.</span><br>
-        <label class="instructions">For each box fill in the fields of the popup.</label>
+        <label class="instructions">Tag each individual CELL by drawing a bounding box around it.</label>
         <div class="border">
           Number of bounding boxes: <span class="nrTags" id="nrTags">0</span>
         </div>
       </div>
       <br>
-      <form action="" label="Certainty*" validates="required" class="confidence">
-      Choose how certain you are of the correctness of the position of the cells?<br>
-        <input type="radio" name="nrcelltags" label="0">0<br>
-        <input type="radio" name="nrcelltags" label="1">1<br>
-        <input type="radio" name="nrcelltags" label="2">2<br>
-        <input type="radio" name="nrcelltags" label="3">3<br>
-        <input type="radio" name="nrcelltags" label="4">4<br>
-        <input type="radio" name="nrcelltags" label="5">5<br>
-        <input type="radio" name="nrcelltags" label="6">6<br>
-        <input type="radio" name="nrcelltags" label="More">More
-      </form>
 
       {{ Form::open(array('url' => 'submitGame')) }}
       {{ Form::hidden('gameId', $gameId) }}
