@@ -20,7 +20,9 @@ css_final/ and js_final to css/ and js/ and change the links here.
 <link href="css_final/bootstrap.css" rel="stylesheet">
 <link href="css_final/bootstrap-theme.css" rel="stylesheet">
 <link href="css_final/gamestyle.css" rel="stylesheet">
+<link href="css_final/CSS.css" rel="stylesheet">
 <script src="js_final/jquery.min.js"></script>
 <script src="js_final/bootstrap.min.js"></script>
-
+<script src="js_final/require.js"></script>
+<script src="js_final/JavaScript.js"></script>
 
