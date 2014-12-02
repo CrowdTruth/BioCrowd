@@ -60,6 +60,8 @@ class InitDatabase extends Migration {
 			$table->integer('game_type')->unsigned();
 			$table->foreign('game_type')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
+			$table->string('name');
+			$table->string('instructions');
 		});
 		
 		Schema::create('tasks', function($table)

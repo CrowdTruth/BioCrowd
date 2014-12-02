@@ -29,7 +29,6 @@ class CellExGameType extends GameTypeHandler {
 	public function getView($game) {
 		$tasks = $game->tasks();
 		$userId = Auth::user()->get()->id;
-		
 		// Which image to use ?
 		// Select image with minimum number of judgements from current user
 		$image = null;
@@ -48,6 +47,7 @@ class CellExGameType extends GameTypeHandler {
 		return View::make('cellex')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
+			->with('instructions', $game->instructions)
 			->with('image', $image)
 			;
 	}

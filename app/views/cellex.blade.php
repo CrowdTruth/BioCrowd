@@ -223,14 +223,7 @@
 					</div>
 
 					<div class="panel-body">
-						<p>In the image below one or more cells are
-							displayed. 
-						</p>
-						<p>CLICK on all the cells to DRAW A SQUARE AROUND THE CELL, 
-							even if they are lying partly behind other cells/debris. 
-							When two cells are overlapping, you may draw overlapping
-							squares
-						</p>
+						{{ $instructions }}
 						<p>
 							Examples of cells:
 						</p>

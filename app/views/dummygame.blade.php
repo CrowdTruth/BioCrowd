@@ -6,6 +6,11 @@
 
 @section('content')
 	<!-- Add the HTML content -->
+	
+	<!-- Instructions can be passed in -->
+	Instructions: {{ $instructions }}
+	
+	<!-- Post results back -- make sure to post back $gameId ! -->
 	Game content -- perhaps this could be a blade template instead ?
 	{{ Form::open( [ 'url' => 'submitGame', 'method' => 'POST' ] ) }}
 		{{ Form::hidden('gameId', $gameId) }}

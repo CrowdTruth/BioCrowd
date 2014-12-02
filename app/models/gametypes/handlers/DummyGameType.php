@@ -22,7 +22,9 @@ class DummyGameType extends GameTypeHandler {
 	}
 	
 	public function getView($game) {
-		return View::make('dummygame')->with('gameId', $game->id);
+		return View::make('dummygame')
+			->with('instructions', $game->instructions)
+			->with('gameId', $game->id);
 	}
 	
 	public function processResponse($game) {

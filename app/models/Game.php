@@ -24,6 +24,6 @@ class Game extends Eloquent {
 	
 	public function tasks() {
 		// TODO: this could be more ELOQUENT, but for the moment, I can't do it
-		return Task::where('game_id','=',$this->game_type)->get();
+		return Task::where('game_id','=',$this->id)->get();
 	}
 }

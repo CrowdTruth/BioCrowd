@@ -20,7 +20,7 @@ class GameListController extends GameController {
 			->join('game_types', 'games.game_type', '=', 'game_types.id')
 			->groupBy('game_id')
 			->orderBy('level')
-			->select('games.id as gameId','name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))
+			->select('games.id as gameId','games.name as name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))
 			->get();
 
 		// Build list to return to user
