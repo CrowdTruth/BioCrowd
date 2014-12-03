@@ -46,7 +46,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<p>'
 				.'Examples:'
 				.'</p>'
-				.'<img src="img/CellEx_and_NuclEx_instructions.png">';
+				.'<img src="img/CellEx_instructions.png">';
 		$game->save();
 		
 		$images = glob('public/img/11*');
@@ -68,7 +68,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<p>'
 				.'Examples:'
 				.'</p>'
-				.'<img src="img/CellEx_and_NuclEx_instructions.png">';
+				.'<img src="img/NuclEx_instructions.png">';
 		$game->save();
 		
 		$images = glob('public/img/11*');
