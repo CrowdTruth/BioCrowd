@@ -80,6 +80,29 @@ class DevelopDBSeeder extends Seeder {
 			$task->save();
 		}
 		
+		$game = new Game($gameType);
+		$game->level = 3;
+		$game->name = 'Colony tagging';
+		$game->instructions = ''
+				.'<p>In the image below one or more agar colonies are displayed. </p>'
+				.'<p>Draw a square around each colony, even if they are touching other colonies. </p>'
+				.'<p>When the colony touches other colonies, you may draw overlapping squares, as long as you know for sure that the colony you tagged is in fact ONE colony.</p>'
+				.'<p>Do not count colonies that are less then 50% visible</p>'
+				.'<p>'
+				.'Examples:'
+				.'</p>'
+				.'<img src="img/ColEx_instructions.png">';
+		$game->save();
+		
+		$images = glob('public/img/agar/*');
+		foreach($images as $image){
+			$image = substr($image,7);
+			$this->command->info('Create test Game: ColEx with image: '.$image);
+			$data = $image;
+			$task = new Task($game, $data);
+			$task->save();
+		}
+		
 		/*
 		$this->command->info('Create test DummyGameType');
 		$gameType = new GameType(new DummyGameType());
