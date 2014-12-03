@@ -38,51 +38,60 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game = new Game($gameType);
 		$game->level = 1;
-		$game->name = 'Basic cell tagging';
+		$game->name = 'Cell tagging';
 		$game->instructions = ''
 				.'<p>In the image below one or more cells are displayed. </p>'
 				.'<p>Draw a square around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>'
-				.'<p>Do not count cells that are less then 50% visible</p>';
+				.'<p>Do not count cells that are less then 50% visible</p>'
+				.'<p>'
+				.'Examples:'
+				.'</p>'
+				.'<img src="img/CellEx_and_NuclEx_instructions.png">';
 		$game->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch00.png');
-		$data = 'img/110803_a1_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B2a3O.jpg');
+		$data = 'img/11_04_19_B2a3O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1b_ch00.png');
-		$data = 'img/110803_a1b_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B2b2O.jpg');
+		$data = 'img/11_04_19_B2b2O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a2a_ch00.png');
-		$data = 'img/110803_a2a_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B4a2O.jpg');
+		$data = 'img/11_04_19_B4a2O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
 		
 		$game = new Game($gameType);
 		$game->level = 2;
-		$game->name = 'Advanced cell tagging';
+		$game->name = 'Nucleus tagging';
 		$game->instructions = ''
 				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>CLICK on all the cells to DRAW A SQUARE AROUND THE CELL NUCLEUS, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>';
+				.'<p>Draw a square around each nucleus, even if they are lying partly behind other cells/debris. When the nucleus does lie partly behind other cells and this is making two or more nuclei overlap, you may draw overlapping squares.</p>'
+				.'<p>Do not count nuclei that are less then 50% visible</p>'
+				.'<p>'
+				.'Examples:'
+				.'</p>'
+				.'<img src="img/CellEx_and_NuclEx_instructions.png">';
 		$game->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1_ch00.png');
-		$data = 'img/110803_a1_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B2a3O.jpg');
+		$data = 'img/11_04_19_B2a3O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a1b_ch00.png');
-		$data = 'img/110803_a1b_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B2b2O.jpg');
+		$data = 'img/11_04_19_B2b2O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
 		
-		$this->command->info('Create test Game: CellEx with image: 110803_a2a_ch00.png');
-		$data = 'img/110803_a2a_ch00.png';
+		$this->command->info('Create test Game: CellEx with image: 11_04_19_B4a2O.jpg');
+		$data = 'img/11_04_19_B4a2O.jpg';
 		$task = new Task($game, $data);
 		$task->save();
-		
+		/*
 		$this->command->info('Create test DummyGameType');
 		$gameType = new GameType(new DummyGameType());
 		$gameType->save();
@@ -98,5 +107,6 @@ class DevelopDBSeeder extends Seeder {
 		$task->save();
 		$task = new Task($game, 'Dummy task 2');
 		$task->save();
+		*/
 	}
 }

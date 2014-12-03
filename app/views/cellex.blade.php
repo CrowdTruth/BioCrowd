@@ -224,12 +224,6 @@
 
 					<div class="panel-body">
 						{{ $instructions }}
-						<p>
-							Examples of cells:
-						</p>
-						<img src="img/110803_a1b_ch00.png" width="200">
-						<img src="img/110803_a2a_ch00.png" width="200">
-						<img src="img/110803_a2b_ch00.png" width="200">
 					</div>
 				</div>
 			<!-- End Instructions -->
@@ -251,7 +245,6 @@
     <div class="span4">
       <p>
       <div class="cml_field">
-        <label class="instructions">Tag each individual CELL by drawing a bounding box around it.</label>
         <div class="border">
           Number of bounding boxes: <span class="nrTags" id="nrTags">0</span>
         </div>
