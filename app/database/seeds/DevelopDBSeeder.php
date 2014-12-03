@@ -23,6 +23,14 @@ class DevelopDBSeeder extends Seeder {
 			'name' => 'Merel',
 			'password' => Hash::make('Merel')
 		] );
+		
+		for($i=1;$i<=60;$i++){
+			User::create( [
+			'email' => 'user'.$i.'@test.com',
+			'name' => 'User'.$i,
+			'password' => Hash::make('User'.$i)
+			] );
+		}
 
 		$this->command->info('Create test CellExGameType');
 		$gameType = new GameType(new CellExGameType());
