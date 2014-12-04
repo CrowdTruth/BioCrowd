@@ -14,7 +14,7 @@
 			<div class='col-xs-3' style='background:none;'></div>
 	
 			<div class='col-xs-6 gameModes' style='background:none;'>
-				<center><h1 style="font-family:arial; font-size:28px; color:black;"><b>Welcome Dr. Wilson!</b></h1></center>
+				<center><h1 style="font-family:arial; font-size:28px; color:black;"><b>Welcome {{ Auth::user()->get()->name }}!</b></h1></center>
 				<center><h1 style="font-family:arial; font-size:18px; color:#5E5C5C;"><b>Please select the type of game you would like to play</b></h1></center>
 
 				@foreach($levels as $number => $items)
