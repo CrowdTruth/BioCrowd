@@ -4,9 +4,12 @@
 <script type="text/javascript">
 function formExtention(){
 	if(questionForm.divided.checked == true){
-		document.getElementById("hiddenQuestions").style.display = "block";
-	} else {
 		document.getElementById("hiddenQuestions").style.display = "none";
+		//set the two checkboxes to unchecked again
+		document.getElementById("tip").checked = false;
+		document.getElementById("nucleus").checked = false;
+	} else {
+		document.getElementById("hiddenQuestions").style.display = "block";
 	}
 }
 </script>
@@ -42,7 +45,7 @@ function formExtention(){
       				{{ Form::hidden('taskId', $taskId) }}
       				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'divided' , 'onclick' => 'return formExtention();']) }}
       				{{ Form::label('distributed', 'The vesicles are equally distributed') }}
-      				<div id="hiddenQuestions" style="display: none">
+      				<div id="hiddenQuestions" style="display: block">
       				<div>
       					{{ Form::checkbox('tip', 'Yes', false , [ 'id' => 'tip' ]) }}
       					{{ Form::label('tip', 'The vesicles are near the tip') }}
