@@ -35,7 +35,25 @@ function formExtention(){
 			<!-- End Instructions -->
 				<div class="row">
     				<div class="span7">
-      					<img class="annotatable" id="annotatableImage" src="{{ $image }}" />
+
+    				<?php $imageWidth = getimagesize($image)[0];
+    				$imageHeight = getimagesize($image)[1];
+    				$maxWidth = 810;
+    				$maxHeight = 420;?>
+    					@if(($imageWidth > $maxWidth) && ($imageHeight > $maxHeight)) 
+    						@if($imageWidth >= $imageHeight)
+      							<img id="annotatableImage" src="{{ $image }}" width="810px" />
+      						@elseif($imageHeight >= $imageWidth)
+      							<img id="annotatableImage" src="{{ $image }}" height="420px" />
+      						@endif
+      					@elseif($imageWidth > $maxWidth)
+      						<img id="annotatableImage" src="{{ $image }}" width="810px" />
+      					@elseif($imageHeight > $maxHeight)
+      						<img id="annotatableImage" src="{{ $image }}" height="420px" />
+      					@else
+      						<img id="annotatableImage" src="{{ $image }}" />
+      					@endif
+      					
     				</div>
     			</div>
     			<BR>
