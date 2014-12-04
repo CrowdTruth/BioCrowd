@@ -114,8 +114,13 @@ class DevelopDBSeeder extends Seeder {
 		$game->name = 'Vesicle locating';
 		$game->instructions = ''
 				.'<p>In the image below, one cell which contains vesicles is displayed. </p>'
+				.'<p>In this image, the vesicles appear brighter then the rest. </p>'
 				.'<p>Tick the boxes below the image if the statement is true. </p>'
-				.'<p>Pay attention! Extra statements can pop out when a certain box has been ticked! </p>';
+				.'<p>Pay attention! The second and third statements are uninteresting when the first statement is true, so they will disappear when the first staement is ticked. </p>'
+				.'<p>'
+				.'Example:'
+				.'</p>'
+				.'<img src="img/VesEx_instructions.png">';
 		$game->save();
 		
 		$images = glob('public/img/vesEx/*');
