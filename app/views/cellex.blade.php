@@ -256,6 +256,8 @@
       {{ Form::hidden('taskId', $taskId) }}
       {{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
       <table width="100%">
+      <tr><td>{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells' ]) }}
+      		  {{ Form::label('noCells', 'There are no cells (or vesicles) in this image') }}</td></tr>
       <tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton']) }}</td></tr>
       </table>
       {{ Form::close() }}

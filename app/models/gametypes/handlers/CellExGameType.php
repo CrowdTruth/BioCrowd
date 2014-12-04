@@ -56,7 +56,17 @@ class CellExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
-		$response = Input::get('response');
+		$noCells = Input::get('noCells');
+		
+		if($noCells == null){
+			$noCells = "false";
+		}
+		
+		$responseArray["NoCellsOrVesicles"] = $noCells;
+		$tempCoords = json_decode(Input::get('response'));
+		$responseArray["Coordinates"] = $tempCoords;
+		$response = json_encode($responseArray);
+		//$response = Input::get('response');
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
