@@ -147,7 +147,7 @@ require(['jquery'], function(jQuery) {
         //get the right labels objects
         var count = anno.getAnnotations(image).length;
         $('#nrTags').html(count);
-        response = [];
+        response = []; //empty the response array each time the rectangle count is refresed to avoid putting deleted boxes in the response. 
         for(i=1; i<=count; i++){
         	updateFormData(image,i);
         }
@@ -166,7 +166,6 @@ require(['jquery'], function(jQuery) {
 	    tempResponse["width"] = boxData[2];
 	    tempResponse["height"] = boxData[3];
 	    response.push(tempResponse);
-	    console.log(response);
 	    document.getElementById("response").value = JSON.stringify(response);
 	    //enable the submit button again
 	    document.getElementById("disabledSubmitButton").disabled = false;
