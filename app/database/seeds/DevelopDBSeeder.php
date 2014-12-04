@@ -103,6 +103,30 @@ class DevelopDBSeeder extends Seeder {
 			$task->save();
 		}
 		
+		
+		
+		$this->command->info('Create test VesExGameType');
+		$gameType = new GameType(new VesExGameType());
+		$gameType->save();
+		
+		$game = new Game($gameType);
+		$game->level = 1;
+		$game->name = 'Vesicle locating';
+		$game->instructions = ''
+				.'<p>In the image below, one cell which contains vesicles is displayed. </p>'
+				.'<p>Tick the boxes below the image if the statement is true. </p>'
+				.'<p>Pay attention! Extra statements can pop out when a certain box has been ticked! </p>';
+		$game->save();
+		
+		$images = glob('public/img/vesEx/*');
+		foreach($images as $image){
+			$image = substr($image,7);
+			$this->command->info('Create test Game: VesEx with image: '.$image);
+			$data = $image;
+			$task = new Task($game, $data);
+			$task->save();
+		}
+		
 		/*
 		$this->command->info('Create test DummyGameType');
 		$gameType = new GameType(new DummyGameType());
