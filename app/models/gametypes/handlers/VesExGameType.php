@@ -59,6 +59,7 @@ class VesExGameType extends GameTypeHandler {
 		$distributed = Input::get('distributed');
 		$tip = Input::get('tip');
 		$nucleus = Input::get('nucleus');
+		$novesicles = Input::get('novesicles');
 		//setValueToNo($distributed); //somehow it doesn't see the function even though it's down there! Composer dumpautoload doesn't fix this. 
 		//setValueToNo($tip);
 		//setValueToNo($nucleus);
@@ -71,7 +72,10 @@ class VesExGameType extends GameTypeHandler {
 		if($nucleus == null){
 			$nucleus = "No";
 		}
-		$response = json_encode (["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus]);
+		if($novesicles == null){
+			$novesicles = "false";
+		}
+		$response = json_encode (["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
