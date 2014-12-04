@@ -49,7 +49,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<img src="img/CellEx_instructions.png">';
 		$game->save();
 		
-		$images = glob('public/img/11*');
+		$images = glob('public/img/cellExAndNuclEx/*');
 		foreach($images as $image){
 			$image = substr($image,7);
 			$this->command->info('Create test Game: CellEx with image: '.$image);
@@ -71,10 +71,10 @@ class DevelopDBSeeder extends Seeder {
 				.'<img src="img/NuclEx_instructions.png">';
 		$game->save();
 		
-		$images = glob('public/img/11*');
+		$images = glob('public/img/cellExAndNuclEx/*');
 		foreach($images as $image){
 			$image = substr($image,7);
-			$this->command->info('Create test Game: CellEx with image: '.$image);
+			$this->command->info('Create test Game: NuclEx with image: '.$image);
 			$data = $image;
 			$task = new Task($game, $data);
 			$task->save();
@@ -94,7 +94,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<img src="img/ColEx_instructions.png">';
 		$game->save();
 		
-		$images = glob('public/img/agar/*');
+		$images = glob('public/img/colEx/*');
 		foreach($images as $image){
 			$image = substr($image,7);
 			$this->command->info('Create test Game: ColEx with image: '.$image);
