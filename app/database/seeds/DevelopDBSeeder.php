@@ -113,7 +113,8 @@ class DevelopDBSeeder extends Seeder {
 		$game->level = 1;
 		$game->name = 'Vesicle locating';
 		$game->instructions = ''
-				.'<p>In the image below, one cell which contains vesicles is displayed. </p>'
+				.'<p>In the image below, one or more cells which contain vesicles are displayed. </p>'
+				.'<p>If there is more then one cell completely visible, we want you to annotate the cell with the red border around it. </p>'
 				.'<p>In this image, the vesicles appear brighter then the rest. </p>'
 				.'<p>Tick the boxes below the image if the statement is true. </p>'
 				.'<p>Pay attention! The second and third statements are uninteresting when the first statement is true, so they will disappear when the first staement is ticked. </p>'
