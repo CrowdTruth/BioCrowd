@@ -20,11 +20,18 @@ require(['jquery'], function(jQuery) {
     type: 'text/css',
     rel: 'stylesheet'
   }).attr('href', '/css_final/annotorious-dark.css');
+  
+  //disable the submit button
+  document.getElementById("submitButton").disabled = true;
 
   //load the script
   $.getScript("/js_final/annotorious.min.js", function(data, textStatus, jqxhr) {
     //for each annotatable image add the information to the editor on first load
     anno.addHandler('onEditorShown', function(annotation) {
+    	
+      //disable the submit button so the user cannot forget to save this annotation before submitting. 
+  	  document.getElementById("submitButton").disabled = true;
+    	
       //change the type and certainty values in the editor when updating
       if (annotation) {
         var certainty = annotation.certainty;
@@ -138,16 +145,18 @@ require(['jquery'], function(jQuery) {
         //get the right labels objects
         var count = anno.getAnnotations(image).length;
         $('#nrTags').html(count);
-    
-        updateFormData(image,count);
+        response = [];
+        for(i=1; i<=count; i++){
+        	updateFormData(image,i);
+        }
   }
   
   /**
    * Fills in the response data in the form of the page 
    */
-  function updateFormData(image,count){
+  function updateFormData(image,iteration){
 	    //Get the coordinates from the newest annotation object
-	    var boxData = getCoordinates(image,count-1); //count -1 because the array will start at 0. 
+	    var boxData = getCoordinates(image,iteration-1); //count -1 because the array will start at 0. 
 	    //Push the new variables to the response dictionary. 
 	    var tempResponse = {};
 	    tempResponse["x"] = boxData[0];
@@ -157,16 +166,18 @@ require(['jquery'], function(jQuery) {
 	    response.push(tempResponse);
 	    console.log(response);
 	    document.getElementById("response").value = JSON.stringify(response);
+	    //enable the submit button again
+	    document.getElementById("submitButton").disabled = false;
   }
   
   /**
    * Gets the coordinates from the newest annotation object 
    */
-  function getCoordinates(image,count){
-	    var boxDecimalX = anno.getAnnotations(image)[count].shapes[0].geometry.x;
-	    var boxDecimalY = anno.getAnnotations(image)[count].shapes[0].geometry.y;
-	    var boxDecimalWidth = anno.getAnnotations(image)[count].shapes[0].geometry.width;
-	    var boxDecimalHeight = anno.getAnnotations(image)[count].shapes[0].geometry.height;
+  function getCoordinates(image,iteration){
+	    var boxDecimalX = anno.getAnnotations(image)[iteration].shapes[0].geometry.x;
+	    var boxDecimalY = anno.getAnnotations(image)[iteration].shapes[0].geometry.y;
+	    var boxDecimalWidth = anno.getAnnotations(image)[iteration].shapes[0].geometry.width;
+	    var boxDecimalHeight = anno.getAnnotations(image)[iteration].shapes[0].geometry.height;
 	    
 	    //Determine the image height and width for decimal to pixel conversion
 	    var img = document.getElementById('annotatableImage'); 

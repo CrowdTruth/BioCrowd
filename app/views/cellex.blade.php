@@ -256,7 +256,7 @@
       {{ Form::hidden('taskId', $taskId) }}
       {{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
       <table width="100%">
-      <tr><td align="center">{{ Form::submit('Submit') }}</td></tr>
+      <tr><td align="center">{{ Form::submit('Submit', ['id' => 'submitButton']) }}</td></tr>
       </table>
       {{ Form::close() }}
     </div>
