@@ -5,9 +5,9 @@ require(['jquery'], function(jQuery) {
   });*/
   var $ = window.jQuery;
   // Use `$` in here.
-  window.setTimeout(function() {
-    $('body').scrollTop(1);
-  }, 1000);
+  //window.setTimeout(function() {
+  //  $('body').scrollTop(1);
+  //}, 1000);
 
   //initialize variables
   var timers = new Object();
@@ -22,7 +22,9 @@ require(['jquery'], function(jQuery) {
   }).attr('href', '/css_final/annotorious-dark.css');
   
   //disable the submit button
-  document.getElementById("submitButton").disabled = true;
+  if(document.getElementById("disabledSubmitButton")){
+	  document.getElementById("disabledSubmitButton").disabled = true;
+  }
 
   //load the script
   $.getScript("/js_final/annotorious.min.js", function(data, textStatus, jqxhr) {
@@ -30,7 +32,7 @@ require(['jquery'], function(jQuery) {
     anno.addHandler('onEditorShown', function(annotation) {
     	
       //disable the submit button so the user cannot forget to save this annotation before submitting. 
-  	  document.getElementById("submitButton").disabled = true;
+  	  document.getElementById("disabledSubmitButton").disabled = true;
     	
       //change the type and certainty values in the editor when updating
       if (annotation) {
@@ -167,7 +169,7 @@ require(['jquery'], function(jQuery) {
 	    console.log(response);
 	    document.getElementById("response").value = JSON.stringify(response);
 	    //enable the submit button again
-	    document.getElementById("submitButton").disabled = false;
+	    document.getElementById("disabledSubmitButton").disabled = false;
   }
   
   /**
