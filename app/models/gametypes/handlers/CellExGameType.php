@@ -43,12 +43,15 @@ class CellExGameType extends GameTypeHandler {
 				$taskId = $task->id;
 			}
 		}
+		$extraInfo = unserialize($game['extraInfo']);
+		$resposeLabel = $extraInfo['label'];
 		
 		return View::make('cellex')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
 			->with('image', $image)
+			->with('resposeLabel', $resposeLabel)
 			;
 	}
 	
@@ -65,7 +68,7 @@ class CellExGameType extends GameTypeHandler {
 		$responseArray["NoCellsOrVesicles"] = $noCells;
 		$tempCoords = json_decode(Input::get('response'));
 		$responseArray["Coordinates"] = $tempCoords;
-		$response = json_encode($responseArray);
+		$response = serialize($responseArray);
 		//$response = Input::get('response');
 		
 		//Create and Submit the judgement model

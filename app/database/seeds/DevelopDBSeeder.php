@@ -47,6 +47,7 @@ class DevelopDBSeeder extends Seeder {
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/CellEx_instructions.png">';
+		$game->extraInfo = serialize([ 'label' => 'There are no cells in this image' ]);
 		$game->save();
 		
 		$images = glob('public/img/cellExAndNuclEx/*');
@@ -69,6 +70,7 @@ class DevelopDBSeeder extends Seeder {
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/NuclEx_instructions.png">';
+		$game->extraInfo = serialize([ 'label' => 'There are no nuclei in this image' ]);
 		$game->save();
 		
 		$images = glob('public/img/cellExAndNuclEx/*');
@@ -92,6 +94,7 @@ class DevelopDBSeeder extends Seeder {
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/ColEx_instructions.png">';
+		$game->extraInfo = serialize([ 'label' => 'There are no colonies in this image' ]);
 		$game->save();
 		
 		$images = glob('public/img/colEx/*');
@@ -122,6 +125,7 @@ class DevelopDBSeeder extends Seeder {
 				.'Example:'
 				.'</p>'
 				.'<img src="img/VesEx_instructions.png">';
+		$game->extraInfo = '';
 		$game->save();
 		
 		$images = glob('public/img/vesEx/*');

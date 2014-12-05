@@ -257,7 +257,7 @@
       {{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
       <div id="None of the above"> <!-- This statement can be used to check for spammers, so keep this open as an option when the rest is checked -->
       		{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells', 'onclick' => 'return taggingFormExtention();' ]) }}
-			{{ Form::label('noCells', 'There are no cells (or vesicles) in this image') }}
+			{{ Form::label('noCells', $resposeLabel) }}
       </div>
       <table width="100%">
       <tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton']) }}</td></tr>

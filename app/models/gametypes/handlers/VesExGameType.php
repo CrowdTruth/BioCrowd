@@ -75,7 +75,7 @@ class VesExGameType extends GameTypeHandler {
 		if($novesicles == null){
 			$novesicles = "false";
 		}
-		$response = json_encode (["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
+		$response = serialize(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();

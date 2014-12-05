@@ -62,6 +62,7 @@ class InitDatabase extends Migration {
 			$table->integer('level')->default(1);
 			$table->string('name');
 			$table->string('instructions', 1000); // (maybe with more than 100)
+			$table->text('extraInfo');
 		});
 		
 		Schema::create('tasks', function($table)
