@@ -251,13 +251,15 @@
       </div>
       <br>
 
-      {{ Form::open(array('url' => 'submitGame')) }}
+      {{ Form::open(array('url' => 'submitGame', 'name' => 'annotationForm')) }}
       {{ Form::hidden('gameId', $gameId) }}
       {{ Form::hidden('taskId', $taskId) }}
       {{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
+      <div id="None of the above"> <!-- This statement can be used to check for spammers, so keep this open as an option when the rest is checked -->
+      		{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells', 'onclick' => 'return taggingFormExtention();' ]) }}
+			{{ Form::label('noCells', 'There are no cells (or vesicles) in this image') }}
+      </div>
       <table width="100%">
-      <tr><td>{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells' ]) }}
-      		  {{ Form::label('noCells', 'There are no cells (or vesicles) in this image') }}</td></tr>
       <tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton']) }}</td></tr>
       </table>
       {{ Form::close() }}

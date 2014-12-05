@@ -429,3 +429,16 @@ function inputFocus(i){
 function inputBlur(i){
     if(i.value==""){ i.value=i.defaultValue; i.style.color="#888"; }
 }
+
+function taggingFormExtention(){
+	nrTags = $("#nrTags").html();
+	
+	if(annotationForm.noCells.checked == true){
+		//If the "noCells" checkbox is checked, enable the submit button
+		document.getElementById("disabledSubmitButton").disabled = false;
+	} else if((annotationForm.noCells.checked == false) && (nrTags == 0)) {
+		
+		//If the "noCells" checkbox is unchecked and there are no annotations, disable the submit button
+		document.getElementById("disabledSubmitButton").disabled = true;
+	}
+}
