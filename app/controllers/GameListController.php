@@ -5,7 +5,7 @@ class GameListController extends GameController {
 		// LOAD ALL THESE FROM DATABASE , depending on what user has already done.
 		
 		// SQL Query:
-		// SELECT name,level,handler_class,thumbnail,count(*) as nTasks 
+		// SELECT games.name,level,handler_class,thumbnail,count(*) as nTasks 
 		//		FROM tasks INNER JOIN games ON (tasks.game_id=games.id) 
 		//		INNER JOIN game_types ON (games.game_type=game_types.id)
 		//		GROUP BY game_id;
@@ -46,21 +46,7 @@ class GameListController extends GameController {
 		if(count($levelN)>0) {
 			array_push($levels, $levelN);
 		}
-
-		/*$level1 = [
-						[
-								'link' => 'playGame?game=CellExController',
-								'image' => 'img/factor_validation1.png',
-								'text' => 'Cell extraction',
-								'enabled' => true
-						]
-		];
-		$level2 = [];
-		$level3 = [];
-		$level4 = [];
-		$level5 = [];
-		$level6 = [];
-		$levels = [ $level1, $level2, $level3, $level4, $level5, $level6 ]; */
+		
 		return View::make('gameMenu')->with('levels', $levels);
 	}
 }

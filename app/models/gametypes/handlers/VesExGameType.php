@@ -9,17 +9,13 @@ class VesExGameType extends GameTypeHandler {
 		return 'Extracting vesicles from microscopic images';
 	}
 	
-	public function getDataDiv() {
-		$divHTML = "";
-		$divHTML .= "<label for='data' class='col-sm-2 control-label'>Image URL:</label>";
-		$divHTML .= "	<div class='col-xs-3'>";
-		$divHTML .= "		<input class='form-control' name='vesExImage' type='text' value='' id='vesExImage'>";
-		$divHTML .= "	</div>";
+	public function getExtrasDiv($extraInfo) {
+		$divHTML = "No additional information provided for each game.";
 		return $divHTML;
 	}
 
-	public function parseInputs($inputs) {
-		return $inputs['vesExImage'];
+	public function parseExtraInfo($inputs) {
+		return '';
 	}
 	
 	public function getThumbnail() {
@@ -91,5 +87,13 @@ class VesExGameType extends GameTypeHandler {
 		if($value == null){
 			$value = "No";
 		}
+	}
+	
+	public function renderTask($task) {
+		return $task->data;
+	}
+	
+	public function validateData($data) {
+		return true;
 	}
 }

@@ -9,11 +9,11 @@ class DummyGameType extends GameTypeHandler {
 		return 'Not a real task, just for devel debugging and stuff...';
 	}
 	
-	public function getDataDiv() {
+	public function getExtrasDiv($extraInfo) {
 		return 'No DIV here, sorry :-P';
 	}
 	
-	public function parseInputs($inputs) {
+	public function parseExtraInfo($inputs) {
 		return 'Should return data ;-)';
 	}
 
@@ -29,5 +29,13 @@ class DummyGameType extends GameTypeHandler {
 	
 	public function processResponse($game) {
 		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
+	}
+	
+	public function renderTask($task) {
+		return $task->data;
+	}
+	
+	public function validateData($data) {
+		return true;
 	}
 }

@@ -7,5 +7,5 @@
 		@foreach ($users as $user)
     		<li class="list-group-item">{{ $user->username }}</li>
 		@endforeach
-	</ul>		
+	</ul>
 @stop

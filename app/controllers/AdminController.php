@@ -40,76 +40,27 @@ class AdminController extends BaseController {
 		return View::make('admin.newuser');
 	}
 	
-	public function newUserAction() {
-		// TODO: implement this method
-		return 'Implement method newUserAction...';
-	}
-
 	public function listUsersView() {
 		$users = AdminUser::all();
 		return View::make('admin.listuser')->with('users', $users);
 	}
 
-	public function listUsersAction() {
-		// TODO: implement this method
-		return 'Implement method listUsersAction...';
-	}
-
-	public function listGamesView() {
+		public function listGamesView() {
 		// TODO: Add pagination ?
 		$games = Game::all();
 		$displayGames = [];
+		
+				
 		foreach($games as $game) {
-			array_push($displayGames, [ 
-				'id' 	=> $game->id,
+			array_push($displayGames, [
+				'id'	=> $game->id, 
 				'type'	=> $game->gameType()->name,
+				'name' 	=> $game->name,
+				'level' => $game->level,
+				'tasks' => count($game->tasks()),
 			]);
 		}
 		return View::make('admin.listgames')->with('games', $displayGames);
-	}
-
-	public function listTaskAction() {
-		// TODO: implement this method
-		return 'Implement method listTaskAction...';
-	}
-	
-	public function newTaskView() {
-		// TODO: Check user is allowed to create new tasks
-		
-		// List id=> name pairs for available task types
-		$taskTypes = TaskType::all();
-		
-		$ttIdName = [];
-		$ttIdDiv = [];
-		foreach ($taskTypes as $taskType) {
-			$taskTypeClass = $taskType->handler_class;
-			$taskTypeHandler = new $taskTypeClass();
-			
-			$ttIdName[$taskType->id] = $taskType->name;
-			$ttIdDiv[$taskType->id] = $taskTypeHandler->getDataDiv();
-		}
-		return View::make('admin.newtask')
-				->with('taskTypesNames', $ttIdName)
-				->with('taskTypesDivs', $ttIdDiv);
-	}
-	
-	public function newTaskAction() {
-		// TODO: Check user is allowed to create new tasks
-		$taskTypeId = Input::get('taskType');
-		$data  = Input::get('data');
-		
-		$taskType = TaskType::where('id', '=', $taskTypeId)->first();
-		
-		// TODO: check whether call comes from ADMIN or API
-		
-		$taskTypeClass = $taskType->handler_class;
-		$taskTypeHandler = new $taskTypeClass();
-		$data = $taskTypeHandler->parseInputs(Input::all());
-		$task = new Task($taskType, $data);
-		$task->save();
-		
-		// TODO: Return error messages on ADMIN or API format
-		return Redirect::to('admin')->with('flash_message', 'Task successfully created');
 	}
 
 	public function listGameTypesView() {
@@ -156,5 +107,107 @@ class AdminController extends BaseController {
 		$gameType = new GameType($handler);
 		$gameType->save();
 		return Redirect::to('admin/listGameTypes')->with('flash_message', 'Game type successfully installed');
+	}
+	
+	public function editGameView() {
+		$gameId = Input::get('gameId');
+		$game = Game::find($gameId);
+		
+		$gameTypes = [];
+		$gameTypeDivs = [];
+		$tasks = [];
+		
+		// New games require all game types
+		if(is_null($game)) {
+			foreach (GameType::all() as $gameType) {
+				$gameTypes[$gameType->id] = $gameType->name;
+				
+				$handlerClass = $gameType->handler_class;
+				$handler = new $handlerClass();
+				$gameTypeDivs[$gameType->id] = $handler->getExtrasDiv('');
+			}
+		} else {
+			$gameTypes = [];
+			$gameTypeDivs = [];
+			$gameType = GameType::find($game->game_type);
+			
+			$gameTypes[$gameType->id] = $gameType->name;
+
+			$handlerClass = $gameType->handler_class;
+			$handler = new $handlerClass();
+			$gameTypeDivs[$gameType->id] = $handler->getExtrasDiv($game->extraInfo);
+
+			foreach ($game->tasks() as $task) {
+				$taskHTML = $handler->renderTask($task);
+				array_push($tasks, $taskHTML);
+			}
+		}
+		
+		return View::make('admin.editgame')
+			->with('game', $game)
+			->with('gameTypes', $gameTypes)
+			->with('gameTypeDivs', $gameTypeDivs)
+			->with('tasks', $tasks);
+	}
+	
+	public function editGameAction() {
+		$gameId = Input::get('id');
+		$gameTypeId = Input::get('game_type');
+		$gameType = GameType::find($gameTypeId);
+		
+		// Validate
+		$level = Input::get('level');
+		$name = Input::get('name');
+		$instructions = Input::get('instructions');
+		$tasksData = json_decode(Input::get('tasks'));
+		
+		$handlerClass = $gameType->handler_class;
+		$handler = new $handlerClass();
+
+		if($gameId=='') {
+			$game = new Game($gameType);
+			$okMsg = 'Game successfully created';
+			
+			$newTasks = $tasksData;
+		} else {
+			$game = Game::find($gameId);
+			$okMsg = 'Game successfully updated';
+			
+			$existing = [];
+			foreach($game->tasks() as $task) {
+				array_push($existing, $task->data);
+			}
+			$newTasks = [];
+			foreach($tasksData as $task) {
+				if( ! in_array($task, $existing)) {
+					array_push($newTasks, $task);
+				}
+			}
+		}
+		
+		$game->level = $level;
+		$game->name = $name;
+		$game->game_type = $gameTypeId;
+		$game->instructions = $instructions;
+		$game->extraInfo = $handler->parseExtraInfo(Input::all());
+		$game->save();
+		
+		$taskErr = null;
+		foreach($newTasks as $taskData) {
+			if($handler->validateData($taskData)) {
+				$task = new Task($game, $taskData);
+				$task->save();
+			} else {
+				if(is_null($taskErr)) {
+					$taskErr = 'Error creating tasks: '.$taskData;
+				} else {
+					$taskErr = $taskErr.', '.$taskData;
+				}
+			}
+		}
+		
+		return Redirect::to('admin/listGames')
+			->with('flash_message', $okMsg)
+			->with('flash_error', $taskErr);
 	}
 }

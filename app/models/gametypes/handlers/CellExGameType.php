@@ -9,17 +9,20 @@ class CellExGameType extends GameTypeHandler {
 		return 'Extracting cells from microscopic images';
 	}
 	
-	public function getDataDiv() {
+	public function getExtrasDiv($extraInfo) {
+		$extraInfo = unserialize($extraInfo);
+		$label = $extraInfo['label'];
 		$divHTML = "";
-		$divHTML .= "<label for='data' class='col-sm-2 control-label'>Image URL:</label>";
-		$divHTML .= "	<div class='col-xs-3'>";
-		$divHTML .= "		<input class='form-control' name='cellExImage' type='text' value='' id='cellExImage'>";
-		$divHTML .= "	</div>";
+		$divHTML .= "<label for='data' class='col-sm-2 control-label'>Label:</label>";
+		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";
+		$divHTML .= "";
 		return $divHTML;
 	}
 
-	public function parseInputs($inputs) {
-		return $inputs['cellExImage'];
+	public function parseExtraInfo($inputs) {
+		$extraInfo['label'] = [];
+		$extraInfo['label'] = $inputs['cellExLabel'];
+		return serialize($extraInfo);
 	}
 	
 	public function getThumbnail() {
@@ -79,5 +82,13 @@ class CellExGameType extends GameTypeHandler {
 		$judgement->save();
 		
 		return Redirect::to('gameMenu');
+	}
+	
+	public function renderTask($task) {
+		return $task->data;
+	}
+	
+	public function validateData($data) {
+		return true;
 	}
 }

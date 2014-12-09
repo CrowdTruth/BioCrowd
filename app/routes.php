@@ -40,16 +40,13 @@ Route::get('admin/logout' , 'AdminController@requestLogout');
 Route::get ('admin', [ 'before' => 'adminauth', 'uses' => 'AdminController@home' ] );
 
 Route::get('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@listUsersView' ] );
-Route::post('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@listUsersAction' ] );
 
 Route::get('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserView' ] );
-Route::post('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserAction' ] );
 
 Route::get('admin/listGames', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGamesView' ] );
-Route::post('admin/listGames', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGamesAction' ] );
 
-Route::get('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskView' ] );
-Route::post('admin/createTask', [ 'before' => 'adminauth', 'uses' => 'AdminController@newTaskAction' ] );
+Route::get('admin/editGame', [ 'before' => 'adminauth', 'uses' => 'AdminController@editGameView' ] );
+Route::post	('admin/editGame', [ 'before' => 'adminauth', 'uses' => 'AdminController@editGameAction' ] );
 
 Route::get('admin/listGameTypes', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesView' ] );
 Route::get('admin/listGameTypesAction', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesAction' ] );
