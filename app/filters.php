@@ -45,6 +45,27 @@ Route::filter('adminauth', function()
 	if (Auth::admin()->guest()) {
 		return Redirect::to('admin/login');
 	}
+
+	// Protected paths: $path => $permissionRequired
+	$protectedPaths = [
+		'admin/listuser'	=>	AdminPermission::USERS,
+		'admin/createuser'	=>	AdminPermission::USERS,
+		'admin/listGames'	=>	AdminPermission::GAME,
+		'admin/editGame'	=>	AdminPermission::GAME,
+		'admin/listGameTypes'	=> AdminPermission::GAMETYPE,
+		'admin/listGameTypesAction'	=> AdminPermission::GAMETYPE
+	];
+	
+	$path = Request::path();
+	if(array_key_exists ( $path , $protectedPaths )) {
+		// User is trying to access a protected path
+		$reqPerm = $protectedPaths[$path];
+		if( ! Auth::admin()->get()->hasPermission($reqPerm)) {
+			// User does not have permission! Reject!
+			return Redirect::to('admin')
+				->with('flash_error', 'You do not have permission to view the requested page.');
+		}
+	}
 });
 
 /*

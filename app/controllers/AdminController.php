@@ -112,10 +112,10 @@ class AdminController extends BaseController {
 		}
 	
 		return View::make('admin.editgame')
-		->with('game', $game)
-		->with('gameTypes', $gameTypes)
-		->with('gameTypeDivs', $gameTypeDivs)
-		->with('tasks', $tasks);
+			->with('game', $game)
+			->with('gameTypes', $gameTypes)
+			->with('gameTypeDivs', $gameTypeDivs)
+			->with('tasks', $tasks);
 	}
 	
 	/**
@@ -220,10 +220,6 @@ class AdminController extends BaseController {
 		}
 		// TODO: Check if we have a Tasks in DB which do not have files ?
 		
-		// Return list of 
-		//  - name -> Name of the task
-		//  - installed -> yes/no
-		//  - task handledFile -> TaskTypeHandler file for the task
 		return View::make('admin.listgametypes')->with('gameTypes', $allGameTypes);
 	}
 	

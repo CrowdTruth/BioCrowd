@@ -27,8 +27,8 @@ class AdminUser extends Eloquent implements UserInterface {
 		return $this->belongsToMany('AdminPermission', 'admin_permission_admin_user', 'admin_user_id', 'admin_permission_id');
 	}
 	
-	public function hasPermission($perm) {
+	public function hasPermission($permName) {
 		$permList = $this->permissions->lists('name');
-		return in_array($perm->name, $permList);
+		return in_array($permName, $permList);
 	}
 }

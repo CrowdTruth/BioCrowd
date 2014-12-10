@@ -22,9 +22,18 @@ class DatabaseSeeder extends Seeder {
 			'password' => Hash::make($this->adminPassword)
 		] );
 		
+		// Create all permissions
 		AdminPermission::create( [
-			'name' => 'Users',
+			'name' => AdminPermission::USERS,
 			'description' => 'Manage users'
+		] );
+		AdminPermission::create( [
+			'name' => AdminPermission::GAME,
+			'description' => 'Create and edit games'
+		] );
+		AdminPermission::create( [
+			'name' => AdminPermission::GAMETYPE,
+			'description' => 'Install new game types'
 		] );
 		
 		// Grant all permissions to root user
@@ -34,6 +43,11 @@ class DatabaseSeeder extends Seeder {
 		foreach($perms as $perm) {
 			$root->permissions()->save($perm);
 		}
+		
+		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::USERS)->first());
+		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::GAME)->first());
+		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::GAMETYPE)->first());
+
 		$root->save();
 		
 		// TODO: Remove DevelopDBSeeder for final release

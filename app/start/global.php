@@ -89,22 +89,40 @@ HTML::macro('headerLink', function($url, $text) {
 	return '<li'.$class.'><a href="'.$url.'">'.$text.'</a></li>';
 });
 
-HTML::macro('headerMenuOpen', function($urls, $text) {
-	/**
-	 * $urls    List of URL's which form part of this menu
-	 * $text    Text displayed on the menu button
-	 */
+HTML::macro('headerMenu', function($menuName, $links) {
+	$html = '';
+	
+	$doShow = false;
+	foreach($links as $link) {
+		if($link['enabled']) {
+			$doShow = true;
+			break;
+		}
+	}
+	if(! $doShow) {
+		return '';	// No items to show on this menu -- do not show menu.
+	}
+
+	// Open Menu tag
 	$class = 'dropdown';
 	$myUrls = '';
-	foreach($urls as $url) {
-		if(URL::current()==$url) {
+	foreach($links as $link) {
+		if(URL::current()==$link['url']) {
 			$class = 'dropdown active';
 			break;
 		}
 	}
-	return '<li class="'.$class.'"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$text.'<span class="caret"></span></a><ul class="dropdown-menu" role="menu">';
-});
+	$html = $html . '<li class="'.$class.'"><a href="#" class="dropdown-toggle" data-toggle="dropdown">'.$menuName.'<span class="caret"></span></a>';
+	$html = $html . '<ul class="dropdown-menu" role="menu">';
+	
+	// Links
+	foreach($links as $link) {
+		if($link['enabled']) {
+			$html = $html . HTML::headerLink($link['url'], $link['text']);
+		}
+	}
 
-HTML::macro('headerMenuClose', function() {
-	return '</ul></li>';
+	// Close Menu tag
+	$html = $html . '</ul></li>';
+	return $html;
 });
