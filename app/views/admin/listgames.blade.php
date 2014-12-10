@@ -1,7 +1,7 @@
 @extends('admin.layout')
 
 @section('content')
-	<h2>List all available games</h2>
+	<h2>Available games</h2>
 
 	<table class="table table-striped">
 		<thead>

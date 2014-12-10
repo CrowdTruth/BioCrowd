@@ -15,7 +15,10 @@ class DevelopDBSeeder extends Seeder {
 		User::create( [ 
 				'email' => 'neocarlitos@gmail.com',
 				'name' => 'Neo',
-				'password' => Hash::make('123456')
+				'password' => Hash::make('123456'),
+				'level' => '8',
+				'title' => 'Black belt',
+				'score' => '999'
 		] );
 		
 		User::create( [

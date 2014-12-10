@@ -1,19 +1,21 @@
 <?php
+/**
+ * This controller controlls traffic for listing games in the platform.
+ */
 class GameListController extends GameController {
-
+	
+	/**
+	 * Display blade view with listing of games.
+	 * The view is configured depending on the games which are available
+	 * to the user, depending on his level, which games he has previously 
+	 * completed, etc.
+	 */
 	public function listGames() {
-		// LOAD ALL THESE FROM DATABASE , depending on what user has already done.
-		
 		// SQL Query:
 		// SELECT games.name,level,handler_class,thumbnail,count(*) as nTasks 
 		//		FROM tasks INNER JOIN games ON (tasks.game_id=games.id) 
 		//		INNER JOIN game_types ON (games.game_type=game_types.id)
 		//		GROUP BY game_id;
-
-		// TODO: Fetch task_id of tasks this user has already given judgements for
-		
-		$userId = Auth::user()->get()->id;
-		$userCompletedTasks = [ -1 ];
 
 		$gamesAvl = DB::table('tasks')
 			->join('games', 'tasks.game_id', '=', 'games.id')
@@ -35,7 +37,6 @@ class GameListController extends GameController {
 			}
 			
 			$item = [ 
-				// 'link' => 'playGame?game=CellExController',	// TODO: use game_id from database
 				'link' => 'playGame?gameId='.$game->gameId,
 				'image' => $game->thumbnail,
 				'text' => $game->name,

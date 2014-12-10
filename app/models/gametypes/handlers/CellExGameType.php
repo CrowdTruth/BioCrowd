@@ -1,14 +1,26 @@
 <?php
+/**
+ * GameTypeHandler for CellEx extraction GameType.
+ */
 class CellExGameType extends GameTypeHandler {
 
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getName() {
 		return 'CellEx';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getDescription() {
 		return 'Extracting cells from microscopic images';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getExtrasDiv($extraInfo) {
 		$extraInfo = unserialize($extraInfo);
 		$label = $extraInfo['label'];
@@ -18,19 +30,28 @@ class CellExGameType extends GameTypeHandler {
 		$divHTML .= "";
 		return $divHTML;
 	}
-
+	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function parseExtraInfo($inputs) {
 		$extraInfo['label'] = [];
 		$extraInfo['label'] = $inputs['cellExLabel'];
 		return serialize($extraInfo);
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getThumbnail() {
 		return 'img/factor_validation1.png';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getView($game) {
-		$tasks = $game->tasks();
+		$tasks = $game->tasks;
 		$userId = Auth::user()->get()->id;
 		// Which image to use ?
 		// Select image with minimum number of judgements from current user
@@ -54,10 +75,12 @@ class CellExGameType extends GameTypeHandler {
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
 			->with('image', $image)
-			->with('resposeLabel', $resposeLabel)
-			;
+			->with('resposeLabel', $resposeLabel);
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function processResponse($game) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
@@ -72,7 +95,6 @@ class CellExGameType extends GameTypeHandler {
 		$tempCoords = json_decode(Input::get('response'));
 		$responseArray["Coordinates"] = $tempCoords;
 		$response = serialize($responseArray);
-		//$response = Input::get('response');
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
@@ -84,10 +106,16 @@ class CellExGameType extends GameTypeHandler {
 		return Redirect::to('gameMenu');
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function renderTask($task) {
 		return $task->data;
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function validateData($data) {
 		return true;
 	}

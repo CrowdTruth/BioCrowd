@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * This Seeder populates the database with the basic information required by 
+ * a new instance of the Dr. Detective game.
+ */
 class DatabaseSeeder extends Seeder {
 	private $adminUser = 'admin';
 	private $adminPassword = '123456';

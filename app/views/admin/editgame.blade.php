@@ -14,6 +14,7 @@
 	}
 	@endif
 
+	// Add extra information (instructions, task list) to the form prior to submit
 	function doSubmit() {
 		// Copy input from instructionsInput DIV to instructions form field
 		$('#instructions').val($('#instructionsInput').html());
@@ -26,12 +27,14 @@
 		$('#tasks').val(tasks);
 	}
 
+	// Add task data from text field to task list.
 	function addTask() {
 		taskText = $('#newTask').val();
 		appendTask(taskText);
 		$('#newTask').val('');
 	}
 
+	// Add the given data to the task list.
 	function appendTask(taskText) {
 		$('#taskList').append('<li class="list-group-item">' + taskText + '</li>');
 	}
@@ -131,10 +134,11 @@
 			$("#game_type").change();
 		@endif
 			
-			// Load task list
-			@foreach ($tasks as $task)
-    			appendTask('{{ $task }}');
-			@endforeach
+		// Load task list
+		@foreach ($tasks as $task)
+    		appendTask('{{ $task }}');
+		@endforeach
+
 		});
 	</script>
 @stop

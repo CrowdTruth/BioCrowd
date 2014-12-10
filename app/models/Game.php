@@ -1,4 +1,12 @@
 <?php
+/**
+ * Game model. Game entities are saved on the games table. Each game 
+ * corresponds to a given GameType, and can have a series of Tasks
+ * associated with the game.
+ * 
+ * Game objects also have the following properties:
+ *		level, name, instructions and extraInfo.
+ */
 class Game extends Eloquent {
 
 	/**
@@ -9,6 +17,12 @@ class Game extends Eloquent {
 	protected $table = 'games';
 	public $timestamps = false;
 	
+	/**
+	 * Public constructor.
+	 * 
+	 * @param $gameType GameType object of the game to be created.
+	 * @param $attributes
+	 */
 	public function __construct($gameType = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
 	
@@ -17,13 +31,17 @@ class Game extends Eloquent {
 		}
 	}
 
+	/**
+	 * Return the GameType of the current game.
+	 */
 	public function gameType() {
-		// TODO: this could be more ELOQUENT, but for the moment, I can't do it
-		return GameType::find($this->game_type);
+		return $this->belongsTo('GameType', 'game_type', 'id');
 	}
 	
+	/**
+	 * Return a list of Task objects associated with the current game.
+	 */
 	public function tasks() {
-		// TODO: this could be more ELOQUENT, but for the moment, I can't do it
-		return Task::where('game_id','=',$this->id)->get();
+		return $this->hasMany('Task', 'game_id', 'id');
 	}
 }

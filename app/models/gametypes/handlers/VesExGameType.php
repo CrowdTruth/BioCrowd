@@ -1,29 +1,50 @@
 <?php
+/**
+ * GameTypeHandler for the VesEx GameType.
+ */
 class VesExGameType extends GameTypeHandler {
-
+	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getName() {
 		return 'VesEx';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getDescription() {
 		return 'Extracting vesicles from microscopic images';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getExtrasDiv($extraInfo) {
 		$divHTML = "No additional information provided for each game.";
 		return $divHTML;
 	}
-
+	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function parseExtraInfo($inputs) {
 		return '';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getThumbnail() {
 		return 'img/factor_validation.png';
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function getView($game) {
-		$tasks = $game->tasks();
+		$tasks = $game->tasks;
 		$userId = Auth::user()->get()->id;
 		// Which image to use ?
 		// Select image with minimum number of judgements from current user
@@ -44,10 +65,12 @@ class VesExGameType extends GameTypeHandler {
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
-			->with('image', $image)
-			;
+			->with('image', $image);
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function processResponse($game) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
@@ -83,16 +106,23 @@ class VesExGameType extends GameTypeHandler {
 		return Redirect::to('gameMenu');
 	}
 	
+	// TODO: document (or remove if not used)
 	function setValueToNo($value){
 		if($value == null){
 			$value = "No";
 		}
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function renderTask($task) {
 		return $task->data;
 	}
 	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function validateData($data) {
 		return true;
 	}

@@ -17,8 +17,11 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->string('email')->unique();
 			$table->string('name');
+			$table->integer('level')->default(1);
+			$table->string('title')->default('Novice');
+			$table->integer('score')->default(0);
 			$table->string('password');
-			$table->string('remember_token');
+			$table->rememberToken();
 			$table->timestamps();
 		});
 
@@ -61,7 +64,7 @@ class InitDatabase extends Migration {
 			$table->foreign('game_type')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
 			$table->string('name');
-			$table->string('instructions', 1000); // (maybe with more than 100)
+			$table->longText('instructions');
 			$table->text('extraInfo');
 		});
 		

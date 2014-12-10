@@ -13,5 +13,4 @@ class AdminPermission extends Eloquent {
 	public function adminUsers() {
 		return $this->belongsToMany('AdminUser');
 	}
-	
 }

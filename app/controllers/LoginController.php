@@ -1,21 +1,36 @@
 <?php
+/**
+ * This controller controls login / logout and registration from users to the game.
+ */
 class LoginController extends BaseController {
+	// TODO: persist $INVITE_CODE on database ?
+	// Maybe use something like this: https://github.com/patkruk/Laravel-Cached-Settings
+	// Or a Settings model of our own?
 	private static $INVITE_CODE = 'm0ng0';
 
+	/**
+	 * Display Blade view of login page.
+	 */
 	public function requestLogin() {
 		return View::make('login');
 	}
-
+	
+	/**
+	 * Perform login with given email/password.
+	 */
 	public function doLogin() {
 		$email = Input::get('email');
 		$pass  = Input::get('password');
-		if( Auth::user()->attempt( array('email' => $email, 'password' => $pass) )){
+		if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
 			return Redirect::to('/');
 		} else {
 			return Redirect::to('login')->with('flash_error', 'Invalid email/password combination.')->withInput();
 		}
 	}
-
+	
+	/**
+	 * Perform user registration.
+	 */
 	public function doRegister() {
 		$email = Input::get('email');
 		$name  = Input::get('name');
@@ -40,10 +55,13 @@ class LoginController extends BaseController {
 			
 			return $this->doLogin();
 		} catch (Exception $e) {
-			return 'Could not create user: ' . $email . '  => ' . $e;
+			return Redirect::to('login')->with('flash_error', 'Could not create user: ' . $email . '  => ' . $e)->withInput();
 		}
 	}
-
+	
+	/**
+	 * Perform logout.
+	 */
 	public function requestLogout() {
 		Session::flush();
 		Session::regenerate();
