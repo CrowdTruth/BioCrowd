@@ -206,7 +206,7 @@ class AdminController extends BaseController {
 		
 		$allGameTypes = [];
 		foreach ($gameTypeFiles as $gameHandlerClass) {
-			// Check if $taskType is a valid TaskType
+			// Check if $taskType is a valid handler
 			if(is_subclass_of($gameHandlerClass, 'GameTypeHandler')) {
 				$gameHandler = new $gameHandlerClass();
 				$gameTypeName = $gameHandler->getName();

@@ -1,13 +1,6 @@
 @extends('layout')
 
 @section('content')
-	<div id="popUpDiv" style="display:none; padding:13px; top:200px;">
-		<b style="font-size:13px; color:black;">How would you like to unlock this paper and add it to your medical library?</b><br />
-		<a href="article.html"><button class='popupButton' style="width:100%; font-size:13px;" onclick="addedToCollection()">Read the paper <br />cost: 10 <img class='coins' src='img/img/'medical_logo.png'></img></button></a>
-		<a href="game_Interview_mockup_contributing_home.html" style="color:black;"><button class='popupButton' style="width:100%; font-size:13px;">Play games<br />earn more <img class='coins' src='img/coins.png'></img> </button></a>
-		<a href="question_answer.html"><button class='popupButton' style="width:100%; font-size:13px;">Annotate this paper<br /> earn: 10 <img class='coins' src='img/coins.png'></img></button></a>
-		<a href="#" id="closeLink" ><b style="font-size:14px; color:black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Close</b></a>
-	</div>	
 	<div class='col-xs-9 maincolumn' style="background:none; width:72%">
 		<div class='row '>
 			<div class='col-xs-6 content_box' style='background:none' >

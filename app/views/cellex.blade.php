@@ -2,9 +2,12 @@
 
 @section('extraheaders')
 	<link href="css_final/CSS.css" rel="stylesheet">
+{{--
+	<link href="css_final/annotorious-dark.css" rel="stylesheet">
+	<script src="js_final/cellex.js"></script>
+	<script src="js_final/annotorious.min.js"></script> --}}
 	<script src="js_final/require.js"></script>
 	<script src="js_final/JavaScript.js"></script>
-	<script src="/js_final/jquery.min.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 @stop
 
@@ -70,6 +73,22 @@
 		</section>
 	</div>
 </div>
+{{--
+<script>
+	$(document).ready(function(){
+		console.log('Start annotorious stuff...');
+		document.getElementById("disabledSubmitButton").disabled = true;
+		anno.makeAnnotatable(document.getElementById('annotatableImage'));
+
+		anno.addHandler('onEditorShown', function(annotation) {
+			console.log('Hide editor...');
+			console.log($('annotorious-editor-button-save').toString	);
+			$('annotorious-editor-button-save').click();
+			console.log('Closed?');
+		});
+	});
+</script>--}}
+
 @stop
 
 @section('sidebar')

@@ -100,7 +100,7 @@
 }
 
 .top-left:after, .annotorious-editor:after {
-  content:url(/img/.png);
+  /*content:url(/img/.png);*/
   position:absolute;
   left:15px;
   top:-14px;

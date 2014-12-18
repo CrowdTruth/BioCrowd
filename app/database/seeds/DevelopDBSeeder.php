@@ -24,6 +24,8 @@ class DevelopDBSeeder extends Seeder {
 		User::create( [
 			'email' => 'loeloe87@hotmail.com',
 			'name' => 'Merel',
+			'level' => '2',
+			'title' => 'Padawan',
 			'password' => Hash::make('Merel')
 		] );
 		
