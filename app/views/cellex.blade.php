@@ -1,13 +1,7 @@
 @extends('layout')
 
 @section('extraheaders')
-	<link href="css_final/CSS.css" rel="stylesheet">
-{{--
-	<link href="css_final/annotorious-dark.css" rel="stylesheet">
-	<script src="js_final/cellex.js"></script>
-	<script src="js_final/annotorious.min.js"></script> --}}
-	<script src="js_final/require.js"></script>
-	<script src="js_final/JavaScript.js"></script>
+	<script src="js_final/ct-annotate.js"></script>
 	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 @stop
 
@@ -41,7 +35,7 @@
 							<input type="hidden" name="contributors_browser" validates="user_agent">
 						</form>
 						<div class="span7">
-							<img class="annotatable" id="annotatableImage" src="{{ $image }}" />
+							<canvas id="annotationCanvas"></canvas>
 						</div>
 						
 						<div class="span4">
@@ -73,22 +67,15 @@
 		</section>
 	</div>
 </div>
-{{--
 <script>
 	$(document).ready(function(){
-		console.log('Start annotorious stuff...');
 		document.getElementById("disabledSubmitButton").disabled = true;
-		anno.makeAnnotatable(document.getElementById('annotatableImage'));
-
-		anno.addHandler('onEditorShown', function(annotation) {
-			console.log('Hide editor...');
-			console.log($('annotorious-editor-button-save').toString	);
-			$('annotorious-editor-button-save').click();
-			console.log('Closed?');
-		});
+		doRect = true;
+		
+		canvas = document.getElementById('annotationCanvas');
+		ct_annotate.loadCanvasImage(canvas, '{{ $image }}', doRect);
 	});
-</script>--}}
-
+</script>
 @stop
 
 @section('sidebar')
