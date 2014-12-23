@@ -2,7 +2,32 @@
 
 @section('extraheaders')
 	<script src="js_final/ct-annotate.js"></script>
-	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script>
+		/**
+		 * Update annotation count and enable/disable submit button accordingly -- at least
+		 * one annotation must be made (or the no-annotation check box must be clicked).
+		 */
+		function updateAnnotationCount() {
+			var count = ct_annotate.getAnnotations().length;
+			$('#nrTags').html(count);
+			
+			if((annotationForm.noCells.checked == false) && (count == 0)) {
+				//If the "noCells" checkbox is unchecked and there are no annotations, disable the submit button
+				document.getElementById("disabledSubmitButton").disabled = true;
+			} else {
+				document.getElementById("disabledSubmitButton").disabled = false;
+			}
+		}
+
+		/**
+		 * Prepare response to be submitted.
+		 */
+		function prepareResponse() {
+			response = ct_annotate.getAnnotations();
+			response = JSON.stringify(response);
+			$('#response').val(response);
+		}
+	</script>
 @stop
 
 @section('content')
@@ -25,17 +50,11 @@
 				
 				<div class="panel panel-primary">
 					<div class="panel-body">
-						<form>
-							<input type="hidden" name="totaltime">
-							<input type="hidden" name="tagtiming">
-							<input type="hidden" name="starttime">
-							<input type="hidden" name="endtime">
-							<input type="hidden" name="annotations">
-							<input type="hidden" name="fullsizeimageclicked" value="false">
-							<input type="hidden" name="contributors_browser" validates="user_agent">
-						</form>
 						<div class="span7">
 							<canvas id="annotationCanvas"></canvas>
+						</div>
+						<div class="span7">
+							{{ Form::button('Remove last', ['onClick' => 'ct_annotate.removeLast()']) }}							
 						</div>
 						
 						<div class="span4">
@@ -46,17 +65,16 @@
 								</div>
 							</div>
 							<br>
-
-							{{ Form::open(array('url' => 'submitGame', 'name' => 'annotationForm')) }}
+							{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
 							{{ Form::hidden('gameId', $gameId) }}
 							{{ Form::hidden('taskId', $taskId) }}
 							{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
 							<div id="None of the above"> <!-- This statement can be used to check for spammers, so keep this open as an option when the rest is checked -->
-								{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells', 'onclick' => 'return taggingFormExtention();' ]) }}
+								{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells', 'onClick' => 'updateAnnotationCount();' ]) }}
 								{{ Form::label('noCells', $resposeLabel) }}
 							</div>
 							<table width="100%">
-								<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton']) }}</td></tr>
+								<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>
 							</table>
 							{{ Form::close() }}
 						</div>
@@ -70,10 +88,18 @@
 <script>
 	$(document).ready(function(){
 		document.getElementById("disabledSubmitButton").disabled = true;
-		doRect = true;
-		
+
+		// Prepare canvas for annotation using ct_annotate library
 		canvas = document.getElementById('annotationCanvas');
-		ct_annotate.loadCanvasImage(canvas, '{{ $image }}', doRect);
+
+		// Trigger our function when annotation takes place.
+		canvas.addEventListener('annotationChanged', updateAnnotationCount, false);
+
+		// Perhaps doRect, styleDrag, styleFixed should be loaded from DB ?
+		doRect=false;		// Draw ellipses
+		styleDrag='red';	// Use red lines while drawing
+		styleFixed='yellow';// Use yellow lines for established annotations
+		ct_annotate.loadCanvasImage(canvas, '{{ $image }}', doRect, styleDrag, styleFixed);
 	});
 </script>
 @stop
