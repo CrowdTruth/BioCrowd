@@ -17,7 +17,11 @@ ct_annotate.min_size = 10; // Minimum size for an annotation to be drawn as a no
  *  styleDrag  Line colour to draw while annotation is being drawn
  *  styleFixed Line colour to draw once annotation has been made
  */
-ct_annotate.loadCanvasImage = function (canvas, imageUrl, doRect=false, styleDrag='red', styleFixed='yellow') {
+ct_annotate.loadCanvasImage = function(canvas, imageUrl, doRect, styleDrag, styleFixed) {
+	if(doRect === undefined) { doRect = false; }
+	if(styleDrag === undefined) { styleDrag = 'red'; }
+	if(styleFixed === undefined) { styleFixed = 'yellow'; }
+	
 	ct_annotate.imageObj = new Image();
 	
 	ct_annotate.imageObj.onload = function() {
@@ -153,7 +157,11 @@ function ct_annotate_draw() {
 		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleDrag;
 	} else {
 		for (idx in ct_annotate.all_rects) {
-			[x,y,w,h] = ct_annotate.all_rects[idx];
+			xywh = ct_annotate.all_rects[idx];
+			x = xywh[0];
+			y = xywh[1];
+			w = xywh[2];
+			h = xywh[3];
 			ct_annotate_drawAnnotation(x,y,w,h);
 		}
 		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
