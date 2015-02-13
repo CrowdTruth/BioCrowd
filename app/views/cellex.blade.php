@@ -19,6 +19,14 @@
 			}
 		}
 
+		function updateShapeSelection() {
+			if(annotationShapeForm.rectangle.checked == true){
+				ct_annotate.changeDrawShape(true);
+			} else if(annotationShapeForm.ellipse.checked == true) {
+				ct_annotate.changeDrawShape(false);
+			}
+		}
+
 		/**
 		 * Prepare response to be submitted.
 		 */
@@ -51,7 +59,18 @@
 				<div class="panel panel-primary">
 					<div class="panel-body">
 						<div class="span7">
-							<canvas id="annotationCanvas"></canvas>
+							<table>
+							<tr><td>
+								<canvas id="annotationCanvas"></canvas>
+								</td>
+								<td width="20px"></td>
+							<td>
+								<form name="annotationShapeForm" action="">
+								<input type="radio" id="rectangle" name="shape" onClick="updateShapeSelection()" value="Rectangle">Rectangle<br/>
+								<input type="radio" id="ellipse" name="shape" onClick="updateShapeSelection()" value="Ellipse" checked="checked">Ellipse
+								</form>
+							</td>
+							</table>
 						</div>
 						<div class="span7">
 							{{ Form::button('Remove last', ['onClick' => 'ct_annotate.removeLast()']) }}							
@@ -71,7 +90,7 @@
 							{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
 							<div id="None of the above"> <!-- This statement can be used to check for spammers, so keep this open as an option when the rest is checked -->
 								{{ Form::checkbox('noCells', 'true', false , [ 'id' => 'noCells', 'onClick' => 'updateAnnotationCount();' ]) }}
-								{{ Form::label('noCells', $resposeLabel) }}
+								{{ Form::label('noCells', $responseLabel) }}
 							</div>
 							<table width="100%">
 								<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>

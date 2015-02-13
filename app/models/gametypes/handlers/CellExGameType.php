@@ -68,14 +68,14 @@ class CellExGameType extends GameTypeHandler {
 			}
 		}
 		$extraInfo = unserialize($game['extraInfo']);
-		$resposeLabel = $extraInfo['label'];
+		$responseLabel = $extraInfo['label'];
 		
 		return View::make('cellex')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
 			->with('image', $image)
-			->with('resposeLabel', $resposeLabel);
+			->with('responseLabel', $responseLabel);
 	}
 	
 	/**

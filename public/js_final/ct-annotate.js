@@ -55,6 +55,14 @@ ct_annotate.loadCanvasImage = function(canvas, imageUrl, doRect, styleDrag, styl
 	}
 }
 
+ct_annotate.changeDrawShape = function(doRect) {
+	if(doRect) {
+		ct_annotate.drawShape = ct_annotate_drawRectangle;
+	} else {
+		ct_annotate.drawShape = ct_annotate_drawEllipse;
+	}
+}
+
 /**
  * Returns an array with all current annotations.
  */
@@ -152,6 +160,20 @@ function ct_annotate_draw() {
 	// If currently dragging -- draw red shape
 	ct_annotate.ctx.beginPath();
 	if(ct_annotate.drag) {
+		for (idx in ct_annotate.all_rects) {
+			//draw the existing rectangles
+			xywh = ct_annotate.all_rects[idx];
+			x = xywh[0];
+			y = xywh[1];
+			w = xywh[2];
+			h = xywh[3];
+			ct_annotate_drawAnnotation(x,y,w,h);
+		}
+		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
+		ct_annotate.ctx.stroke();
+		ct_annotate.ctx.closePath();
+		ct_annotate.ctx.beginPath();
+		//draw the shape that is currently dragged
 		ct_annotate_drawAnnotation(ct_annotate.curr_rect.start_x, ct_annotate.curr_rect.start_y, 
 				ct_annotate.curr_rect.size_width, ct_annotate.curr_rect.size_height);
 		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleDrag;
