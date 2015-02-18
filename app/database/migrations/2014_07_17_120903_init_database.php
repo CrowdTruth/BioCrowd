@@ -92,8 +92,8 @@ class InitDatabase extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
-			$table->integer('task_id')->unsigned();
-			$table->foreign('task_id')->references('id')->on('tasks'); 
+			$table->integer('level');
+			$table->string('game_array');
 			$table->longText('story');
 			$table->string('image');
 			$table->timestamps();
@@ -107,7 +107,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
-		/*Schema::drop('campaigns');*/
+		Schema::drop('campaigns');
 		Schema::drop('judgements');
 		Schema::drop('tasks');
 		Schema::drop('games');
