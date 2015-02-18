@@ -34,7 +34,7 @@ class CampaignListController extends CampaignController {
 			}
 			
 			$item = [ 
-				'link' => 'playGame?gameId='.$campaign->campaignId,
+				'link' => 'playCampaign?campaignId='.$campaign->campaignId,
 				'image' => $campaign->image,
 				'text' => $campaign->name,
 				'enabled' => true		// TODO: get from DB
