@@ -87,6 +87,17 @@ class InitDatabase extends Migration {
 			$table->longText('response');
 			$table->timestamps();
 		});
+		
+		Schema::create('campaigns', function($table)
+		{
+			$table->increments('id');
+			$table->string('name');
+			$table->integer('task_id')->unsigned();
+			$table->foreign('task_id')->references('id')->on('tasks'); 
+			$table->longText('story');
+			$table->string('image');
+			$table->timestamps();
+		});
 	}
 
 	/**
@@ -96,6 +107,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		/*Schema::drop('campaigns');*/
 		Schema::drop('judgements');
 		Schema::drop('tasks');
 		Schema::drop('games');
