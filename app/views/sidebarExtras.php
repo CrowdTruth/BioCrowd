@@ -1,7 +1,7 @@
 <div class="challenges contentbox" style="margin-top:0px; width:320px;margin-bottom:20px;">
 	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 	<img src="img/achievements.png"></img>
-	<center><a href="challenges.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the achievements page</b></a></center>
+	<center><a href="campaignMenu" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the campaigns page</b></a></center>
 		
 </div>
 

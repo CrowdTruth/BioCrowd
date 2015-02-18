@@ -189,7 +189,7 @@ class DevelopDBSeeder extends Seeder {
 						would like you to go over this marking document and add any enemies that haven’t been marked yet and delete any 
 						false markings. Keep in mind that we don’t know who made the mistakes, so you might not find any mistakes! </p>';
 		$campaign->story = serialize($story_array);
-		$campaign->image = 'test';
+		$campaign->image = 'img/army_mission.png';
 		$campaign->save();
 		
 	}

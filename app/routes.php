@@ -24,6 +24,9 @@ Route::get ('logout', 'LoginController@requestLogout');
 // Game logic
 Route::get('gameMenu', 'GameListController@listGames');
 
+// Campaign logic
+Route::get('campaignMenu', 'CampaignListController@listCampaigns');
+
 // Game mechanics added 'on the flight'
 //   Each game mechanics will need:
 //   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
