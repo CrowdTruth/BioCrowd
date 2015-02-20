@@ -18,6 +18,7 @@ class InitDatabase extends Migration {
 			$table->string('email')->unique();
 			$table->string('name');
 			$table->integer('level')->default(1);
+			$table->string('campaigns_finished_array');
 			$table->string('title')->default('Novice');
 			$table->integer('score')->default(0);
 			$table->string('password');
@@ -98,6 +99,18 @@ class InitDatabase extends Migration {
 			$table->string('image');
 			$table->timestamps();
 		});
+		
+		Schema::create('campaign_progress', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->unsigned();
+			//$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->integer('user_id')->unsigned();
+			//$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('number_performed')->default(0);
+			$table->timestamps();
+		});
+		
 	}
 
 	/**
@@ -107,6 +120,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		Schema::drop('campaign_progress');
 		Schema::drop('campaigns');
 		Schema::drop('judgements');
 		Schema::drop('tasks');

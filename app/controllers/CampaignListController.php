@@ -37,7 +37,7 @@ class CampaignListController extends CampaignController {
 				'link' => 'playCampaign?campaignId='.$campaign->campaignId,
 				'image' => $campaign->image,
 				'text' => $campaign->name,
-				'enabled' => true		// TODO: get from DB
+				'enabled' => true		// TODO: get from DB (disabled if user already completed this campaign)
 			];
 			array_push($levelN, $item);
 		}

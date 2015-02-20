@@ -192,5 +192,13 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->image = 'img/army_mission.png';
 		$campaign->save();
 		
+		$this->command->info('Create test CampaignProgress');
+		$campaign_progress = new CampaignProgress();
+		$campaign_progress->save();
+		//TO DO: Don't fill this here, but by actually doing the campaign
+		$campaign_progress->campaign_id = 1;
+		$campaign_progress->user_id = 2;
+		$campaign_progress->number_performed = 2;
+		$campaign_progress->save();
 	}
 }
