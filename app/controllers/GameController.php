@@ -24,7 +24,7 @@ class GameController extends BaseController {
 		// Use corresponding game controller to display game.
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
-		return $handler->getView($game);
+		return $handler->getView($game)->with('CampaignMode', false);
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('baseGameView')
 
 @section('extraheaders')
 	<script src="js_final/ct-annotate.js"></script>
@@ -35,29 +35,26 @@
 			response = JSON.stringify(response);
 			$('#response').val(response);
 		}
+
+		$(document).ready(function(){
+			document.getElementById("disabledSubmitButton").disabled = true;
+
+			// Prepare canvas for annotation using ct_annotate library
+			canvas = document.getElementById('annotationCanvas');
+
+			// Trigger our function when annotation takes place.
+			canvas.addEventListener('annotationChanged', updateAnnotationCount, false);
+
+			// Perhaps doRect, styleDrag, styleFixed should be loaded from DB ?
+			doRect=false;		// Draw ellipses
+			styleDrag='red';	// Use red lines while drawing
+			styleFixed='yellow';// Use yellow lines for established annotations
+			ct_annotate.loadCanvasImage(canvas, '{{ $image }}', doRect, styleDrag, styleFixed);
+		});
 	</script>
 @stop
 
-@section('content')
-<div class='col-xs-9 maincolumn' style="background: none; width: 72%">
-	<div class='row gameContent' style="width: 100%; height: 100%;">
-		<!--/////////////////////////////////////////GAME CONTENT/////////////////////////////////////////////////////////////////////-->
-		<section class="container" style="padding: 10px 10px; font-family: Verdana, Geneva, sans-serif; color: #333333; font-size: 0.9em;">
-			<div class="row col-md-12" style="width: 76%;">
-				<!-- Instructions -->
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<strong>Instructions</strong>
-					</div>
-
-					<div class="panel-body">
-						{{ $instructions }}
-					</div>
-				</div>
-				<!-- End Instructions -->
-				
-				<div class="panel panel-primary">
-					<div class="panel-body">
+@section('gameForm')
 						<div class="span7">
 							<table>
 							<tr><td>
@@ -97,33 +94,5 @@
 							</table>
 							{{ Form::close() }}
 						</div>
-					</div>
-				</div>
-			</div>
-		<!--/////////////////////////////////////////END GAME CONTENT/////////////////////////////////////////////////////////////////////-->
-		</section>
-	</div>
-</div>
-<script>
-	$(document).ready(function(){
-		document.getElementById("disabledSubmitButton").disabled = true;
-
-		// Prepare canvas for annotation using ct_annotate library
-		canvas = document.getElementById('annotationCanvas');
-
-		// Trigger our function when annotation takes place.
-		canvas.addEventListener('annotationChanged', updateAnnotationCount, false);
-
-		// Perhaps doRect, styleDrag, styleFixed should be loaded from DB ?
-		doRect=false;		// Draw ellipses
-		styleDrag='red';	// Use red lines while drawing
-		styleFixed='yellow';// Use yellow lines for established annotations
-		ct_annotate.loadCanvasImage(canvas, '{{ $image }}', doRect, styleDrag, styleFixed);
-	});
-</script>
 @stop
 
-@section('sidebar')
-	@parent
-	@include('sidebarExtras')
-@stop

@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('baseGameView')
 
 @section('extraheaders')
 <script type="text/javascript">
@@ -15,26 +15,8 @@ function formExtention(){
 </script>
 @stop
 
-@section('content')
-<div class='col-xs-9 maincolumn' style="background: none; width: 72%">
-	<div class='row gameContent' style="width: 100%; height: 100%;">
-		<section class="container" style="padding: 10px 10px; font-family: Verdana, Geneva, sans-serif; color: #333333; font-size: 0.9em;">
-			<div class="row col-md-12" style="width: 76%;">
-		<!--/////////////////////////////////////////GAME CONTENT/////////////////////////////////////////////////////////////////////-->
-		<!-- Bootstrap v3.0.3 -->
-			<!-- Instructions -->
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<strong>Instructions</strong>
-					</div>
+@section('gameForm')
 
-					<div class="panel-body">
-						{{ $instructions }}
-					</div>
-				</div>
-			<!-- End Instructions -->
-				<div class="row">
-    				<div class="span7">
 
     				<?php $imageWidth = getimagesize($image)[0];
     				$imageHeight = getimagesize($image)[1];
@@ -53,9 +35,6 @@ function formExtention(){
       					@else
       						<img id="annotatableImage" src="{{ $image }}" />
       					@endif
-      					
-    				</div>
-    			</div>
     			<BR>
     			<div class="span4">
       				{{ Form::open(array('url' => 'submitGame', 'name' => 'questionForm')) }}
@@ -85,20 +64,5 @@ function formExtention(){
       				</table>
       				{{ Form::close() }}
       			</div>
-    		</div>
 
-
-		<!-- close container -->
-
-
-		<!--/////////////////////////////////////////END GAME CONTENT/////////////////////////////////////////////////////////////////////-->
-	</section>
-	</div>
-</div>
-
-@stop
-
-@section('sidebar')
-	@parent
-	@include('sidebarExtras')
 @stop
