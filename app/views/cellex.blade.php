@@ -55,6 +55,8 @@
 @stop
 
 @section('gameForm')
+							
+
 						<div class="span7">
 							<table>
 							<tr><td>
@@ -81,7 +83,6 @@
 								</div>
 							</div>
 							<br>
-							{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
 							{{ Form::hidden('gameId', $gameId) }}
 							{{ Form::hidden('taskId', $taskId) }}
 							{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
@@ -92,7 +93,8 @@
 							<table width="100%">
 								<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>
 							</table>
-							{{ Form::close() }}
 						</div>
+
+
 @stop
 

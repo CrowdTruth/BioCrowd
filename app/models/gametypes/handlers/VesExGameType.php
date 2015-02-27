@@ -60,12 +60,21 @@ class VesExGameType extends GameTypeHandler {
 				$taskId = $task->id;
 			}
 		}
+		$extraInfo = unserialize($game['extraInfo']);
+		$responseLabel = $extraInfo['label'];
+		$label1 = $extraInfo['label1'];
+		$label2 = $extraInfo['label2'];
+		$label3 = $extraInfo['label3'];
 		
 		return View::make('vesex')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
-			->with('image', $image);
+			->with('image', $image)
+			->with('responseLabel', $responseLabel)
+			->with('label1', $label1)
+			->with('label2', $label2)
+			->with('label3', $label3);
 	}
 	
 	/**

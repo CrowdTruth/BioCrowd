@@ -130,7 +130,10 @@ class DevelopDBSeeder extends Seeder {
 				.'Example:'
 				.'</p>'
 				.'<img src="img/VesEx_instructions.png">';
-		$game->extraInfo = '';
+		$game->extraInfo = serialize([ 	'label' => 'There are no vesicles in this image', 
+										'label1' => 'The vesicles are equally distributed', 
+										'label2' => 'The vesicles are near the tip' , 
+										'label3' => 'The vesicles are near the nucleus']);
 		$game->save();
 		
 		$images = glob('public/img/vesEx/*');
@@ -162,43 +165,63 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign();
-		$campaign->save();
-		
 		$campaign->level = 1;
 		$campaign->name = 'Army Mission';
-		$temp_game_array = [1,1,2,3,4];
-		$campaign->game_array = serialize($temp_game_array);
-		$story_array[0] = ''
-				.'<p>In this campaign you will be working for the army. </p>';
-		$story_array[1] = ''
-				.'<p>The enemy has a small base in the desert. It is very important to estimate the amount of troops the enemy has in that base. 
-						In order to do this, you must count the amount of tents/buildings the enemy has built there. Be careful! The enemy has 
-						tried to hide their buildings by putting them in the awning of the walls. Good luck!</p>';
-		$story_array[2] = ''
-				.'<p>The building count has given us a good sense of their numbers, well done. Now we need to know the blueprint of 
-						their main building, where we will begin our assault. We have used a satellite with X-ray vision to see the 
-						walls of the building. <Example of a room> Put a marking on each room you see. Be careful! Some rooms might lie 
-						on top of other rooms and seem to overlap in the picture. Count these as two separate rooms. </p>';
-		$story_array[3] = ''
-				.'<p>The blueprint you constructed in last assignment has given us a new insight: the people that are standing in the rooms can 
-						be seen in the x-ray photos as well! This would give us an even more accurate count of the amount of enemies in the base. 
-						<Example of an enemy head> Put a marking on each enemy you see. Be careful! Some enemies might seem to overlap since 
-						they are on different stories of the building. Count these as two separate enemies. </p>';
-		$story_array[4] = ''
-				.'<p>Oh dear. Some people have made mistakes in marking the enemies. However, we don’t know who made the mistakes. We 
-						would like you to go over this marking document and add any enemies that haven’t been marked yet and delete any 
-						false markings. Keep in mind that we don’t know who made the mistakes, so you might not find any mistakes! </p>';
-		$campaign->story = serialize($story_array);
+		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
 		$campaign->save();
 		
 		$this->command->info('Create test CampaignProgress');
 		$campaign_progress = new CampaignProgress();
-		$campaign_progress->save();
-		//TO DO: Don't fill this here, but by actually doing the campaign
+		//TO DO: Don't fill this in here, but by actually doing the campaign
 		$campaign_progress->campaign_id = 1;
 		$campaign_progress->user_id = 2;
 		$campaign_progress->number_performed = 2;
 		$campaign_progress->save();
+		
+		
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = '1';
+		$campaign_games->game_id = '1';
+		$campaign_games->story = '<p>The enemy has a small base in the desert. It is very important to estimate the amount of troops the enemy has in that base.
+						In order to do this, you must count the amount of tents/buildings the enemy has built there. Be careful! The enemy has
+						tried to hide their buildings by putting them in the awning of the walls. Good luck!</p>';
+		$campaign_games->extraInfo = serialize([ 'label' => 'There are no tents/buildings in this image' ]);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = '1';
+		$campaign_games->game_id = '1';
+		$campaign_games->story = '<p>The building count has given us a good sense of their numbers, well done. Now we need to know the blueprint of
+						their main building, where we will begin our assault. We have used a satellite with X-ray vision to see the
+						walls of the building. <Example of a room> Put a marking on each room you see. Be careful! Some rooms might lie
+						on top of other rooms and seem to overlap in the picture. Count these as two separate rooms. </p>';
+		$campaign_games->extraInfo = serialize([ 'label' => 'There are no rooms in this image' ]);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = '1';
+		$campaign_games->game_id = '2';
+		$campaign_games->story = '<p>The blueprint you constructed in last assignment has given us a new insight: the people that are standing in the rooms can
+						be seen in the x-ray photos as well! This would give us an even more accurate count of the amount of enemies in the base.
+						<Example of an enemy head> Put a marking on each enemy you see. Be careful! Some enemies might seem to overlap since
+						they are on different stories of the building. Count these as two separate enemies. </p>';
+		$campaign_games->extraInfo = serialize([ 'label' => 'There are no enemies in this image' ]);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = '1';
+		$campaign_games->game_id = '3';
+		$campaign_games->story = '<p>Oh dear. Some people have made mistakes in marking the enemies. However, we don’t know who made the mistakes. We
+						would like you to go over this marking document and add any enemies that haven’t been marked yet and delete any
+						false markings. Keep in mind that we don’t know who made the mistakes, so you might not find any mistakes! </p>';
+		$campaign_games->extraInfo = serialize([ 'label' => 'There are no mistakes in this image' ]);
+		$campaign_games->save();
+
 	}
 }

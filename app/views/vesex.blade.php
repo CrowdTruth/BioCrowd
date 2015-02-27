@@ -41,20 +41,20 @@ function formExtention(){
       				{{ Form::hidden('gameId', $gameId) }}
       				{{ Form::hidden('taskId', $taskId) }}
       				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'distributed' , 'onclick' => 'return formExtention();']) }}
-      				{{ Form::label('distributed', 'The vesicles are equally distributed') }}
+      				{{ Form::label('distributed', $label1) }}
       				<div id="hiddenQuestions" style="display: block"> <!-- Hide these when the user clicked on the "equally distributed" box, because they don't add anything. If someone were to check them AND check the distributed one, it would NOT find spammers because if the vesicles are everywhere, they are naturally also near the nucleus and tips. -->
       				<div>
       					{{ Form::checkbox('tip', 'Yes', false , [ 'id' => 'tip' ]) }}
-      					{{ Form::label('tip', 'The vesicles are near the tip') }}
+      					{{ Form::label('tip', $label2) }}
       				</div>
       				<div>
       					{{ Form::checkbox('nucleus', 'Yes', false , [ 'id' => 'nucleus' ]) }}
-      					{{ Form::label('nucleus', 'The vesicles are near the nucleus') }}
+      					{{ Form::label('nucleus', $label3) }}
       				</div>
       				</div>
       				<div id="None of the above"> <!-- This statement can be used to check for spammers, so keep this open as an option when the rest is checked -->
       					{{ Form::checkbox('novesicles', 'true', false , [ 'id' => 'novesicles' ]) }}
-      					{{ Form::label('novesicles', 'There are no vesicles in this image') }}
+      					{{ Form::label('novesicles', $responseLabel) }}
       				</div>
       				
       				<p>
