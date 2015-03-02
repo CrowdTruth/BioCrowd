@@ -33,11 +33,31 @@ class CampaignListController extends CampaignController {
 				$levelN = [];
 			}
 			
+			//attempt to extract the campaignProgress dictionary from the database. If the length is 0, the number of performed games is zero. 
+			$campaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->campaignId)->first(['number_performed']);
+			
+			if(count($campaignProgress) < 1){
+				$numberPerformed = 0;
+			} else {
+				//Find out what the next game is for this user in this campaign
+				$numberPerformed = $campaignProgress['number_performed'];
+			}
+			
+			$numberOfGamesInThisCampaign = CampaignGames::where('campaign_id',$campaign->campaignId)->count();
+			
+			//set default completed to false
+			$completed = false;
+			
+			//if the progress is the same as the number of campaigns in this campaign, set completed to true
+			if($numberPerformed == $numberOfGamesInThisCampaign){
+				$completed = true;
+			}
+			
 			$item = [ 
 				'link' => 'playCampaign?campaignId='.$campaign->campaignId,
 				'image' => $campaign->image,
 				'text' => $campaign->name,
-				'enabled' => true		// TODO: get from DB (disabled if user already completed this campaign)
+				'enabled' => !$completed		//disabled if user already completed this campaign, enabled otherwise
 			];
 			array_push($levelN, $item);
 		}

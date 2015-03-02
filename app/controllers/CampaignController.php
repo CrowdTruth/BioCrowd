@@ -63,6 +63,7 @@ class CampaignController extends BaseController {
 		//$gameController = new GameController;
 		//$gameController->submitGame;
 		
+		//TO DO: instead of these lines, refer to the GameController->submitGame (see tried code above)
 		// Get parameter which game ?
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
@@ -71,6 +72,7 @@ class CampaignController extends BaseController {
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
 		$handler->processResponse($game);
+		//end TO DO
 		
 		//get the campaignId parameter
 		$campaignId = Input::get('campaignId');
