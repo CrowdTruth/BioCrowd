@@ -52,8 +52,44 @@ class CampaignController extends BaseController {
 		$view = $view->with('campaignMode', true);
 		$view = $view->with('story', $story);
 		$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
+		$view = $view->with('campaignId', $campaignId);
+		$view = $view->with('numberPerformed', $numberPerformed);
+		$view = $view->with('amountOfGamesInThisCampaign', count($game_array));
 		return $view;
 	}
 	
 	//TO DO: Make an "editCampaign function
+	public function submitCampaign(){
+		//$gameController = new GameController;
+		//$gameController->submitGame;
+		
+		// Get parameter which game ?
+		$gameId = Input::get('gameId');
+		$game = Game::find($gameId);
+		
+		// Use corresponding game controller to process request.
+		$handlerClass = $game->gameType->handler_class;
+		$handler = new $handlerClass();
+		$handler->processResponse($game);
+		
+		//get the campaignId parameter
+		$campaignId = Input::get('campaignId');
+		//get the amount of tasks performed by this user
+		$numberPerformed = Input::get('numberPerformed');
+		//get the campaignProgress entry you need to edit
+		$campaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaignId)->first();
+		//edit the number_performed in the campaignProgress model and save to the database
+		$campaignProgress->number_performed = $numberPerformed+1;
+		$campaignProgress->save();
+		
+		//get the game_array from the POST data
+		$amountOfGamesInThisCampaign = Input::Get('amountOfGamesInThisCampaign');
+		
+		//return to next cammpaign or campaign overview page if the campaign is done. 
+		if($numberPerformed+1 == $amountOfGamesInThisCampaign){
+			return Redirect::to('campaignMenu');
+		} else {
+			return Redirect::to('playCampaign?campaignId='.$campaignId);
+		}
+	}
 }

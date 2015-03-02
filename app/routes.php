@@ -36,6 +36,7 @@ Route::get('playGame', 'GameController@playGame');
 Route::post('submitGame', 'GameController@submitGame');
 
 Route::get('playCampaign', 'CampaignController@playCampaign');
+Route::post('submitCampaign', 'CampaignController@submitCampaign');
 
 // Administrator module routes -- maybe even put in another file ?
 Route::get ('admin/login' , 'AdminController@requestLogin');

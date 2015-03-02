@@ -37,7 +37,7 @@ function formExtention(){
       					@endif
     			<BR>
     			<div class="span4">
-      				{{ Form::open(array('url' => 'submitGame', 'name' => 'questionForm')) }}
+      				{{ Form::open(array('url' => 'submitGame', 'name' => 'questionForm')) }} <!-- TO DO: put this in baseGameView -->
       				{{ Form::hidden('gameId', $gameId) }}
       				{{ Form::hidden('taskId', $taskId) }}
       				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'distributed' , 'onclick' => 'return formExtention();']) }}
