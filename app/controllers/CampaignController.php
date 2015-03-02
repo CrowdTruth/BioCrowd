@@ -32,7 +32,6 @@ class CampaignController extends BaseController {
 		$campaignGame = CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first();
 		
 		//Select the correct story for this game_id and campaign_id combination from CampaignCames
-	//	$story = CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first()['story'];
 		$story = $campaignGame['story'];
 		
 		//Select the correct label for the text under the image
@@ -44,20 +43,15 @@ class CampaignController extends BaseController {
 		// Use corresponding game controller to display game.
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
-//		return $handler->getView($game)
-//			->with('campaignMode', true)
-//			->with('story', $story)
-//			->with('responseLabel', $responseLabel);
-
+		
+		//build the view with all extra info that is in the "extraInfo" column of the campaign_games table
 		$view = $handler->getView($game);
-		//dd($campaignGame['extraInfo']);
-		dd(unserialize($campaignGame['extraInfo']));
-		foreach(unserialize($campaignGame['extraInfo']) as $key->$value){
+		foreach(unserialize($campaignGame['extraInfo']) as $key=>$value){
 			$view = $view->with($key, $value);
 		}
 		$view = $view->with('campaignMode', true);
 		$view = $view->with('story', $story);
-		$view = $view->with('responseLabel', $responseLabel);
+		$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
 		return $view;
 	}
 	
