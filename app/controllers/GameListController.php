@@ -34,7 +34,10 @@ class GameListController extends GameController {
 		$currLevel = 1;
 		$levelN = [];
 		$levels = [ ];
+		// Loop through all games, ordered by level
 		foreach($gamesAvl as $game) {
+			// If the loop has reached the games of a new level
+			//  -- make a new list of games in that level.
 			if($game->level>$currLevel && count($levelN)>0) {
 				$currLevel = $game->level;
 				array_push($levels, $levelN);
