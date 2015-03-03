@@ -78,11 +78,24 @@ class CampaignController extends BaseController {
 		$campaignId = Input::get('campaignId');
 		//get the amount of tasks performed by this user
 		$numberPerformed = Input::get('numberPerformed');
-		//get the campaignProgress entry you need to edit
-		$campaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaignId)->first();
-		//edit the number_performed in the campaignProgress model and save to the database
-		$campaignProgress->number_performed = $numberPerformed+1;
-		$campaignProgress->save();
+		$userId = Auth::user()->get()->id;
+		
+		if($numberPerformed == 0){
+			//Since there is no entry in the campaign_progress table yet, make a new campaignProgress model. 
+			$campaignProgress = new CampaignProgress;
+			//fill it with all important information
+			$campaignProgress->number_performed = $numberPerformed+1;
+			$campaignProgress->campaign_id = $campaignId;
+			$campaignProgress->user_id = $userId;
+			//and save it to the database
+			$campaignProgress->save();
+		} else {
+			//get the campaignProgress entry you need to edit
+			$campaignProgress = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaignId)->first();
+			//edit the number_performed in the campaignProgress model and save to the database
+			$campaignProgress->number_performed = $numberPerformed+1;
+			$campaignProgress->save();
+		}
 		
 		//get the game_array from the POST data
 		$amountOfGamesInThisCampaign = Input::Get('amountOfGamesInThisCampaign');
