@@ -37,7 +37,6 @@ function formExtention(){
       					@endif
     			<BR>
     			<div class="span4">
-      				{{ Form::open(array('url' => 'submitGame', 'name' => 'questionForm')) }} <!-- TO DO: put this in baseGameView -->
       				{{ Form::hidden('gameId', $gameId) }}
       				{{ Form::hidden('taskId', $taskId) }}
       				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'distributed' , 'onclick' => 'return formExtention();']) }}
@@ -62,7 +61,6 @@ function formExtention(){
       				<table width="100%">
      		 		<tr><td align="center">{{ Form::submit('Submit') }}</td></tr>
       				</table>
-      				{{ Form::close() }}
       			</div>
 
 @stop
