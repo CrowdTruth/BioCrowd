@@ -24,6 +24,11 @@ class GameListController extends GameController {
 			->orderBy('level')
 			->select('games.id as gameId','games.name as name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))
 			->get();
+		
+		//get the level of the user
+		$userLevel = Auth::user()->get()->level;
+		//put the gameEnabled variable to default false
+		$gameEnabled = false;
 
 		// Build list to return to user
 		$currLevel = 1;
@@ -36,11 +41,18 @@ class GameListController extends GameController {
 				$levelN = [];
 			}
 			
+			//Set gameEnabled to true if the user level is equal to or exceeds the game level and false if otherwise. 
+			if($userLevel >= $game->level){
+				$gameEnabled = true;
+			} else {
+				$gameEnabled = false;
+			}
+			
 			$item = [ 
 				'link' => 'playGame?gameId='.$game->gameId,
 				'image' => $game->thumbnail,
 				'text' => $game->name,
-				'enabled' => true		// TODO: get from DB
+				'enabled' => $gameEnabled
 			];
 			array_push($levelN, $item);
 		}
