@@ -171,15 +171,6 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->image = 'img/army_mission.png';
 		$campaign->save();
 		
-		$this->command->info('Create test CampaignProgress');
-		$campaign_progress = new CampaignProgress();
-		//TO DO: Don't fill this in here, but by actually doing the campaign
-		$campaign_progress->campaign_id = 1;
-		$campaign_progress->user_id = 2;
-		$campaign_progress->number_performed = 2;
-		$campaign_progress->save();
-		
-		
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames();
@@ -222,6 +213,5 @@ class DevelopDBSeeder extends Seeder {
 						false markings. Keep in mind that we don’t know who made the mistakes, so you might not find any mistakes! </p>';
 		$campaign_games->extraInfo = serialize([ 'label' => 'There are no mistakes in this image' ]);
 		$campaign_games->save();
-
 	}
 }

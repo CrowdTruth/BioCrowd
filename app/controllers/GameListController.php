@@ -27,41 +27,52 @@ class GameListController extends GameController {
 		
 		//get the level of the user
 		$userLevel = Auth::user()->get()->level;
-		//put the gameEnabled variable to default false
-		$gameEnabled = false;
+		//put the enabled variable to default false
+		$enabled = false;
 
 		// Build list to return to user
-		$currLevel = 1;
 		$levelN = [];
 		$levels = [ ];
-		// Loop through all games, ordered by level
-		foreach($gamesAvl as $game) {
-			// If the loop has reached the games of a new level
-			//  -- make a new list of games in that level.
-			if($game->level>$currLevel && count($levelN)>0) {
-				$currLevel = $game->level;
-				array_push($levels, $levelN);
-				$levelN = [];
+		
+		$gameNumber = 0;
+		
+		$highestLevel = $gamesAvl[count($gamesAvl)-1]->level;
+		
+		//loop through all levels
+		for($currentLevel = 1; $currentLevel <= $highestLevel; $currentLevel++){
+			//and loop through all games, ordered by level
+			while($gameNumber < count($gamesAvl)){
+				//set the game variable
+				$game = $gamesAvl[$gameNumber];
+				//if the level of this game is not equal to the level of the last game, push the levelN array to the Levels array and start a new levelN array. 
+				if($game->level != $currentLevel){
+					array_push($levels, $levelN);
+					$levelN = [];
+					break 1;
+				} else {
+					//Set enabled to true if the user level is equal to or exceeds the game level and false if otherwise.
+					if($userLevel >= $game->level){
+						$enabled = true;
+					} else {
+						$enabled = false;
+					}
+					
+					//create the game pictogram (item) with the correct text and enablement. 
+					$item = [
+					'link' => 'playGame?gameId='.$game->gameId,
+					'image' => $game->thumbnail,
+					'text' => $game->name,
+					'enabled' => $enabled
+					];
+					
+					//put the game pictogram into the levelN array
+					array_push($levelN, $item);
+				}
+				$gameNumber++;
 			}
-			
-			//Set gameEnabled to true if the user level is equal to or exceeds the game level and false if otherwise. 
-			if($userLevel >= $game->level){
-				$gameEnabled = true;
-			} else {
-				$gameEnabled = false;
-			}
-			
-			$item = [ 
-				'link' => 'playGame?gameId='.$game->gameId,
-				'image' => $game->thumbnail,
-				'text' => $game->name,
-				'enabled' => $gameEnabled
-			];
-			array_push($levelN, $item);
 		}
-		if(count($levelN)>0) {
-			array_push($levels, $levelN);
-		}
+		//push the last of the levelN arrays to the levels array
+		array_push($levels, $levelN);
 		
 		return View::make('gameMenu')->with('levels', $levels);
 	}
