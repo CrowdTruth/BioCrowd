@@ -3,7 +3,7 @@
  * This controller controlls traffic for displaying campaign mechanics
  * and handling responses from these mechanics.
  */
-class CampaignController extends BaseController {
+class CampaignController extends GameController {
 	/**
 	 * Determine next game in this campaign identified by the given campaignId,
 	 * the userId and the campaign_progress
@@ -60,19 +60,7 @@ class CampaignController extends BaseController {
 	
 	//TO DO: Make an "editCampaign function
 	public function submitCampaign(){
-		//$gameController = new GameController;
-		//$gameController->submitGame;
-		
-		//TO DO: instead of these lines, refer to the GameController->submitGame (see tried code above)
-		// Get parameter which game ?
-		$gameId = Input::get('gameId');
-		$game = Game::find($gameId);
-		
-		// Use corresponding game controller to process request.
-		$handlerClass = $game->gameType->handler_class;
-		$handler = new $handlerClass();
-		$handler->processResponse($game);
-		//end TO DO
+		$this->submitGame();
 		
 		//get the campaignId parameter
 		$campaignId = Input::get('campaignId');
