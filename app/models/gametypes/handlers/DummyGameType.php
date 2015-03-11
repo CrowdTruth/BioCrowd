@@ -1,6 +1,6 @@
 <?php
 /**
- * This GameTypeHandler does nothing -- this class is mean as an example to illustrate 
+ * This GameTypeHandler does nothing -- this class is mean as an example to illustrate 				DUE FOR DELETION
  * how to develop your own GameTypeHandler.
  */
 class DummyGameType extends GameTypeHandler {

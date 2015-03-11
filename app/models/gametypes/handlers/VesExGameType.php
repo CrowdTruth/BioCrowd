@@ -1,6 +1,6 @@
 <?php
 /**
- * GameTypeHandler for the VesEx GameType.
+ * GameTypeHandler for the VesEx GameType.					DUE FOR DELETION
  */
 class VesExGameType extends GameTypeHandler {
 	

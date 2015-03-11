@@ -1,6 +1,6 @@
 <?php
 /**
- * GameTypeHandler for CellEx extraction GameType.
+ * GameTypeHandler for CellEx extraction GameType.				DUE FOR DELETION
  */
 class CellExGameType extends GameTypeHandler {
 
