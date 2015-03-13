@@ -26,7 +26,6 @@ class Task extends Eloquent {
 		parent::__construct($attributes); // Eloquent
 
 		if($game!=null) {
-			$this->game_id = $game->id;
 			$this->data = $data;
 		}
 	}

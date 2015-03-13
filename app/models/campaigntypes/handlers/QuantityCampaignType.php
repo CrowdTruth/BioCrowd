@@ -2,20 +2,20 @@
 /**
  * GameTypeHandler for CellEx extraction GameType. 
  */
-class CellExGameType extends GameTypeHandler {
+class QuantityCampaignType extends CampaignTypeHandler {
 
 	/**
 	 * See GameTypeHandler
 	 */
 	public function getName() {
-		return 'CellEx';
+		return 'Quantity';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
 	public function getDescription() {
-		return 'Extracting cells from microscopic images';
+		return 'Rewarding the user for doing the same game X times';
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class CellExGameType extends GameTypeHandler {
 		$label = $extraInfo['label'];
 		$divHTML = "";
 		$divHTML .= "<label for='data' class='col-sm-2 control-label'>Label:</label>";
-		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";
+		$divHTML .= "<input class='form-control' name='quantityCampaignLabel' type='text' value='".$label."' id='quantityCampaignLabel'>";
 		$divHTML .= "";
 		return $divHTML;
 	}
@@ -36,7 +36,7 @@ class CellExGameType extends GameTypeHandler {
 	 */
 	public function parseExtraInfo($inputs) {
 		$extraInfo['label'] = [];
-		$extraInfo['label'] = $inputs['cellExLabel'];
+		$extraInfo['label'] = $inputs['quantityCampaignLabel'];
 		return serialize($extraInfo);
 	}
 	
@@ -44,44 +44,13 @@ class CellExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function getThumbnail() {
-		return 'img/factor_validation1.png';
+		return 'img/army_mission.png';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getView($game) {
-		$tasks = $game->tasks;
-		$userId = Auth::user()->get()->id;
-		// Which image to use ?
-		// Select image with minimum number of judgements from current user
-		$image = null;
-		$taskId = null;
-		$minJudgementCounts = -1;
-		foreach ($tasks as $task) {
-			$nJudgements = Judgement::where('task_id','=',$task->id)
-									->where('user_id','=',$userId)->count();
-			if($nJudgements<$minJudgementCounts || $image==null) {
-				$minJudgementCounts = $nJudgements;
-				$image = $task->data;
-				$taskId = $task->id;
-			}
-		}
-		$extraInfo = unserialize($game['extraInfo']);
-		$responseLabel = $extraInfo['label'];
-		
-		return View::make('cellex')
-			->with('gameId', $game->id)
-			->with('taskId', $taskId)
-			->with('instructions', $game->instructions)
-			->with('image', $image)
-			->with('responseLabel', $responseLabel);
-	}
-	
-	/**
-	 * See GameTypeHandler
-	 */
-	public function processResponse($game) {
+	/*public function processResponse($game) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
@@ -104,19 +73,19 @@ class CellExGameType extends GameTypeHandler {
 		$judgement->save();
 		
 		return Redirect::to('gameMenu');
-	}
+	}*/
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function renderTask($task) {
+	/*public function renderTask($task) {
 		return $task->data;
-	}
+	}*/
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function validateData($data) {
+	/*public function validateData($data) {
 		return true;
-	}
+	}*/
 }

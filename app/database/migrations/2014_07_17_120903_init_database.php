@@ -48,9 +48,20 @@ class InitDatabase extends Migration {
 			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 		
+		Schema::create('game_types', function($table)
+		{
+			$table->increments('id');
+			$table->string('name');
+			$table->string('description');
+			$table->string('handler_class');
+			$table->string('thumbnail');
+		});
+		
 		Schema::create('games', function($table)
 		{
 			$table->increments('id');
+			$table->integer('game_type')->unsigned();
+			$table->foreign('game_type')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
 			$table->string('name');
 			$table->longText('instructions');
@@ -73,16 +84,6 @@ class InitDatabase extends Migration {
 			$table->foreign('task_type_id')->references('id')->on('task_types');
 			$table->string('data');
 			$table->timestamps();
-		});
-		
-		Schema::create('workflows', function($table)
-		{
-			$table->increments('id');
-			$table->string('name');
-			$table->integer('task_id')->unsigned();
-			$table->foreign('task_id')->references('id')->on('tasks');
-			$table->integer('generate_task_type')->unsigned();
-			$table->foreign('generate_task_type')->references('id')->on('task_types');
 		});
 		
 		Schema::create('game_has_task', function($table)
@@ -109,6 +110,8 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('description');
+			$table->string('handler_class');
+			$table->string('thumbnail');
 		});
 		
 		Schema::create('campaigns', function($table)
@@ -138,7 +141,7 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
-		Schema::create('campaign_games', function($table)
+		Schema::create('campaign_has_game', function($table)
 		{
 			$table->increments('id');
 			$table->integer('campaign_id')->unsigned();
@@ -157,16 +160,16 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('campaign_games');
+		Schema::drop('campaign_has_game');
 		Schema::drop('campaign_progress');
 		Schema::drop('campaigns');
 		Schema::drop('campaign_types');
 		Schema::drop('judgements');
 		Schema::drop('game_has_task');
-		Schema::drop('workflows');
 		Schema::drop('tasks');
 		Schema::drop('task_types');
-		Schema::drop('games');;
+		Schema::drop('games');
+		Schema::drop('game_types');
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');
 		Schema::drop('admin_permissions');

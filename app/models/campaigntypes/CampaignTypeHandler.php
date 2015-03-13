@@ -40,44 +40,6 @@ abstract class CampaignTypeHandler {
 	public abstract function parseExtraInfo($inputs);
 	
 	/**
-	 * Return the HTML used to display a Task from the GameType managed by this handler,
-	 * on the admin interface.
-	 * 
-	 * @param $task Task object to be displayed.
-	 * 		
-	 */
-	public abstract function renderTask($task);
-	
-	/**
-	 * Return true if the given data is on a format acceptable for a Tasj if the 
-	 * GameType managed by this handler.
-	 * 
-	 * @param $data Task data to be validated.
-	 * 
-	 * @return true if data is in a valid format, false if it is not.
-	 */
-	public abstract function validateData($data);
-	
-	/**
-	 * Generate a Blade view used for displaying the game logic for given Game object,
-	 * of the GameType managed by this handler.
-	 * 
-	 * @param $game The Game to be displayed.
-	 * 
-	 * @return A blade View object displaying the given game.
-	 */
-	public abstract function getView($game);
-	
-	/**
-	 * Process the response submitted from the Blade view for given Game object,
-	 * of the GameType managed by this handler. A Judgement should be created by 
-	 * this method.
-	 * 
-	 * @param $game Game which produced the Blade view being processed.
-	 */
-	public abstract function processResponse($game);
-	
-	/**
 	 * Returns the String representation of this handler.
 	 * 
 	 * @return multitype:NULL

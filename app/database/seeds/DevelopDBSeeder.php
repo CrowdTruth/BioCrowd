@@ -37,7 +37,7 @@ class DevelopDBSeeder extends Seeder {
 			] );
 		}
 
-/*		$this->command->info('Create test CellExGameType');
+		/*$this->command->info('Create test CellExGameType');
 		$gameType = new GameType(new CellExGameType());
 		$gameType->save();
 		
@@ -168,16 +168,17 @@ class DevelopDBSeeder extends Seeder {
 		$campaignType->save();
 		
 		$this->command->info('Create test Campaign');
-		$campaign = new Campaign();
+		$campaign = new Campaign($campaignType);
 		$campaign->name = 'Army Mission';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
+		$campaign->campaign_type_id = $campaignType->id;
 		$campaign->save();
 		
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames();
-		$campaign_games->campaign_id = '1';
+		$campaign_games->campaign_id = $campaign->id;
 		$campaign_games->game_id = '1';
 		$campaign_games->save();
 		

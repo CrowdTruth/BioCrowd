@@ -1,6 +1,6 @@
 <?php
 /**
- * GameType model. GameTypes are stored on the game_types. A GameType describes 			DUE FOR DELETION
+ * GameType model. GameTypes are stored on the game_types. A GameType describes 
  * a particular game mechanism (e.g. drawing annotations on an image, answering 
  * a question, etc). Each GameType has a reference to a GameTypeHandler class 
  * which implements the actual game mechanics.

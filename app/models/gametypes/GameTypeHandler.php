@@ -1,6 +1,6 @@
 <?php
 /**
- * This abstract class defines the methods that a handler for a GameType must 				DUE FOR DELETION
+ * This abstract class defines the methods that a handler for a GameType must 
  * implement. Every GameType should have an associated handler which extends the 
  * GameTypeHandler class.
  */

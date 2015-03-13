@@ -11,7 +11,7 @@ class CampaignGames extends Eloquent {
 	 *
 	 * @var string
 	 */
-	protected $table = 'campaign_games';
+	protected $table = 'campaign_has_game';
 
 	/**
 	 * Create a new Campaign instance.
