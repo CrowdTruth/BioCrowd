@@ -1,25 +1,25 @@
 <?php
 /**
- * GameTypeHandler for CellEx extraction GameType. 
+ * TaskTypeHandler for CellEx extraction TaskType. 
  */
-class CellExGameType extends GameTypeHandler {
+class CellExTaskType extends TaskTypeHandler {
 
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getName() {
 		return 'CellEx';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getDescription() {
 		return 'Extracting cells from microscopic images';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getExtrasDiv($extraInfo) {
 		$extraInfo = unserialize($extraInfo);
@@ -32,7 +32,7 @@ class CellExGameType extends GameTypeHandler {
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
 		$extraInfo['label'] = [];
@@ -41,50 +41,19 @@ class CellExGameType extends GameTypeHandler {
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getThumbnail() {
 		return 'img/factor_validation1.png';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
-	public function getView($game) {
-		$tasks = $game->tasks;
-		$userId = Auth::user()->get()->id;
-		// Which image to use ?
-		// Select image with minimum number of judgements from current user
-		$image = null;
-		$taskId = null;
-		$minJudgementCounts = -1;
-		foreach ($tasks as $task) {
-			$nJudgements = Judgement::where('task_id','=',$task->id)
-									->where('user_id','=',$userId)->count();
-			if($nJudgements<$minJudgementCounts || $image==null) {
-				$minJudgementCounts = $nJudgements;
-				$image = $task->data;
-				$taskId = $task->id;
-			}
-		}
-		$extraInfo = unserialize($game['extraInfo']);
-		$responseLabel = $extraInfo['label'];
-		
-		return View::make('cellex')
-			->with('gameId', $game->id)
-			->with('taskId', $taskId)
-			->with('instructions', $game->instructions)
-			->with('image', $image)
-			->with('responseLabel', $responseLabel);
-	}
-	
-	/**
-	 * See GameTypeHandler
-	 */
-	public function processResponse($game) {
+	public function processResponse($task) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
-		$taskId = Input::get('taskId');
+		$taskId = $task->id;
 		$noCells = Input::get('noCells');
 		
 		if($noCells == null){
@@ -107,14 +76,14 @@ class CellExGameType extends GameTypeHandler {
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
-	public function renderGame($game) {
-		return $game->data;
+	public function renderTask($task) {
+		return $task->data;
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function validateData($data) {
 		return true;

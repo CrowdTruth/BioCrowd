@@ -1,8 +1,7 @@
 <?php
 /**
  * GameType model. GameTypes are stored on the game_types. A GameType describes 
- * a particular game mechanism (e.g. drawing annotations on an image, answering 
- * a question, etc). Each GameType has a reference to a GameTypeHandler class 
+ * a series of tasks. Each GameType has a reference to a GameTypeHandler class 
  * which implements the actual game mechanics.
  * 
  * Additionally, a GameType has the following properties:

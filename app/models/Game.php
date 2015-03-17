@@ -42,6 +42,19 @@ class Game extends Eloquent {
 	 * Return a list of Task objects associated with the current game.
 	 */
 	public function tasks() {
-		return $this->hasMany('Task', 'game_id', 'id');
+		return $this->hasMany('GameHasTask', 'game_id', 'id');
+	}
+	
+	/**
+	 * Return serialized data from the database that is associated with the current game.
+	 */
+	public function data() {
+		$tasks = $this->hasMany('GameHasTask','task_id', 'id');
+		$data = [];
+		foreach($tasks as $task){
+			$newData = $task->data;
+			array_push($data, $newData);
+		}
+		return $data;
 	}
 }

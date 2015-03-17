@@ -1,70 +1,70 @@
 <?php
 /**
- * This GameTypeHandler does nothing -- this class is mean as an example to illustrate 
- * how to develop your own GameTypeHandler.
+ * This TaskTypeHandler does nothing -- this class is mean as an example to illustrate 
+ * how to develop your own TaskTypeHandler.
  */
-class DummyGameType extends GameTypeHandler {
+class DummyTaskType extends TaskTypeHandler {
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getName() {
 		return 'Dummy';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getDescription() {
-		return 'Not a real game, just for devel debugging and stuff...';
+		return 'Not a real task, just for devel debugging and stuff...';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getExtrasDiv($extraInfo) {
 		return 'No DIV here, sorry :-P';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
 		return 'Should return data ;-)';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function getThumbnail() {
 		return 'img/factor_validation1.png';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
-	public function getView($game) {
-		return View::make('dummygame')
-			->with('instructions', $game->instructions)
-			->with('gameId', $game->id);
+	public function getView($task) {
+		return View::make('dummytask')
+			->with('instructions', $task->instructions)
+			->with('gameId', $task->id);
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
-	public function processResponse($game) {
+	public function processResponse($task) {
 		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function renderTask($task) {
 		return $task->data;
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See TaskTypeHandler
 	 */
 	public function validateData($data) {
 		return true;

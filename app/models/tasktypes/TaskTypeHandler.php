@@ -1,10 +1,10 @@
 <?php
 /**
- * This abstract class defines the methods that a handler for a GameType must 
- * implement. Every GameType should have an associated handler which extends the 
- * GameTypeHandler class.
+ * This abstract class defines the methods that a handler for a TaskType must 
+ * implement. Every TaskType should have an associated handler which extends the 
+ * TaskTypeHandler class.
  */
-abstract class GameTypeHandler {
+abstract class TaskTypeHandler {
 	/**
 	 * Returns the name of this handler.
 	 */
@@ -17,7 +17,6 @@ abstract class GameTypeHandler {
 	
 	/**
 	 * Returns the URL of the image used by this handler when being displayed.
-	 * on ListGames.
 	 */
 	public abstract function getThumbnail();
 	
@@ -40,42 +39,32 @@ abstract class GameTypeHandler {
 	public abstract function parseExtraInfo($inputs);
 	
 	/**
-	 * Return the HTML used to display a Game from the GameType managed by this handler,
+	 * Return the HTML used to display a Task from the GameType managed by this handler,
 	 * on the admin interface.
 	 * 
-	 * @param $game Game object to be displayed.
+	 * @param $task Task object to be displayed.
 	 * 		
 	 */
-	public abstract function renderGame($game);
+	public abstract function renderTask($task);
 	
 	/**
-	 * Return true if the given data is on a format acceptable for a Game of the 
-	 * GameType managed by this handler.
+	 * Return true if the given data is on a format acceptable for a Task of the 
+	 * TaskType managed by this handler.
 	 * 
-	 * @param $data Game data to be validated.
+	 * @param $data Task data to be validated.
 	 * 
 	 * @return true if data is in a valid format, false if it is not.
 	 */
 	public abstract function validateData($data);
 	
 	/**
-	 * Generate a Blade view used for displaying the game logic for given Game object,
-	 * of the GameType managed by this handler.
-	 * 
-	 * @param $game The Game to be displayed.
-	 * 
-	 * @return A blade View object displaying the given game.
-	 */
-	public abstract function getView($game);
-	
-	/**
-	 * Process the response submitted from the Blade view for given Game object,
-	 * of the GameType managed by this handler. A Judgement should be created by 
+	 * Process the response submitted from the Blade view for given Task object,
+	 * of the TaskType managed by this handler. A Judgement should be created by 
 	 * this method.
 	 * 
-	 * @param $game Game which produced the Blade view being processed.
+	 * @param $task Task which produced the Blade view being processed.
 	 */
-	public abstract function processResponse($game);
+	public abstract function processResponse($task);
 	
 	/**
 	 * Returns the String representation of this handler.

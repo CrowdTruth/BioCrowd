@@ -22,10 +22,11 @@ class Task extends Eloquent {
 	 * 		that the data is on a suitable format.
 	 * @param $attributes
 	 */
-	public function __construct($game = null, $data = null, $attributes = [])  {
+	public function __construct($taskType = null, $data = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
 
-		if($game!=null) {
+		if($taskType!=null) {
+			$this->task_type_id = $taskType->id;
 			$this->data = $data;
 		}
 	}

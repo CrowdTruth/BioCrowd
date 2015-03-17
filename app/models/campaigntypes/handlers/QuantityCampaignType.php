@@ -1,25 +1,25 @@
 <?php
 /**
- * GameTypeHandler for CellEx extraction GameType. 
+ * CampaignTypeHandler for QuantityCampaignType. 
  */
 class QuantityCampaignType extends CampaignTypeHandler {
 
 	/**
-	 * See GameTypeHandler
+	 * See CampaignTypeHandler
 	 */
 	public function getName() {
 		return 'Quantity';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See CampaignTypeHandler
 	 */
 	public function getDescription() {
 		return 'Rewarding the user for doing the same game X times';
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See CampaignTypeHandler
 	 */
 	public function getExtrasDiv($extraInfo) {
 		$extraInfo = unserialize($extraInfo);
@@ -32,7 +32,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See CampaignTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
 		$extraInfo['label'] = [];
@@ -41,7 +41,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	}
 	
 	/**
-	 * See GameTypeHandler
+	 * See CampaignTypeHandler
 	 */
 	public function getThumbnail() {
 		return 'img/army_mission.png';
@@ -50,42 +50,28 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	/*public function processResponse($game) {
-		//Put the post data into php variables
-		$userId = Auth::user()->get()->id;
-		$taskId = Input::get('taskId');
-		$noCells = Input::get('noCells');
-		
-		if($noCells == null){
-			$noCells = "false";
-		}
-		
-		$responseArray["NoCellsOrVesicles"] = $noCells;
-		$tempCoords = json_decode(Input::get('response'));
-		$responseArray["Coordinates"] = $tempCoords;
-		$response = serialize($responseArray);
-		
-		//Create and Submit the judgement model
-		$judgement = new Judgement();
-		$judgement->user_id = $userId;
-		$judgement->task_id = $taskId;
-		$judgement->response = $response;
-		$judgement->save();
-		
-		return Redirect::to('gameMenu');
-	}*/
+	public function getView($game) {
+		return "";
+	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	/*public function renderTask($task) {
-		return $task->data;
-	}*/
+	public function processResponse($game) {
+		return "";
+	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	/*public function validateData($data) {
-		return true;
-	}*/
+	public function renderCampaign($game) {
+		return "";
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function validateData($data) {
+		return "";
+	}
 }

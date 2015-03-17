@@ -7,21 +7,21 @@ class VesExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getName() {
+/*	public function getName() {
 		return 'VesEx';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getDescription() {
+/*	public function getDescription() {
 		return 'Extracting vesicles from microscopic images';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getExtrasDiv($extraInfo) {
+/*	public function getExtrasDiv($extraInfo) {
 		$divHTML = "No additional information provided for each game.";
 		return $divHTML;
 	}
@@ -29,21 +29,21 @@ class VesExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function parseExtraInfo($inputs) {
+/*	public function parseExtraInfo($inputs) {
 		return '';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getThumbnail() {
+/*	public function getThumbnail() {
 		return 'img/factor_validation.png';
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function getView($game) {
+/*	public function getView($game) {
 		$tasks = $game->tasks;
 		$userId = Auth::user()->get()->id;
 		// Which image to use ?
@@ -80,7 +80,7 @@ class VesExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($game) {
+/*	public function processResponse($game) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
@@ -125,14 +125,14 @@ class VesExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function renderTask($task) {
+/*	public function renderTask($task) {
 		return $task->data;
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function validateData($data) {
+/*	public function validateData($data) {
 		return true;
 	}
 }

@@ -21,7 +21,25 @@ class Campaign extends Eloquent {
 	 * @param $image Name of the image of the badge which is earned when this campaign is done
 	 * @param $attributes
 	 */
-	public function __construct($name = null, $description = null, $image = null, $attributes = [])  {
+	public function __construct($campaignType = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
+		
+		if($campaignType!=null) {
+			$this->campaign_type = $campaignType->id;
+		}
+	}
+
+	/**
+	 * Return the CampaignType of the current campaign.
+	 */
+	public function campaignType() {
+		return $this->belongsTo('CampaignType', 'campaign_type', 'id');
+	}
+	
+	/**
+	 * Return a list of Game objects associated with the current campaign.
+	 */
+	public function games() {
+		return $this->hasMany('Game', 'campaign_id', 'id');
 	}
 }
