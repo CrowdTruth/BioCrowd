@@ -68,7 +68,7 @@ class DevelopDBSeeder extends Seeder {
 			$cellExTask->save();
 		}
 		
-		/*$game2 = new Game($gameType);
+		$game2 = new Game($gameType);
 		$game2->level = 2;
 		$game2->name = 'Nucleus tagging';
 		$game2->instructions = ''
@@ -87,7 +87,7 @@ class DevelopDBSeeder extends Seeder {
 			$image = substr($image,7);
 			$this->command->info('Create test Game: NuclEx with image: '.$image);
 			$data = $image;
-			$task = new Task($game2, $data);
+			$task = new Task($taskType, $data);
 			$task->save();
 		}
 		
@@ -111,7 +111,7 @@ class DevelopDBSeeder extends Seeder {
 			$image = substr($image,7);
 			$this->command->info('Create test Game: ColEx with image: '.$image);
 			$data = $image;
-			$task = new Task($game3, $data);
+			$task = new Task($taskType, $data);
 			$task->save();
 		}
 		
@@ -140,14 +140,18 @@ class DevelopDBSeeder extends Seeder {
 										'label3' => 'The vesicles are near the nucleus']);
 		$game4->save();
 		
+		$this->command->info('Create test TaskType');
+		$taskType = new TaskType(new VesExTaskType());
+		$taskType->save();
+		
 		$images = glob('public/img/vesEx/*');
 		foreach($images as $image){
 			$image = substr($image,7);
 			$this->command->info('Create test Game: VesEx with image: '.$image);
 			$data = $image;
-			$task = new Task($game4, $data);
+			$task = new Task($taskType, $data);
 			$task->save();
-		}*/
+		}
 		
 		/*
 		$this->command->info('Create test DummyGameType');
@@ -189,12 +193,6 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames();
 		$campaign_games->campaign_id = $campaign->id;
-		$campaign_games->game_id = $game1->id;
-		$campaign_games->save();
-		
-		/*$this->command->info('Create test CampaignGames');
-		$campaign_games = new CampaignGames();
-		$campaign_games->campaign_id = $campaign->id;
 		$campaign_games->game_id = $game2->id;
 		$campaign_games->save();
 		
@@ -202,6 +200,12 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games = new CampaignGames();
 		$campaign_games->campaign_id = $campaign->id;
 		$campaign_games->game_id = $game3->id;
-		$campaign_games->save();*/
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = $campaign->id;
+		$campaign_games->game_id = $game4->id;
+		$campaign_games->save();
 	}
 }

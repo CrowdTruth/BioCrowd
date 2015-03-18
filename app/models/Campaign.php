@@ -25,7 +25,7 @@ class Campaign extends Eloquent {
 		parent::__construct($attributes); // Eloquent
 		
 		if($campaignType!=null) {
-			$this->campaign_type = $campaignType->id;
+			$this->campaign_type_id = $campaignType->id;
 		}
 	}
 

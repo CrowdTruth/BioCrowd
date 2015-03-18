@@ -86,6 +86,16 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
+		Schema::create('workflows', function($table)
+		{
+			$table->increments('id');
+			$table->string('name');
+			$table->integer('task_id')->unsigned();
+			$table->foreign('task_id')->references('id')->on('tasks');
+			$table->integer('generate_task_type')->unsigned();
+			$table->foreign('generate_task_type')->references('id')->on('task_types');
+		});
+		
 		Schema::create('game_has_task', function($table)
 		{
 			$table->integer('task_id')->unsigned();
@@ -166,6 +176,7 @@ class InitDatabase extends Migration {
 		Schema::drop('campaign_types');
 		Schema::drop('judgements');
 		Schema::drop('game_has_task');
+		Schema::drop('workflows');
 		Schema::drop('tasks');
 		Schema::drop('task_types');
 		Schema::drop('games');
