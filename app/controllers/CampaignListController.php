@@ -19,7 +19,7 @@ class CampaignListController extends CampaignController {
 		$campaigns = DB::table('campaigns')
 			->groupBy('id')
 			->orderBy('endDate')
-			->select('campaigns.id as campaignId','campaigns.name as name','image',DB::raw('count(*) as nCampains'))
+			->select('campaigns.id as campaignId','campaigns.name as name','campaigns.badgeName as badgeName','image',DB::raw('count(*) as nCampains'))
 			->get();
 		
 		//set the enabled variable to default false
@@ -109,6 +109,7 @@ class CampaignListController extends CampaignController {
 			'link' => 'playCampaign?campaignId='.$campaign->campaignId,
 			'image' => $campaign->image,
 			'text' => $campaign->name,
+			'badgeName' => $campaign->badgeName,
 			'numberPerformed' => $numberPerformed,
 			'numberOfGamesInThisCampaign' => $numberOfGamesInThisCampaign,
 			'enabled' => $enabled		//disabled if user already completed this campaign or if the user level is not high enough fort this campaign, enabled otherwise

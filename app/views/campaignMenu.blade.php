@@ -23,7 +23,7 @@
 								</div>
 								<div class="Cell col-xs-9 campaignProgress">
 									<div>
-										Complete campaign "Army" and earn the badge "Army Campaign"
+										Complete campaign "{{{ $item['text'] }}}" and earn the badge "{{{ $item['badgeName'] }}}"
 									</div>
 									<div class="progress">
 										<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
@@ -37,6 +37,16 @@
 								<div class="Cell col-xs-3">
 									<div style='background:none; margin-bottom:10px; margin-top:10px;'>
 										<a href="" style="color:#333"><center><img class='gameIconDis' src='{{{ $item['image'] }}}'><br />{{{ $item['text'] }}}</img></center></a>
+									</div>
+								</div>
+								<div class="Cell col-xs-9 campaignProgress">
+									<div>
+										You have already completed campaign "{{{ $item['text'] }}}" or the campaign period is over
+									</div>
+									<div class="progress">
+										<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
+												{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}% Complete
+										</div>
 									</div>
 								</div>
 							</div>

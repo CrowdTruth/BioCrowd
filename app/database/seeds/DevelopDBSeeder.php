@@ -202,6 +202,7 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'Army Mission';
+		$campaign->badgeName = 'Army Campaign';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
 		$campaign->campaign_type_id = $campaignType->id;
@@ -234,6 +235,7 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'Army Mission2';
+		$campaign->badgeName = 'Army Campaign2';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
 		$campaign->campaign_type_id = $campaignType->id;
@@ -263,12 +265,5 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games->campaign_id = $campaign->id;
 		$campaign_games->game_id = $game4->id;
 		$campaign_games->save();
-		
-		$this->command->info('Create test CampaignProgress');
-		$campaignProgress = new CampaignProgress();
-		$campaignProgress->campaign_id = $campaign->id;
-		$campaignProgress->user_id = '2';
-		$campaignProgress->number_performed = '2';
-		$campaignProgress->save();
 	}
 }
