@@ -44,7 +44,7 @@
 
 			// Trigger our function when annotation takes place.
 			canvas.addEventListener('annotationChanged', updateAnnotationCount, false);
-
+			
 			// Perhaps doRect, styleDrag, styleFixed should be loaded from DB ?
 			doRect=false;		// Draw ellipses
 			styleDrag='red';	// Use red lines while drawing

@@ -15,7 +15,7 @@
 					</div>
 
 					<div class="panel-body">
-					@if($campaignMode)
+					@if(isset($story) && $campaignMode)
 						{{ $story }}
 					@else
 						{{ $instructions }}

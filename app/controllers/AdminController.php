@@ -97,7 +97,7 @@ class AdminController extends BaseController {
 		} else {
 			$gameTypes = [];
 			$gameTypeDivs = [];
-			$gameType = GameType::find($game->game_type);
+			$gameType = GameType::find($game->game_type_id);
 				
 			$gameTypes[$gameType->id] = $gameType->name;
 	
@@ -123,7 +123,7 @@ class AdminController extends BaseController {
 	 */
 	public function editGameAction() {
 		$gameId = Input::get('id');
-		$gameTypeId = Input::get('game_type');
+		$gameTypeId = Input::get('game_type_id');
 		$gameType = GameType::find($gameTypeId);
 	
 		// Validate
@@ -156,7 +156,7 @@ class AdminController extends BaseController {
 		
 		$game->level = $level;
 		$game->name = $name;
-		$game->game_type = $gameTypeId;
+		$game->game_type_id = $gameTypeId;
 		$game->instructions = $instructions;
 		$game->extraInfo = $handler->parseExtraInfo(Input::all());
 		$game->save();

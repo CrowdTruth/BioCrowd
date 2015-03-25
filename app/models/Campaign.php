@@ -33,7 +33,7 @@ class Campaign extends Eloquent {
 	 * Return the CampaignType of the current campaign.
 	 */
 	public function campaignType() {
-		return $this->belongsTo('CampaignType', 'campaign_type', 'id');
+		return $this->belongsTo('CampaignType', 'campaign_type_id', 'id');
 	}
 	
 	/**

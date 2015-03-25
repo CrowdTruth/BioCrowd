@@ -64,8 +64,14 @@ class DevelopDBSeeder extends Seeder {
 			$image = substr($image,7);
 			$this->command->info('Create test CellExTask with image: '.$image);
 			$data = $image;
-			$cellExTask = new Task($taskType, $data);
-			$cellExTask->save();
+			$task = new Task($taskType, $data);
+			$task->save();
+			//Fill the GameHasTask table accordingly
+			$this->command->info('Create test GameHasTask');
+			$gameHasTask = new GameHasTask();
+			$gameHasTask->task_id = $task->id;
+			$gameHasTask->game_id = $game1->id;
+			$gameHasTask->save();
 		}
 		
 		$game2 = new Game($gameType);
@@ -89,6 +95,12 @@ class DevelopDBSeeder extends Seeder {
 			$data = $image;
 			$task = new Task($taskType, $data);
 			$task->save();
+			//Fill the GameHasTask table accordingly
+			$this->command->info('Create test GameHasTask');
+			$gameHasTask = new GameHasTask();
+			$gameHasTask->task_id = $task->id;
+			$gameHasTask->game_id = $game2->id;
+			$gameHasTask->save();
 		}
 		
 		$game3 = new Game($gameType);
@@ -113,6 +125,12 @@ class DevelopDBSeeder extends Seeder {
 			$data = $image;
 			$task = new Task($taskType, $data);
 			$task->save();
+			//Fill the GameHasTask table accordingly
+			$this->command->info('Create test GameHasTask');
+			$gameHasTask = new GameHasTask();
+			$gameHasTask->task_id = $task->id;
+			$gameHasTask->game_id = $game3->id;
+			$gameHasTask->save();
 		}
 		
 		
@@ -151,6 +169,12 @@ class DevelopDBSeeder extends Seeder {
 			$data = $image;
 			$task = new Task($taskType, $data);
 			$task->save();
+			//Fill the GameHasTask table accordingly
+			$this->command->info('Create test GameHasTask');
+			$gameHasTask = new GameHasTask();
+			$gameHasTask->task_id = $task->id;
+			$gameHasTask->game_id = $game4->id;
+			$gameHasTask->save();
 		}
 		
 		/*
@@ -183,6 +207,38 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->campaign_type_id = $campaignType->id;
 		$campaign->save();
 		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = $campaign->id;
+		$campaign_games->game_id = $game1->id;
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = $campaign->id;
+		$campaign_games->game_id = $game2->id;
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = $campaign->id;
+		$campaign_games->game_id = $game3->id;
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames();
+		$campaign_games->campaign_id = $campaign->id;
+		$campaign_games->game_id = $game4->id;
+		$campaign_games->save();
+		
+		$this->command->info('Create test Campaign');
+		$campaign = new Campaign($campaignType);
+		$campaign->name = 'Army Mission2';
+		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
+		$campaign->image = 'img/army_mission.png';
+		$campaign->campaign_type_id = $campaignType->id;
+		$campaign->save();
+		
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames();
@@ -207,5 +263,12 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games->campaign_id = $campaign->id;
 		$campaign_games->game_id = $game4->id;
 		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignProgress');
+		$campaignProgress = new CampaignProgress();
+		$campaignProgress->campaign_id = $campaign->id;
+		$campaignProgress->user_id = '2';
+		$campaignProgress->number_performed = '2';
+		$campaignProgress->save();
 	}
 }

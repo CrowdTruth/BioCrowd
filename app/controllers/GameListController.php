@@ -13,13 +13,13 @@ class GameListController extends GameController {
 	public function listGames() {
 		// SQL Query:
 		// SELECT games.name,level,handler_class,thumbnail,count(*) as nTasks 
-		//		FROM tasks INNER JOIN games ON (tasks.game_id=games.id) 
-		//		INNER JOIN game_types ON (games.game_type=game_types.id)
+		//		FROM tasks INNER JOIN games ON (game_has_task.game_id=games.id) 
+		//		INNER JOIN game_types ON (games.game_type_id=game_types.id)
 		//		GROUP BY game_id;
 
-		$gamesAvl = DB::table('tasks')
-			->join('games', 'tasks.game_id', '=', 'games.id')
-			->join('game_types', 'games.game_type', '=', 'game_types.id')
+		$gamesAvl = DB::table('game_has_task')
+			->join('games', 'game_has_task.game_id', '=', 'games.id')
+			->join('game_types', 'games.game_type_id', '=', 'game_types.id')
 			->groupBy('game_id')
 			->orderBy('level')
 			->select('games.id as gameId','games.name as name','level','handler_class','thumbnail',DB::raw('count(*) as nTasks'))

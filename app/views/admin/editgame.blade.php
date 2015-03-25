@@ -51,10 +51,10 @@
 				{{ Form::label('game_type', 'Game type:', [ 'class' => 'col-sm-2 control-label' ] ) }}
 				<div class="col-sm-4">
 				@if(is_null($game))
-					{{ Form::select('game_type', $gameTypes, $game['game_type'], [ 'class' => 'form-control' ]) }}
+					{{ Form::select('game_type', $gameTypes, $game['game_type_id'], [ 'class' => 'form-control' ]) }}
 				@else
-					{{ Form::hidden('game_type', $game['game_type']) }}
-					{{ $gameTypes[$game['game_type']] }}
+					{{ Form::hidden('game_type', $game['game_type_id']) }}
+					{{ $gameTypes[$game['game_type_id']] }}
 				@endif
 				</div>
 			</div>
@@ -91,7 +91,7 @@
 				@if(is_null($game))
 					<!-- This DIV should be filled depending on selected task type -->
 				@else
-					{{ $gameTypeDivs[$game->game_type] }}
+					{{ $gameTypeDivs[$game->game_type_id] }}
 				@endif
 				</div>
 			</div>

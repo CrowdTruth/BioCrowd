@@ -60,8 +60,8 @@ class InitDatabase extends Migration {
 		Schema::create('games', function($table)
 		{
 			$table->increments('id');
-			$table->integer('game_type')->unsigned();
-			$table->foreign('game_type')->references('id')->on('game_types');
+			$table->integer('game_type_id')->unsigned();
+			$table->foreign('game_type_id')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
 			$table->string('name');
 			$table->longText('instructions');

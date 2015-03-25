@@ -27,7 +27,7 @@ class Game extends Eloquent {
 		parent::__construct($attributes); // Eloquent
 	
 		if($gameType!=null) {
-			$this->game_type = $gameType->id;
+			$this->game_type_id = $gameType->id;
 		}
 	}
 
@@ -35,14 +35,14 @@ class Game extends Eloquent {
 	 * Return the GameType of the current game.
 	 */
 	public function gameType() {
-		return $this->belongsTo('GameType', 'game_type', 'id');
+		return $this->belongsTo('GameType', 'game_type_id', 'id');
 	}
 	
 	/**
 	 * Return a list of Task objects associated with the current game.
 	 */
 	public function tasks() {
-		return $this->hasMany('GameHasTask', 'game_id', 'id');
+		return $this->belongsToMany('Task', 'game_has_task', 'game_id');
 	}
 	
 	/**
