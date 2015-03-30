@@ -2,7 +2,7 @@
 /**
  * CampaignTypeHandler for QuantityCampaignType. 
  */
-class QuantityCampaignType extends CampaignTypeHandler {
+class StoryCampaignType extends CampaignTypeHandler {
 
 	/**
 	 * See CampaignTypeHandler
@@ -36,7 +36,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 */
 	public function parseExtraInfo($inputs) {
 		$extraInfo['label'] = [];
-		$extraInfo['label'] = $inputs['quantityCampaignLabel'];
+		$extraInfo['label'] = $inputs['label'];
+		$extraInfo['story1'] = [];
+		$extraInfo['story1'] = $inputs['story1'];
 		return serialize($extraInfo);
 	}
 	
@@ -92,7 +94,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		}
 		$view = $view->with('campaignMode', true);
 		$view = $view->with('story', $story);
-		$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
+		if(isset($responseLabel) && $responseLabel != null){
+			$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
+		}
 		$view = $view->with('campaignId', $campaignId);
 		$view = $view->with('numberPerformed', $numberPerformed);
 		$view = $view->with('amountOfGamesInThisCampaign', count($game_array));
