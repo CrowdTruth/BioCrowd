@@ -120,7 +120,6 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->string('name');
 			$table->string('description');
-			$table->text('extraInfo');
 			$table->string('handler_class');
 			$table->string('thumbnail');
 		});
@@ -163,6 +162,26 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
+		Schema::create('stories', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->text('extraInfo');
+			$table->string('story_string');
+			$table->timestamps();
+		});
+		
+		Schema::create('campaign_has_story', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->integer('story_id')->unsigned();
+			$table->foreign('story_id')->references('id')->on('stories');
+			$table->timestamps();
+		});
+		
 	}
 
 	/**
@@ -172,6 +191,8 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		Schema::drop('campaign_has_story');
+		Schema::drop('stories');
 		Schema::drop('campaign_has_game');
 		Schema::drop('campaign_progress');
 		Schema::drop('campaigns');

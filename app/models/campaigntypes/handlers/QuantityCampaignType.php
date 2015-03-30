@@ -70,11 +70,6 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		
 		$gameId = $game_array[$numberPerformed];
 		
-		//$campaignGame = CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first(); TO DO: Should this stay?
-		
-		//Select the correct label for the text under the image
-		//$responseLabel = unserialize(CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first()['extraInfo'])['label']; TO DO: Should this stay?
-		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);
 		
@@ -82,7 +77,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
 		
-		//build the view with all extra info that is in the "extraInfo" column of the campaign_games table
+		//build the view with all extra info that is in the "extraInfo" column of the game model
 		$view = $handler->getView($game);
 		foreach(unserialize($game['extraInfo']) as $key=>$value){
 			$view = $view->with($key, $value);

@@ -72,13 +72,21 @@ class StoryCampaignType extends CampaignTypeHandler {
 		
 		$gameId = $game_array[$numberPerformed];
 		
-		$campaignGame = CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first();
+		//Retrieve the array of story_id's that this campaign entails
+		$crude_story_id_array = CampaignStories::where('campaign_id',$campaignId)->select('story_id')->get()->toArray();
+		$story_id_array = array_column($crude_story_id_array, 'story_id');
 		
-		//Select the correct story for this game_id and campaign_id combination from CampaignCames
-		$story = $campaignGame['story'];
+		//retrieve the array of stories that this campaign entails
+		$story_array = [];
+		foreach($story_id_array as $story_id){
+			array_push($story_array,Story::where('id', $story_id)->first());
+		}
+		
+		//Select the correct story for this game_id and campaign_id combination from CampaignStories
+		$story = $story_array[$numberPerformed];
 		
 		//Select the correct label for the text under the image
-		$responseLabel = unserialize(CampaignGames::where('campaign_id',$campaignId)->where('game_id',$gameId)->first()['extraInfo'])['label'];
+		$responseLabel = unserialize(Story::where('id',$story->id)->first()['extraInfo'])['label'];
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);
@@ -89,11 +97,13 @@ class StoryCampaignType extends CampaignTypeHandler {
 		
 		//build the view with all extra info that is in the "extraInfo" column of the campaign_games table
 		$view = $handler->getView($game);
-		foreach(unserialize($campaignGame['extraInfo']) as $key=>$value){
-			$view = $view->with($key, $value);
-		}
+
+		//foreach(unserialize($campaignGame['extraInfo']) as $key=>$value){
+		//	$view = $view->with($key, $value);								TO DO: should this stay?
+		//}
+		
 		$view = $view->with('campaignMode', true);
-		$view = $view->with('story', $story);
+		$view = $view->with('story', $story->story_string);
 		if(isset($responseLabel) && $responseLabel != null){
 			$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
 		}

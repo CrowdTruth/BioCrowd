@@ -21,7 +21,15 @@ class CampaignGames extends Eloquent {
 	 * @param $image Name of the image of the badge which is earned when this campaign is done
 	 * @param $attributes
 	 */
-	public function __construct($campaign_id = null, $game_id = null, $story = null, $attributes = [])  {
+	public function __construct($campaign = null, $game = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
+		
+		if($campaign!=null) {
+			$this->campaign_id = $campaign->id;
+		}
+		
+		if($game!=null) {
+			$this->game_id = $game->id;
+		}
 	}
 }

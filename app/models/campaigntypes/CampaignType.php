@@ -26,7 +26,7 @@ class CampaignType extends Eloquent {
 	 * @param $campaignTypeHandler A CampaignTypeHandler object.
 	 * @param $attributes
 	 */
-	public function __construct($campaignTypeHandler = null, $extraInfo = null, $attributes = [])  {
+	public function __construct($campaignTypeHandler = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
 		
 		if($campaignTypeHandler!=null) {
