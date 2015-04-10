@@ -1,7 +1,7 @@
 @extends('layout') 
 
 @section('extraheaders')
-<link href="/css_final/campaignProgressBar.css" rel="stylesheet">
+<link href="/css/campaignProgressBar.css" rel="stylesheet">
 @stop
 
 @section('content')

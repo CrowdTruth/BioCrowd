@@ -1,7 +1,7 @@
 @extends('baseGameView')
 
 @section('extraheaders')
-	<script src="js_final/ct-annotate.js"></script>
+	<script src="js/ct-annotate.js"></script>
 	<script>
 		/**
 		 * Update annotation count and enable/disable submit button accordingly -- at least
@@ -65,8 +65,8 @@
 			</td>	
 			<td width="20px"></td>
 		<td>
-			<input type="radio" id="useRectangle" name="shape" onClick="updateShapeSelection('rectangle')" value="Rectangle">Rectangle<br/>
-			<input type="radio" id="useEllipse" name="shape" onClick="updateShapeSelection('ellipse')" value="Ellipse">Ellipse
+			{{ Form::radio('shape', 'Rectangle', false, [ 'id' => 'useRectangle', 'onClick' => 'updateShapeSelection("rectangle")' ]) }} Rectangle <br/>
+			{{ Form::radio('shape', 'Ellipse'  , true , [ 'id' => 'useEllipse', 'onClick' => 'updateShapeSelection("ellipse")' ]) }} Ellipse
 		</td>
 		</table>
 	</div>
@@ -93,5 +93,4 @@
 			<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>
 		</table>
 	</div>
-
 @stop
