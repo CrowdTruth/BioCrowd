@@ -2,7 +2,6 @@
 	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Achievements&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 	<img src="img/achievements.png"></img>
 	<center><a href="campaignMenu" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the campaigns page</b></a></center>
-		
 </div>
 
 <div class="performance contentbox" style="width:320px; padding:7px;">
@@ -11,9 +10,10 @@
 		<center><img src="img/score_line_2.png"></img><img src="img/sidebar_leaderboard_2.png"></img></center><br />
 		<center><a href="leaderboard.html" style="color:#464945;; font-family:arial; margin-left:30p;"><b>Go to the leaderboard</b></a></center>
 	</div>
-	
 </div>
 
+{{-- Library articles as rewards: nice to have, but this is future work.--}}
+{{--
 <div class="my_articles contentbox" style="margin-top:20px; width:320px;">
 	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My medical library&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 	<div style='text-align:center;'>
@@ -31,7 +31,9 @@
 		</ul>
 	</div>
 </div>
+--}}
 
+@section('extraheaders')
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -40,7 +42,8 @@
   js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.3";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+@append
 
 <div class="share contentbox" style="margin-top:20px; margin-bottom:20px; width:320px;">
-	<center>Tell your friends about Dr. Watson!<BR><div class="fb-share-button" data-href="<?php echo url();?>" data-layout="icon"></div></center>
+	<center>Tell your friends about Dr. Watson!<BR><div class="fb-share-button" data-href="{{ url() }}" data-layout="icon"></div></center>
 </div>

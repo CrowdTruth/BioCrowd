@@ -32,12 +32,17 @@
 				{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
 			@endif
 
-    			@yield('gameForm')
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+					</div>
+					<div class="panel-body">
+					@yield('gameForm')
+					</div>
+				</div>
 			{{ Form::close() }}
 
-
 			<!--/////////////////////////////////////////END GAME CONTENT/////////////////////////////////////////////////////////////////////-->
-    		</div>
+			</div>
 		</section>
 	</div>
 </div>
