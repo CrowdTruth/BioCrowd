@@ -12,6 +12,9 @@ class LoginController extends BaseController {
 	 * Display Blade view of login page.
 	 */
 	public function requestLogin() {
+		if(Auth::user()->check()) {
+			return Redirect::to('/');
+		}
 		return View::make('login');
 	}
 	
@@ -24,7 +27,9 @@ class LoginController extends BaseController {
 		if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
 			return Redirect::to('/');
 		} else {
-			return Redirect::to('login')->with('flash_error', 'Invalid email/password combination.')->withInput();
+			return Redirect::to('login')
+				->with('flash_error', 'Invalid email/password combination.')
+				->withInput();
 		}
 	}
 	
