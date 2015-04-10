@@ -55,7 +55,7 @@ ct_annotate.loadCanvasImage = function(canvas, imageUrl, doRect, styleDrag, styl
 	}
 }
 
-ct_annotate.changeDrawShape = function(doRect) {
+ct_annotate.doRectangle = function(doRect) {
 	if(doRect) {
 		ct_annotate.drawShape = ct_annotate_drawRectangle;
 	} else {
