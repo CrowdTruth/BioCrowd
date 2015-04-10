@@ -32,6 +32,15 @@
 	</div>
 </div>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v2.3";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <div class="share contentbox" style="margin-top:20px; margin-bottom:20px; width:320px;">
-	<center>Tell your friends about Dr. Watson!<img src="img/share.png"></img></center>
+	<center>Tell your friends about Dr. Watson!<BR><div class="fb-share-button" data-href="<?php echo url();?>" data-layout="icon"></div></center>
 </div>
