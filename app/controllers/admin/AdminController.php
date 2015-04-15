@@ -61,7 +61,7 @@ class AdminController extends BaseController {
 		// TODO: Add pagination ?
 		$games = Game::all();
 		$displayGames = [];
-				
+		
 		foreach($games as $game) {
 			array_push($displayGames, [
 				'id'	=> $game->id, 

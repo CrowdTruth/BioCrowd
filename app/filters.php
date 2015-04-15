@@ -53,7 +53,9 @@ Route::filter('adminauth', function()
 		'admin/listGames'	=>	AdminPermission::GAME,
 		'admin/editGame'	=>	AdminPermission::GAME,
 		'admin/listGameTypes'	=> AdminPermission::GAMETYPE,
-		'admin/listGameTypesAction'	=> AdminPermission::GAMETYPE
+		'admin/listGameTypesAction'	=> AdminPermission::GAMETYPE,
+		'admin/exportFile'	=> AdminPermission::EXPORTDATA,
+		'admin/exportWebhook'	=> AdminPermission::EXPORTDATA,
 	];
 	
 	$path = Request::path();

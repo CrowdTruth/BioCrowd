@@ -1,5 +1,5 @@
 @extends('admin.layout')
 
 @section('content')
-	<h2>Do we need some landing page ?</h2>
+	<h2>{{ Lang::get('gamelabels.gamename') }} </h2>
 @stop

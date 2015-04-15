@@ -25,8 +25,17 @@
 					 	'text'	=> 'List all game types', 
 					 	'enabled'=> Auth::admin()->get()->hasPermission(AdminPermission::GAMETYPE) ],
 				] ) }}
+
+				{{ HTML::headerMenu('Data' , [
+					[	'url'	=>	URL::action('DataportController@exportToFileView'),
+					 	'text'	=> 'Export data', 
+					 	'enabled'=> Auth::admin()->get()->hasPermission(AdminPermission::EXPORTDATA) ],
+					[	'url'	=>	URL::action('DataportController@webhook'),
+					 	'text'	=> 'Webhook', 
+					 	'enabled'=> Auth::admin()->get()->hasPermission(AdminPermission::EXPORTDATA) ],
+				] ) }}
 			</ul>
-			
+
 			<ul class="nav navbar-nav navbar-right">
 				{{ HTML::headerLink(URL::action('AdminController@requestLogout'), 'Logout') }}
 			</ul>

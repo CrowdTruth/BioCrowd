@@ -6,7 +6,7 @@
 class DatabaseSeeder extends Seeder {
 	private $adminUser = 'admin';
 	private $adminPassword = '123456';
-	
+
 	/**
 	 * Run the database seeds.
 	 *
@@ -35,7 +35,11 @@ class DatabaseSeeder extends Seeder {
 			'name' => AdminPermission::GAMETYPE,
 			'description' => 'Install new game types'
 		] );
-		
+		AdminPermission::create( [
+			'name' => AdminPermission::EXPORTDATA,
+			'description' => 'Export data to file and other platforms'
+		] );
+
 		// Grant all permissions to root user
 		$this->command->info('Grant ALL permissions to '.$this->adminUser.'...');
 		$root = AdminUser::where('username', '=', $this->adminUser)->first();

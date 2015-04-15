@@ -45,5 +45,5 @@
 @append
 
 <div class="share contentbox" style="margin-top:20px; margin-bottom:20px; width:320px;">
-	<center>Tell your friends about Dr. Watson!<BR><div class="fb-share-button" data-href="{{ url() }}" data-layout="icon"></div></center>
+	<center>Tell your friends about {{ Lang::get('gamelabels.gamename') }}!<BR><div class="fb-share-button" data-href="{{ url() }}" data-layout="icon"></div></center>
 </div>

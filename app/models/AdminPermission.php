@@ -15,6 +15,7 @@ class AdminPermission extends Eloquent {
 	const USERS = 'Users';
 	const GAME = 'NewGame';
 	const GAMETYPE = 'NewGameType';
+	const EXPORTDATA = 'ExportData';
 	
 	public function adminUsers() {
 		return $this->belongsToMany('AdminUser');
