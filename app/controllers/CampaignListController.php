@@ -49,7 +49,7 @@ class CampaignListController extends CampaignController {
 				
 			//create the campaign pictogram (item) with the correct text and enablement.
 			$item = [
-			'link' => 'playCampaign?campaignId='.$campaign->campaignId,
+			'link' => 'playCampaign?campaignIdArray='.$campaign->campaignId,
 			'image' => $campaign->image,
 			'text' => $campaign->name,
 			'badgeName' => $campaign->badgeName,

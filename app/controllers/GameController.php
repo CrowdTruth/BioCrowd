@@ -24,7 +24,20 @@ class GameController extends BaseController {
 		// Use corresponding game controller to display game.
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
-		return $handler->getView($game)->with('campaignMode', false);
+		
+		//set campaignIdArray
+		$campaignIdArray = $this->isInWhichQuantityCampaigns($game);
+		
+		//if the game is in any campaigns that the user is eligable for,
+		//set campaignMode to true and add a parameter telling the campaignController
+		//that the user came from a game, not a campaign.
+		if(isset($campaignIdArray)){
+			return $handler->getView($game)->with('campaignMode', true)
+			->with('gameOrigin', true)
+			->with('campaignIdArray', $campaignIdArray);
+		} else {
+			return $handler->getView($game)->with('campaignMode', false);
+		}
 	}
 	
 	/**
@@ -40,5 +53,16 @@ class GameController extends BaseController {
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
 		return $handler->processResponse($game);
+	}
+	
+	function isInWhichQuantityCampaigns($game) {
+		//if the game is in any campaigns that the user is eligable for,
+		//set campaignMode to true and add a parameter telling the campaignController
+		//that the user came from a game, not a campaign.
+		$crude_campaignIdArray = CampaignGames::where('game_id',$game->id)->select('campaign_id')->get()->toArray();
+		//TO DO: make a restriction so that user has to be eligable
+		//TO DO: make a restriction so that only QuantityCampaigns are given back
+		$campaignIdArray = array_column($crude_campaignIdArray, 'campaign_id');
+		return $campaignIdArray;
 	}
 }

@@ -25,9 +25,10 @@
 			<!-- End Instructions -->
 			@if($campaignMode)
 				{{ Form::open([ 'url' => 'submitCampaign', 'name' => 'annotationForm' ]) }}
-				{{ Form::hidden('campaignId', $campaignId) }}
-				{{ Form::hidden('numberPerformed', $numberPerformed) }}
-				{{ Form::hidden('amountOfGamesInThisCampaign', $amountOfGamesInThisCampaign) }}
+				{{ Form::hidden('campaignIdArray', serialize($campaignIdArray)) }}
+				@if(isset($gameOrigin) && $gameOrigin)
+				{{ Form::hidden('gameOrigin', $gameOrigin) }}
+				@endif
 			@else
 				{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
 			@endif
