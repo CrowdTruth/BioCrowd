@@ -123,6 +123,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'mnshankar\CSV\CSVServiceProvider',
+		'Rasim\Config\ConfigWriterServiceProvider',
 	),
 
 	/*
@@ -161,7 +162,7 @@ return array(
 		'Controller'      => 'Illuminate\Routing\Controller',
 		'Cookie'          => 'Illuminate\Support\Facades\Cookie',
 		'Crypt'           => 'Illuminate\Support\Facades\Crypt',
-		'CSV'             =>'mnshankar\CSV\CSVFacade',
+		'CSV'             => 'mnshankar\CSV\CSVFacade',
 		'DB'              => 'Illuminate\Support\Facades\DB',
 		'Eloquent'        => 'Illuminate\Database\Eloquent\Model',
 		'Event'           => 'Illuminate\Support\Facades\Event',

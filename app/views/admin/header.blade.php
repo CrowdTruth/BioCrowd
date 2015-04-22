@@ -30,7 +30,7 @@
 					[	'url'	=>	URL::action('DataportController@exportToFileView'),
 					 	'text'	=> 'Export data', 
 					 	'enabled'=> Auth::admin()->get()->hasPermission(AdminPermission::EXPORTDATA) ],
-					[	'url'	=>	URL::action('DataportController@webhook'),
+					[	'url'	=>	URL::action('DataportController@webhookView'),
 					 	'text'	=> 'Webhook', 
 					 	'enabled'=> Auth::admin()->get()->hasPermission(AdminPermission::EXPORTDATA) ],
 				] ) }}

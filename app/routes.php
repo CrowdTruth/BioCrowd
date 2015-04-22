@@ -59,7 +59,8 @@ Route::get('admin/listGameTypesAction', [ 'before' => 'adminauth', 'uses' => 'Ad
 
 Route::get('admin/exportFile', [ 'before' => 'adminauth', 'uses' => 'DataportController@exportToFileView' ] );
 Route::post('admin/exportFile', [ 'before' => 'adminauth', 'uses' => 'DataportController@exportToFile' ] );
-Route::get('admin/exportWebhook', [ 'before' => 'adminauth', 'uses' => 'DataportController@webhook' ] );
+Route::get('admin/exportWebhook', [ 'before' => 'adminauth', 'uses' => 'DataportController@webhookView' ] );
+Route::post('admin/exportWebhook', [ 'before' => 'adminauth', 'uses' => 'DataportController@webhookUpdate' ] );
 
 Route::get('test', function() {
 	return View::make('test');

@@ -6,7 +6,9 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"ollieread/multiauth": "dev-master",
-		"mnshankar/CSV": "dev-master"
+		"mnshankar/CSV": "dev-master",
+		"rasim/config": "dev-master",
+		"guzzlehttp/guzzle": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

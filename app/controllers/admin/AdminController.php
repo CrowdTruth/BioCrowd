@@ -19,7 +19,9 @@ class AdminController extends BaseController {
 		if( Auth::admin()->attempt( [ 'username' => $user, 'password' => $pass ] )){
 			return Redirect::to('admin');
 		} else {
-			return Redirect::to('admin/login')->with('flash_error', 'Invalid email/password combination.')->withInput();
+			return Redirect::to('admin/login')
+				->with('flash_error', 'Invalid email/password combination.')
+				->withInput();
 		}
 	}
 	
