@@ -8,7 +8,8 @@
 		"ollieread/multiauth": "dev-master",
 		"mnshankar/CSV": "dev-master",
 		"rasim/config": "dev-master",
-		"guzzlehttp/guzzle": "dev-master"
+		"guzzlehttp/guzzle": "dev-master",
+		"indatus/dispatcher": "1.4.*@dev"
 	},
 	"autoload": {
 		"classmap": [

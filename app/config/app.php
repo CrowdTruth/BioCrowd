@@ -124,6 +124,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'mnshankar\CSV\CSVServiceProvider',
 		'Rasim\Config\ConfigWriterServiceProvider',
+		'Indatus\Dispatcher\ServiceProvider',
 	),
 
 	/*
