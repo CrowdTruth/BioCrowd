@@ -141,16 +141,6 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
-		Schema::create('campaign_has_game', function($table)
-		{
-			$table->increments('id');
-			$table->integer('campaign_id')->unsigned();
-			$table->foreign('campaign_id')->references('id')->on('campaigns');
-			$table->integer('game_id')->unsigned();
-			$table->foreign('game_id')->references('id')->on('games');
-			$table->timestamps();
-		});
-		
 		Schema::create('campaign_progress', function($table)
 		{
 			$table->increments('id');
@@ -158,9 +148,17 @@ class InitDatabase extends Migration {
 			$table->foreign('campaign_id')->references('id')->on('campaigns');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('campaign_has_game_id')->unsigned();
-			$table->foreign('campaign_has_game_id')->references('id')->on('campaign_has_game');
 			$table->integer('number_performed')->default(0);
+			$table->timestamps();
+		});
+		
+		Schema::create('campaign_has_game', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
 			$table->timestamps();
 		});
 		
@@ -195,8 +193,8 @@ class InitDatabase extends Migration {
 	{
 		Schema::drop('campaign_has_story');
 		Schema::drop('stories');
-		Schema::drop('campaign_progress');
 		Schema::drop('campaign_has_game');
+		Schema::drop('campaign_progress');
 		Schema::drop('campaigns');
 		Schema::drop('campaign_types');
 		Schema::drop('judgements');
