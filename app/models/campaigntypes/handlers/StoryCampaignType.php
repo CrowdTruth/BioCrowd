@@ -55,7 +55,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 	public function getView($campaign) {
 		// Get parameter campaignId
 		$campaignId = $campaign->id;
-			
+		
 		//Retrieve the array of games that this campaign entails
 		$crude_game_array = CampaignGames::where('campaign_id',$campaignId)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
@@ -117,6 +117,19 @@ class StoryCampaignType extends CampaignTypeHandler {
 	 */
 	public function processResponse($campaign,$gameOrigin,$gameId) {
 		$this->updateCampaignProgress($campaign);
+		//if the user came here from a game instead of a campaign, redirect to the game menu
+		global $numberPerformed;
+		$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get());
+		if($gameOrigin){
+			return Redirect::to('gameMenu');
+		} else {
+			//return to next cammpaign or campaign overview page if the campaign is done.
+			if($numberPerformed+1 == $amountOfGamesInThisCampaign){
+				return Redirect::to('campaignMenu');
+			} else {
+				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+			}
+		}
 	}
 	
 	/**
@@ -135,7 +148,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 	
 	function updateCampaignProgress($campaign){
 		$userId = Auth::user()->get()->id;
-		$gameOrigin = false;
 		//get the amount of tasks performed by this user
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
 		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
@@ -162,18 +174,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 			//edit the number_performed in the campaignProgress model and save to the database
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->save();
-		}
-		
-		//if the user came here from a game instead of a campaign, redirect to the game menu
-		if($gameOrigin){
-			return Redirect::to('gameMenu');
-		} else {
-			//return to next cammpaign or campaign overview page if the campaign is done.
-			if($numberPerformed+1 == $amountOfGamesInThisCampaign){
-				return Redirect::to('campaignMenu');
-			} else {
-				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
-			}
 		}
 	}
 }
