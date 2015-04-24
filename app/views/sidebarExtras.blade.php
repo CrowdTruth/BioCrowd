@@ -13,7 +13,7 @@
 </div>
 
 {{-- Library articles as rewards: nice to have, but this is future work.--}}
-{{--
+@if(false)
 <div class="my_articles contentbox" style="margin-top:20px; width:320px;">
 	<b style="line-height:50px; font-size:20px; border-bottom:solid 1px; border-bottom-color:silver">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;My medical library&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
 	<div style='text-align:center;'>
@@ -31,7 +31,8 @@
 		</ul>
 	</div>
 </div>
---}}
+@endif
+
 
 @section('extraheaders')
 <div id="fb-root"></div>
