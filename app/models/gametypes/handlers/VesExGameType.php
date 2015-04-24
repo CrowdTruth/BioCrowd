@@ -103,7 +103,7 @@ class VesExGameType extends GameTypeHandler {
 		if($novesicles == null){
 			$novesicles = "false";
 		}
-		$response = serialize(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
+		$response = $this->encodeJudgement(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
@@ -113,6 +113,20 @@ class VesExGameType extends GameTypeHandler {
 		$judgement->save();
 		
 		return Redirect::to('gameMenu');
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function encodeJudgement($judgement) {
+		return serialize($judgement);
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function decodeJudgement($judgementStr) {
+		return unserialize($judgementStr);
 	}
 	
 	// TODO: document (or remove if not used)

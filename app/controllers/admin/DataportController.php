@@ -164,6 +164,12 @@ class DataportController extends BaseController {
 			foreach(get_object_vars($row) as $name=>$val) {
 				$cleanRow[$name] = $row->$name;
 			}
+			
+			// Use corresponding game controller to process request.
+			$handlerClass = Game::find($cleanRow['game_id'])->gameType->handler_class;
+			$handler = new $handlerClass();
+			$cleanRow['response'] = $handler->decodeJudgement($cleanRow['response']);
+			
 			array_push($data, $cleanRow);
 		}
 		

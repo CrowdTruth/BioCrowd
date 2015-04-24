@@ -92,7 +92,7 @@ class CellExGameType extends GameTypeHandler {
 		$responseArray["NoCellsOrVesicles"] = $noCells;
 		$tempCoords = json_decode(Input::get('response'));
 		$responseArray["Coordinates"] = $tempCoords;
-		$response = serialize($responseArray);
+		$response = $this->encodeJudgement($responseArray);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
@@ -102,6 +102,20 @@ class CellExGameType extends GameTypeHandler {
 		$judgement->save();
 		
 		return Redirect::to('gameMenu');
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function encodeJudgement($judgement) {
+		return serialize($judgement);
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function decodeJudgement($judgementStr) {
+		return unserialize($judgementStr);
 	}
 	
 	/**

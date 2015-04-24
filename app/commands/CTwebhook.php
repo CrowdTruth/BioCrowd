@@ -14,7 +14,7 @@ use Symfony\Component\Console\Input\InputArgument;
  * Command can also be called as a scheduled task:
  * 
  *   php artisan scheduled:run
- *   
+ * 
  * NOTE: php artisan scheduled:run must be added to crontab to run all scheduled tasks.
  * See https://github.com/Indatus/dispatcher/tree/1.4#Cron for more info.
  * 
@@ -54,7 +54,7 @@ class CTwebhook extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler->everyMinutes(1);
+		return $scheduler->everyMinutes(10);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class CTwebhook extends ScheduledCommand {
 	public function fire()
 	{
 		$response = DataportController::callWebhook();
-			
+		
 		if($response['status']=='ok') {
 			$this->info('Webhook successfully called');
 			$this->info('  > '.$response['message']);
@@ -82,9 +82,7 @@ class CTwebhook extends ScheduledCommand {
 	 */
 	protected function getArguments()
 	{
-		return array(
-			
-		);
+		return array();
 	}
 
 	/**
@@ -94,9 +92,7 @@ class CTwebhook extends ScheduledCommand {
 	 */
 	protected function getOptions()
 	{
-		return array(
-			array('example', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
-		);
+		return array();
 	}
 
 }

@@ -78,6 +78,26 @@ abstract class GameTypeHandler {
 	public abstract function processResponse($game);
 	
 	/**
+	 * Take judgement submitted by user and encode it as a String for storage 
+	 * in the database. This operation should be inverted by decodeJudgement.
+	 * 
+	 * @param $judgement Judgement as submitted (structure is game dependent).
+	 * 
+	 * @return String encoded form of the judgement.
+	 */
+	public abstract function encodeJudgement($judgement);
+	
+	/**
+	 * Take a judgement String stored in the database and return a judgement 
+	 * as it was submitted by user. This operation is the inverse of encodeJudgement.
+	 * 
+	 * @param $judgementStr String encoded form of the judgement.
+	 * 
+	 * @return Judgement as submitted (structure is game dependent).
+	 */
+	public abstract function decodeJudgement($judgementStr);
+	
+	/**
 	 * Returns the String representation of this handler.
 	 * 
 	 * @return multitype:NULL

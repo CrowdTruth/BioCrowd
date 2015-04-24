@@ -59,6 +59,20 @@ class DummyGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
+	public function encodeJudgement($judgement) {
+		return 'encoded judgement...'
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function decodeJudgement($judgementStr) {
+		return [ 'decoded jugement', 'maybe in many parts' ];
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
 	public function renderTask($task) {
 		return $task->data;
 	}
