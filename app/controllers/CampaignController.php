@@ -24,12 +24,14 @@ class CampaignController extends GameController {
 	public function submitCampaign(){
 		$this->submitGame();
 		
+		$gameId = Input::get('gameId');
+		
 		$gameOrigin = false;
-		global $numberPerformed;
+		//global $numberPerformed;
 		
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		$gameOrigin = Input::get('gameOrigin');
-		$numberPerformed = 0;
+		//$numberPerformed = 0;
 		
 		if(count($campaignIdArray)<=1){
 			$campaignId = $campaignIdArray;
@@ -37,24 +39,24 @@ class CampaignController extends GameController {
 			// Use corresponding campaign controller to process request.
 			$handlerClass = $campaign->campaignType->handler_class;
 			$handler = new $handlerClass();
-			return $handler->processResponse($campaign);
+			return $handler->processResponse($campaign,$gameOrigin,$gameId);
 			//$this->updateCampaignProgress($campaign);
 			
 			//get the game_array from the POST data
 			//$amountOfGamesInThisCampaign = Input::Get('amountOfGamesInThisCampaign');
-			$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get()->toArray());
+			//$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get()->toArray());
 		} else {
 			foreach($campaignIdArray as $campaignId){
 				$campaign = Campaign::where('id',$campaignId)->first();
 				// Use corresponding campaign controller to process request.
 				$handlerClass = $campaign->campaignType->handler_class;
 				$handler = new $handlerClass();
-				return $handler->processResponse($campaign);
+				return $handler->processResponse($campaign,$gameOrigin,$gameId);
 				//$this->updateCampaignProgress($campaign);
 				
 				//get the game_array from the POST data
 				//$amountOfGamesInThisCampaign = Input::Get('amountOfGamesInThisCampaign');
-				$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get()->toArray());
+				//$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get()->toArray());
 			}
 		}
 		

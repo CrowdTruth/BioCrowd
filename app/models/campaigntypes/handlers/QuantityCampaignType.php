@@ -94,8 +94,29 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($campaign) {
-		$this->updateCampaignProgress($campaign);
+	public function processResponse($campaign,$gameOrigin,$gameId) {
+		$this->updateCampaignProgress($campaign,$gameId);
+		
+		//if the user came here from a game instead of a campaign, redirect to the game menu
+		if($gameOrigin){
+			return Redirect::to('gameMenu');
+		} else {
+			$nextGame = $this->selectNextGameInCampaign($campaign);
+			//return to next cammpaign or campaign overview page if the campaign is done.
+			if($nextGame){
+				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+			} else {
+				return Redirect::to('campaignMenu');
+			}
+		}
+	}
+	
+	function selectNextGameInCampaign($campaign){
+		//Retrieve the array of games that this campaign entails
+		$crude_game_array = CampaignGames::where('campaign_id',$campaignId)->select('game_id')->get()->toArray();
+		$game_array = array_column($crude_game_array, 'game_id');
+		//subtract the games that have already been done (with campaign_has_game_id)
+		//choose the first game in the array and return it
 	}
 	
 	/**
@@ -112,24 +133,46 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		return "";
 	}
 	
-	function updateCampaignProgress($campaign){
+	function updateCampaignProgress($campaign,$gameId){
 		$userId = Auth::user()->get()->id;
-		$gameOrigin = false;
 		//get the amount of tasks performed by this user
-		$campaignProgress1 = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
+		/*$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
 		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
-		global $numberPerformed;
-		if(count($campaignProgress1) < 1){
+		$numberPerformed;
+		if(count($testvariable) < 1){
 			$numberPerformed = 0;
 		} else {
 			//Find out what the next game is for this user in this campaign
-			$numberPerformed = $campaignProgress1['number_performed'];
+			$numberPerformed = $testvariable['number_performed'];
+		}*/
+		
+		//see if there are campaignGameId's that are already in the campaignProgress table and select the ones that are NOT in there
+		$campaignProgressForThisUser = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->select('campaign_has_game_id')->get(); //this is empty if this user has no progress for this campaign yet
+		if($campaignProgressForThisUser){
+			$crudeCampaignGamesIdArray = CampaignGames::where('campaign_id',$campaign->id)->where('game_id',$gameId)->whereNotIn('id',$campaignProgressForThisUser)->select('id')->get()->toArray();
+			$campaignGamesIdArray = array_column($crudeCampaignGamesIdArray, 'id');
+		} else {
+			$crudeCampaignGamesIdArray = CampaignGames::where('campaign_id',$campaign->id)->where('game_id',$gameId)->select('id')->get()->toArray();
+			$campaignGamesIdArray = array_column($crudeCampaignGamesIdArray, 'id');
+		}
+		
+		dd($campaignGamesIdArray);
+		
+		//see if there are campaignGameId's that are already in the campaignProgress table and select the ones that are NOT in there
+		//$campaignProgressGamesIdArray = CampaignProgress::
+		
+		$campaignGamesId;
+		if(count($testvariable) < 1){
+			$campaignGamesId = false;
+		} else {
+			$campaignGamesId = $testvariable['id'];
 		}
 			
 		if($numberPerformed == 0){
 			//Since there is no entry in the campaign_progress table yet, make a new campaignProgress model.
 			$campaignProgress = new CampaignProgress;
 			//fill it with all important information
+			$campaignProgress->campaign_has_game_id = $campaignGamesId;
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->campaign_id = $campaign->id;
 			$campaignProgress->user_id = $userId;
@@ -141,18 +184,6 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			//edit the number_performed in the campaignProgress model and save to the database
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->save();
-		}
-		
-		//if the user came here from a game instead of a campaign, redirect to the game menu
-		if($gameOrigin){
-			return Redirect::to('gameMenu');
-		} else {
-			//return to next cammpaign or campaign overview page if the campaign is done.
-			if($numberPerformed+1 == $amountOfGamesInThisCampaign){
-				return Redirect::to('campaignMenu');
-			} else {
-				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
-			}
 		}
 	}
 }
