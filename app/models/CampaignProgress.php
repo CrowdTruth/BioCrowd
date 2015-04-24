@@ -20,7 +20,7 @@ class CampaignProgress extends Eloquent {
 	 * @param $number_performed Number of games performed in this campaign
 	 * @param $attributes
 	 */
-	public function __construct($campaign_id = null, $user_id = null, $number_performed = null, $campaign_has_game_id = null, $attributes = [])  {
+	public function __construct($campaign_id = null, $user_id = null, $number_performed = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
 	}
 }
