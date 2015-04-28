@@ -146,7 +146,25 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			$numberPerformed = $testvariable['number_performed'];
 		}*/
 		
-		//see if there are campaignGameId's that are already in the campaignProgress table and select the ones that are NOT in there
+		//select task_id from judgements
+		//where user_id = currentUserId
+		//raw count the result and put this in an array
+		$tasksCountDoneByUser = DB::table('judgements')
+		->where('user_id',$userId)
+		->select('tasks.id as taskId',DB::raw('count(*) as nTasks'))
+		->get();
+		//
+		//select task_id from tasks
+		//right join this with tasksCountDoneByUser
+		//order by nTasks
+		$totalTasksCountForUser = DB::table('tasks')
+		->join($tasksCountDoneByUser, 'tasks.id', '=', $tasksCountDoneByUser->id)
+		->select($tasksCountDoneByUser->id,DB::raw('count(*) as nTasks')) //select tasksCountDoneByUser, select all tasks, and join them with a for loop for tasks(if task in tasksCountDoneByUser find taskId and use the count, if not, use 0
+		->orderBy('nTasks')
+		->get();
+		
+		dd($totalTasksCountForUser);
+		
 		$campaignProgressForThisUser = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->select('campaign_has_game_id')->get(); //this is empty if this user has no progress for this campaign yet
 		if($campaignProgressForThisUser){
 			$crudeCampaignGamesIdArray = CampaignGames::where('campaign_id',$campaign->id)->where('game_id',$gameId)->whereNotIn('id',$campaignProgressForThisUser)->select('id')->get()->toArray();

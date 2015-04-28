@@ -26,9 +26,15 @@
 										Complete campaign "{{{ $item['text'] }}}" and earn the badge "{{{ $item['badgeName'] }}}"
 									</div>
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
-												{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}% Complete
-										</div>
+										@if($item['numberPerformed']>$item['numberOfGamesInThisCampaign'])
+											<div class="progress-bar" role="progressbar" aria-valuenow="100" area-valuemin="{{{$item['numberOfGamesInThisCampaign']}}}" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:100%">
+													100% Complete
+											</div>
+										@else
+											<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
+													{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}% Complete
+											</div>
+										@endif
 									</div>
 								</div>
 							</div>
@@ -44,9 +50,15 @@
 										You have already completed campaign "{{{ $item['text'] }}}" or the campaign period is over
 									</div>
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
-												{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}% Complete
-										</div>
+										@if($item['numberPerformed']>$item['numberOfGamesInThisCampaign'])
+											<div class="progress-bar" role="progressbar" aria-valuenow="100" area-valuemin="{{{$item['numberOfGamesInThisCampaign']}}}" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:100%">
+													100% Complete
+											</div>
+										@else
+											<div class="progress-bar" role="progressbar" aria-valuenow="{{{$item['numberPerformed']}}}" area-valuemin="0" aria-valuemax="{{{$item['numberOfGamesInThisCampaign']}}}" style="width:{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}%">
+													{{($item['numberPerformed']/$item['numberOfGamesInThisCampaign'])*100}}% Complete
+											</div>
+										@endif
 									</div>
 								</div>
 							</div>
