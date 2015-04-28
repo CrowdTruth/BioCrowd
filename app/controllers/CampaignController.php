@@ -24,8 +24,6 @@ class CampaignController extends GameController {
 	public function submitCampaign(){
 		$this->submitGame();
 		
-		$gameId = Input::get('gameId');
-		
 		$gameOrigin = false;
 		//global $numberPerformed;
 		
@@ -39,7 +37,7 @@ class CampaignController extends GameController {
 			// Use corresponding campaign controller to process request.
 			$handlerClass = $campaign->campaignType->handler_class;
 			$handler = new $handlerClass();
-			return $handler->processResponse($campaign,$gameOrigin,$gameId);
+			return $handler->processResponse($campaign,$gameOrigin);
 			//$this->updateCampaignProgress($campaign);
 			
 			//get the game_array from the POST data
@@ -51,7 +49,7 @@ class CampaignController extends GameController {
 				// Use corresponding campaign controller to process request.
 				$handlerClass = $campaign->campaignType->handler_class;
 				$handler = new $handlerClass();
-				return $handler->processResponse($campaign,$gameOrigin,$gameId);
+				return $handler->processResponse($campaign,$gameOrigin);
 				//$this->updateCampaignProgress($campaign);
 				
 				//get the game_array from the POST data

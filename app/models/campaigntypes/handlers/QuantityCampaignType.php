@@ -94,8 +94,8 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($campaign,$gameOrigin,$gameId) {
-		$this->updateCampaignProgress($campaign,$gameId);
+	public function processResponse($campaign,$gameOrigin) {
+		$this->updateCampaignProgress($campaign);
 		
 		//if the user came here from a game instead of a campaign, redirect to the game menu
 		if($gameOrigin){
@@ -113,10 +113,50 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	
 	function selectNextGameInCampaign($campaign){
 		//Retrieve the array of games that this campaign entails
-		$crude_game_array = CampaignGames::where('campaign_id',$campaignId)->select('game_id')->get()->toArray();
+		$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
-		//subtract the games that have already been done (with campaign_has_game_id)
-		//choose the first game in the array and return it
+		//see which tasks are part of these games
+		//compare this list with the tasks that were already done by this user and remove those tasks from the list
+		//see which task is next and which game contains that task
+		//return this gameId
+	}
+	
+	function selectNextTaskForUser($userId){	
+		//select task_id from judgements
+		//where user_id = currentUserId
+		//group by task_id
+		//raw count the result and put this in an array (result is an array with 2 columns: TaskId and number of times the current user performed this task
+		$tasksCountDoneByUser = DB::table('judgements')
+		->where('user_id',$userId)
+		->groupBy('task_id')
+		->select('task_id as TaskId',DB::raw('count(*) as nTimes'))
+		->get();
+		
+		//Make an array with all tasks that were done by this user (without the count)
+		$tasksDoneByUser;
+		for($i = 0; $i < count($tasksCountDoneByUser); $i++){
+			$tasksDoneByUser[$i] = $tasksCountDoneByUser[$i]->TaskId;
+		}
+		
+		//Get a list of all tasks excluding the ones done by this user
+		$totalTasksCountNotDoneByUser = DB::table('tasks')
+		->whereNotIn('id',$tasksDoneByUser)
+		->select('id as TaskId')
+		->get();
+		
+		//For each of the tasks in totalTasksCountNotDoneByUser,
+		//add a second colomn "nTasks" and fill it with 0
+		foreach($totalTasksCountNotDoneByUser as $taskCount){
+			$taskCount->nTimes = 0;
+		}
+		
+		$totalTasksCountForUser = [];
+		//Now add $tasksCountDoneByUser to $totalTasksCountNotDoneByUser
+		array_push($totalTasksCountForUser,$totalTasksCountNotDoneByUser,$tasksCountDoneByUser);
+		
+		//Now use totalTasksCountForUser to select the next task that has been done the least amount of times by this user (select the top TaskId in the list)
+		//and return the id of the next task for this user
+		return $totalTasksCountForUser[0]->TaskId;
 	}
 	
 	/**
@@ -133,64 +173,23 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		return "";
 	}
 	
-	function updateCampaignProgress($campaign,$gameId){
+	function updateCampaignProgress($campaign){
 		$userId = Auth::user()->get()->id;
 		//get the amount of tasks performed by this user
-		/*$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
+		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
 		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
-		$numberPerformed;
+		global $numberPerformed;
 		if(count($testvariable) < 1){
 			$numberPerformed = 0;
 		} else {
 			//Find out what the next game is for this user in this campaign
 			$numberPerformed = $testvariable['number_performed'];
-		}*/
-		
-		//select task_id from judgements
-		//where user_id = currentUserId
-		//raw count the result and put this in an array
-		$tasksCountDoneByUser = DB::table('judgements')
-		->where('user_id',$userId)
-		->select('tasks.id as taskId',DB::raw('count(*) as nTasks'))
-		->get();
-		//
-		//select task_id from tasks
-		//right join this with tasksCountDoneByUser
-		//order by nTasks
-		$totalTasksCountForUser = DB::table('tasks')
-		->join($tasksCountDoneByUser, 'tasks.id', '=', $tasksCountDoneByUser->id)
-		->select($tasksCountDoneByUser->id,DB::raw('count(*) as nTasks')) //select tasksCountDoneByUser, select all tasks, and join them with a for loop for tasks(if task in tasksCountDoneByUser find taskId and use the count, if not, use 0
-		->orderBy('nTasks')
-		->get();
-		
-		dd($totalTasksCountForUser);
-		
-		$campaignProgressForThisUser = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->select('campaign_has_game_id')->get(); //this is empty if this user has no progress for this campaign yet
-		if($campaignProgressForThisUser){
-			$crudeCampaignGamesIdArray = CampaignGames::where('campaign_id',$campaign->id)->where('game_id',$gameId)->whereNotIn('id',$campaignProgressForThisUser)->select('id')->get()->toArray();
-			$campaignGamesIdArray = array_column($crudeCampaignGamesIdArray, 'id');
-		} else {
-			$crudeCampaignGamesIdArray = CampaignGames::where('campaign_id',$campaign->id)->where('game_id',$gameId)->select('id')->get()->toArray();
-			$campaignGamesIdArray = array_column($crudeCampaignGamesIdArray, 'id');
-		}
-		
-		dd($campaignGamesIdArray);
-		
-		//see if there are campaignGameId's that are already in the campaignProgress table and select the ones that are NOT in there
-		//$campaignProgressGamesIdArray = CampaignProgress::
-		
-		$campaignGamesId;
-		if(count($testvariable) < 1){
-			$campaignGamesId = false;
-		} else {
-			$campaignGamesId = $testvariable['id'];
 		}
 			
 		if($numberPerformed == 0){
 			//Since there is no entry in the campaign_progress table yet, make a new campaignProgress model.
 			$campaignProgress = new CampaignProgress;
 			//fill it with all important information
-			$campaignProgress->campaign_has_game_id = $campaignGamesId;
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->campaign_id = $campaign->id;
 			$campaignProgress->user_id = $userId;

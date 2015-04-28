@@ -119,7 +119,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($campaign,$gameOrigin,$gameId) {
+	public function processResponse($campaign,$gameOrigin) {
 		$this->updateCampaignProgress($campaign);
 		//if the user came here from a game instead of a campaign, redirect to the game menu
 		$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get());

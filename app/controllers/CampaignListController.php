@@ -22,8 +22,8 @@ class CampaignListController extends CampaignController {
 			->select('campaigns.id as campaignId','campaigns.name as name','campaigns.badgeName as badgeName','image',DB::raw('count(*) as nCampains'))
 			->get();
 		
-		//set the enabled variable to default false
-		$enabled = false;
+		//set the enabled variable to default true
+		$enabled = true;
 		
 		$campaignsByEndDate = [];
 		
@@ -41,11 +41,11 @@ class CampaignListController extends CampaignController {
 			$numberOfGamesInThisCampaign = CampaignGames::where('campaign_id',$campaign->campaignId)->count();
 				
 			//if the progress is less then the total number of games in this campaign, set enabled to true. Else, set to false.
-			if($numberPerformed < $numberOfGamesInThisCampaign){
+			/*if($numberPerformed < $numberOfGamesInThisCampaign){
 				$enabled = true;
 			} else {
 				$enabled = false;
-			}
+			}*/ //THIS WAS REMOVED BECAUSE WE WANT USERS TO BE ABLE TO PLAY THE SAME CAMPAIGN AGAIN. 
 				
 			//create the campaign pictogram (item) with the correct text and enablement.
 			$item = [

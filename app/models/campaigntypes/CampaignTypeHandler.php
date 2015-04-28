@@ -74,7 +74,7 @@ abstract class CampaignTypeHandler {
 	 *
 	 * @param $campaign Campaign which produced the Blade view being processed.
 	*/
-	public abstract function processResponse($campaign,$gameOrigin,$gameId);
+	public abstract function processResponse($campaign,$gameOrigin);
 	
 	/**
 	 * Returns the String representation of this handler.
