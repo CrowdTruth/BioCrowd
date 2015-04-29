@@ -101,7 +101,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		if($gameOrigin){
 			return Redirect::to('gameMenu');
 		} else {
-			$nextGame = $this->selectNextGameInCampaign($campaign);
+			$nextGame = $this->selectNextGameInCampaignForThisUser($campaign);
 			//return to next cammpaign or campaign overview page if the campaign is done.
 			if($nextGame){
 				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
@@ -111,32 +111,108 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		}
 	}
 	
-	function selectNextGameInCampaign($campaign){
+	function selectNextGameInCampaignForThisUser($campaign){
+		$userId = Auth::user()->get()->id;
 		//Retrieve the array of games that this campaign entails
 		$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
-		//see which tasks are part of these games
+		
+		//make an array for a list of the the tasks in the games that are in this campaign.
+		$tasksInGames = [];
+		
+		//see which tasks are part of the games in the game_array and put them in the tasksInGames array. 
+		foreach($game_array as $gameId){
+			$tasksInGame = $this->tasksInGame($gameId);
+			foreach($tasksInGame as $taskId){
+				array_push($tasksInGames,$taskId);
+			}
+		}
+		//remove duplicate entries of task Id's
+		$tasksInGames = array_unique($tasksInGames);
+		
+		//get the task count done by this user
+		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
+		
+		//make a variable to contain all tasks and their counts that were not done by this user for this campaign
+		$tasksCountDoneByUserForthisCampaign = [];
+		
+		//make a variable to contain all tasks and their counts that were done by this user for this campaign
+		$tasksCountNotDoneByUserForThisCampaign = [];
+
+		//loop through the tasksInGames taskId's and for each loop, check if this id is in the tasksCountDoneByUser. 
+		//If it is in there, fill the tasksCountNotDoneByUser variable with it. 
+		foreach($tasksInGames as $taskId){
+			//If it is in there, put this taskId and it's count into $itsInThere.
+			$itsInThere = $this->searchValuesByKeyInArray($tasksCountDoneByUser,'TaskId',$taskId);
+			
+			if($itsInThere == []){
+				$itsInThere = false;
+			}
+			
+			//If it is in there, put this taskId and it's count into $tasksCountDoneByUserForthisCampaign. 
+			if($itsInThere){
+				array_merge($tasksCountDoneByUserForthisCampaign,$itsInThere);
+			} else {
+				//If it is not in there, put this taskId into $tasksCountNotDoneByUserForThisCampaign with nTimes = 0. 
+				$tempVar['TaskId'] = $taskId;
+				$tempVar['nTimes'] = 0;
+				$tasksCountNotDoneByUserForThisCampaign = array_merge($tasksCountNotDoneByUserForThisCampaign,$tempVar);
+			}
+		}
+		
+		//make a variable to contain all tasks and their counts done by this user for this campaign
+		$totalTasksCountForUserForThisCampaign = [];
+		
+		//merge the $tasksCountNotDoneByUserForThisCampaign array with the $tasksCountDoneByUserForthisCampaign array
+		$totalTasksCountForUserForThisCampaign = array_merge($tasksCountNotDoneByUserForThisCampaign,$tasksCountDoneByUserForthisCampaign);
+		
+		dd($totalTasksCountForUserForThisCampaign);
+		
 		//compare this list with the tasks that were already done by this user and remove those tasks from the list
+		//get the tasks that were already done by this user
+		//$taskListForUser = $this->getTaskListForUser($userId);
+		//remove the tasks from the tasksInGames array that were already done by this user
+		//$array_diff($array1,$array2);
 		//see which task is next and which game contains that task
+		//maybe pick the task that has the least amount of annotations?
+		//maybe pick the task that has the least aount of that game type of annotations?
 		//return this gameId
 	}
 	
-	function selectNextTaskForUser($userId){	
-		//select task_id from judgements
-		//where user_id = currentUserId
-		//group by task_id
-		//raw count the result and put this in an array (result is an array with 2 columns: TaskId and number of times the current user performed this task
-		$tasksCountDoneByUser = DB::table('judgements')
-		->where('user_id',$userId)
-		->groupBy('task_id')
-		->select('task_id as TaskId',DB::raw('count(*) as nTimes'))
-		->get();
-		
-		//Make an array with all tasks that were done by this user (without the count)
-		$tasksDoneByUser;
-		for($i = 0; $i < count($tasksCountDoneByUser); $i++){
-			$tasksDoneByUser[$i] = $tasksCountDoneByUser[$i]->TaskId;
+	/**
+	 * Searches and returns a given value by given key out of a given array containing arrays with keys and values. 
+	 */
+	function searchValuesByKeyInArray($array, $key, $value){
+		$results = array();
+		if (is_array($array)) {
+			if (isset($array[$key]) && $array[$key] == $value) {
+				$results[] = $array;
+			}
+	
+			foreach ($array as $subarray) {
+				$results = array_merge($results, $this->searchValuesByKeyInArray($subarray, $key, $value));
+			}
 		}
+		return $results;
+	}
+	
+	/**
+	 * Returns an array of tasks that are in the given game. 
+	 */
+	function tasksInGame($gameId){		
+		$crudeTasksArray = GameHasTask::where('game_id',$gameId)->select('task_id')->get()->toArray();
+		$tasksArray = array_column($crudeTasksArray,'task_id');
+		return $tasksArray;
+	}
+	
+	/**
+	 * Selects the next task for a user. 
+	 * The next task is the task that has been done the least amount of times by this user 
+	 * and with the lowest id in the tasks table. 
+	 */
+	function selectNextTaskForUser($userId){	
+		//get the list of tasks that this user has done untill now
+		$tasksDoneByUser = $this->getTaskListForUser($userId);
 		
 		//Get a list of all tasks excluding the ones done by this user
 		$totalTasksCountNotDoneByUser = DB::table('tasks')
@@ -150,6 +226,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			$taskCount->nTimes = 0;
 		}
 		
+		//get the task count done by this user
+		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
+		
 		$totalTasksCountForUser = [];
 		//Now add $tasksCountDoneByUser to $totalTasksCountNotDoneByUser
 		array_push($totalTasksCountForUser,$totalTasksCountNotDoneByUser,$tasksCountDoneByUser);
@@ -157,6 +236,36 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		//Now use totalTasksCountForUser to select the next task that has been done the least amount of times by this user (select the top TaskId in the list)
 		//and return the id of the next task for this user
 		return $totalTasksCountForUser[0]->TaskId;
+	}
+	
+	/**
+	 * Returns a list of taskId's that have been done by the given userId. 
+	 */
+	function getTaskListForUser($userId){
+		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
+		//Make an array with all tasks that were done by this user (without the count)
+		$tasksDoneByUser;
+		for($i = 0; $i < count($tasksCountDoneByUser); $i++){
+			$tasksDoneByUser[$i] = $tasksCountDoneByUser[$i]->TaskId;
+		}
+		return $tasksDoneByUser;
+	}
+	
+	/**
+	 * Returns a list of taskId's that have been done by the given userId 
+	 * and the amount of times they have been finished by this userId. 
+	 */
+	function getTasksCountDoneByUser($userId){
+		//select task_id from judgements
+		//where user_id = currentUserId
+		//group by task_id
+		//raw count the result and put this in an array (result is an array with 2 columns: TaskId and number of times the current user performed this task)
+		$tasksCountDoneByUser = DB::table('judgements')
+		->where('user_id',$userId)
+		->groupBy('task_id')
+		->select('task_id as TaskId',DB::raw('count(*) as nTimes'))
+		->get();
+		return $tasksCountDoneByUser;
 	}
 	
 	/**
@@ -173,6 +282,11 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		return "";
 	}
 	
+	/**
+	 * Check if this user has made progress on this campaign before. 
+	 * If not make a new entry in the campaignProgress table. 
+	 * If yes, edit the entry in the campaignProgress table: up the numberPerformed by 1. 
+	 */
 	function updateCampaignProgress($campaign){
 		$userId = Auth::user()->get()->id;
 		//get the amount of tasks performed by this user
