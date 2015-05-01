@@ -17,7 +17,7 @@
 			<tr>
 				<td>{{ $game['type'] }}</td>
 				<td>
-					<a href="{{ URL::action('AdminController@editGameView', [ 'gameId' => $game['id'] ]) }}">{{ $game['name'] }}</a>
+					<a href="{{ URL::action('GameAdminController@getEditGame', [ 'gameId' => $game['id'] ]) }}">{{ $game['name'] }}</a>
 				</td>
 				<td>{{ $game['level'] }}</td>
 				<td>{{ $game['tasks'] }}</td>
@@ -28,9 +28,28 @@
 				<td></td>
 				<td></td>
 				<td>
-					<a class="btn btn-success" href="{{ URL::action('AdminController@editGameView', [ 'gameId' => 'null' ]) }}"><i class="fa fa-search fa-fw"></i>+ Add new</a>
+					<a class="btn btn-success" href="{{ URL::action('GameAdminController@getEditGame', [ 'gameId' => 'null' ]) }}"><i class="fa fa-search fa-fw"></i>+ Add new</a>
+				</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+				{{ Form::open([ 'action' => 'GameAdminController@postGameUpload', 'id' => 'fileform', 'files' => true ]) }}
+				{{ Form::file('csvfile', [ 'class' => 'btn btn-success', 'onchange' => 'upload(event)' ] ) }}
+				{{ Form::close() }}
 				</td>
 			</tr>
 		</tbody>
 	</table>
+
+@stop
+
+@section('body-javascript')
+	<script>
+		function upload(event) {
+			$('#fileform').submit();
+		}
+	</script>
 @stop

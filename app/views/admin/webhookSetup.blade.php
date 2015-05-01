@@ -6,7 +6,7 @@
 <div id="collapseOne" class="panel-collapse collapse in">
 	<div class="panel-body">
 
-		{{ Form::open([ 'action' => 'DataportController@webhookUpdate' ]) }}
+		{{ Form::open([ 'action' => 'DataportController@postWebhook' ]) }}
 		{{ Form::hidden('action', 'none', [ 'id' => 'action' ]) }}
 		<div class="form-group">
 			{{ Form::label('url', 'Webhook URL:', [ 'class' => 'col-sm-2 control-label'] ) }}

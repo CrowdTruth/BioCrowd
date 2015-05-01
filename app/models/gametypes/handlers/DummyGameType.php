@@ -60,7 +60,7 @@ class DummyGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function encodeJudgement($judgement) {
-		return 'encoded judgement...'
+		return 'encoded judgement...';
 	}
 	
 	/**
@@ -73,7 +73,7 @@ class DummyGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function renderTask($task) {
+	public function renderGame($game) {
 		return $task->data;
 	}
 	

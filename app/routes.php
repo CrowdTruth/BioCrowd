@@ -39,28 +39,9 @@ Route::get('playCampaign', 'CampaignController@playCampaign');
 Route::post('submitCampaign', 'CampaignController@submitCampaign');
 
 // Administrator module routes -- maybe even put in another file ?
-Route::get ('admin/login' , 'AdminController@requestLogin');
-Route::post('admin/login' , 'AdminController@doLogin');
-Route::get('admin/logout' , 'AdminController@requestLogout');
-
-Route::get ('admin', [ 'before' => 'adminauth', 'uses' => 'AdminController@home' ] );
-
-Route::get('admin/listuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@listUsersView' ] );
-
-Route::get('admin/createuser', [ 'before' => 'adminauth', 'uses' => 'AdminController@newUserView' ] );
-
-Route::get('admin/listGames', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGamesView' ] );
-
-Route::get('admin/editGame', [ 'before' => 'adminauth', 'uses' => 'AdminController@editGameView' ] );
-Route::post	('admin/editGame', [ 'before' => 'adminauth', 'uses' => 'AdminController@editGameAction' ] );
-
-Route::get('admin/listGameTypes', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesView' ] );
-Route::get('admin/listGameTypesAction', [ 'before' => 'adminauth', 'uses' => 'AdminController@listGameTypesAction' ] );
-
-Route::get('admin/exportFile', [ 'before' => 'adminauth', 'uses' => 'DataportController@exportToFileView' ] );
-Route::post('admin/exportFile', [ 'before' => 'adminauth', 'uses' => 'DataportController@exportToFile' ] );
-Route::get('admin/exportWebhook', [ 'before' => 'adminauth', 'uses' => 'DataportController@webhookView' ] );
-Route::post('admin/exportWebhook', [ 'before' => 'adminauth', 'uses' => 'DataportController@webhookUpdate' ] );
+Route::controller('admin', 'AdminController');
+Route::controller('admin-export', 'DataportController');
+Route::controller('admin-games', 'GameAdminController');
 
 Route::get('test', function() {
 	return View::make('test');

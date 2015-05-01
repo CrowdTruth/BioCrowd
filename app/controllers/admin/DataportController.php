@@ -4,10 +4,14 @@
  * This Controller handles traffic for the admin data import/export.
  */
 class DataportController extends BaseController {
+	public function __construct() {
+		$this->beforeFilter('adminauth');
+	}
+	
 	/**
 	 * Construct view for exporting judgements to file.
 	 */
-	public function exportToFileView() {
+	public function getToFile() {
 		$games = Game::all();
 		$displayGames = [];
 		
@@ -24,7 +28,7 @@ class DataportController extends BaseController {
 	/**
 	 * Export judgements from selected game ids to CSV.
 	 */
-	public function exportToFile() {
+	public function postToFile() {
 		$gameIds = Input::get('games');
 	
 		$data = $this->fetchJudgements($gameIds);
@@ -39,7 +43,7 @@ class DataportController extends BaseController {
 	/**
 	 * Return view for updating webhook.
 	 */
-	public function webhookView() {
+	public function getWebhook() {
 		$webhook = Config::get('webhook.URL');
 		return View::make('admin.webhookSetup')
 			->with('webhook', $webhook);
@@ -51,7 +55,7 @@ class DataportController extends BaseController {
 	 *   update   Update the webhook call address.
 	 *   call     Call the webhook (see callWebhook method).
 	 */
-	public function webhookUpdate() {
+	public function postWebhook() {
 		$action = Input::get('action');
 		
 		if($action=='update') {

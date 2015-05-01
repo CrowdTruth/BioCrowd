@@ -45,7 +45,7 @@
 	<h2>Edit game</h2>
 
 	<div class="panel-body">
-		{{ Form::open([ 'action' => 'AdminController@editGameAction' , 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form' ] ) }}
+		{{ Form::open([ 'action' => 'GameAdminController@postEditGame' , 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form' ] ) }}
 			{{ Form::hidden('id', $game['id']) }}
 			<div class="form-group">
 				{{ Form::label('game_type', 'Game type:', [ 'class' => 'col-sm-2 control-label' ] ) }}
@@ -136,7 +136,7 @@
 			
 		// Load task list
 		@foreach ($tasks as $task)
-    		appendTask('{{ $task }}');
+			appendTask('{{ $task }}');
 		@endforeach
 
 		});

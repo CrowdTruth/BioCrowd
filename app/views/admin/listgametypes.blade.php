@@ -7,7 +7,6 @@
 		<thead>
 			<tr>
 				<th>Game name</th>
-				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -18,7 +17,7 @@
 				@if($gameType['installed'])
 					Installed
 				@else
-					<a class="btn btn-success" href="{{ URL::action('AdminController@listGameTypesAction', [ 'handler' => $gameType['handledFile'] ]) }}"><i class="fa fa-search fa-fw"></i>Install</a>
+					<a class="btn btn-success" href="{{ URL::action('GameAdminController@getListGameTypes', [ 'handler' => $gameType['handledFile'] ]) }}"><i class="fa fa-search fa-fw"></i>Install</a>
 				@endif
 				</td>
 			</tr>

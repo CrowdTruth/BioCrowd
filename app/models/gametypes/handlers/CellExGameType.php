@@ -35,7 +35,7 @@ class CellExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
-		return '';
+		return serialize([ 'label' => $inputs['cellExLabel'] ]);
 	}
 	
 	/**

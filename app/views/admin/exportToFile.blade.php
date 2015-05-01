@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Export to file</h2>
-{{ Form::open([ 'action' => 'DataportController@exportToFileView', 'name' => 'annotationForm' ]) }}
+{{ Form::open([ 'action' => 'DataportController@postToFile', 'name' => 'annotationForm' ]) }}
 <table class="table table-striped">
 	<thead>
 		<tr>

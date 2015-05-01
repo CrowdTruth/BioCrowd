@@ -48,10 +48,6 @@ class DatabaseSeeder extends Seeder {
 			$root->permissions()->save($perm);
 		}
 		
-		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::USERS)->first());
-		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::GAME)->first());
-		// $root->permissions()->save(AdminPermission::where('name', '=', AdminPermission::GAMETYPE)->first());
-
 		$root->save();
 		
 		// TODO: Remove DevelopDBSeeder for final release

@@ -10,33 +10,15 @@ class DevelopDBSeeder extends Seeder {
 	public function run()
 	{
 		Eloquent::unguard();
-
-		$this->command->info('Create test users: neocarlitos@... loeloe87@...');
-		User::create( [ 
-				'email' => 'neocarlitos@gmail.com',
-				'name' => 'Neo',
-				'password' => Hash::make('123456'),
-				'level' => '8',
-				'title' => 'Black belt',
-				'score' => '999'
-		] );
 		
-		User::create( [
-			'email' => 'loeloe87@hotmail.com',
-			'name' => 'Merel',
-			'level' => '2',
-			'title' => 'Padawan',
-			'password' => Hash::make('Merel')
-		] );
+		$this->createTestUsers();
 		
-		/*for($i=1;$i<=60;$i++){
-			User::create( [
-			'email' => 'user'.$i.'@test.com',
-			'name' => 'User'.$i,
-			'password' => Hash::make('User'.$i)
-			] );
-		}*/
-
+		//$this->createOtherGames();
+		
+		//$this->createCampaigns();
+	}
+	
+	public function createOtherGames() {
 		$this->command->info('Create test CellExGameType');
 		$gameType = new GameType(new CellExGameType());
 		$gameType->save();
@@ -127,8 +109,6 @@ class DevelopDBSeeder extends Seeder {
 			$gameHasTask->save();
 		}
 		
-		
-		
 		$this->command->info('Create test VesExGameType');
 		$gameType = new GameType(new VesExGameType());
 		$gameType->save();
@@ -146,7 +126,7 @@ class DevelopDBSeeder extends Seeder {
 				.'Example:'
 				.'</p>'
 				.'<img src="img/VesEx_instructions.png">';
-		$game4->extraInfo = serialize([ 	'label' => 'There are no vesicles in this image', 
+		$game4->extraInfo = serialize([	'label' => 'There are no vesicles in this image', 
 										'label1' => 'The vesicles are equally distributed', 
 										'label2' => 'The vesicles are near the tip' , 
 										'label3' => 'The vesicles are near the nucleus']);
@@ -168,24 +148,13 @@ class DevelopDBSeeder extends Seeder {
 			$gameHasTask = new GameHasTask($game4, $task);
 			$gameHasTask->save();
 		}
-		
-		/*
-		$this->command->info('Create test DummyGameType');
-		$gameType = new GameType(new DummyGameType());
-		$gameType->save();
-		
-		$game = new Game($gameType);
-		$game->level = 1;
-		$game->name = 'Dummy task';
-		$game->instructions = 'Some instructions.';
-		$game->save();
-		
-		$this->command->info('Create test Game: Dummy');
-		$task = new Task($game, 'Dummy task 1');
-		$task->save();
-		$task = new Task($game, 'Dummy task 2');
-		$task->save();
-		*/
+	}
+	
+	public function createCampaigns() {
+		$game1 = Game::where('name', '=', 'Cell tagging')->first();
+		$game2 = Game::where('name', '=', 'Nucleus tagging')->first();
+		$game3 = Game::where('name', '=', 'Colony tagging')->first();
+		$game4 = Game::where('name', '=', 'Vesicle locating')->first();
 		
 		$this->command->info('Create test StoryCampaignType');
 		$campaignType = new CampaignType(new StoryCampaignType());
@@ -249,7 +218,6 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_stories = new CampaignStories($campaign, $story4);
 		$campaign_stories->save();
 		
-		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game1);
 		$campaign_games->save();
@@ -265,8 +233,6 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game4);
 		$campaign_games->save();
-		
-		
 		
 		$this->command->info('Create test QuantityCampaignType');
 		$campaignType = new CampaignType(new QuantityCampaignType());
@@ -280,7 +246,6 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->image = 'img/army_mission.png';
 		$campaign->save();
 		
-		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game1);
 		$campaign_games->save();
@@ -296,5 +261,25 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game4);
 		$campaign_games->save();
+	}
+	
+	public function createTestUsers() {
+		$this->command->info('Create test users: neocarlitos@... loeloe87@...');
+		User::create( [
+			'email' => 'neocarlitos@gmail.com',
+			'name' => 'Neo',
+			'password' => Hash::make('123456'),
+			'level' => '8',
+			'title' => 'Black belt',
+			'score' => '999'
+		] );
+		
+		User::create( [
+			'email' => 'loeloe87@hotmail.com',
+			'name' => 'Merel',
+			'level' => '2',
+			'title' => 'Padawan',
+			'password' => Hash::make('Merel')
+		] );
 	}
 }

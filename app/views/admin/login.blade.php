@@ -2,7 +2,7 @@
 
 @section('content')
 	<div class="panel-body">
-		{{ Form::open([ 'action' => 'AdminController@doLogin', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form' ] ) }}
+		{{ Form::open([ 'action' => 'AdminController@postLogin', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form' ] ) }}
 			<div class="form-group">
 				{{ Form::label('username', 'Username:', [ 'class' => 'col-sm-2 control-label' ] ) }}
 				<div class="col-sm-4">
