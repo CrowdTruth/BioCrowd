@@ -75,7 +75,7 @@ abstract class GameTypeHandler {
 	 * 
 	 * @param $game Game which produced the Blade view being processed.
 	 */
-	public abstract function processResponse($game);
+	public abstract function processResponse($game,$campaignId);
 	
 	/**
 	 * Take judgement submitted by user and encode it as a String for storage 

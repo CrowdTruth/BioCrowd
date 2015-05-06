@@ -118,36 +118,48 @@ class StoryCampaignType extends CampaignTypeHandler {
 	
 	/**
 	 * See GameTypeHandler
+	 * The $gameOrigin variable indicates if the user comes from the game menu or the campaign menu. 
+	 * This is important because we need to redirect to the correct menu after the response is processed. 
+	 * The $done variable indicates if there are more responses to be processed or not. 
+	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed. 
 	 */
-	public function processResponse($campaign,$gameOrigin) {
+	public function processResponse($campaign,$gameOrigin,$done) {
 		$this->updateCampaignProgress($campaign);
 		//if the user came here from a game instead of a campaign, redirect to the game menu
 		$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get());
-		if($gameOrigin){
-			return Redirect::to('gameMenu');
-		} else {
-			//Retrieve the array of games that this campaign entails
-			$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();
-			$game_array = array_column($crude_game_array, 'game_id');
-			
-			//Find out if this campaign is in the campaign_progress table and if that entry has this user_id. If not: Just give the first gameId in the game_array.
-			$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
-			
-			if(count($testvariable) < 1){
-				$numberPerformed = 0;
-			} else {
-				//Find out what the next game is for this user in this campaign
-				$numberPerformed = $testvariable['number_performed'];
-			}
-			
-			while($numberPerformed > count($game_array)){
-				$numberPerformed -= count($game_array);
-			}
-			//return to next cammpaign or campaign overview page if the campaign is done.
-			if($numberPerformed == $amountOfGamesInThisCampaign){
-				return Redirect::to('campaignMenu');
-			} else {
-				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+		
+		if($done){//only redirect if there are no other responses that need processing
+			if($gameOrigin && $done){ //The user game from the game menu, so redirect to the game menu. 
+				//this should never happen with StoryCampaignTypes
+				return Redirect::to('gameMenu');
+			} else { //the user didn't come from the game menu, so figure out whether to go to the next game in this campaign or to the campaign menu
+				//Retrieve the array of games that this campaign entails
+				$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();
+				$game_array = array_column($crude_game_array, 'game_id');
+				
+				//Find out if this campaign is in the campaign_progress table and if that entry has this user_id. If not: Just give the first gameId in the game_array.
+				$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
+				
+				if(count($testvariable) < 1){
+					$numberPerformed = 0;
+				} else {
+					//Find out what the next game is for this user in this campaign
+					$numberPerformed = $testvariable['number_performed'];
+				}
+				
+				while($numberPerformed > count($game_array)){
+					$numberPerformed -= count($game_array);
+				}
+				//return to next cammpaign or campaign overview page if the campaign is done.
+				if($numberPerformed == $amountOfGamesInThisCampaign){
+					//go to the campaign menu
+					return Redirect::to('campaignMenu');
+				} else {
+					Log::error('we are here!');
+					Log::info(Redirect::to('playCampaign?campaignIdArray='.$campaign->id));
+					//go to the next game in this campaign
+					return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+				}
 			}
 		}
 	}

@@ -35,7 +35,7 @@ class CellExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
-		return serialize([ 'label' => $inputs['cellExLabel'] ]);
+		return '';
 	}
 	
 	/**
@@ -79,7 +79,7 @@ class CellExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($game) {
+	public function processResponse($game,$campaignId) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
@@ -98,10 +98,10 @@ class CellExGameType extends GameTypeHandler {
 		$judgement = new Judgement();
 		$judgement->user_id = $userId;
 		$judgement->task_id = $taskId;
+		$judgement->game_id = $game->id;
+		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
 		$judgement->save();
-		
-		return Redirect::to('gameMenu');
 	}
 	
 	/**

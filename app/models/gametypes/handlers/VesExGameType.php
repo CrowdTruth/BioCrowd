@@ -22,24 +22,7 @@ class VesExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function getExtrasDiv($extraInfo) {
-		$extraInfo = unserialize($extraInfo);
-		$label = $extraInfo['label'];
-		$label1 = $extraInfo['label1'];
-		$label2 = $extraInfo['label2'];
-		$label3 = $extraInfo['label3'];
-		$divHTML = "";
-		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label:</label>";
-		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";
-
-		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 1:</label>";
-		$divHTML .= "<input class='form-control' name='cellExLabel1' type='text' value='".$label1."' id='cellExLabel1'>";
-		
-		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 2:</label>";
-		$divHTML .= "<input class='form-control' name='cellExLabel2' type='text' value='".$label2."' id='cellExLabel2'>";
-		
-		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 3:</label>";
-		$divHTML .= "<input class='form-control' name='cellExLabel3' type='text' value='".$label3."' id='cellExLabel3'>";
-		
+		$divHTML = "No additional information provided for each game.";
 		return $divHTML;
 	}
 	
@@ -47,12 +30,7 @@ class VesExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function parseExtraInfo($inputs) {
-		return serialize([ 
-				'label'  => $inputs['cellExLabel'],
-				'label1' => $inputs['cellExLabel1'],
-				'label2' => $inputs['cellExLabel2'],
-				'label3' => $inputs['cellExLabel3']
-			]);
+		return '';
 	}
 	
 	/**
@@ -102,30 +80,39 @@ class VesExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function processResponse($game) {
+	public function processResponse($game,$campaignId) {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
-		$distributed = Input::get('distributed', 'No');
-		$tip = Input::get('tip', 'No');
-		$nucleus = Input::get('nucleus', 'No');
+		$distributed = Input::get('distributed');
+		$tip = Input::get('tip');
+		$nucleus = Input::get('nucleus');
 		$novesicles = Input::get('novesicles');
-		
-		$response = $this->encodeJudgement([
-				"Distributed" => $distributed,
-				"Tip" => $tip,
-				"Nucleus" => $nucleus,
-				"No Vesicles" => $novesicles
-			]);
+		//setValueToNo($distributed); //somehow it doesn't see the function even though it's down there! Composer dumpautoload doesn't fix this. 
+		//setValueToNo($tip);
+		//setValueToNo($nucleus);
+		if($distributed == null){
+			$distributed = "No";
+		}
+		if($tip == null){
+			$tip = "No";
+		}
+		if($nucleus == null){
+			$nucleus = "No";
+		}
+		if($novesicles == null){
+			$novesicles = "false";
+		}
+		$response = $this->encodeJudgement(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();
 		$judgement->user_id = $userId;
 		$judgement->task_id = $taskId;
+		$judgement->game_id = $game->id;
+		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
 		$judgement->save();
-		
-		return Redirect::to('gameMenu');
 	}
 	
 	/**
@@ -140,6 +127,13 @@ class VesExGameType extends GameTypeHandler {
 	 */
 	public function decodeJudgement($judgementStr) {
 		return unserialize($judgementStr);
+	}
+	
+	// TODO: document (or remove if not used)
+	function setValueToNo($value){
+		if($value == null){
+			$value = "No";
+		}
 	}
 	
 	/**

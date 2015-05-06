@@ -31,7 +31,7 @@ class GameController extends BaseController {
 		//if the game is in any campaigns that the user is eligable for,
 		//set campaignMode to true and add a parameter telling the campaignController
 		//that the user came from a game, not a campaign.
-		if(isset($campaignIdArray)){
+		if(count($campaignIdArray)>0){
 			return $handler->getView($game)->with('campaignMode', true)
 			->with('gameOrigin', true)
 			->with('campaignIdArray', $campaignIdArray);
@@ -48,11 +48,31 @@ class GameController extends BaseController {
 		// Get parameter which game ?
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
+		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		
-		// Use corresponding game controller to process request.
-		$handlerClass = $game->gameType->handler_class;
-		$handler = new $handlerClass();
-		return $handler->processResponse($game);
+		if($campaignIdArray){
+			if(count($campaignIdArray) == 1){
+				// Use corresponding game controller to process request.
+				$handlerClass = $game->gameType->handler_class;
+				$handler = new $handlerClass();
+				$handler->processResponse($game,$campaignIdArray);
+			} else {
+				//if this game is in at least one campaign, process the result for all campaigns it is in. 
+				foreach($campaignIdArray as $campaignId){
+					// Use corresponding game controller to process request.
+					$handlerClass = $game->gameType->handler_class;
+					$handler = new $handlerClass();
+					$handler->processResponse($game,$campaignId);
+				}
+			}
+		} else {
+			$campaignId = null;
+			// Use corresponding game controller to process request.
+			$handlerClass = $game->gameType->handler_class;
+			$handler = new $handlerClass();
+			$handler->processResponse($game,$campaignId);
+		}
+		return Redirect::to('gameMenu');
 	}
 	
 	function isInWhichQuantityCampaigns($game) {

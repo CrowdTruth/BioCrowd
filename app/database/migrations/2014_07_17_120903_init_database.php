@@ -111,6 +111,10 @@ class InitDatabase extends Migration {
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('task_id')->unsigned();
 			$table->foreign('task_id')->references('id')->on('tasks');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
+			$table->integer('campaign_id')->unsigned()->nullable();
+			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
 			$table->longText('response');
 			$table->timestamps();
 		});

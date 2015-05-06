@@ -57,18 +57,19 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		//Retrieve the array of games that this campaign entails
 		$crude_game_array = CampaignGames::where('campaign_id',$campaignId)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
-		
-		//Find out if this campaign is in the campaign_progress table and if that entry has this user_id. If not: Just give the first gameId in the game_array.
-		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaignId)->first(['number_performed']);
-		
-		if(count($testvariable) < 1){
-			$numberPerformed = 0;
-		} else {
-			//Find out what the next game is for this user in this campaign
-			$numberPerformed = $testvariable['number_performed'];
-		}
-		
-		$gameId = $game_array[$numberPerformed];
+				
+				//Find out if this campaign is in the campaign_progress table and if that entry has this user_id. If not: Just give the first gameId in the game_array.
+				/*$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaignId)->first(['number_performed']);
+				
+				if(count($testvariable) < 1){
+					$numberPerformed = 0;
+				} else {
+					//Find out what the next game is for this user in this campaign
+					$numberPerformed = $testvariable['number_performed'];
+				}
+				
+				//$gameId = $game_array[$numberPerformed];*/   //TO DO: remove this whole section
+		$gameId = $this->selectNextGameInCampaignForThisUser($campaign);
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);
@@ -83,7 +84,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			$view = $view->with($key, $value);
 		}
 		$view = $view->with('campaignMode', true);
-		//$view = $view->with('gameOrigin', false);
+		//$view = $view->with('gameOrigin', false); //why did we comment this out? No idea...
 		if(isset($responseLabel) && $responseLabel != null){
 			$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
 		}
@@ -93,20 +94,30 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	
 	/**
 	 * See GameTypeHandler
+	 * The $gameOrigin variable indicates if the user comes from the game menu or the campaign menu. 
+	 * This is important because we need to redirect to the correct menu after the response is processed. 
+	 * The $done variable indicates if there are more responses to be processed or not. 
+	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
-	public function processResponse($campaign,$gameOrigin) {
+	public function processResponse($campaign,$gameOrigin,$done) {
 		$this->updateCampaignProgress($campaign);
 		
-		//if the user came here from a game instead of a campaign, redirect to the game menu
-		if($gameOrigin){
-			return Redirect::to('gameMenu');
-		} else {
-			$nextGame = $this->selectNextGameInCampaignForThisUser($campaign);
-			//return to next cammpaign or campaign overview page if the campaign is done.
-			if($nextGame){
-				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
-			} else {
-				return Redirect::to('campaignMenu');
+		//Only redirect if $done is true
+		if($done){
+			//if the user came here from the game menu instead of the campaign menu, redirect to the game menu
+			if($gameOrigin){
+				return Redirect::to('gameMenu');
+			} else { //if a user came here from the campaign menu, figure out what to redirect to
+				$nextGame = $this->selectNextGameInCampaignForThisUser($campaign);
+				//return to next cammpaign or campaign overview page if the campaign is done.
+				if($nextGame){
+					//go to the next game in this campaign. This should always be the case, as the games circulate. 
+					return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+				} else {
+					//this should never happen TO DO: make it so that the $nextGame is false if the amount of played games for this campaign
+					//divided by the played games for this campaign is equal?
+					return Redirect::to('campaignMenu');
+				}
 			}
 		}
 	}
@@ -117,80 +128,83 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
 		
-		//make an array for a list of the the tasks in the games that are in this campaign.
-		$tasksInGames = [];
+		//check which game was last played by this user for this campaign
+		$lastGamePlayed = Judgement::where('user_id',$userId)->where('campaign_id',$campaign->id)->orderBy('id','DESC')->first(['game_id']);
 		
-		//see which tasks are part of the games in the game_array and put them in the tasksInGames array. 
-		foreach($game_array as $gameId){
-			$tasksInGame = $this->tasksInGame($gameId);
-			foreach($tasksInGame as $taskId){
-				array_push($tasksInGames,$taskId);
+		if(count($lastGamePlayed) < 1){
+			//if the user has not played a game in this campaign before, start from scratch in the game array. 
+			$nextGame = $game_array[0];
+		} else {
+			//make a variable to contain all games and their counts done by this user for this campaign
+			$totalGamesCountForUserForThisCampaign = [];
+			
+			//make a table with all judgements of this user of games in this campaign and count the amount of times that a game is played by the user
+			$totalGamesCountForUserForThisCampaign =  DB::table('judgements')
+			->where('user_id',$userId)
+			->where('campaign_id',$campaign->id)
+			->groupBy('game_id')
+			->select('game_id as GameId',DB::raw('count(*) as nTimes'))  //will it order it on nTimes automatically?
+			->get();
+			
+			//loop through the unique game id's in the game_array and fill in the blanks (nTimes that were not in judgements)
+			foreach(array_unique($game_array) as $gameId){
+				$theGameIsInTheJudgedGames = $this->findGameIdInCampaign($totalGamesCountForUserForThisCampaign,$gameId);
+				
+				if($theGameIsInTheJudgedGames == []){
+					$theGameIsInTheJudgedGames = false;
+				}
+				//If it is not in there, put this gameId into $gamesCountNotDoneByUserForThisCampaign with nTimes = 0.
+				if(!$theGameIsInTheJudgedGames) {
+					//If it is not in there, put this gameId into $gamesCountNotDoneByUserForThisCampaign with nTimes = 0.
+					$tempVar = [];
+					$tempVar['GameId'] = $gameId;
+					$tempVar['nTimes'] = 0;
+					$tempVar = (object) $tempVar;
+					array_push($totalGamesCountForUserForThisCampaign,$tempVar);
+				}
 			}
-		}
-		//remove duplicate entries of task Id's
-		$tasksInGames = array_unique($tasksInGames);
-		
-		//get the task count done by this user
-		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
-		
-		//make a variable to contain all tasks and their counts that were not done by this user for this campaign
-		$tasksCountDoneByUserForthisCampaign = [];
-		
-		//make a variable to contain all tasks and their counts that were done by this user for this campaign
-		$tasksCountNotDoneByUserForThisCampaign = [];
 
-		//loop through the tasksInGames taskId's and for each loop, check if this id is in the tasksCountDoneByUser. 
-		//If it is in there, fill the tasksCountNotDoneByUser variable with it. 
-		foreach($tasksInGames as $taskId){
-			//If it is in there, put this taskId and it's count into $itsInThere.
-			$itsInThere = $this->searchValuesByKeyInArray($tasksCountDoneByUser,'TaskId',$taskId);
+			//get a table with all games in game_array and their count (how many times is this game id in this campaign?)
+			$gamesCountForThisCampaign = DB::table('campaign_has_game')
+			->where('campaign_id',$campaign->id)
+			->groupBy('game_id')
+			->select('game_id as GameId', DB::raw('count(*) as nTimes'))
+			->get();
 			
-			if($itsInThere == []){
-				$itsInThere = false;
+			//divide each count of $totalGamesCountForUserForThisCampaign by the amount of times this game is in the game_array
+			foreach($totalGamesCountForUserForThisCampaign as $gameCount){
+				//Extract the current gameCount['nTimes'] from the $gameCount
+				$oldGameCount = $gameCount->nTimes;
+				//find out how many times this GameId has been played in this campaign
+				$gameIdAndTimesInThisCampaign = $this->findGameIdInCampaign($gamesCountForThisCampaign, $gameCount->GameId);
+				//Put that many times into $timesInThisCampaign
+				$timesInThisCampaign = $gameIdAndTimesInThisCampaign[0]->nTimes;
+				//calculate the newGameCount
+				$newGameCount = $oldGameCount/$timesInThisCampaign;
+				//put the newGameCount in the place of the old one
+				$gameCount->nTimes = $newGameCount;
 			}
 			
-			//If it is in there, put this taskId and it's count into $tasksCountDoneByUserForthisCampaign. 
-			if($itsInThere){
-				array_merge($tasksCountDoneByUserForthisCampaign,$itsInThere);
-			} else {
-				//If it is not in there, put this taskId into $tasksCountNotDoneByUserForThisCampaign with nTimes = 0. 
-				$tempVar['TaskId'] = $taskId;
-				$tempVar['nTimes'] = 0;
-				$tasksCountNotDoneByUserForThisCampaign = array_merge($tasksCountNotDoneByUserForThisCampaign,$tempVar);
+			//see which game is next (select the lowest count in the $totalGamesCountForUserForThisCampaign)
+			$lowestGameCount = $totalGamesCountForUserForThisCampaign[0];
+			foreach($totalGamesCountForUserForThisCampaign as $gameCount){
+				if($gameCount->nTimes < $lowestGameCount->nTimes){
+					$lowestGameCount = $gameCount;
+				}
 			}
+			$nextGame = $lowestGameCount->GameId;
 		}
-		
-		//make a variable to contain all tasks and their counts done by this user for this campaign
-		$totalTasksCountForUserForThisCampaign = [];
-		
-		//merge the $tasksCountNotDoneByUserForThisCampaign array with the $tasksCountDoneByUserForthisCampaign array
-		$totalTasksCountForUserForThisCampaign = array_merge($tasksCountNotDoneByUserForThisCampaign,$tasksCountDoneByUserForthisCampaign);
-		
-		dd($totalTasksCountForUserForThisCampaign);
-		
-		//compare this list with the tasks that were already done by this user and remove those tasks from the list
-		//get the tasks that were already done by this user
-		//$taskListForUser = $this->getTaskListForUser($userId);
-		//remove the tasks from the tasksInGames array that were already done by this user
-		//$array_diff($array1,$array2);
-		//see which task is next and which game contains that task
-		//maybe pick the task that has the least amount of annotations?
-		//maybe pick the task that has the least aount of that game type of annotations?
-		//return this gameId
+		return $nextGame;
 	}
 	
 	/**
-	 * Searches and returns a given value by given key out of a given array containing arrays with keys and values. 
+	 * Searches and returns a given value out of a given array containing stdObjects with keys and values. 
 	 */
-	function searchValuesByKeyInArray($array, $key, $value){
+	function findGameIdInCampaign($array, $value){
 		$results = array();
-		if (is_array($array)) {
-			if (isset($array[$key]) && $array[$key] == $value) {
-				$results[] = $array;
-			}
-	
-			foreach ($array as $subarray) {
-				$results = array_merge($results, $this->searchValuesByKeyInArray($subarray, $key, $value));
+		foreach($array as $stdObj) {
+			if($stdObj->GameId == $value) {
+				array_push($results, $stdObj);
 			}
 		}
 		return $results;
