@@ -22,7 +22,23 @@ class VesExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function getExtrasDiv($extraInfo) {
-		$divHTML = "No additional information provided for each game.";
+		$extraInfo = unserialize($extraInfo);
+		$label = $extraInfo['label'];
+		$label1 = $extraInfo['label1'];
+		$label2 = $extraInfo['label2'];
+		$label3 = $extraInfo['label3'];
+		$divHTML = "";
+		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label:</label>";
+		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";
+
+		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 1:</label>";
+		$divHTML .= "<input class='form-control' name='cellExLabel1' type='text' value='".$label1."' id='cellExLabel1'>";
+		
+		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 2:</label>";
+		$divHTML .= "<input class='form-control' name='cellExLabel2' type='text' value='".$label2."' id='cellExLabel2'>";
+		
+		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label 3:</label>";
+		$divHTML .= "<input class='form-control' name='cellExLabel3' type='text' value='".$label3."' id='cellExLabel3'>";
 		return $divHTML;
 	}
 	
