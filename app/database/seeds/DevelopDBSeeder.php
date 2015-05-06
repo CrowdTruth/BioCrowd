@@ -13,9 +13,9 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->createTestUsers();
 		
-		//$this->createOtherGames();
+		$this->createOtherGames();
 		
-		//$this->createCampaigns();
+		$this->createCampaigns();
 	}
 	
 	public function createOtherGames() {
