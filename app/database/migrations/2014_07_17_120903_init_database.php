@@ -172,7 +172,7 @@ class InitDatabase extends Migration {
 			$table->integer('campaign_id')->unsigned();
 			$table->foreign('campaign_id')->references('id')->on('campaigns');
 			$table->text('extraInfo');
-			$table->string('story_string');
+			$table->longtext('story_string');
 			$table->timestamps();
 		});
 		

@@ -124,10 +124,12 @@ class StoryCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed. 
 	 */
 	public function processResponse($campaign,$gameOrigin,$done) {
-		$this->updateCampaignProgress($campaign);
+		//only update the campaign progress if the player came here from the campaign menu
+		if(!$gameOrigin){
+			$this->updateCampaignProgress($campaign);
+		}
 		//if the user came here from a game instead of a campaign, redirect to the game menu
 		$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get());
-		
 		if($done){//only redirect if there are no other responses that need processing
 			if($gameOrigin && $done){ //The user game from the game menu, so redirect to the game menu. 
 				//this should never happen with StoryCampaignTypes

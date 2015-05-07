@@ -26,12 +26,9 @@ class CampaignController extends GameController {
 		
 		//$gameOrigin = false;
 		//global $numberPerformed;
-		
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		$gameOrigin = Input::get('gameOrigin',false);
 		//$numberPerformed = 0;
-		
-		//dd($campaignIdArray);
 		
 		if(count($campaignIdArray)<=1){
 			$campaignId = $campaignIdArray;
@@ -42,7 +39,7 @@ class CampaignController extends GameController {
 			// Use corresponding campaign controller to process request.
 			$handlerClass = $campaign->campaignType->handler_class;
 			$handler = new $handlerClass();
-			$handler->processResponse($campaign,$gameOrigin,$done);
+			return $handler->processResponse($campaign,$gameOrigin,$done);
 			//$this->updateCampaignProgress($campaign);
 			
 			//get the game_array from the POST data
@@ -62,7 +59,11 @@ class CampaignController extends GameController {
 				$handlerClass = $campaign->campaignType->handler_class;
 				$handler = new $handlerClass();
 				$counter += 1;
-				$handler->processResponse($campaign,$gameOrigin,$done);
+				if($done){
+					return $handler->processResponse($campaign,$gameOrigin,$done);
+				} else {
+					$handler->processResponse($campaign,$gameOrigin,$done);
+				}
 				//$this->updateCampaignProgress($campaign);
 				
 				//get the game_array from the POST data
