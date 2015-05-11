@@ -3,7 +3,7 @@
 @section('extraheaders')
 <script type="text/javascript">
 function formExtention(){
-	if(questionForm.distributed.checked == true){
+	if(annotationForm.distributed.checked == true){
 		document.getElementById("hiddenQuestions").style.display = "none";
 		//set the two checkboxes to unchecked again
 		document.getElementById("tip").checked = false;
@@ -39,7 +39,7 @@ function formExtention(){
     			<div class="span4">
       				{{ Form::hidden('gameId', $gameId) }}
       				{{ Form::hidden('taskId', $taskId) }}
-      				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'distributed' , 'onclick' => 'return formExtention();']) }}
+      				{{ Form::checkbox('distributed', 'Yes', false , [ 'id' => 'distributed' , 'onclick' => 'formExtention();']) }}
       				{{ Form::label('distributed', $label1) }}
       				<div id="hiddenQuestions" style="display: block"> <!-- Hide these when the user clicked on the "equally distributed" box, because they don't add anything. If someone were to check them AND check the distributed one, it would NOT find spammers because if the vesicles are everywhere, they are naturally also near the nucleus and tips. -->
       				<div>

@@ -66,7 +66,17 @@ class CellExGameType extends GameTypeHandler {
 			}
 		}
 		$extraInfo = unserialize($game['extraInfo']);
-		$responseLabel = $extraInfo['label'];
+		$responseLabel[0] = $extraInfo['label'];
+		$responseLabel[1] = $extraInfo['label1'];
+		$responseLabel[2] = $extraInfo['label2'];
+		$responseLabel[3] = $extraInfo['label3'];
+		$responseLabel[4] = $extraInfo['label4'];
+		$responseLabel[5] = $extraInfo['label5'];
+		$responseLabel[6] = $extraInfo['label6'];
+		$responseLabel[7] = $extraInfo['label7'];
+		$responseLabel[8] = $extraInfo['label8'];
+		$responseLabel[9] = $extraInfo['label9'];
+		$responseLabel[10] = $extraInfo['label10'];
 		
 		return View::make('cellex')
 			->with('gameId', $game->id)
@@ -83,13 +93,20 @@ class CellExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
-		$noCells = Input::get('noCells');
+		$markingDescription = Input::get('markingDescription');
+		$otherExpand = Input::get('otherExpand');
+		$totalCells = Input::get('totalCells');
+		$qualityDescription = Input::get('qualityDescription');
+		$comments = Input::get('comments');
+		$comment = Input::get('comment');
 		
-		if($noCells == null){
-			$noCells = "false";
-		}
+		$responseArray["markingDescription"] = $markingDescription;
+		$responseArray["otherExpand"] = $otherExpand;
+		$responseArray["totalCells"] = $totalCells;
+		$responseArray["qualityDescription"] = $qualityDescription;
+		$responseArray["comments"] = $comments;
+		$responseArray["comment"] = $comment;
 		
-		$responseArray["NoCellsOrVesicles"] = $noCells;
 		$tempCoords = json_decode(Input::get('response'));
 		$responseArray["Coordinates"] = $tempCoords;
 		$response = $this->encodeJudgement($responseArray);

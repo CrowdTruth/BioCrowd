@@ -28,13 +28,29 @@ class DevelopDBSeeder extends Seeder {
 		$game1->name = 'Cell tagging';
 		$game1->instructions = ''
 				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>Draw a square around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>'
+				.'<p>Please mark all cells in one of the following ways: </p>'
+				.'<p>Way 1. With your mouse, drag and draw a shape around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping shapes.</p>'
+				.'<p>Way 2. Click on the CENTER of each cell you want to mark. </p>'
+				.'<p>You can mix these 2 ways if you want. </p>'
 				.'<p>Do not count cells that are less then 50% visible</p>'
 				.'<p>'
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/CellEx_instructions.png">';
-		$game1->extraInfo = serialize([ 'label' => 'There are no cells in this image' ]);
+		$game1->extraInfo = serialize([ 'label' => 'Mark each cell by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all cells', 
+				'label2' => 'There were too many cells to annotate',
+				'label3' => 'No cell visible',
+				'label4' => 'Other',
+				
+				'label5' => 'Enter the total number of cells here:',
+
+				'label6' => 'Good',
+				'label7' => 'Medium',
+				'label8' => 'Poor',
+				'label9' => 'Blank (Black) Image',
+				'label10' => 'No Image',
+				]);
 		$game1->save();
 		
 		$this->command->info('Create test TaskType');
@@ -59,13 +75,30 @@ class DevelopDBSeeder extends Seeder {
 		$game2->name = 'Nucleus tagging';
 		$game2->instructions = ''
 				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>Draw a square around each nucleus, even if they are lying partly behind other cells/debris. When the nucleus does lie partly behind other cells and this is making two or more nuclei overlap, you may draw overlapping squares.</p>'
+				.'<p>Please mark all cells in one of the following ways: </p>'
+				.'<p>Way 1. With your mouse, drag and draw a shape around each nucleus, even if they are lying partly behind other cells/debris. 
+						When the nucleus does lie partly behind other cells and this is making two or more nuclei overlap, you may draw overlapping shapes.</p>'
+				.'<p>Way 2. Click on the CENTER of each nucleus you want to mark. </p>'
+				.'<p>You can mix these 2 ways if you want. </p>'
 				.'<p>Do not count nuclei that are less then 50% visible</p>'
 				.'<p>'
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/NuclEx_instructions.png">';
-		$game2->extraInfo = serialize([ 'label' => 'There are no nuclei in this image' ]);
+		$game2->extraInfo = serialize([ 'label' => 'Mark each nucleus by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all nuclei', 
+				'label2' => 'There were too many nuclei to annotate',
+				'label3' => 'No nuclei visible',
+				'label4' => 'Other',
+				
+				'label5' => 'Enter the total number of nuclei here:',
+
+				'label6' => 'Good',
+				'label7' => 'Medium',
+				'label8' => 'Poor',
+				'label9' => 'Blank (Black) Image',
+				'label10' => 'No Image',
+				]);
 		$game2->save();
 		
 		$images = glob('public/img/cellExAndNuclEx/*');
@@ -86,14 +119,30 @@ class DevelopDBSeeder extends Seeder {
 		$game3->name = 'Colony tagging';
 		$game3->instructions = ''
 				.'<p>In the image below one or more agar colonies are displayed. </p>'
-				.'<p>Draw a square around each colony, even if they are touching other colonies. </p>'
-				.'<p>When the colony touches other colonies, you may draw overlapping squares, as long as you know for sure that the colony you tagged is in fact ONE colony.</p>'
+				.'<p>Please mark all cells in one of the following ways: </p>'
+				.'<p>Way 1. With your mouse, drag and draw a shape around each colony, even if they are touching other colonies. 
+						When the colony touches other colonies, you may draw overlapping shapes, as long as you know for sure that the colony you tagged is in fact ONE colony.</p>'
+				.'<p>Way 2. Click on the CENTER of each colony you want to mark. </p>'
+				.'<p>You can mix these 2 ways if you want. </p>'
 				.'<p>Do not count colonies that are less then 50% visible</p>'
 				.'<p>'
 				.'Examples:'
 				.'</p>'
 				.'<img src="img/ColEx_instructions.png">';
-		$game3->extraInfo = serialize([ 'label' => 'There are no colonies in this image' ]);
+		$game3->extraInfo = serialize([ 'label' => 'Mark each colony by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all colonies', 
+				'label2' => 'There were too many colonies to annotate',
+				'label3' => 'No colonies visible',
+				'label4' => 'Other',
+				
+				'label5' => 'Enter the total number of colonies here:',
+
+				'label6' => 'Good',
+				'label7' => 'Medium',
+				'label8' => 'Poor',
+				'label9' => 'Blank (Black) Image',
+				'label10' => 'No Image',
+				]);
 		$game3->save();
 		
 		$images = glob('public/img/colEx/*');

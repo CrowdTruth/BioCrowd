@@ -100,25 +100,11 @@ class VesExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
-		$distributed = Input::get('distributed');
-		$tip = Input::get('tip');
-		$nucleus = Input::get('nucleus');
-		$novesicles = Input::get('novesicles');
-		//setValueToNo($distributed); //somehow it doesn't see the function even though it's down there! Composer dumpautoload doesn't fix this. 
-		//setValueToNo($tip);
-		//setValueToNo($nucleus);
-		if($distributed == null){
-			$distributed = "No";
-		}
-		if($tip == null){
-			$tip = "No";
-		}
-		if($nucleus == null){
-			$nucleus = "No";
-		}
-		if($novesicles == null){
-			$novesicles = "false";
-		}
+		$distributed = Input::get('distributed',"No");
+		$tip = Input::get('tip',"No");
+		$nucleus = Input::get('nucleus',"No");
+		$novesicles = Input::get('novesicles',"false");
+		
 		$response = $this->encodeJudgement(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
 		
 		//Create and Submit the judgement model
@@ -143,13 +129,6 @@ class VesExGameType extends GameTypeHandler {
 	 */
 	public function decodeJudgement($judgementStr) {
 		return unserialize($judgementStr);
-	}
-	
-	// TODO: document (or remove if not used)
-	function setValueToNo($value){
-		if($value == null){
-			$value = "No";
-		}
 	}
 	
 	/**
