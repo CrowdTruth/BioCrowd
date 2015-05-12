@@ -130,15 +130,15 @@
 		<label>step 4: what best describes the image quality</label>
 		<div>Image Sharpness</div>
 			{{ Form::radio('qualityDescription', 'good', false, [ 'id' => 'goodQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', $responseLabel[6]) }} <BR/>
+			{{ Form::label('qualityDescription', 'Good') }} <BR/>
 			{{ Form::radio('qualityDescription', 'medium', false, [ 'id' => 'mediumQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', $responseLabel[7]) }} <BR/>
+			{{ Form::label('qualityDescription', 'Medium') }} <BR/>
 			{{ Form::radio('qualityDescription', 'poor', false, [ 'id' => 'poorQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', $responseLabel[8]) }} <BR/>
+			{{ Form::label('qualityDescription', 'Poor') }} <BR/>
 			{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', $responseLabel[9]) }}<BR/>
+			{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
 			{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', $responseLabel[10]) }}
+			{{ Form::label('qualityDescription', 'No Image') }}
 		<BR/>
 		<BR/>
 		<label>OPTIONAL</label>
@@ -151,7 +151,7 @@
 			<BR/>
 			{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
 			{{ Form::textarea('comment') }}</div>
-			</div>
+	
 			
 		<table width="100%">
 			<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>

@@ -136,12 +136,6 @@ class DevelopDBSeeder extends Seeder {
 				'label4' => 'Other',
 				
 				'label5' => 'Enter the total number of colonies here:',
-
-				'label6' => 'Good',
-				'label7' => 'Medium',
-				'label8' => 'Poor',
-				'label9' => 'Blank (Black) Image',
-				'label10' => 'No Image',
 				]);
 		$game3->save();
 		
@@ -222,7 +216,14 @@ class DevelopDBSeeder extends Seeder {
 		$story1->story_string = '<p>The enemy has a small base in the desert. It is very important to estimate the amount of troops the enemy has in that base.
 						In order to do this, you must count the amount of tents/buildings the enemy has built there. Be careful! The enemy has
 						tried to hide their buildings by putting them in the awning of the walls. Good luck!</p>';
-		$story1->extraInfo = serialize([ 'label' => 'There are no tents/buildings in this image' ]);
+		$story1->extraInfo = serialize([ 'label' => 'Mark each building by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all buildings',
+				'label2' => 'There were too many buildings to annotate',
+				'label3' => 'There are no tents/buildings in this image',
+				'label4' => 'Other',
+		
+				'label5' => 'Enter the total number of buildings here:'
+				]);
 		$story1->save();
 		
 		$this->command->info('Create test Story');
@@ -231,7 +232,14 @@ class DevelopDBSeeder extends Seeder {
 						their main building, where we will begin our assault. We have used a satellite with X-ray vision to see the
 						walls of the building. <Example of a room> Put a marking on each room you see. Be careful! Some rooms might lie
 						on top of other rooms and seem to overlap in the picture. Count these as two separate rooms. </p>';
-		$story2->extraInfo = serialize([ 'label' => 'There are no rooms in this image' ]);
+		$story2->extraInfo = serialize([ 'label' => 'Mark each room by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all rooms',
+				'label2' => 'There were too many rooms to annotate',
+				'label3' => 'There are no rooms in this image',
+				'label4' => 'Other',
+		
+				'label5' => 'Enter the total number of rooms here:'
+				]);
 		$story2->save();
 		
 		$this->command->info('Create test Story');
@@ -240,7 +248,14 @@ class DevelopDBSeeder extends Seeder {
 						be seen in the x-ray photos as well! This would give us an even more accurate count of the amount of enemies in the base.
 						<Example of an enemy head> Put a marking on each enemy you see. Be careful! Some enemies might seem to overlap since
 						they are on different stories of the building. Count these as two separate enemies. </p>';
-		$story3->extraInfo = serialize([ 'label' => 'There are no enemies in this image' ]);
+		$story3->extraInfo = serialize([ 'label' => 'Mark each enemy by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all enemies',
+				'label2' => 'There were too many enemies to annotate',
+				'label3' => 'There are no enemies in this image',
+				'label4' => 'Other',
+		
+				'label5' => 'Enter the total number of rooms here:'
+				]);
 		$story3->save();
 		
 		$this->command->info('Create test Story');
@@ -248,7 +263,14 @@ class DevelopDBSeeder extends Seeder {
 		$story4->story_string = '<p>Oh dear. Some people have made mistakes in marking the enemies. However, we don\'t know who made the mistakes. We
 						would like you to go over this marking document and add any enemies that haven\'t been marked yet and delete any
 						false markings. Keep in mind that we don\'t know who made the mistakes, so you might not find any mistakes! </p>';
-		$story4->extraInfo = serialize([ 'label' => 'There are no mistakes in this image' ]);
+		$story4->extraInfo = serialize([ 'label' => 'Mark each enemy by clicking it or drawing a shape around it',
+				'label1' => 'I have annotated all mistakes',
+				'label2' => 'There were too many mistakes to annotate',
+				'label3' => 'There are no mistakes in this image',
+				'label4' => 'Other',
+				
+				'label5' => 'Enter the total number of enemies here:'
+				]);
 		$story4->save();
 		
 		$this->command->info('Create test CampaignStories');

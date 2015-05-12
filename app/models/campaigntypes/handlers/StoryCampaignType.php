@@ -90,7 +90,14 @@ class StoryCampaignType extends CampaignTypeHandler {
 		$story = $story_array[$numberPerformed];
 		
 		//Select the correct label for the text under the image
-		$responseLabel = unserialize(Story::where('id',$story->id)->first()['extraInfo'])['label'];
+		$tempResponseLabel = unserialize(Story::where('id',$story->id)->first()['extraInfo']);
+		
+		$responseLabel[0] = $tempResponseLabel['label'];
+		$responseLabel[1] = $tempResponseLabel['label1'];
+		$responseLabel[2] = $tempResponseLabel['label2'];
+		$responseLabel[3] = $tempResponseLabel['label3'];
+		$responseLabel[4] = $tempResponseLabel['label4'];
+		$responseLabel[5] = $tempResponseLabel['label5'];
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);

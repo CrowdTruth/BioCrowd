@@ -72,11 +72,6 @@ class CellExGameType extends GameTypeHandler {
 		$responseLabel[3] = $extraInfo['label3'];
 		$responseLabel[4] = $extraInfo['label4'];
 		$responseLabel[5] = $extraInfo['label5'];
-		$responseLabel[6] = $extraInfo['label6'];
-		$responseLabel[7] = $extraInfo['label7'];
-		$responseLabel[8] = $extraInfo['label8'];
-		$responseLabel[9] = $extraInfo['label9'];
-		$responseLabel[10] = $extraInfo['label10'];
 		
 		return View::make('cellex')
 			->with('gameId', $game->id)
