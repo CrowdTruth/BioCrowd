@@ -70,6 +70,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 			$numberPerformed = $testvariable['number_performed'];
 		}
 		
+		//subtract one game_array length from numberPerformed untill the number fits in the game_array. This is to determine the game that is to be played
 		while($numberPerformed >= count($game_array)){
 			$numberPerformed -= count($game_array);
 		}
@@ -108,10 +109,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 		
 		//build the view with all extra info that is in the "extraInfo" column of the campaign_games table
 		$view = $handler->getView($game);
-
-		//foreach(unserialize($campaignGame['extraInfo']) as $key=>$value){
-		//	$view = $view->with($key, $value);								TO DO: should this stay?
-		//}
 		
 		$view = $view->with('campaignMode', true);
 		//$view = $view->with('gameOrigin', false);
@@ -191,7 +188,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 		$userId = Auth::user()->get()->id;
 		//get the amount of tasks performed by this user
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
-		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
 		global $numberPerformed;
 		if(count($testvariable) < 1){
 			$numberPerformed = 0;

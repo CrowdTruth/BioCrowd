@@ -57,18 +57,8 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		//Retrieve the array of games that this campaign entails
 		$crude_game_array = CampaignGames::where('campaign_id',$campaignId)->select('game_id')->get()->toArray();
 		$game_array = array_column($crude_game_array, 'game_id');
-				
-				//Find out if this campaign is in the campaign_progress table and if that entry has this user_id. If not: Just give the first gameId in the game_array.
-				/*$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaignId)->first(['number_performed']);
-				
-				if(count($testvariable) < 1){
-					$numberPerformed = 0;
-				} else {
-					//Find out what the next game is for this user in this campaign
-					$numberPerformed = $testvariable['number_performed'];
-				}
-				
-				//$gameId = $game_array[$numberPerformed];*/   //TO DO: remove this whole section
+		
+		//select the next gameId in this campaign for this user
 		$gameId = $this->selectNextGameInCampaignForThisUser($campaign);
 		
 		//Put the next consecutive game in the game variable
@@ -122,6 +112,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		}
 	}
 	
+	/**
+	 * Returns the gameId of the game with the lowest amount of judgements of the current user that is in this campaign. 
+	 */
 	function selectNextGameInCampaignForThisUser($campaign){
 		$userId = Auth::user()->get()->id;
 		//Retrieve the array of games that this campaign entails
@@ -217,69 +210,6 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		$crudeTasksArray = GameHasTask::where('game_id',$gameId)->select('task_id')->get()->toArray();
 		$tasksArray = array_column($crudeTasksArray,'task_id');
 		return $tasksArray;
-	}
-	
-	/**
-	 * Selects the next task for a user. 
-	 * The next task is the task that has been done the least amount of times by this user 
-	 * and with the lowest id in the tasks table. 
-	 */
-	function selectNextTaskForUser($userId){	
-		//get the list of tasks that this user has done untill now
-		$tasksDoneByUser = $this->getTaskListForUser($userId);
-		
-		//Get a list of all tasks excluding the ones done by this user
-		$totalTasksCountNotDoneByUser = DB::table('tasks')
-		->whereNotIn('id',$tasksDoneByUser)
-		->select('id as TaskId')
-		->get();
-		
-		//For each of the tasks in totalTasksCountNotDoneByUser,
-		//add a second colomn "nTasks" and fill it with 0
-		foreach($totalTasksCountNotDoneByUser as $taskCount){
-			$taskCount->nTimes = 0;
-		}
-		
-		//get the task count done by this user
-		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
-		
-		$totalTasksCountForUser = [];
-		//Now add $tasksCountDoneByUser to $totalTasksCountNotDoneByUser
-		array_push($totalTasksCountForUser,$totalTasksCountNotDoneByUser,$tasksCountDoneByUser);
-		
-		//Now use totalTasksCountForUser to select the next task that has been done the least amount of times by this user (select the top TaskId in the list)
-		//and return the id of the next task for this user
-		return $totalTasksCountForUser[0]->TaskId;
-	}
-	
-	/**
-	 * Returns a list of taskId's that have been done by the given userId. 
-	 */
-	function getTaskListForUser($userId){
-		$tasksCountDoneByUser = $this->getTasksCountDoneByUser($userId);
-		//Make an array with all tasks that were done by this user (without the count)
-		$tasksDoneByUser;
-		for($i = 0; $i < count($tasksCountDoneByUser); $i++){
-			$tasksDoneByUser[$i] = $tasksCountDoneByUser[$i]->TaskId;
-		}
-		return $tasksDoneByUser;
-	}
-	
-	/**
-	 * Returns a list of taskId's that have been done by the given userId 
-	 * and the amount of times they have been finished by this userId. 
-	 */
-	function getTasksCountDoneByUser($userId){
-		//select task_id from judgements
-		//where user_id = currentUserId
-		//group by task_id
-		//raw count the result and put this in an array (result is an array with 2 columns: TaskId and number of times the current user performed this task)
-		$tasksCountDoneByUser = DB::table('judgements')
-		->where('user_id',$userId)
-		->groupBy('task_id')
-		->select('task_id as TaskId',DB::raw('count(*) as nTimes'))
-		->get();
-		return $tasksCountDoneByUser;
 	}
 	
 	/**
