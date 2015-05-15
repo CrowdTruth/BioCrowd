@@ -85,70 +85,73 @@ $maxHeight = 420;?>
 <div class="span4">
 	{{ Form::hidden('gameId', $gameId) }}
 	{{ Form::hidden('taskId', $taskId) }}
-	<br/>
-	<div>
+	<div class="stepOne">
+		<br/>
 		<div class="span4" style='font-size:18pt;'>Classify this picture</div>
-			<div class='vesicleClassificationButtons'>
-				<ul id='vesicleClassificationButtonsList'>
-					<li id='clustered'><BR>Clustered<BR/><img width='100%' style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg' onmousedown='setFormItem("clustered")'></li>
-		      		<li id='tip'><BR>Tip<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg' onmousedown='setFormItem("tip")'></li>
-		      		<li id='fog'><BR>Fog<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg' onmousedown='setFormItem("fog")'></li>
-		      		<li id='sideNucleus'><BR>{{$responseLabel[1]}}<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg' onmousedown='setFormItem("sideNucleus")'></li>
-		      		<li id='ringAroundNucleus'>{{$responseLabel[2]}}<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg' onmousedown='setFormItem("ringAroundNucleus")'></li>
-		      		<li id='black'><BR>Black<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/Black.jpg' onmousedown='setFormItem("black")'></li>
-		      		<li id='noneOfThese'>None of these<BR/><img id='noneOfThese' width='100%' style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg' onmousedown='setFormItem("noneOfThese")'></li>
-		      		<li id='noImage'><BR>No image<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg' onmousedown='setFormItem("noImage")'></li>
-		      		<li id='dontKnow'><BR>I don't know<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg' onmousedown='setFormItem("dontKnow")'></li>
-		      	</ul>
-	      	</div>
-	</div>
-			
-	{{ Form::hidden('location', '', ['id' => 'location']) }}
-					
-	<BR/>
-	<label>step 2</label>
-	<BR/>
-	<div>Please select all which apply to your selection from STEP 1.</div>
-	{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
-	{{ Form::label('markingDescription', $responseLabel[3]) }}<BR/>
-	{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
-	{{ Form::label('markingDescription', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
-	{{ Form::radio('markingDescription', 'noCell', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
-	{{ Form::label('markingDescription', $responseLabel[5]) }}<BR/>
-	{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
-	{{ Form::label('markingDescription', 'Other') }}<BR/>
-	<div id="hiddenOtherExpand" style="display: none">
-		<BR/>
-		{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-		{{ Form::textarea('otherExpand') }}
-	</div>
-	<BR/>
-	<label>step 3: Which BEST describes the IMAGE QUALITY</label>
-	<div>Image Sharpness</div>
-	{{ Form::radio('qualityDescription', 'good', false, ['required'=>'required' ]) }}
-	{{ Form::label('qualityDescription', 'Good') }} <BR/>
-	{{ Form::radio('qualityDescription', 'medium', false, ['required'=>'required' ]) }}
-	{{ Form::label('qualityDescription', 'Medium') }} <BR/>
-	{{ Form::radio('qualityDescription', 'poor', false, ['required'=>'required' ]) }}
-	{{ Form::label('qualityDescription', 'Poor') }} <BR/>
-	{{ Form::radio('qualityDescription', 'blank', false, ['required'=>'required' ]) }}
-	{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
-	{{ Form::radio('qualityDescription', 'noImage', false, ['required'=>'required' ]) }}
-	{{ Form::label('qualityDescription', 'No Image') }}
-	<BR/>
-	<BR/>
-	<label>OPTIONAL</label>
-	<div>Would you like to make any comments on this image?</div>
-	{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
-	{{ Form::label('comments', 'Yes') }} <BR/>
-	{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
-	{{ Form::label('comments', 'No') }} <BR/>
-	<div id="hiddenCommentForm" style="display: none">
-		<BR/>
-		{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-		{{ Form::textarea('comment') }}
+		<div class='vesicleClassificationButtons'>
+			<ul id='vesicleClassificationButtonsList'> <!-- TO DO: make the images vertical align bottom, so the BRs are no longer necessary -->
+				<li id='clustered'><BR>Clustered<BR/><img width='100%' style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg' onmousedown='setFormItem("clustered")'></li>
+				<li id='tip'><BR>Tip<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg' onmousedown='setFormItem("tip")'></li>
+				<li id='fog'><BR>Fog<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg' onmousedown='setFormItem("fog")'></li>
+				<li id='sideNucleus'><BR>{{$responseLabel[1]}}<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg' onmousedown='setFormItem("sideNucleus")'></li>
+				<li id='ringAroundNucleus'>{{$responseLabel[2]}}<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg' onmousedown='setFormItem("ringAroundNucleus")'></li>
+				<li id='black'><BR>Black<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/Black.jpg' onmousedown='setFormItem("black")'></li>
+				<li id='noneOfThese'>None of these<BR/><img id='noneOfThese' width='100%' style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg' onmousedown='setFormItem("noneOfThese")'></li>
+				<li id='noImage'><BR>No image<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg' onmousedown='setFormItem("noImage")'></li>
+				<li id='dontKnow'><BR>I don't know<BR/><img width='100%' style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg' onmousedown='setFormItem("dontKnow")'></li>
+			</ul>
+	    </div>
+		{{ Form::hidden('location', '', ['id' => 'location']) }}
 	</div>
 	
+	<div class="stepTwo">			
+		<label style='padding-top: 20px;'>step 2</label>
+		<BR/>
+		<div>Please select all which apply to your selection from STEP 1.</div>
+		{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[3]) }}<BR/>
+		{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
+		{{ Form::radio('markingDescription', 'noCell', false, ['onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[5]) }}<BR/>
+		{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'onClick' => 'expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', 'Other') }}<BR/>
+		<div id="hiddenOtherExpand" style="display: none">
+			<BR/>
+			{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
+			{{ Form::textarea('otherExpand') }}
+		</div>
+		<BR/>
+	</div>
+	<div class="stepThree">
+		<label>step 3: Which BEST describes the IMAGE QUALITY</label>
+		<div>Image Sharpness</div>
+		{{ Form::radio('qualityDescription', 'good', false, ['required'=>'required' ]) }}
+		{{ Form::label('qualityDescription', 'Good') }} <BR/>
+		{{ Form::radio('qualityDescription', 'medium', false, ['required'=>'required' ]) }}
+		{{ Form::label('qualityDescription', 'Medium') }} <BR/>
+		{{ Form::radio('qualityDescription', 'poor', false, ['required'=>'required' ]) }}
+		{{ Form::label('qualityDescription', 'Poor') }} <BR/>
+		{{ Form::radio('qualityDescription', 'blank', false, ['required'=>'required' ]) }}
+		{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
+		{{ Form::radio('qualityDescription', 'noImage', false, ['required'=>'required' ]) }}
+		{{ Form::label('qualityDescription', 'No Image') }}
+		<BR/>
+		<BR/>
+	</div>
+	<div class="optional">
+		<label>OPTIONAL</label>
+		<div>Would you like to make any comments on this image?</div>
+		{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
+		{{ Form::label('comments', 'Yes') }} <BR/>
+		{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
+		{{ Form::label('comments', 'No') }} <BR/>
+		<div id="hiddenCommentForm" style="display: none">
+			<BR/>
+			{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
+			{{ Form::textarea('comment') }}
+		</div>
+	</div>
 			
 	<table width="100%">
 		<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButtonVesEx']) }}</td></tr>
