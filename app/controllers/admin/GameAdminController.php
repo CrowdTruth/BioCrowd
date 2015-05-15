@@ -179,36 +179,36 @@ class GameAdminController extends BaseController {
 		return [ 'status' => 'Success' ];
 	}
 	
-	public function parseCampaignFile($infile, $debug) {
+	public function parseCampaignFile($infile) {
 		$csvObj = CSV::fromFile($infile, true);
 		$data = $csvObj->toArray();
 		
 		$prevElem = null;
 		$currCampaign = null;
 		$saveCampaignsPairs = [];
+		$currIdx = -1;
 		// Iterate input CSV file
-		$debug->info('Start for...');
 		foreach ($data as $elem) {
 			// New CampaignType --> new campaign
 			if($prevElem==null || ($elem['CampaignType']!=$prevElem['CampaignType'] && $elem['CampaignType']!='')) {
 				$currCampaign = $this->createCampaign($elem);
-				$games = [];
-				$tmp = [
+				$currIdx = $currIdx + 1;
+				$saveCampaignsPairs[$currIdx] = [
 					'campaign' => $currCampaign,
-					'games' => &$games		// Push to array and keep reference to $games
+					'games' => [],		// Push to array and keep reference to $games
+					'stories' => []	// ...and $stories
 				];
-				array_push($saveCampaignsPairs, $tmp);
-				
-				$debug->info('  New campaign: '.$currCampaign->campaignType->name);
 			}
-
+			
 			// New game for current campaign
 			if($currCampaign!=null) {
 				$game = Game::where('name','=', $elem['GameName'])->first();
-				array_push($games, $game);
+				// TODO: Validate game exists!
+				array_push($saveCampaignsPairs[$currIdx]['games'], $game);
 				
 				if($currCampaign->campaignType->name=='Story') {
-					$debug->info('    Campaign get story: ');
+					$story = $this->createStory($currCampaign, $elem);
+					array_push($saveCampaignsPairs[$currIdx]['stories'], $story);
 				}
 			}
 			$prevElem = $elem;
@@ -216,16 +216,21 @@ class GameAdminController extends BaseController {
 		
 		// Now do the saving
 		foreach ($saveCampaignsPairs as $pair) {
-			$pair['campaign']->save();
-			$pair['campaign']->games()->saveMany($pair['games']);
-			/*$debug->info('    Save '.$pair['campaign']);
-			foreach ($pair['games'] as $game) {
-				$debug->info('    Save games '.$game);
-			}*/
+			$campaign = $pair['campaign'];
+			$campaign->save();
+			$campaign->games()->saveMany($pair['games']);
+			
+			if($campaign->campaignType->name=='Story') {
+				foreach($pair['stories'] as $story) {
+					$story->campaign_id = $campaign->id;
+					$story->save();
+					$campaign_stories = new CampaignStories($campaign, $story);
+					$campaign_stories->save();
+				}
+			}
 		}
 		
 		return [ 'status' => 'Success' ];
-		
 	}
 	
 	// TODO: document
@@ -240,7 +245,19 @@ class GameAdminController extends BaseController {
 		$game->level = intval($elem['Level']);
 		$game->name = $elem['Name'];
 		$game->instructions = $elem['Instructions'];
-		
+		$extraInfo = $this->getExtraInfo($elem);
+		$game->extraInfo = serialize($extraInfo);
+		return $game;
+	}
+	
+	/**
+	 * Return an array of columns starting with "Extra info: ". The keys of the array
+	 * are named as the column (removing the "Extra info: " prefix.
+	 * 
+	 * @param $elem Row on a CSV file
+	 * @return an array of "Extra info: " columns.
+	 */
+	private function getExtraInfo($elem) {
 		$colNames = array_keys($elem);
 		$extraInfoCols = array_filter($colNames, function($key) {
 			return strpos($key, 'Extra info: ')===0;
@@ -252,8 +269,7 @@ class GameAdminController extends BaseController {
 				$extraInfo[$cleanColName] = $elem[$colName];
 			}
 		}
-		$game->extraInfo = serialize($extraInfo);
-		return $game;
+		return $extraInfo;
 	}
 	
 	private function createCampaign($elem) {
@@ -281,6 +297,15 @@ class GameAdminController extends BaseController {
 		
 		$task = new Task($taskType, $data);
 		return $task;
+	}
+	
+	// TODO: document
+	private function createStory($campaign, $elem) {
+		$story = new Story($campaign);
+		$story->story_string = $elem['Story'];
+		$extraInfo = $this->getExtraInfo($elem);
+		$story->extraInfo = serialize($extraInfo);
+		return $story;
 	}
 	
 	/**

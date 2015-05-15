@@ -41,6 +41,6 @@ class Campaign extends Eloquent {
 	 */
 	public function games() {
 		// return $this->hasMany('Game', 'campaign_id', 'id');
-		return $this->belongsToMany('Game', 'campaign_has_game', 'id');
+		return $this->belongsToMany('Game', 'campaign_has_game', 'campaign_id', 'game_id');
 	}
 }
