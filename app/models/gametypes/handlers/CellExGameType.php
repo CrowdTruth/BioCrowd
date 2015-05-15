@@ -23,7 +23,6 @@ class CellExGameType extends GameTypeHandler {
 	 */
 	public function getExtrasDiv($extraInfo) {
 		$extraInfo = unserialize($extraInfo);
-		$label = $extraInfo['label'];
 		$divHTML = "";
 		$divHTML .= "<label for='data' class='col-sm-2 control-label'>Label:</label>";
 		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";

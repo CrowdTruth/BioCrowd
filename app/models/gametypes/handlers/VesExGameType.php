@@ -23,10 +23,6 @@ class VesExGameType extends GameTypeHandler {
 	 */
 	public function getExtrasDiv($extraInfo) {
 		$extraInfo = unserialize($extraInfo);
-		$label = $extraInfo['label'];
-		$label1 = $extraInfo['label1'];
-		$label2 = $extraInfo['label2'];
-		$label3 = $extraInfo['label3'];
 		$divHTML = "";
 		$divHTML .= "<label for='data' class='col-sm-4 control-label'>Label:</label>";
 		$divHTML .= "<input class='form-control' name='cellExLabel' type='text' value='".$label."' id='cellExLabel'>";
@@ -77,20 +73,19 @@ class VesExGameType extends GameTypeHandler {
 			}
 		}
 		$extraInfo = unserialize($game['extraInfo']);
-		$responseLabel = $extraInfo['label'];
-		$label1 = $extraInfo['label1'];
-		$label2 = $extraInfo['label2'];
-		$label3 = $extraInfo['label3'];
+		$responseLabel[0] = $extraInfo['label'];
+		$responseLabel[1] = $extraInfo['label1'];
+		$responseLabel[2] = $extraInfo['label2'];
+		$responseLabel[3] = $extraInfo['label3'];
+		$responseLabel[4] = $extraInfo['label4'];
+		$responseLabel[5] = $extraInfo['label5'];
 		
 		return View::make('vesex')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
 			->with('image', $image)
-			->with('responseLabel', $responseLabel)
-			->with('label1', $label1)
-			->with('label2', $label2)
-			->with('label3', $label3);
+			->with('responseLabel', $responseLabel);
 	}
 	
 	/**
@@ -100,12 +95,21 @@ class VesExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
-		$distributed = Input::get('distributed',"No");
-		$tip = Input::get('tip',"No");
-		$nucleus = Input::get('nucleus',"No");
-		$novesicles = Input::get('novesicles',"false");
+		$location = Input::get('location');
+		$markingDescription = Input::get('markingDescription');
+		$otherExpand = Input::get('otherExpand');
+		$qualityDescription = Input::get('qualityDescription');
+		$comments = Input::get('comments');
+		$comment = Input::get('comment');
 		
-		$response = $this->encodeJudgement(["Distributed" => $distributed, "Tip" => $tip, "Nucleus" => $nucleus, "No Vesicles => $novesicles"]);
+		$responseArray["location"] = $location;
+		$responseArray["markingDescription"] = $markingDescription;
+		$responseArray["otherExpand"] = $otherExpand;
+		$responseArray["qualityDescription"] = $qualityDescription;
+		$responseArray["comments"] = $comments;
+		$responseArray["comment"] = $comment;
+		
+		$response = $this->encodeJudgement($responseArray);
 		
 		//Create and Submit the judgement model
 		$judgement = new Judgement();

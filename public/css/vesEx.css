@@ -1,0 +1,21 @@
+.vesicleClassificationButtons ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-align: center;
+}
+
+.vesicleClassificationButtons ul li {
+	display:inline-block;
+	float:left;
+	width:11%;
+	height:125px;
+	border:1px solid #fff;
+}
+
+.vesicleClassificationButtons ul li:hover {
+	color: #fff;
+	background-color: #369;
+	cursor: pointer; 
+	cursor: hand;
+}

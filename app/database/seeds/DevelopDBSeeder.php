@@ -162,17 +162,22 @@ class DevelopDBSeeder extends Seeder {
 		$game4->instructions = ''
 				.'<p>In the image below, one or more cells which contain vesicles are displayed. </p>'
 				.'<p>If there is more then one cell completely visible, we want you to annotate the cell with the red border around it. </p>'
-				.'<p>In this image, the vesicles appear brighter then the rest. </p>'
-				.'<p>Tick the boxes below the image if the statement is true. </p>'
-				.'<p>Pay attention! The second and third statements are uninteresting when the first statement is true, so they will disappear when the first staement is ticked. </p>'
+				.'<p>VESICLES can be seen as tiny dots present throughout (a part of) the cell.</p>'
+				.'<p>VESICLES can be seen as larger "clumps" of color, varying in size.</p>'
+				.'<p>Different VESICLES can exhibit different behavior we will call TRENDS.</p>'
+				.'<p>Some images will have VESICLES with different fluorescent colors.</p>'
+				.'<p>Refer to the rest of the image for correct identification of the cells and to be sure of not taking background spots as Vesicles.</p>'
 				.'<p>'
 				.'Example:'
 				.'</p>'
 				.'<img src="img/VesEx_instructions.png">';
-		$game4->extraInfo = serialize([	'label' => 'There are no vesicles in this image', 
-										'label1' => 'The vesicles are equally distributed', 
-										'label2' => 'The vesicles are near the tip' , 
-										'label3' => 'The vesicles are near the nucleus']);
+		$game4->extraInfo = serialize([	'label' => 'Click on the icon below which best describes the VESICLE location', 
+										'label1' => 'Side Nucleus', 
+										'label2' => 'Ring around Nucleus' , 
+										'label3' => 'My selection applies to All the VESICLES in this image',
+										'label4' => 'One or more CELLS in this image contained VESICLES which behaved differently than my selection',
+										'label5' => 'No CELL visible'
+										]);
 		$game4->save();
 		
 		$this->command->info('Create test TaskType');

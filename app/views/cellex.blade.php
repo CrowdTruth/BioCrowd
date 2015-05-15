@@ -23,6 +23,9 @@
 			}
 		}
 
+		/**
+		* Expand the TextArea for "Other" in the annotationform
+		*/
 		function expandOtherTextArea() {
 			if(annotationForm.other.checked == false){
 				document.getElementById("hiddenOtherExpand").style.display = "none";
@@ -31,6 +34,9 @@
 			}
 		}
 
+		/**
+		* Show the TextArea for "Comment" in the annotationForm
+		*/
 		function showCommentForm() {
 			if(annotationForm.commentFormPlease.checked == false){
 				document.getElementById("hiddenCommentForm").style.display = "none";
@@ -39,6 +45,9 @@
 			}
 		}
 
+		/**
+		* Update the shape selection to rectangle or Ellipse
+		*/
 		function updateShapeSelection(shape) {
 			if(shape == 'rectangle') {
 				ct_annotate.doRectangle(true);
@@ -108,9 +117,9 @@
 		{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
 		<div id="markingDescription">
 		<label>step 2</label><BR/>
-			{{ Form::radio('markingDescription', 'allCells', false , [ 'id' => 'allCells', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ] ) }}
+			{{ Form::radio('markingDescription', 'allCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ] ) }}
 			{{ Form::label('markingDescription', $responseLabel[1]) }} <BR/>
-			{{ Form::radio('markingDescription', 'tooManyCells', false , [ 'id' => 'tooManyCells', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
+			{{ Form::radio('markingDescription', 'tooManyCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
 			{{ Form::label('markingDescription', $responseLabel[2]) }} <BR/>
 			{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
 			{{ Form::label('markingDescription', $responseLabel[3]) }} <BR/>
@@ -129,11 +138,11 @@
 		<BR/>
 		<label>step 4: what best describes the image quality</label>
 		<div>Image Sharpness</div>
-			{{ Form::radio('qualityDescription', 'good', false, [ 'id' => 'goodQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+			{{ Form::radio('qualityDescription', 'good', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
 			{{ Form::label('qualityDescription', 'Good') }} <BR/>
-			{{ Form::radio('qualityDescription', 'medium', false, [ 'id' => 'mediumQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+			{{ Form::radio('qualityDescription', 'medium', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
 			{{ Form::label('qualityDescription', 'Medium') }} <BR/>
-			{{ Form::radio('qualityDescription', 'poor', false, [ 'id' => 'poorQuality', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+			{{ Form::radio('qualityDescription', 'poor', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
 			{{ Form::label('qualityDescription', 'Poor') }} <BR/>
 			{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
 			{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
