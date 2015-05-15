@@ -32,14 +32,18 @@ class GameListController extends GameController {
 
 		// Build list to return to user
 		$levelN = [];
-		$levels = [ ];
+		$levels = [];
 		
 		$gameNumber = 0;
 		
-		$highestLevel = $gamesAvl[count($gamesAvl)-1]->level;
+		if(count($gamesAvl)>0) {
+			$highestLevel = $gamesAvl[count($gamesAvl)-1]->level;
+		} else {
+			$highestLevel = 0;
+		}
 		
 		//loop through all levels
-		for($currentLevel = 1; $currentLevel <= $highestLevel; $currentLevel++){
+		for($currentLevel = 1; $currentLevel <= $highestLevel; $currentLevel++) {
 			//and loop through all games, ordered by level
 			while($gameNumber < count($gamesAvl)){
 				//set the game variable

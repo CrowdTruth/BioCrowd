@@ -17,8 +17,6 @@ use Symfony\Component\Console\Input\InputArgument;
  * 
  * NOTE: php artisan scheduled:run must be added to crontab to run all scheduled tasks.
  * See https://github.com/Indatus/dispatcher/tree/1.4#Cron for more info.
- * 
- * @author carlosm
  */
 class CTwebhook extends ScheduledCommand {
 

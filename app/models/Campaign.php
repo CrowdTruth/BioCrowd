@@ -40,6 +40,7 @@ class Campaign extends Eloquent {
 	 * Return a list of Game objects associated with the current campaign.
 	 */
 	public function games() {
-		return $this->hasMany('Game', 'campaign_id', 'id');
+		// return $this->hasMany('Game', 'campaign_id', 'id');
+		return $this->belongsToMany('Game', 'campaign_has_game', 'id');
 	}
 }

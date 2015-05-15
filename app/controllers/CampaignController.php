@@ -59,60 +59,12 @@ class CampaignController extends GameController {
 				$handlerClass = $campaign->campaignType->handler_class;
 				$handler = new $handlerClass();
 				$counter += 1;
-				if($done){
+				if($done) {
 					return $handler->processResponse($campaign,$gameOrigin,$done);
 				} else {
-					$handler->processResponse($campaign,$gameOrigin,$done);
+				 	$handler->processResponse($campaign,$gameOrigin,$done);
 				}
-				//$this->updateCampaignProgress($campaign);
-				
-				//get the game_array from the POST data
-				//$amountOfGamesInThisCampaign = Input::Get('amountOfGamesInThisCampaign');
-				//$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get()->toArray());
 			}
 		}
-		
-		//if the user came here from a game instead of a campaign, redirect to the game menu
-		/*if($gameOrigin){
-			return Redirect::to('gameMenu');
-		} else {
-			//return to next cammpaign or campaign overview page if the campaign is done. 
-			if($numberPerformed+1 == $amountOfGamesInThisCampaign){
-				return Redirect::to('campaignMenu');
-			} else {
-				return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
-			}
-		}*/
 	}
-	
-	/*function updateCampaignProgress($campaign){
-		$userId = Auth::user()->get()->id;
-		//get the amount of tasks performed by this user
-		$campaignProgress1 = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
-		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
-		global $numberPerformed;
-		if(count($campaignProgress1) < 1){
-			$numberPerformed = 0;
-		} else {
-			//Find out what the next game is for this user in this campaign
-			$numberPerformed = $campaignProgress1['number_performed'];
-		}
-			
-		if($numberPerformed == 0){
-			//Since there is no entry in the campaign_progress table yet, make a new campaignProgress model.
-			$campaignProgress = new CampaignProgress;
-			//fill it with all important information
-			$campaignProgress->number_performed = $numberPerformed+1;
-			$campaignProgress->campaign_id = $campaign->id;
-			$campaignProgress->user_id = $userId;
-			//and save it to the database
-			$campaignProgress->save();
-		} else {
-			//get the campaignProgress entry you need to edit
-			$campaignProgress = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->first();
-			//edit the number_performed in the campaignProgress model and save to the database
-			$campaignProgress->number_performed = $numberPerformed+1;
-			$campaignProgress->save();
-		}
-	}*/
 }

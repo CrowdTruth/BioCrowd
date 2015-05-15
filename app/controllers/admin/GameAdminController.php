@@ -136,60 +136,104 @@ class GameAdminController extends BaseController {
 	
 	public function postGameUpload() {
 		$infile = Input::file('csvfile');
-		$response = $this->parseGameFile($infile);
+		$response = $this->parseGameFile($infile->getRealPath());
 		return Redirect::back()
 			->with('flash_message', $response['status']);
 	}
 	
-	private function parseGameFile($infile) {
-		$csvObj = CSV::fromFile($infile->getRealPath(), true);
+	public function parseGameFile($infile) {
+		$csvObj = CSV::fromFile($infile, true);
 		$data = $csvObj->toArray();
 		
 		$prevElem = null;
 		$currGame = null;
-		$saveObjs = [];
-		$saveGameTasks = [];
+		$gameTaskPairs = [];
+		$tasks = [];
 		// Iterate input CSV file
 		foreach ($data as $elem) {
 			// New game name --> new game
 			if($prevElem==null || ($elem['Name']!=$prevElem['Name'] && $elem['Name']!='')) {
 				$currGame = $this->createGame($elem);
-				array_push($saveObjs, $currGame);
+				$tasks = [];
+				$tmp = [
+					'game' => $currGame,
+					'tasks' => &$tasks		// Push to array and keep reference to $tasks
+				];
+				array_push($gameTaskPairs, $tmp);
 			}
+			
 			// New task for current game
 			if($currGame!=null) {
 				$currTask = $this->createTask($currGame, $elem);
-				array_push($saveObjs, $currTask);
-				
-				$tmp = [
-					'Game' => $currGame,
-					'Task' => $currTask
-				];
-				array_push($saveGameTasks, $tmp);
+				array_push($tasks, $currTask);
 			}
 			$prevElem = $elem;
 		}
 		
 		// Now do the saving
-		foreach ($saveObjs as $obj) {
-			$obj->save();
-		}
-		
-		foreach ($saveGameTasks as $pair) {
-			$gameHasTask = new GameHasTask($pair['Game'], $pair['Task']);
-			$gameHasTask->save();
+		foreach ($gameTaskPairs as $pair) {
+			$pair['game']->save();
+			$pair['game']->tasks()->saveMany($pair['tasks']);
 		}
 		
 		return [ 'status' => 'Success' ];
 	}
 	
+	public function parseCampaignFile($infile, $debug) {
+		$csvObj = CSV::fromFile($infile, true);
+		$data = $csvObj->toArray();
+		
+		$prevElem = null;
+		$currCampaign = null;
+		$saveCampaignsPairs = [];
+		// Iterate input CSV file
+		$debug->info('Start for...');
+		foreach ($data as $elem) {
+			// New CampaignType --> new campaign
+			if($prevElem==null || ($elem['CampaignType']!=$prevElem['CampaignType'] && $elem['CampaignType']!='')) {
+				$currCampaign = $this->createCampaign($elem);
+				$games = [];
+				$tmp = [
+					'campaign' => $currCampaign,
+					'games' => &$games		// Push to array and keep reference to $games
+				];
+				array_push($saveCampaignsPairs, $tmp);
+				
+				$debug->info('  New campaign: '.$currCampaign->campaignType->name);
+			}
+
+			// New game for current campaign
+			if($currCampaign!=null) {
+				$game = Game::where('name','=', $elem['GameName'])->first();
+				array_push($games, $game);
+				
+				if($currCampaign->campaignType->name=='Story') {
+					$debug->info('    Campaign get story: ');
+				}
+			}
+			$prevElem = $elem;
+		}
+		
+		// Now do the saving
+		foreach ($saveCampaignsPairs as $pair) {
+			$pair['campaign']->save();
+			$pair['campaign']->games()->saveMany($pair['games']);
+			/*$debug->info('    Save '.$pair['campaign']);
+			foreach ($pair['games'] as $game) {
+				$debug->info('    Save games '.$game);
+			}*/
+		}
+		
+		return [ 'status' => 'Success' ];
+		
+	}
+	
 	// TODO: document
 	private function createGame($elem) {
-		
 		$gameType = GameType::where('name','=', $elem['GameType'])->first();
 		if($gameType==null) {
-			// TODO: valudate gameType
-			dd('xxxx');
+			// TODO: validate gameType
+			dd('GameType not defined');
 		}
 		
 		$game = new Game($gameType);
@@ -209,17 +253,28 @@ class GameAdminController extends BaseController {
 			}
 		}
 		$game->extraInfo = serialize($extraInfo);
-		
 		return $game;
+	}
+	
+	private function createCampaign($elem) {
+		$campaignType = CampaignType::where('name','=', $elem['CampaignType'])->first();
+		if($campaignType==null) {
+			// TODO: validate gameType
+			dd('CampaignType not defined');
+		}
+
+		$campaign = new Campaign($campaignType);
+		$campaign->name = $elem['Name'];
+		$campaign->badgeName = $elem['BadgeName'];
+		$campaign->description = $elem['Description'];
+		$campaign->image = $elem['Image'];
+		
+		return $campaign;
 	}
 	
 	// TODO: document
 	private function createTask($currGame, $elem) {
-		try{
 		$gameTypeName = $currGame->gameType->name;
-		}catch(Exception $e) {
-			dd($currGame);
-		}
 		
 		$taskType = TaskType::where('name', '=', $gameTypeName)->first();
 		$data = $elem['Task data'];
@@ -277,7 +332,7 @@ class GameAdminController extends BaseController {
 	/**
 	 * Install new GameTypeHandlers of the given handler class.
 	 */
-	private function installGameType($handlerClass) {
+	public function installGameType($handlerClass) {
 		$handler = new $handlerClass();
 		$gameType = new GameType($handler);
 		$gameType->save();
