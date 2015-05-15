@@ -357,5 +357,21 @@ class DevelopDBSeeder extends Seeder {
 			'title' => 'Padawan',
 			'password' => Hash::make('Merel')
 		] );
+		
+		User::create( [
+		'email' => 'veltkamp.w.isc@nl.ibm.com',
+		'name' => 'Wouter',
+		'level' => '4',
+		'title' => 'Padawan',
+		'password' => Hash::make('Wouter')
+		] );
+		
+		User::create( [
+		'email' => 'tessa.mulderISC@nl.ibm.com',
+		'name' => 'Tessa',
+		'level' => '4',
+		'title' => 'Padawan',
+		'password' => Hash::make('Tessa')
+		] );
 	}
 }
