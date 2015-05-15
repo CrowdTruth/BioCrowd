@@ -235,7 +235,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		$userId = Auth::user()->get()->id;
 		//get the amount of tasks performed by this user
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
-		//$campaignProgress1 = Jugement::where('user_id',Auth::user()->get()->id)->where('');
+		
 		global $numberPerformed;
 		if(count($testvariable) < 1){
 			$numberPerformed = 0;

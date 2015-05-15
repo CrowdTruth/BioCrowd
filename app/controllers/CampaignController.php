@@ -20,7 +20,6 @@ class CampaignController extends GameController {
 		return $handler->getView($campaign);
 	}
 	
-	//TO DO: Make an "editCampaign function
 	public function submitCampaign(){
 		$this->submitGame();
 		
