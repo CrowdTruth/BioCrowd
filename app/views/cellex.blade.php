@@ -87,17 +87,20 @@
 @stop
 
 @section('gameForm')
+<div class="stepOne">
 	<div class="span7">
 		<label>step 1: {{$responseLabel[0]}} </label>
 		<table>
-		<tr><td>
-			<canvas id="annotationCanvas"></canvas>
-			</td>	
-			<td width="20px"></td>
-		<td>
-			{{ Form::radio('shape', 'Rectangle', false, [ 'id' => 'useRectangle', 'onClick' => 'updateShapeSelection("rectangle")' ]) }} Rectangle <br/>
-			{{ Form::radio('shape', 'Ellipse'  , true , [ 'id' => 'useEllipse', 'onClick' => 'updateShapeSelection("ellipse")' ]) }} Ellipse
-		</td>
+			<tr>
+				<td>
+				<canvas id="annotationCanvas"></canvas>
+				</td>	
+				<td width="20px"></td>
+				<td>
+					{{ Form::radio('shape', 'Rectangle', false, [ 'id' => 'useRectangle', 'onClick' => 'updateShapeSelection("rectangle")' ]) }} Rectangle <br/>
+					{{ Form::radio('shape', 'Ellipse'  , true , [ 'id' => 'useEllipse', 'onClick' => 'updateShapeSelection("ellipse")' ]) }} Ellipse
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="span7">
@@ -115,55 +118,68 @@
 		{{ Form::hidden('gameId', $gameId) }}
 		{{ Form::hidden('taskId', $taskId) }}
 		{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
-		<div id="markingDescription">
-		<label>step 2</label><BR/>
-			{{ Form::radio('markingDescription', 'allCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ] ) }}
-			{{ Form::label('markingDescription', $responseLabel[1]) }} <BR/>
-			{{ Form::radio('markingDescription', 'tooManyCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
-			{{ Form::label('markingDescription', $responseLabel[2]) }} <BR/>
-			{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
-			{{ Form::label('markingDescription', $responseLabel[3]) }} <BR/>
-			{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
-			{{ Form::label('markingDescription', $responseLabel[4]) }}<BR/>
-			<div id="hiddenOtherExpand" style="display: none">
+	</div>
+</div>
+<div class="stepTwo">
+	<label>step 2</label><BR/>
+	<div id="markingDescription">
+		{{ Form::radio('markingDescription', 'allCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ] ) }}
+		{{ Form::label('markingDescription', $responseLabel[1]) }} <BR/>
+		{{ Form::radio('markingDescription', 'tooManyCells', false , ['onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[2]) }} <BR/>
+		{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[3]) }} <BR/>
+		{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'onClick' => 'updateAnnotationCount();expandOtherTextArea();', 'required'=>'required' ]) }}
+		{{ Form::label('markingDescription', $responseLabel[4]) }}<BR/>
+		<div id="hiddenOtherExpand" style="display: none">
 			<BR/>
 			{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-			{{ Form::textarea('otherExpand') }}</div>
-			</div>
+			{{ Form::textarea('otherExpand') }}
+		</div>
 		<BR/>
-		<label>step 3</label>
-		<div>{{$responseLabel[5]}}</div>
-			{{Form::text('totalCells','',['required'])}}
-		<BR/>
-		<BR/>
-		<label>step 4: what best describes the image quality</label>
-		<div>Image Sharpness</div>
-			{{ Form::radio('qualityDescription', 'good', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', 'Good') }} <BR/>
-			{{ Form::radio('qualityDescription', 'medium', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', 'Medium') }} <BR/>
-			{{ Form::radio('qualityDescription', 'poor', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', 'Poor') }} <BR/>
-			{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
-			{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
-			{{ Form::label('qualityDescription', 'No Image') }}
-		<BR/>
-		<BR/>
-		<label>OPTIONAL</label>
-		<div>Would you like to make any comments on this image?</div>
-			{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
-			{{ Form::label('comments', 'Yes') }} <BR/>
-			{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
-			{{ Form::label('comments', 'No') }} <BR/>
-			<div id="hiddenCommentForm" style="display: none">
-			<BR/>
-			{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-			{{ Form::textarea('comment') }}</div>
-	
-			
-		<table width="100%">
-			<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td></tr>
-		</table>
 	</div>
+</div>
+<div class="stepThree">
+	<label>step 3</label>
+	<div>{{$responseLabel[5]}}</div>
+	{{Form::text('totalCells','',['required'])}}
+	<BR/>
+	<BR/>
+</div>
+<div class="stepFour">
+	<label>step 4: what best describes the image quality</label>
+	<div>Image Sharpness</div>
+	{{ Form::radio('qualityDescription', 'good', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+	{{ Form::label('qualityDescription', 'Good') }} <BR/>
+	{{ Form::radio('qualityDescription', 'medium', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+	{{ Form::label('qualityDescription', 'Medium') }} <BR/>
+	{{ Form::radio('qualityDescription', 'poor', false, ['onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+	{{ Form::label('qualityDescription', 'Poor') }} <BR/>
+	{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+	{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
+	{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'onClick' => 'updateAnnotationCount();', 'required'=>'required' ]) }}
+	{{ Form::label('qualityDescription', 'No Image') }}
+	<BR/>
+	<BR/>
+</div>
+<div class="optional">
+	<label>OPTIONAL</label>
+	<div>Would you like to make any comments on this image?</div>
+	{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
+	{{ Form::label('comments', 'Yes') }} <BR/>
+	{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'onClick' => 'showCommentForm();', 'required'=>'required' ]) }}
+	{{ Form::label('comments', 'No') }} <BR/>	
+	<div id="hiddenCommentForm" style="display: none">
+		<BR/>
+		{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
+		{{ Form::textarea('comment') }}
+	</div>
+</div>
+			
+<table width="100%">
+	<tr>
+		<td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButton', 'onClick' => 'prepareResponse();' ]) }}</td>
+	</tr>
+</table>
+
 @stop

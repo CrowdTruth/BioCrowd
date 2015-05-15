@@ -154,7 +154,9 @@ $maxHeight = 420;?>
 	</div>
 			
 	<table width="100%">
-		<tr><td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButtonVesEx']) }}</td></tr>
+		<tr>
+			<td align="center">{{ Form::submit('Submit', ['id' => 'disabledSubmitButtonVesEx']) }}</td>
+		</tr>
 	</table>
 </div>
 
