@@ -18,7 +18,8 @@ class DevelopDBSeeder extends Seeder {
 		$controller->installGameType('CellExGameType');
 		$controller->installGameType('VesExGameType');
 
-		// $this->createOtherGames();
+		// $this->createGames();
+		// Install campaign types separately ?
 		$campaignType = new CampaignType(new StoryCampaignType());
 		$campaignType->save();
 		$campaignType = new CampaignType(new QuantityCampaignType());
@@ -26,8 +27,9 @@ class DevelopDBSeeder extends Seeder {
 		
 		// $this->createCampaigns();
 	}
-	
-	public function createOtherGames() {
+
+	// TODO: unused -- remove.
+	public function createGames() {
 		$this->command->info('Create test CellExGameType');
 		$gameType = GameType::where('name', '=', 'CellEx')->first();
 		
@@ -195,6 +197,7 @@ class DevelopDBSeeder extends Seeder {
 		}
 	}
 	
+	// TODO: unused -- remove ?
 	public function createCampaigns() {
 		$game1 = Game::where('name', '=', 'Cell tagging')->first();
 		$game2 = Game::where('name', '=', 'Nucleus tagging')->first();

@@ -32,7 +32,7 @@ class CTwebhook extends ScheduledCommand {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Call CrowdTruth webhook.';
 
 	/**
 	 * Create a new command instance.
@@ -68,8 +68,10 @@ class CTwebhook extends ScheduledCommand {
 			$this->info('Webhook successfully called');
 			$this->info('  > '.$response['message']);
 		} else {
-			$this->info('Error during webhook call');
-			$this->info('  > '.$response['message']);
+			$this->error('Error during webhook call');
+			$this->error('  URL > '.$response['URL']);
+			$this->error('  N   > '.count($response['query']['payload']));
+			$this->error('  msg > '.$response['message']);
 		}
 	}
 

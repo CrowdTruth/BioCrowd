@@ -4,6 +4,16 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
+/**
+ * This class implements the csvseed:games artisan command used for creating games from
+ * a CSV file. This command takes a single parameter: the name of the CSV file in a special
+ * format. Command can be called from command line:
+ * 
+ *   php artisan csvseed:games <csv_file>
+ *   
+ * where <csv_file> is a specially prepared CSV file. File 'samples/games.csv' is an example
+ * of such file.
+ */
 class CSVGameSeeder extends Command {
 
 	/**
@@ -18,7 +28,7 @@ class CSVGameSeeder extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Create games from a CSV file.';
 
 	/**
 	 * Create a new command instance.
@@ -42,7 +52,13 @@ class CSVGameSeeder extends Command {
 
 		$controller = new GameAdminController;
 		$result = $controller->parseGameFile($filename);
-		$this->info('Import finished with status: '.$result['status']);
+
+		if($result['status']=='Success') {
+			$this->info('Import finished successfully!');
+		} else {
+			$this->error('Failed to import data');
+			$this->error('  > '.$result['message']);
+		}
 	}
 
 	/**
