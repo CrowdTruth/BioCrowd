@@ -32,7 +32,7 @@
 	top: 95%;
 }
 
-.ct_path_list {
+.ct_menuItem_list {
   margin-bottom: 2em;
   overflow: auto;
   overflow-x: hidden;
@@ -44,7 +44,7 @@
   float: left;
 }
 
-.single_path {
+.menu_item {
   width: 43%;
   font-size: 1em;
   margin: 2% 0.5% 2% 0.5%;
@@ -53,18 +53,18 @@
   float: left;
 }
 
-.highlight_path {
+.highlight_menuItem {
   border-radius: 4px 0 0 4px;
   width: 80%;
   float: left;
 }
 
-.dot_path {
+.dot_menuItem {
 	background: #f0f;
 	padding: 2%;
 }
 
-.delete_path {
+.delete_button {
 	border-radius: 0 4px 4px 0;
 	float: left;
 	width: 18%;
@@ -74,12 +74,12 @@
 	cursor: pointer; cursor: hand;
 }
 
-.delete_path:hover {
+.delete_button:hover {
 	background:white;
 	color: black;
 }
 
-.ct_empty_path_list {
+.ct_empty_menuItem_list {
   font-size: 1.5em;
   margin-top: 35%;
   margin-left: 22%;

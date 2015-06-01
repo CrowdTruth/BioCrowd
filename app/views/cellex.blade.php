@@ -98,8 +98,8 @@
 					<div class="path_list_title_container">
 						<div class="path_list_title_text">Drawn</div>
 					</div>
-					<div class="ct_path_list" id="ct_path_list" style="display:block">
-						<div class="ct_empty_path_list">0 Drawn</div>
+					<div class="ct_menuItem_list" id="ct_menuItem_list" style="display:block">
+						<div class="ct_empty_menuItem_list">0 Drawn</div>
 					</div>
 				</div>
 				</td>

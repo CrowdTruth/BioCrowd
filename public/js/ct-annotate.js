@@ -242,8 +242,8 @@ function ct_annotate_drawEllipse(x,y,w,h) {
  */
 function ct_annotate_createMenuItems() {
 	//delete all menu items
-	while (document.getElementById('ct_path_list').firstChild) {
-		document.getElementById('ct_path_list').removeChild(document.getElementById('ct_path_list').firstChild);
+	while (document.getElementById('ct_menuItem_list').firstChild) {
+		document.getElementById('ct_menuItem_list').removeChild(document.getElementById('ct_menuItem_list').firstChild);
 	}
 	
 	//get a list of all annotations so far
@@ -252,8 +252,8 @@ function ct_annotate_createMenuItems() {
 	if(allAnnotations.length == 0){
 		//if there are no annotations in the annotation list, create a div with text "0 Drawn"
 		var noneDrawn = document.createElement('div');
-		noneDrawn.className = 'ct_empty_path_list';
-		document.getElementById('ct_path_list').appendChild(noneDrawn);
+		noneDrawn.className = 'ct_empty_menuItem_list';
+		document.getElementById('ct_menuItem_list').appendChild(noneDrawn);
 		//create "0 Drawn" text
 		var noneDrawnTxt = document.createTextNode('0 Drawn');
 		noneDrawn.appendChild(noneDrawnTxt);
@@ -270,26 +270,26 @@ function ct_annotate_createMenuItems() {
  */
 function ct_annotate_createMenuItem(index) {
 	//create the div that will contain the menu item
-	var singlePath = document.createElement('div');
-	singlePath.className = "single_path";
-	singlePath.id = "single_path"+index.toString();
-	document.getElementById('ct_path_list').appendChild(singlePath);
+	var menuItem = document.createElement('div');
+	menuItem.className = "menu_item";
+	menuItem.id = "menu_Item"+index.toString();
+	document.getElementById('ct_menuItem_list').appendChild(menuItem);
 	
 	//create the pink square
-	var highLightPath = document.createElement('div');
-	highLightPath.className = "highlight_path dot_path";
-	singlePath.appendChild(highLightPath);
+	var highLightMenuItem = document.createElement('div');
+	highLightMenuItem.className = "highlight_menuItem dot_menuItem";
+	menuItem.appendChild(highLightMenuItem);
 	//put a number in the pink square
 	idTxt = document.createTextNode('D '+index.toString());
-	highLightPath.appendChild(idTxt);
+	highLightMenuItem.appendChild(idTxt);
 	
 	//create the black square next to the pink square
-	var deleteLightPath = document.createElement('div');
-	deleteLightPath.className = "delete_path";
-	deleteLightPath.onclick = 
+	var deleteMenuItem = document.createElement('div');
+	deleteMenuItem.className = "delete_button";
+	deleteMenuItem.onclick = 
 		function(){
 			//find out the index of the menu item in the list of menu items
-			var nodeIndex = ct_annotate_findNodeIndex(singlePath);
+			var nodeIndex = ct_annotate_findNodeIndex(menuItem);
 			
 			//delete the annotation that corresponds with the menu item which was clicked to delete
 			ct_annotate.removeN(nodeIndex);
@@ -297,10 +297,10 @@ function ct_annotate_createMenuItem(index) {
 			//delete and recreate the menu items
 			ct_annotate_createMenuItems();
 		};
-	singlePath.appendChild(deleteLightPath);
+		menuItem.appendChild(deleteMenuItem);
 	//put the X in the black square that could be clicked to close it
 	xTxt = document.createTextNode('x');
-	deleteLightPath.appendChild(xTxt);
+	deleteMenuItem.appendChild(xTxt);
 }
 
 /**
