@@ -59,6 +59,11 @@
   float: left;
 }
 
+.highlight_menuItem:hover {
+	background: #808080;
+	cursor: pointer; cursor: hand;
+}
+
 .dot_menuItem {
 	background: #f0f;
 	padding: 2%;

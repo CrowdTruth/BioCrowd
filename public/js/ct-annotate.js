@@ -6,6 +6,7 @@ ct_annotate.drag = false;
 ct_annotate.curr_rect = [];
 ct_annotate.all_rects = [];
 ct_annotate.min_size = 10; // Minimum size for an annotation to be drawn as a non-dot
+ct_annotate.mouseOverMenuItem = null;
 
 /**
  * Load canvas with image to be annotated.
@@ -160,8 +161,9 @@ function ct_annotate_draw() {
 	ct_annotate.ctx.drawImage(ct_annotate.imageObj, 0, 0);
 	
 	// If currently dragging -- draw red shape
-	ct_annotate.ctx.beginPath();
+	
 	if(ct_annotate.drag) {
+		ct_annotate.ctx.beginPath();
 		for (idx in ct_annotate.all_rects) {
 			//draw the existing rectangles
 			xywh = ct_annotate.all_rects[idx];
@@ -179,19 +181,54 @@ function ct_annotate_draw() {
 		ct_annotate_drawAnnotation(ct_annotate.curr_rect.start_x, ct_annotate.curr_rect.start_y, 
 				ct_annotate.curr_rect.size_width, ct_annotate.curr_rect.size_height);
 		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleDrag;
+		ct_annotate.ctx.stroke();
+		ct_annotate.ctx.closePath();
 	} else {
-		for (idx in ct_annotate.all_rects) {
-			xywh = ct_annotate.all_rects[idx];
-			x = xywh[0];
-			y = xywh[1];
-			w = xywh[2];
-			h = xywh[3];
-			ct_annotate_drawAnnotation(x,y,w,h);
+		//if there is menu item being moused over, first draw the red shapes (moused over)
+		if(ct_annotate.mouseOverMenuItem != null){
+			//draw the shape that is moused over in the menu (red)
+			for(var i=0; i<ct_annotate.all_rects; i++){
+				if(i == ct_annotate.mouseOverMenuItem){
+					ct_annotate.ctx.beginPath();
+					var xywh = ct_annotate.all_rects[i];
+					x = xywh[0];
+					y = xywh[1];
+					w = xywh[2];
+					h = xywh[3];
+					ct_annotate_drawAnnotation(x,y,w,h);
+					ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleDrag;
+					ct_annotate.ctx.stroke();
+					ct_annotate.ctx.closePath();
+					
+				} else {
+					ct_annotate.ctx.beginPath();
+					var xywh = ct_annotate.all_rects[i];
+					x = xywh[0];
+					y = xywh[1];
+					w = xywh[2];
+					h = xywh[3];
+					ct_annotate_drawAnnotation(x,y,w,h);
+					ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
+					ct_annotate.ctx.stroke();
+					ct_annotate.ctx.closePath();
+					
+				}
+			}
+		} else {
+			ct_annotate.ctx.beginPath();
+			for (idx in ct_annotate.all_rects) {
+				xywh = ct_annotate.all_rects[idx];
+				x = xywh[0];
+				y = xywh[1];
+				w = xywh[2];
+				h = xywh[3];
+				ct_annotate_drawAnnotation(x,y,w,h);
+			}
+			ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
+			ct_annotate.ctx.stroke();
+			ct_annotate.ctx.closePath();
 		}
-		ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
 	}
-	ct_annotate.ctx.stroke();
-	ct_annotate.ctx.closePath();
 }
 
 /**
@@ -273,6 +310,15 @@ function ct_annotate_createMenuItem(index) {
 	var menuItem = document.createElement('div');
 	menuItem.className = "menu_item";
 	menuItem.id = "menu_Item"+index.toString();
+	menuItem.onmouseover = function(){
+		//when mousing over, put the index of the moused over item into the mouseOverMenuItem variable and draw
+		ct_annotate.mouseOverMenuItem = ct_annotate_findNodeIndex(menuItem);
+		ct_annotate_draw();
+	};
+	menuItem.onmouseout = function(){
+		ct_annotate.mouseOverMenuItem = null;
+		ct_annotate_draw();
+	};
 	document.getElementById('ct_menuItem_list').appendChild(menuItem);
 	
 	//create the pink square
@@ -297,7 +343,7 @@ function ct_annotate_createMenuItem(index) {
 			//delete and recreate the menu items
 			ct_annotate_createMenuItems();
 		};
-		menuItem.appendChild(deleteMenuItem);
+	menuItem.appendChild(deleteMenuItem);
 	//put the X in the black square that could be clicked to close it
 	xTxt = document.createTextNode('x');
 	deleteMenuItem.appendChild(xTxt);
