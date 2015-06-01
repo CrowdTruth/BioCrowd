@@ -76,6 +76,7 @@ ct_annotate.getAnnotations = function () {
 ct_annotate.removeLast = function () {
 	ct_annotate.all_rects.pop();
 	ct_annotate_draw();
+	ct_annotate_createMenuItems();
 	// Notify of removed annotation
 	ct_annotate.canvas.dispatchEvent(new Event('annotationChanged'));
 }
@@ -117,6 +118,7 @@ function ct_annotate_mouseUp(e) {
 	ct_annotate.all_rects.push([ ct_annotate.curr_rect.start_x, ct_annotate.curr_rect.start_y, 
 				ct_annotate.curr_rect.size_width, ct_annotate.curr_rect.size_height ]);
 	ct_annotate_draw();
+	ct_annotate_createMenuItems();
 	// Notify of new annotation
 	ct_annotate.canvas.dispatchEvent(new Event('annotationChanged'));
 }
@@ -233,4 +235,81 @@ function ct_annotate_drawEllipse(x,y,w,h) {
 	ct_annotate.ctx.bezierCurveTo(mX + hB, y, eX, mY - vB, eX, mY);
 	ct_annotate.ctx.bezierCurveTo(eX, mY + vB, mX + hB, eY, mX, eY);
 	ct_annotate.ctx.bezierCurveTo(mX - hB, eY, x, mY + vB, x, mY);
+}
+
+/** 
+ * Create all menu items for all annotations in the list so far
+ */
+function ct_annotate_createMenuItems() {
+	//delete all menu items
+	while (document.getElementById('ct_path_list').firstChild) {
+		document.getElementById('ct_path_list').removeChild(document.getElementById('ct_path_list').firstChild);
+	}
+	
+	//get a list of all annotations so far
+	allAnnotations = ct_annotate.getAnnotations();
+	
+	if(allAnnotations.length == 0){
+		//if there are no annotations in the annotation list, create a div with text "0 Drawn"
+		var noneDrawn = document.createElement('div');
+		noneDrawn.className = 'ct_empty_path_list';
+		document.getElementById('ct_path_list').appendChild(noneDrawn);
+		//create "0 Drawn" text
+		var noneDrawnTxt = document.createTextNode('0 Drawn');
+		noneDrawn.appendChild(noneDrawnTxt);
+	} else {
+		//for each annotation, create a menu item
+		for (var i = 0; i<allAnnotations.length; i++) {
+			ct_annotate_createMenuItem(i);
+		}
+	}
+}
+
+/**
+ * Create a menu item in the list of annotations made so far
+ */
+function ct_annotate_createMenuItem(index) {
+	//create the div that will contain the menu item
+	var singlePath = document.createElement('div');
+	singlePath.className = "single_path";
+	singlePath.id = "single_path"+index.toString();
+	document.getElementById('ct_path_list').appendChild(singlePath);
+	
+	//create the pink square
+	var highLightPath = document.createElement('div');
+	highLightPath.className = "highlight_path dot_path";
+	singlePath.appendChild(highLightPath);
+	//put a number in the pink square
+	idTxt = document.createTextNode('D '+index.toString());
+	highLightPath.appendChild(idTxt);
+	
+	//create the black square next to the pink square
+	var deleteLightPath = document.createElement('div');
+	deleteLightPath.className = "delete_path";
+	deleteLightPath.onclick = 
+		function(){
+			//find out the index of the menu item in the list of menu items
+			var nodeIndex = ct_annotate_findNodeIndex(singlePath);
+			
+			//delete the annotation that corresponds with the menu item which was clicked to delete
+			ct_annotate.removeN(nodeIndex);
+			
+			//delete and recreate the menu items
+			ct_annotate_createMenuItems();
+		};
+	singlePath.appendChild(deleteLightPath);
+	//put the X in the black square that could be clicked to close it
+	xTxt = document.createTextNode('x');
+	deleteLightPath.appendChild(xTxt);
+}
+
+/**
+ * Returns the index of the given html node element
+ */
+function ct_annotate_findNodeIndex(node){
+	var i = 0;
+	while (node = node.previousSibling) {
+		if (node.nodeType === 1) { ++i }
+	}
+	return i;
 }

@@ -1,6 +1,7 @@
 @extends('baseGameView')
 
 @section('extraheaders')
+<link href="/css/cellEx.css" rel="stylesheet">
 	<script src="js/ct-annotate.js"></script>
 	<script>
 		/**
@@ -92,6 +93,16 @@
 		<label>step 1: {{$responseLabel[0]}} </label>
 		<table>
 			<tr>
+				<td width=35%>
+				<div class="ct_object_list" style="display:block">
+					<div class="path_list_title_container">
+						<div class="path_list_title_text">Drawn</div>
+					</div>
+					<div class="ct_path_list" id="ct_path_list" style="display:block">
+						<div class="ct_empty_path_list">0 Drawn</div>
+					</div>
+				</div>
+				</td>
 				<td>
 				<canvas id="annotationCanvas"></canvas>
 				</td>	
