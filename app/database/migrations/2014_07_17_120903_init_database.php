@@ -66,6 +66,7 @@ class InitDatabase extends Migration {
 			$table->string('name');
 			$table->longText('instructions');
 			$table->text('extraInfo');
+			$table->integer('score');
 		});
 		
 		Schema::create('task_types', function($table)
@@ -116,6 +117,7 @@ class InitDatabase extends Migration {
 			$table->integer('campaign_id')->unsigned()->nullable();
 			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
 			$table->longText('response');
+			$table->integer('basic_score_gained');
 			$table->timestamps();
 		});
 		
@@ -137,6 +139,7 @@ class InitDatabase extends Migration {
 			$table->string('image');
 			$table->timestamp('startDate');
 			$table->timestamp('endDate');
+			$table->integer('score');
 			$table->integer('targetNumberAnnotations');
 			$table->integer('campaign_type_id')->unsigned();
 			$table->foreign('campaign_type_id')->references('id')->on('campaign_types');

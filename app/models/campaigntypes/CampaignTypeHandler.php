@@ -77,6 +77,13 @@ abstract class CampaignTypeHandler {
 	public abstract function processResponse($campaign,$gameOrigin,$done);
 	
 	/**
+	 * Adds the score that belongs to the given campaign to the current user. 
+	 * 
+	 * @param $campaign Campaign for which to add the score
+	 */
+	public abstract function addUserCampaignScore($campaign);
+	
+	/**
 	 * Returns the String representation of this handler.
 	 * 
 	 * @return multitype:NULL

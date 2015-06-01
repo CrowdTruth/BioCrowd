@@ -171,6 +171,16 @@ class StoryCampaignType extends CampaignTypeHandler {
 	}
 	
 	/**
+	 * See CampaignTypeHandler
+	 */
+	function addUserCampaignScore($campaign) {
+		$user = User::find(Auth::user()->get()->id);
+		$oldUserScore = $user->score;
+		$user->score = ($campaign->score + $oldUserScore);
+		$user->save();
+	}
+	
+	/**
 	 * See GameTypeHandler
 	 */
 	public function renderCampaign($game) {
@@ -211,6 +221,12 @@ class StoryCampaignType extends CampaignTypeHandler {
 			//edit the number_performed in the campaignProgress model and save to the database
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->save();
+			
+			//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
+			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
+			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
+				$this->addUserCampaignScore($campaign);
+			}
 		}
 	}
 }

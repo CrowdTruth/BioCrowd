@@ -51,6 +51,7 @@ class DevelopDBSeeder extends Seeder {
 				'label9' => 'Blank (Black) Image',
 				'label10' => 'No Image',
 				]);
+		$game1->score = '10';
 		$game1->save();
 		
 		$this->command->info('Create test TaskType');
@@ -99,6 +100,7 @@ class DevelopDBSeeder extends Seeder {
 				'label9' => 'Blank (Black) Image',
 				'label10' => 'No Image',
 				]);
+		$game2->score = '20';
 		$game2->save();
 		
 		$images = glob('public/img/cellExAndNuclEx/*');
@@ -137,6 +139,7 @@ class DevelopDBSeeder extends Seeder {
 				
 				'label5' => 'Enter the total number of colonies here:',
 				]);
+		$game3->score = '30';
 		$game3->save();
 		
 		$images = glob('public/img/colEx/*');
@@ -178,6 +181,7 @@ class DevelopDBSeeder extends Seeder {
 										'label4' => 'One or more CELLS in this image contained VESICLES which behaved differently than my selection',
 										'label5' => 'No CELL visible'
 										]);
+		$game4->score = '10';
 		$game4->save();
 		
 		$this->command->info('Create test TaskType');
@@ -214,6 +218,7 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->badgeName = 'StoryCampaignType';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
+		$campaign->score = '100';
 		$campaign->save();
 		
 		$this->command->info('Create test Story');
@@ -318,8 +323,9 @@ class DevelopDBSeeder extends Seeder {
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'QuantityCampaignType';
 		$campaign->badgeName = 'QuantityCampaignType';
-		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
+		$campaign->description = '<p>In this campaign you will do as many games as possible. </p>';
 		$campaign->image = 'img/army_mission.png';
+		$campaign->score = '100';
 		$campaign->save();
 		
 		$this->command->info('Create test CampaignGames');

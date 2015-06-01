@@ -78,6 +78,13 @@ abstract class GameTypeHandler {
 	public abstract function processResponse($game,$campaignId);
 	
 	/**
+	 * Add the given score to the user's score column in the database
+	 * 
+	 * @param $score Score which should be added
+	 */
+	public abstract function addUserGameScore($score);
+	
+	/**
 	 * Take judgement submitted by user and encode it as a String for storage 
 	 * in the database. This operation should be inverted by decodeJudgement.
 	 * 

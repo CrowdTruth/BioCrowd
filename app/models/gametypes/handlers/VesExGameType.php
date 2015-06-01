@@ -124,7 +124,18 @@ class VesExGameType extends GameTypeHandler {
 		$judgement->game_id = $game->id;
 		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
+		$judgement->basic_score_gained = $game->score;
 		$judgement->save();
+	}
+	
+	/**
+	 * See GameTypeHandler
+	 */
+	public function addUserGameScore($score) {
+		$user = User::find(Auth::user()->get()->id);
+		$oldUserScore = $user->score;
+		$user->score = ($score + $oldUserScore);
+		$user->save();
 	}
 	
 	/**
