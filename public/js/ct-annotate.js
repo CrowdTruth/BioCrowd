@@ -7,6 +7,7 @@ ct_annotate.curr_rect = [];
 ct_annotate.all_rects = [];
 ct_annotate.min_size = 10; // Minimum size for an annotation to be drawn as a non-dot
 ct_annotate.mouseOverMenuItem = null;
+ct_annotate.scroll = true;
 
 /**
  * Load canvas with image to be annotated.
@@ -187,7 +188,7 @@ function ct_annotate_draw() {
 		//if there is menu item being moused over, first draw the red shapes (moused over)
 		if(ct_annotate.mouseOverMenuItem != null){
 			//draw the shape that is moused over in the menu (red)
-			for(var i=0; i<ct_annotate.all_rects; i++){
+			for(var i=0; i<ct_annotate.all_rects.length; i++){
 				if(i == ct_annotate.mouseOverMenuItem){
 					ct_annotate.ctx.beginPath();
 					var xywh = ct_annotate.all_rects[i];
@@ -199,7 +200,6 @@ function ct_annotate_draw() {
 					ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleDrag;
 					ct_annotate.ctx.stroke();
 					ct_annotate.ctx.closePath();
-					
 				} else {
 					ct_annotate.ctx.beginPath();
 					var xywh = ct_annotate.all_rects[i];
@@ -211,7 +211,6 @@ function ct_annotate_draw() {
 					ct_annotate.ctx.strokeStyle = ct_annotate.strokeStyleFixed;
 					ct_annotate.ctx.stroke();
 					ct_annotate.ctx.closePath();
-					
 				}
 			}
 		} else {
@@ -300,6 +299,8 @@ function ct_annotate_createMenuItems() {
 			ct_annotate_createMenuItem(i);
 		}
 	}
+	//set the scroll to true again, for if it was false. 
+	ct_annotate.scroll = true;
 }
 
 /**
@@ -309,7 +310,7 @@ function ct_annotate_createMenuItem(index) {
 	//create the div that will contain the menu item
 	var menuItem = document.createElement('div');
 	menuItem.className = "menu_item";
-	menuItem.id = "menu_Item"+index.toString();
+	menuItem.id = "menu_item"+index.toString();
 	menuItem.onmouseover = function(){
 		//when mousing over, put the index of the moused over item into the mouseOverMenuItem variable and draw
 		ct_annotate.mouseOverMenuItem = ct_annotate_findNodeIndex(menuItem);
@@ -340,6 +341,8 @@ function ct_annotate_createMenuItem(index) {
 			//delete the annotation that corresponds with the menu item which was clicked to delete
 			ct_annotate.removeN(nodeIndex);
 			
+			//set the scroll variable to false
+			ct_annotate.scroll = false;
 			//delete and recreate the menu items
 			ct_annotate_createMenuItems();
 		};
@@ -347,6 +350,11 @@ function ct_annotate_createMenuItem(index) {
 	//put the X in the black square that could be clicked to close it
 	xTxt = document.createTextNode('x');
 	deleteMenuItem.appendChild(xTxt);
+	
+	if(ct_annotate.scroll){
+		//scroll to the end of the list so that the user will see the latest annotation
+		document.getElementById('ct_menuItem_list').scrollTop = document.getElementById('ct_menuItem_list').scrollHeight;
+	}
 }
 
 /**
