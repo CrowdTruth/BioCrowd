@@ -117,7 +117,6 @@ class InitDatabase extends Migration {
 			$table->integer('campaign_id')->unsigned()->nullable();
 			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
 			$table->longText('response');
-			$table->integer('basic_score_gained');
 			$table->timestamps();
 		});
 		
@@ -145,6 +144,18 @@ class InitDatabase extends Migration {
 			$table->foreign('campaign_type_id')->references('id')->on('campaign_types');
 			$table->boolean('sendsEmail');
 			$table->string('emailCondition');
+			$table->timestamps();
+		});
+		
+		Schema::create('scores', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
+			$table->integer('campaign_id')->nullable()->default(null);
+			$table->integer('score_gained');
 			$table->timestamps();
 		});
 		
@@ -202,6 +213,7 @@ class InitDatabase extends Migration {
 		Schema::drop('stories');
 		Schema::drop('campaign_has_game');
 		Schema::drop('campaign_progress');
+		Schema::drop('scores');
 		Schema::drop('campaigns');
 		Schema::drop('campaign_types');
 		Schema::drop('judgements');

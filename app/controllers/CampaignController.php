@@ -21,8 +21,14 @@ class CampaignController extends GameController {
 	}
 	
 	public function submitCampaign(){
+		//submit the game via the normal route
 		$this->submitGame();
 		
+		//get the gameId to put it into the scores table
+		$gameId = Input::get('gameId');
+		$game = Game::find($gameId);
+		
+		//get the campaignIdArray
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		$gameOrigin = Input::get('gameOrigin',false);
 		
@@ -35,7 +41,7 @@ class CampaignController extends GameController {
 			// Use corresponding campaign controller to process request.
 			$handlerClass = $campaign->campaignType->handler_class;
 			$handler = new $handlerClass();
-			return $handler->processResponse($campaign,$gameOrigin,$done);
+			return $handler->processResponse($campaign,$gameOrigin,$done,$game);
 		} else {
 			$counter = 1;
 			foreach($campaignIdArray as $campaignId){
@@ -52,9 +58,9 @@ class CampaignController extends GameController {
 				$counter += 1;
 				//if the loop has reached the last campaignIdArray, return the result of the processResponse function of the handler. Else, keep the loop going. 
 				if($done){
-					return $handler->processResponse($campaign,$gameOrigin,$done);
+					return $handler->processResponse($campaign,$gameOrigin,$done,$game);
 				} else {
-					$handler->processResponse($campaign,$gameOrigin,$done);
+					$handler->processResponse($campaign,$gameOrigin,$done,$game);
 				}
 			}
 		}

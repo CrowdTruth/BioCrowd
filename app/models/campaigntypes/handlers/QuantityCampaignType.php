@@ -89,8 +89,8 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 * The $done variable indicates if there are more responses to be processed or not. 
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
-	public function processResponse($campaign,$gameOrigin,$done) {
-		$this->updateCampaignProgress($campaign);
+	public function processResponse($campaign,$gameOrigin,$done,$game) {
+		$this->updateCampaignProgress($campaign,$game);
 		
 		//Only redirect if $done is true
 		if($done){
@@ -115,11 +115,19 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	/**
 	 * See CampaignTypeHandler
 	 */
-	function addUserCampaignScore($campaign) {
+	function addUserCampaignScore($campaign,$game) {
+		//first, add the score to this user's score column in the database
 		$user = User::find(Auth::user()->get()->id);
 		$oldUserScore = $user->score;
 		$user->score = ($campaign->score + $oldUserScore);
 		$user->save();
+		//then, create a new entry in the "scores" table in the database
+		$score = new Score();
+		$score->user_id = $user->id;
+		$score->game_id = $game->id;
+		$score->campaign_id = $campaign->id;
+		$score->score_gained = $campaign->score;
+		$score->save();
 	}
 	
 	/**
@@ -241,7 +249,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 * If not make a new entry in the campaignProgress table. 
 	 * If yes, edit the entry in the campaignProgress table: up the numberPerformed by 1. 
 	 */
-	function updateCampaignProgress($campaign){
+	function updateCampaignProgress($campaign,$game){
 		$userId = Auth::user()->get()->id;
 		//get the amount of tasks performed by this user
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
@@ -273,7 +281,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
 			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
 			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
-				$this->addUserCampaignScore($campaign);
+				$this->addUserCampaignScore($campaign,$game);
 			}
 		}
 	}

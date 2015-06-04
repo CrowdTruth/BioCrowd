@@ -74,14 +74,16 @@ abstract class CampaignTypeHandler {
 	 *
 	 * @param $campaign Campaign which produced the Blade view being processed.
 	*/
-	public abstract function processResponse($campaign,$gameOrigin,$done);
+	public abstract function processResponse($campaign,$gameOrigin,$done,$game);
 	
 	/**
 	 * Adds the score that belongs to the given campaign to the current user. 
+	 * And add the score to the "scores" table to remember when the user got the score and by what action
 	 * 
 	 * @param $campaign Campaign for which to add the score
+	 * @param $game Game for which to add the score
 	 */
-	public abstract function addUserCampaignScore($campaign);
+	public abstract function addUserCampaignScore($campaign,$game);
 	
 	/**
 	 * Returns the String representation of this handler.

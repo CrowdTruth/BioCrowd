@@ -56,7 +56,7 @@ class GameController extends BaseController {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
 				$handler->processResponse($game,$campaignIdArray);
-				$handler->addUserGameScore($game->score);
+				$handler->addUserGameScore($game);
 			} else {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
@@ -65,7 +65,7 @@ class GameController extends BaseController {
 					// Use corresponding game controller to process request.
 					$handler->processResponse($game,$campaignId);
 				}
-				$handler->addUserGameScore($game->score);
+				$handler->addUserGameScore($game);
 			}
 		} else {
 			$campaignId = null;
@@ -73,7 +73,7 @@ class GameController extends BaseController {
 			$handlerClass = $game->gameType->handler_class;
 			$handler = new $handlerClass();
 			$handler->processResponse($game,$campaignId);
-			$handler->addUserGameScore($game->score);
+			$handler->addUserGameScore($game);
 		}
 		return Redirect::to('gameMenu');
 	}

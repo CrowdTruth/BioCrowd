@@ -113,18 +113,25 @@ class CellExGameType extends GameTypeHandler {
 		$judgement->game_id = $game->id;
 		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
-		$judgement->basic_score_gained = $game->score;
 		$judgement->save();
 	}
 	
 	/**
 	 * See GameTypeHandler
 	 */
-	public function addUserGameScore($score) {
+	public function addUserGameScore($game) {
+		//first, add the score to this user's score column in the database
 		$user = User::find(Auth::user()->get()->id);
 		$oldUserScore = $user->score;
-		$user->score = ($score + $oldUserScore);
+		$user->score = ($game->score + $oldUserScore);
 		$user->save();
+		//then, create a new entry in the "scores" table in the database
+		$score = new Score();
+		$score->user_id = $user->id;
+		$score->game_id = $game->id;
+		$score->campaign_id = null;
+		$score->score_gained = $game->score;
+		$score->save();
 	}
 	
 	/**

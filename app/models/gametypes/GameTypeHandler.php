@@ -79,10 +79,11 @@ abstract class GameTypeHandler {
 	
 	/**
 	 * Add the given score to the user's score column in the database
+	 * And add the score to the "scores" table to remember when the user got the score and by what action
 	 * 
 	 * @param $score Score which should be added
 	 */
-	public abstract function addUserGameScore($score);
+	public abstract function addUserGameScore($game);
 	
 	/**
 	 * Take judgement submitted by user and encode it as a String for storage 
