@@ -48,6 +48,14 @@ class InitDatabase extends Migration {
 			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 		
+		Schema::create('levels', function($table)
+		{
+			$table->increments('id');
+			$table->integer('level');
+			$table->integer('max_score');
+			$table->timestamps();
+		});
+		
 		Schema::create('game_types', function($table)
 		{
 			$table->increments('id');
@@ -223,6 +231,7 @@ class InitDatabase extends Migration {
 		Schema::drop('task_types');
 		Schema::drop('games');
 		Schema::drop('game_types');
+		Schema::drop('levels');
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');
 		Schema::drop('admin_permissions');

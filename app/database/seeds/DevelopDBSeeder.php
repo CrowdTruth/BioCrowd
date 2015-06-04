@@ -16,6 +16,8 @@ class DevelopDBSeeder extends Seeder {
 		$this->createOtherGames();
 		
 		$this->createCampaigns();
+		
+		$this->createLevels();
 	}
 	
 	public function createOtherGames() {
@@ -342,7 +344,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game4);
-		$campaign_games->save();
+		$campaign_games->save();		
 	}
 	
 	public function createTestUsers() {
@@ -379,5 +381,28 @@ class DevelopDBSeeder extends Seeder {
 		'title' => 'Padawan',
 		'password' => Hash::make('Tessa')
 		] );
+	}
+	
+	public function createLevels() {
+		$this->command->info('Create test Levels');
+		$level1 = new Level();
+		$level1->level = 1;
+		$level1->max_score = 200;
+		$level1->save();
+		
+		$level2 = new Level();
+		$level2->level = 2;
+		$level2->max_score = 450;
+		$level2->save();
+		
+		$level3 = new Level();
+		$level3->level = 3;
+		$level3->max_score = 600;
+		$level3->save();
+		
+		$level4 = new Level();
+		$level4->level = 4;
+		$level4->max_score = 800;
+		$level4->save();
 	}
 }

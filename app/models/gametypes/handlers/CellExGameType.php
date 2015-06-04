@@ -125,6 +125,7 @@ class CellExGameType extends GameTypeHandler {
 		$oldUserScore = $user->score;
 		$user->score = ($game->score + $oldUserScore);
 		$user->save();
+		
 		//then, create a new entry in the "scores" table in the database
 		$score = new Score();
 		$score->user_id = $user->id;
@@ -132,6 +133,15 @@ class CellExGameType extends GameTypeHandler {
 		$score->campaign_id = null;
 		$score->score_gained = $game->score;
 		$score->save();
+		
+		//check the level of the user and see if it needs to be higher
+		//what is the max score for the level of this user
+		$maxScoreForThisLevel = Level::where('level',$user->level)->first(['max_score'])['max_score'];
+		if($user->score > $maxScoreForThisLevel){
+			//if it does need to be higher, up the user's level
+			$user->level = $user->level+1;
+			$user->save();
+		}
 	}
 	
 	/**
