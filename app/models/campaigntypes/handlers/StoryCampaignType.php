@@ -171,32 +171,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 	}
 	
 	/**
-	 * See CampaignTypeHandler
-	 */
-	function addUserCampaignScore($campaign,$game) {
-		//first, add the score to this user's score column in the database
-		$user = User::find(Auth::user()->get()->id);
-		$oldUserScore = $user->score;
-		$user->score = ($campaign->score + $oldUserScore);
-		$user->save();
-		//then, create a new entry in the "scores" table in the database
-		$score = new Score();
-		$score->user_id = $user->id;
-		$score->game_id = $game->id;
-		$score->campaign_id = $campaign->id;
-		$score->score_gained = $campaign->score;
-		$score->save();
-		//check the level of the user and see if it needs to be higher
-		//what is the max score for the level of this user
-		$maxScoreForThisLevel = Level::where('level',$user->level)->first(['max_score'])['max_score'];
-		if($user->score > $maxScoreForThisLevel){
-			//if it does need to be higher, up the user's level
-			$user->level = $user->level+1;
-			$user->save();
-		}
-	}
-	
-	/**
 	 * See GameTypeHandler
 	 */
 	public function renderCampaign($game) {
@@ -241,7 +215,8 @@ class StoryCampaignType extends CampaignTypeHandler {
 			//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
 			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
 			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
-				$this->addUserCampaignScore($campaign,$game);
+				//add the score to the users score column and add the score to the scores table.
+				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->name." and received a score of".$campaign->score,$game->id,$campaign->id);
 			}
 		}
 	}

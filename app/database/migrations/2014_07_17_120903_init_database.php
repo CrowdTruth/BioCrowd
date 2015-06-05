@@ -160,10 +160,12 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('game_id')->unsigned();
+			$table->integer('game_id')->nullable()->default(null)->unsigned();
 			$table->foreign('game_id')->references('id')->on('games');
-			$table->integer('campaign_id')->nullable()->default(null);
+			$table->integer('campaign_id')->nullable()->default(null)->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
 			$table->integer('score_gained');
+			$table->string('description');
 			$table->timestamps();
 		});
 		

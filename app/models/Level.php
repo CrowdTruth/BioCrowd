@@ -1,8 +1,8 @@
 <?php
 /**
- * Story model. Story entities are saved on the stories table. Each story 
- * corresponds to a game in a given Campaign. 
- * 
+ * Level model. Level entities are saved on the levels table. 
+ * Each level has a maximum score and if that is reached, 
+ * the user should go up a level. 
  */
 class Level extends Eloquent {
 

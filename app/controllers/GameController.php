@@ -48,6 +48,8 @@ class GameController extends BaseController {
 		// Get parameter which game ?
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
+		// Get the userId
+		$userId = Auth::user()->get()->id;
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		
 		if($campaignIdArray){
@@ -56,7 +58,8 @@ class GameController extends BaseController {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
 				$handler->processResponse($game,$campaignIdArray);
-				$handler->addUserGameScore($game);
+				//add the score to the users score column and add the score to the scores table. 
+				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 			} else {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
@@ -65,15 +68,17 @@ class GameController extends BaseController {
 					// Use corresponding game controller to process request.
 					$handler->processResponse($game,$campaignId);
 				}
-				$handler->addUserGameScore($game);
+				//add the score to the users score column and add the score to the scores table.
+				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 			}
-		} else {
+		} else { 
 			$campaignId = null;
 			// Use corresponding game controller to process request.
 			$handlerClass = $game->gameType->handler_class;
 			$handler = new $handlerClass();
 			$handler->processResponse($game,$campaignId);
-			$handler->addUserGameScore($game);
+			//add the score to the users score column and add the score to the scores table.
+			ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 		}
 		return Redirect::to('gameMenu');
 	}
