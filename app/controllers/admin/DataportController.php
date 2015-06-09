@@ -104,16 +104,23 @@ class DataportController extends BaseController {
 			$payload = static::fetchJudgements();
 			// SHA1 of payload alone, since we don't have API key
 			$signature = sha1(print_r($payload, true));
-			$query = [
+			$formData = [
 					'signal' => 'new_judgments',
 					'payload' => $payload,
 					'signature' => $signature
 			];
-			$res = $client->post($webhook, ['body' => $query]);
-			$json = $res->json();
+			
+			//$res = $client->post($webhook, ['body' => $query]);
+			//$json = $res->json();
+			
+			// TODO: must be a better way to convert response to array ?
+			$resRaw = $client->post($webhook, ['form_params' => $formData]);
+			$resBody = $resRaw->getBody()->__toString();
+			$json = json_decode($resBody);
+
 			return [
 				'status'  => 'ok',
-				'message' => 'Webhook successfully called. Response: '.$json['message'],
+				'message' => 'Webhook successfully called. Response: '.$json->message,
 			];
 		} catch (Exception $e) {
 			return [
