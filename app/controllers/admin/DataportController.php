@@ -102,25 +102,32 @@ class DataportController extends BaseController {
 		try {
 			// TODO: How many judgments we send? and how often?
 			$payload = static::fetchJudgements();
-			
 			// SHA1 of payload alone, since we don't have API key
 			$signature = sha1(print_r($payload, true));
-		
-			$query = [
+			$formData = [
 					'signal' => 'new_judgments',
 					'payload' => $payload,
 					'signature' => $signature
 			];
-			$res = $client->post($webhook, ['query' => $query]);
-			$json = $res->json();
+			
+			//$res = $client->post($webhook, ['body' => $query]);
+			//$json = $res->json();
+			
+			// TODO: must be a better way to convert response to array ?
+			$resRaw = $client->post($webhook, ['form_params' => $formData]);
+			$resBody = $resRaw->getBody()->__toString();
+			$json = json_decode($resBody);
+
 			return [
 				'status'  => 'ok',
-				'message' => 'Webhook successfully called. Response: '.$json['message'],
+				'message' => 'Webhook successfully called. Response: '.$json->message,
 			];
 		} catch (Exception $e) {
 			return [
 				'status'  => 'error',
 				'message' => 'Invalid response from webhook: '.$e,
+				'URL'	=> $webhook, 
+				'query' => $query
 			];
 		}
 	}
@@ -134,19 +141,18 @@ class DataportController extends BaseController {
 	 */
 	private static function fetchJudgements($gameIds=[], $dates=[]) {
 		/**
-		 SELECT games.id as game_id, level, name as game_name, tasks.data as task_data,
-		 user_id, judgements.created_at as created_at, response
-		 FROM games
-		 INNER JOIN game_has_task ON (games.id=game_has_task.game_id)
-		 INNER JOIN tasks         ON (game_has_task.task_id=tasks.id)
-		 INNER JOIN judgements    ON (tasks.id=judgements.task_id)
-		 WHERE games.id IN ( 1, 2, 3);'
+		SELECT 
+		  judgements.id as judgment_id, judgements.game_id as game_id, games.level as level, 
+		  games.name as game_name, tasks.data as task_data,
+		  judgements.user_id as user_id, judgements.created_at as created_at, judgements.response as response
+		FROM judgements
+		INNER JOIN games ON (games.id=judgements.game_id)
+		INNER JOIN tasks ON (tasks.id=judgements.task_id)
+		WHERE games.id IN ( 1, 2, 3);
 		 */
-		$query = DB::table('games')
-			->join('game_has_task', 'games.id', '=', 'game_has_task.game_id')
-			->join('tasks', 'game_has_task.task_id', '=', 'tasks.id')
-			->join('judgements', 'tasks.id', '=', 'judgements.task_id');
-		
+		$query = DB::table('judgements')
+			->join('games', 'games.id', '=', 'judgements.game_id')
+			->join('tasks', 'tasks.id', '=', 'judgements.task_id');
 		if( ! empty($gameIds)) {
 			$query = $query->whereIn('games.id', $gameIds);
 		}
@@ -159,6 +165,7 @@ class DataportController extends BaseController {
 		$query = $query->select('judgements.id as judgment_id','games.id as game_id', 
 				'level', 'name as game_name', 'tasks.data as task_data', 'user_id', 
 				'judgements.created_at as created_at', 'response');
+		
 		$resultSet = $query->get();
 		
 		// Copy result of query to an array because query returns stdClass objects

@@ -1,0 +1,154 @@
+GameType,Level,Name,Instructions,Extra info: label,Extra info: label1,Extra info: label2,Extra info: label3,Extra info: label4,Extra info: label5,Extra info: label6,Extra info: label7,Extra info: label8,Extra info: label9,Extra info: label10,Task data
+CellEx,1,CellTagging,"<p>In the image below one or more cells are displayed. </p>
+<p>Draw a square around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping squares.</p>
+<p>Do not count cells that are less then 50% visible</p>
+<p>
+Examples:
+</p>
+<img src=""img/CellEx_instructions.png"">",Mark each cell by clicking it or drawing a shape around it,I have annotated all cells,There were too many cells to annotate,No cell visible,Other,Enter the total number of cells here:,Good,Medium,Poor,Blank (Black) Image,No Image,img/cellExAndNuclEx/11_04_19_B2a3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2d3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2e2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4a2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4d2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4e2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt3.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6d2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6e1O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overview2O_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overview2O_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO_pt1.jpeg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrla2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrlb2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrlc2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt3.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt4.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2_3overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2c3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2d_3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2eO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4a3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4b3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4c3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4d3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4e3O.jpg
+CellEx,2,Nucleus tagging,"<p>In the image below one or more cells are displayed. </p>
+<p>Draw a square around each nucleus, even if they are lying partly behind other cells/debris. When the nucleus does lie partly behind other cells and this is making two or more nuclei overlap, you may draw overlapping squares.</p>
+<p>Do not count nuclei that are less then 50% visible</p>
+<p>
+Examples:
+</p>
+<img src=""img/NuclEx_instructions.png"">",Mark each nucleus by clicking it or drawing a shape around it,I have annotated all nuclei ,There were too many nuclei to annotate,No nuclei visible,Other,Enter the total number of nuclei here:,Good,Medium,Poor,Blank (Black) Image,No Image,img/cellExAndNuclEx/11_04_19_B2a3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2d3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2e2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B2_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4a2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4d2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4e2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B4_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_B6a2_pt3.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6c2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6d2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6e1O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overview2O_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overview2O_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO_pt1.jpeg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_B6_overviewO_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrla2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrlb2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_ctrlc2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt1.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt2.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt3.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/110419_LinenB6a4_pt4.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2_3overviewO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2b2O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2c3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2d_3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A2eO.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4a3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4b3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4c3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4d3O.jpg
+,,,,,,,,,,,,,,,img/cellExAndNuclEx/11_04_19_LinenWuB6_A4e3O.jpg
+CellEx,3,Colony tagging,"<p>In the image below one or more agar colonies are displayed. </p>
+<p>Draw a square around each colony, even if they are touching other colonies. </p>
+<p>When the colony touches other colonies, you may draw overlapping squares, as long as you know for sure that the colony you tagged is in fact ONE colony.</p>
+<p>Do not count colonies that are less then 50% visible</p>
+<p>
+Examples:
+</p>
+<img src=""img/ColEx_instructions.png"">",Mark each colony by clicking it or drawing a shape around it,I have annotated all colonies ,There were too many colonies to annotate,No colonies visible,Other,Enter the total number of colonies here:,,,,,,img/colEx/20130412172248_pt10.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt11.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt12.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt13.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt1.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt2.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt3.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt4.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt5.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt6.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt7.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt8.png
+,,,,,,,,,,,,,,,img/colEx/20130412172248_pt9.png
+,,,,,,,,,,,,,,,img/colEx/agar_pt1.png
+,,,,,,,,,,,,,,,img/colEx/agar_pt2.png
+,,,,,,,,,,,,,,,img/colEx/agar_pt3.png
+,,,,,,,,,,,,,,,img/colEx/agar_pt4.png
+,,,,,,,,,,,,,,,img/colEx/Haemophilus sp.culture on chocolate agar_pt1.png
+,,,,,,,,,,,,,,,img/colEx/Haemophilus sp.culture on chocolate agar_pt2.png
+,,,,,,,,,,,,,,,img/colEx/Haemophilus sp.culture on chocolate agar_pt3.png
+,,,,,,,,,,,,,,,img/colEx/Haemophilus sp.culture on chocolate agar_pt4.png
+,,,,,,,,,,,,,,,img/colEx/Haemophilus sp.culture on chocolate agar_pt5.png
+,,,,,,,,,,,,,,,img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt1.png
+,,,,,,,,,,,,,,,img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt2.png
+,,,,,,,,,,,,,,,img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt3.png
+,,,,,,,,,,,,,,,img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt4.png
+,,,,,,,,,,,,,,,img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt5.png
+VesEx,1,Vesicle locating,"<p>In the image below, one or more cells which contain vesicles are displayed. </p> <p>If there is more then one cell completely visible, we want you to annotate the cell with the red border around it. </p> <p>In this image, the vesicles appear brighter then the rest. </p> <p>Tick the boxes below the image if the statement is true. </p> <p>Pay attention! The second and third statements are uninteresting when the first statement is true, so they will disappear when the first staement is ticked. </p> <p> Example: </p> <img src=""img/VesEx_instructions.png"">",There are no vesicles in this image,The vesicles are equally distributed,The vesicles are near the tip,The vesicles are near the nucleus,,,,,,,,img/vesEx/11_04_19_B2a3_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2a3_ch00_pt2.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2b2_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2b2_ch00_pt2.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2b2_ch00_pt3.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2c2_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2d3_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B2e2_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4b2_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4b2_ch00_pt2.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4c2_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4d2_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4d2_ch00_pt2.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4e2_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4e2_ch00_pt2.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4e2_ch00_pt3.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B4e2_ch00_pt4.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B6a2_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B6b2_ch00_crop.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B6c2_ch00_pt1.png
+,,,,,,,,,,,,,,,img/vesEx/11_04_19_B6c2_ch00_pt2.png

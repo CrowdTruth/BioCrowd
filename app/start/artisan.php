@@ -11,3 +11,5 @@
 |
 */
 Artisan::add(new CTwebhook);
+Artisan::add(new CSVGameSeeder);
+Artisan::add(new CSVCampaignSeeder);

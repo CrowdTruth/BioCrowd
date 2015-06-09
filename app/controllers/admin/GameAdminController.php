@@ -1,10 +1,14 @@
 <?php
 /**
- * This Controller handles traffic for the admin interface.
+ * This Controller handles game related tasks for admin interface, including 
+ * creating and editing of games and campaigns.
  */
 class GameAdminController extends BaseController {
+	/**
+	 * Initialize controller.
+	 */
 	public function __construct() {
-		$this->beforeFilter('adminauth');
+		$this->beforeFilter('adminauth', [ 'except' => 'anyApi']);
 	}
 	
 	/**
@@ -107,11 +111,9 @@ class GameAdminController extends BaseController {
 			}
 		}
 		
-		$game->level = $level;
-		$game->name = $name;
+		$extraInfo = $handler->parseExtraInfo(Input::all());
+		$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
 		$game->game_type_id = $gameTypeId;
-		$game->instructions = $instructions;
-		$game->extraInfo = $handler->parseExtraInfo(Input::all());
 		$game->save();
 		
 		$taskErr = null;
@@ -134,69 +136,240 @@ class GameAdminController extends BaseController {
 			->with('flash_error', $taskErr);
 	}
 	
+	/**
+	 * Process post request for game uploading. A game CSV file should be posted. The 
+	 * CSV file is then parsed and games are created from it. Afterwards user is 
+	 * redirected back with a success/failure message loaded.
+	 */
 	public function postGameUpload() {
 		$infile = Input::file('csvfile');
-		$response = $this->parseGameFile($infile);
+		$response = $this->parseGameFile($infile->getRealPath());
 		return Redirect::back()
 			->with('flash_message', $response['status']);
 	}
 	
-	private function parseGameFile($infile) {
-		$csvObj = CSV::fromFile($infile->getRealPath(), true);
+	/**
+	 * Parse specially formatted games CSV file.
+	 * 
+	 * TODO: explain CSV file format...
+	 * 
+	 * @param $infile path to games csv file.
+	 * @return array with success/failure message.
+	 */
+	public function parseGameFile($infile) {
+		$csvObj = CSV::fromFile($infile, true);
 		$data = $csvObj->toArray();
 		
 		$prevElem = null;
 		$currGame = null;
-		$saveObjs = [];
-		$saveGameTasks = [];
+		$gameTaskPairs = [];
+		$tasks = [];
 		// Iterate input CSV file
 		foreach ($data as $elem) {
 			// New game name --> new game
 			if($prevElem==null || ($elem['Name']!=$prevElem['Name'] && $elem['Name']!='')) {
-				$currGame = $this->createGame($elem);
-				array_push($saveObjs, $currGame);
+				try {
+					$currGame = $this->createGame($elem);
+				} catch (Exception $e) {
+					return [ 'status' => 'Failed',
+							 'message' => $e->getMessage()
+					 ];
+				}
+				
+				$tasks = [];
+				$tmp = [
+					'game' => $currGame,
+					'tasks' => &$tasks		// Push to array and keep reference to $tasks
+				];
+				array_push($gameTaskPairs, $tmp);
 			}
+			
 			// New task for current game
 			if($currGame!=null) {
 				$currTask = $this->createTask($currGame, $elem);
-				array_push($saveObjs, $currTask);
-				
-				$tmp = [
-					'Game' => $currGame,
-					'Task' => $currTask
-				];
-				array_push($saveGameTasks, $tmp);
+				array_push($tasks, $currTask);
 			}
 			$prevElem = $elem;
 		}
 		
 		// Now do the saving
-		foreach ($saveObjs as $obj) {
-			$obj->save();
+		foreach ($gameTaskPairs as $pair) {
+			$pair['game']->save();
+			$pair['game']->tasks()->saveMany($pair['tasks']);
 		}
 		
-		foreach ($saveGameTasks as $pair) {
-			$gameHasTask = new GameHasTask($pair['Game'], $pair['Task']);
-			$gameHasTask->save();
+		return [ 'status' => 'Success' ];
+	}
+	
+	
+	
+	/**
+	 * Parse specially formatted campaigns CSV file.
+	 *
+	 * TODO: explain CSV file format...
+	 *
+	 * @param $infile path to games csv file.
+	 * @return array with success/failure message.
+	 */
+	public function parseCampaignFile($infile) {
+		$csvObj = CSV::fromFile($infile, true);
+		$data = $csvObj->toArray();
+		
+		$prevElem = null;
+		$currCampaign = null;
+		$saveCampaignsPairs = [];
+		$currIdx = -1;
+		// Iterate input CSV file
+		foreach ($data as $elem) {
+			// New CampaignType --> new campaign
+			if($prevElem==null || ($elem['CampaignType']!=$prevElem['CampaignType'] && $elem['CampaignType']!='')) {
+				try {
+					$currCampaign = $this->createCampaign($elem);
+				} catch (Exception $e) {
+					return [ 'status' => 'Failed',
+							'message' => $e->getMessage()
+					];
+				}
+				
+				$currIdx = $currIdx + 1;
+				$saveCampaignsPairs[$currIdx] = [
+					'campaign' => $currCampaign,
+					'games' => [],		// Push to array and keep reference to $games
+					'stories' => []		// ...and $stories
+				];
+			}
+			
+			// New game for current campaign
+			if($currCampaign!=null) {
+				$game = Game::where('name','=', $elem['GameName'])->first();
+				
+				if($game==null) {
+					return [ 'status' => 'Failed',
+							'message' => 'Game does not exist: '.$elem['GameName']
+					];
+				}
+				array_push($saveCampaignsPairs[$currIdx]['games'], $game);
+				
+				if($currCampaign->campaignType->name=='Story') {
+					$story = $this->createStory($currCampaign, $elem);
+					array_push($saveCampaignsPairs[$currIdx]['stories'], $story);
+				}
+			}
+			$prevElem = $elem;
+		}
+		
+		// Now do the saving
+		foreach ($saveCampaignsPairs as $pair) {
+			$campaign = $pair['campaign'];
+			$campaign->save();
+			$campaign->games()->saveMany($pair['games']);
+			
+			if($campaign->campaignType->name=='Story') {
+				foreach($pair['stories'] as $story) {
+					$story->campaign_id = $campaign->id;
+					$story->save();
+					$campaign_stories = new CampaignStories($campaign, $story);
+					$campaign_stories->save();
+				}
+			}
 		}
 		
 		return [ 'status' => 'Success' ];
 	}
 	
 	// TODO: document
+	public function anyApi() {
+		// TODO: request auth token
+		$action = Input::get('action');
+		if($action=='publish') {
+			
+			$gameTypeInput = Input::get('gameType');
+			$level = Input::get('level');
+			$name = Input::get('name');
+			$instructions = Input::get('instructions');
+			$extraInfo = Input::get('extraInfo');
+			$taskData = Input::get('taskData');
+			
+			// TODO: 'GameType::where.. code repeated -> build function'
+			$gameType = GameType::where('name','=', $gameTypeInput)->first();
+			if($gameType==null) {
+				return [ 'status' => 'fail',
+						 'message' => 'Task published'
+				];
+			}
+			$game = new Game($gameType);
+			$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
+			
+			$gameTypeName = $game->gameType->name;
+			$taskType = TaskType::where('name', '=', $gameTypeName)->first();
+			$tasks = [];
+			foreach ($taskData as $taskDataItem) {
+				// TODO: Which column to take ('url' in this case should not be hard coded
+				// TODO: Download image ?
+				$currTask = new Task($taskType, $taskDataItem['url']);
+				array_push($tasks, $currTask);
+			}
+			
+			// Save game and task
+			$game->save();
+			$game->tasks()->saveMany($tasks);
+			
+			return [ 'status' => 'success',
+					 'message' => 'Task published',
+					 'id'	=> $game->id
+			 ];
+		} else {
+			return [ 'status' => 'fail',
+					'message' => 'Undefined action: '.$action
+			];
+		}
+	}
+	
+	/**
+	 * Construct a new Game instance from the given row on the CSV file.
+	 * 
+	 * @param $elem A row from the CSV file.
+	 * @return a Game instance (yet to be saved).
+	 */
 	private function createGame($elem) {
-		
 		$gameType = GameType::where('name','=', $elem['GameType'])->first();
 		if($gameType==null) {
-			// TODO: valudate gameType
-			dd('xxxx');
+			throw new Exception('GameType not defined');
 		}
 		
 		$game = new Game($gameType);
-		$game->level = intval($elem['Level']);
-		$game->name = $elem['Name'];
-		$game->instructions = $elem['Instructions'];
+		$this->fillGameInformation($game, $elem['Name'], $elem['Level'], 
+				$elem['Instructions'],  $this->getExtraInfo($elem));
+		return $game;
+	}
+	
+	/**
+	 * Utility function used for copying info into a game. Really all this does 
+	 * is make sure we fill all values on every place we do it.
+	 * 
+	 * @param $game The Game object
+	 * @param $name name field
+	 * @param $level level field (numeric)
+	 * @param $instructions Instructions field
+	 * @param $extraInfo extraInfo field (serialized)
+	 */
+	private function fillGameInformation($game, $name, $level, $instructions, $extraInfo) {
+		// TODO: Do we need game_type_id ?
 		
+		$game->name = $name;
+		$game->level = intval($level);
+		$game->instructions = $instructions;
+		$game->extraInfo = serialize($extraInfo);
+	}
+	
+	/**
+	 * Return an array of columns starting with "Extra info: ". The keys of the array
+	 * are named as the column (removing the "Extra info: " prefix.
+	 * 
+	 * @param $elem Row on a CSV file
+	 * @return an array of "Extra info: " columns.
+	 */
+	private function getExtraInfo($elem) {
 		$colNames = array_keys($elem);
 		$extraInfoCols = array_filter($colNames, function($key) {
 			return strpos($key, 'Extra info: ')===0;
@@ -208,24 +381,60 @@ class GameAdminController extends BaseController {
 				$extraInfo[$cleanColName] = $elem[$colName];
 			}
 		}
-		$game->extraInfo = serialize($extraInfo);
-		
-		return $game;
+		return $extraInfo;
 	}
 	
-	// TODO: document
-	private function createTask($currGame, $elem) {
-		try{
-		$gameTypeName = $currGame->gameType->name;
-		}catch(Exception $e) {
-			dd($currGame);
+	/**
+	 * Construct a new Campaign instance from the given row on the CSV file.
+	 * 
+	 * @param $elem A row from the CSV file.
+	 * @return a Campaign instance (yet to be saved).
+	 */
+	private function createCampaign($elem) {
+		$campaignType = CampaignType::where('name','=', $elem['CampaignType'])->first();
+		if($campaignType==null) {
+			throw new Exception('CampaignType not defined');
 		}
+
+		$campaign = new Campaign($campaignType);
+		$campaign->name = $elem['Name'];
+		$campaign->badgeName = $elem['BadgeName'];
+		$campaign->description = $elem['Description'];
+		$campaign->image = $elem['Image'];
+		
+		return $campaign;
+	}
+	
+	/**
+	 * Construct a new Task instance from the given row on the CSV file.
+	 * Task is associated with the given game.
+	 * 
+	 * @param $elem A row from the CSV file.
+	 * @return a Task instance (yet to be saved).
+	 */
+	private function createTask($game, $elem) {
+		$gameTypeName = $game->gameType->name;
 		
 		$taskType = TaskType::where('name', '=', $gameTypeName)->first();
 		$data = $elem['Task data'];
 		
 		$task = new Task($taskType, $data);
 		return $task;
+	}
+	
+	/**
+	 * Construct a new Story instance from the given row on the CSV file.
+	 * Story is associated with the given campaign.
+	 * 
+	 * @param $elem A row from the CSV file.
+	 * @return a Story instance (yet to be saved).
+	 */
+	private function createStory($campaign, $elem) {
+		$story = new Story($campaign);
+		$story->story_string = $elem['Story'];
+		$extraInfo = $this->getExtraInfo($elem);
+		$story->extraInfo = serialize($extraInfo);
+		return $story;
 	}
 	
 	/**
@@ -277,7 +486,7 @@ class GameAdminController extends BaseController {
 	/**
 	 * Install new GameTypeHandlers of the given handler class.
 	 */
-	private function installGameType($handlerClass) {
+	public function installGameType($handlerClass) {
 		$handler = new $handlerClass();
 		$gameType = new GameType($handler);
 		$gameType->save();

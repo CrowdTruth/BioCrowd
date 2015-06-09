@@ -56,8 +56,9 @@ class CampaignController extends GameController {
 				$handlerClass = $campaign->campaignType->handler_class;
 				$handler = new $handlerClass();
 				$counter += 1;
+
 				//if the loop has reached the last campaignIdArray, return the result of the processResponse function of the handler. Else, keep the loop going. 
-				if($done){
+				if($done) {
 					return $handler->processResponse($campaign,$gameOrigin,$done,$game);
 				} else {
 					$handler->processResponse($campaign,$gameOrigin,$done,$game);

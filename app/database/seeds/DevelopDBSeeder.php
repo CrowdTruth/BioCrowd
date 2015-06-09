@@ -13,17 +13,26 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->createTestUsers();
 		
-		$this->createOtherGames();
+		// Install games separately ?
+		$controller = new GameAdminController;
+		$controller->installGameType('CellExGameType');
+		$controller->installGameType('VesExGameType');
+
+		// $this->createGames();
+		// Install campaign types separately ?
+		$campaignType = new CampaignType(new StoryCampaignType());
+		$campaignType->save();
+		$campaignType = new CampaignType(new QuantityCampaignType());
+		$campaignType->save();
 		
-		$this->createCampaigns();
-		
+		// $this->createCampaigns();
 		$this->createLevels();
 	}
-	
-	public function createOtherGames() {
+
+	// TODO: unused -- remove.
+	public function createGames() {
 		$this->command->info('Create test CellExGameType');
-		$gameType = new GameType(new CellExGameType());
-		$gameType->save();
+		$gameType = GameType::where('name', '=', 'CellEx')->first();
 		
 		$game1 = new Game($gameType);
 		$game1->level = 1;
@@ -44,9 +53,7 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many cells to annotate',
 				'label3' => 'No cell visible',
 				'label4' => 'Other',
-				
 				'label5' => 'Enter the total number of cells here:',
-
 				'label6' => 'Good',
 				'label7' => 'Medium',
 				'label8' => 'Poor',
@@ -93,9 +100,7 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many nuclei to annotate',
 				'label3' => 'No nuclei visible',
 				'label4' => 'Other',
-				
 				'label5' => 'Enter the total number of nuclei here:',
-
 				'label6' => 'Good',
 				'label7' => 'Medium',
 				'label8' => 'Poor',
@@ -138,7 +143,6 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many colonies to annotate',
 				'label3' => 'No colonies visible',
 				'label4' => 'Other',
-				
 				'label5' => 'Enter the total number of colonies here:',
 				]);
 		$game3->score = '30';
@@ -158,8 +162,7 @@ class DevelopDBSeeder extends Seeder {
 		}
 		
 		$this->command->info('Create test VesExGameType');
-		$gameType = new GameType(new VesExGameType());
-		$gameType->save();
+		$gameType = GameType::where('name', '=', 'VesEx')->first();
 		
 		$game4 = new Game($gameType);
 		$game4->level = 1;
@@ -204,6 +207,7 @@ class DevelopDBSeeder extends Seeder {
 		}
 	}
 	
+	// TODO: unused -- remove ?
 	public function createCampaigns() {
 		$game1 = Game::where('name', '=', 'Cell tagging')->first();
 		$game2 = Game::where('name', '=', 'Nucleus tagging')->first();
@@ -211,8 +215,7 @@ class DevelopDBSeeder extends Seeder {
 		$game4 = Game::where('name', '=', 'Vesicle locating')->first();
 		
 		$this->command->info('Create test StoryCampaignType');
-		$campaignType = new CampaignType(new StoryCampaignType());
-		$campaignType->save();
+		$campaignType = CampaignType::where('name', '=', 'Story')->first();
 		
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
@@ -233,7 +236,6 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many buildings to annotate',
 				'label3' => 'There are no tents/buildings in this image',
 				'label4' => 'Other',
-		
 				'label5' => 'Enter the total number of buildings here:'
 				]);
 		$story1->save();
@@ -249,7 +251,6 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many rooms to annotate',
 				'label3' => 'There are no rooms in this image',
 				'label4' => 'Other',
-		
 				'label5' => 'Enter the total number of rooms here:'
 				]);
 		$story2->save();
@@ -280,7 +281,6 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many mistakes to annotate',
 				'label3' => 'There are no mistakes in this image',
 				'label4' => 'Other',
-				
 				'label5' => 'Enter the total number of enemies here:'
 				]);
 		$story4->save();
@@ -317,9 +317,12 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games = new CampaignGames($campaign, $game4);
 		$campaign_games->save();
 		
+		
+		
+		
+		
 		$this->command->info('Create test QuantityCampaignType');
-		$campaignType = new CampaignType(new QuantityCampaignType());
-		$campaignType->save();
+		$campaignType = CampaignType::where('name', '=', 'Quantity')->first();
 		
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
