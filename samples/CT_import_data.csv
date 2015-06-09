@@ -1,0 +1,135 @@
+GameType,Task,ImageURL
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2a3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2b2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2c2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2d3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2e2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2_overviewO.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4a2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4b2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4c2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4d2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4e2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4_overviewO.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt1.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt2.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt3.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6b2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6c2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6d2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6e1O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overview2O_pt1.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overview2O_pt2.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO_pt1.jpeg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO_pt2.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt1.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt2.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrla2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrlb2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrlc2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt1.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt2.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt3.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt4.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2_3overviewO.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2b2O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2c3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2d_3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2eO.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4a3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4b3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4c3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4d3O.jpg
+CellEx,CellTagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4e3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2a3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2b2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2c2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2d3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2e2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B2_overviewO.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4a2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4b2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4c2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4d2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4e2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B4_overviewO.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt1.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt2.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_B6a2_pt3.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6b2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6c2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6d2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6e1O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overview2O_pt1.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overview2O_pt2.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO_pt1.jpeg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_B6_overviewO_pt2.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt1.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_cntl_overviewO_pt2.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrla2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrlb2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_ctrlc2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt1.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt2.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt3.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/110419_LinenB6a4_pt4.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2_3overviewO.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2b2O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2c3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2d_3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A2eO.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4a3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4b3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4c3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4d3O.jpg
+CellEx,Nucleus tagging,http://localhost:8000/img/cellExAndNuclEx/11_04_19_LinenWuB6_A4e3O.jpg
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt10.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt11.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt12.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt13.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt1.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt2.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt3.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt4.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt5.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt6.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt7.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt8.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/20130412172248_pt9.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/agar_pt1.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/agar_pt2.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/agar_pt3.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/agar_pt4.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/Haemophilus sp.culture on chocolate agar_pt1.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/Haemophilus sp.culture on chocolate agar_pt2.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/Haemophilus sp.culture on chocolate agar_pt3.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/Haemophilus sp.culture on chocolate agar_pt4.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/Haemophilus sp.culture on chocolate agar_pt5.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt1.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt2.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt3.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt4.png
+CellEx,Colony tagging,http://localhost:8000/img/colEx/michael-gabridge-escherichia-coli-bacteria-colonies-on-macconkey-agar-culture-dish-lactose-fermenters-are-red_pt5.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2a3_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2a3_ch00_pt2.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2b2_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2b2_ch00_pt2.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2b2_ch00_pt3.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2c2_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2d3_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B2e2_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4b2_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4b2_ch00_pt2.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4c2_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4d2_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4d2_ch00_pt2.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4e2_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4e2_ch00_pt2.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4e2_ch00_pt3.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B4e2_ch00_pt4.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B6a2_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B6b2_ch00_crop.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B6c2_ch00_pt1.png
+VesEx,Vesicle locating,http://localhost:8000/img/vesEx/11_04_19_B6c2_ch00_pt2.png

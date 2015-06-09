@@ -8,7 +8,7 @@ class GameAdminController extends BaseController {
 	 * Initialize controller.
 	 */
 	public function __construct() {
-		$this->beforeFilter('adminauth');
+		$this->beforeFilter('adminauth', [ 'except' => 'anyApi']);
 	}
 	
 	/**
@@ -111,11 +111,9 @@ class GameAdminController extends BaseController {
 			}
 		}
 		
-		$game->level = $level;
-		$game->name = $name;
+		$extraInfo = $handler->parseExtraInfo(Input::all());
+		$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
 		$game->game_type_id = $gameTypeId;
-		$game->instructions = $instructions;
-		$game->extraInfo = $handler->parseExtraInfo(Input::all());
 		$game->save();
 		
 		$taskErr = null;
@@ -203,6 +201,8 @@ class GameAdminController extends BaseController {
 		return [ 'status' => 'Success' ];
 	}
 	
+	
+	
 	/**
 	 * Parse specially formatted campaigns CSV file.
 	 *
@@ -277,6 +277,54 @@ class GameAdminController extends BaseController {
 		return [ 'status' => 'Success' ];
 	}
 	
+	// TODO: document
+	public function anyApi() {
+		// TODO: request auth token
+		$action = Input::get('action');
+		if($action=='publish') {
+			
+			$gameTypeInput = Input::get('gameType');
+			$level = Input::get('level');
+			$name = Input::get('name');
+			$instructions = Input::get('instructions');
+			$extraInfo = Input::get('extraInfo');
+			$taskData = Input::get('taskData');
+			
+			// TODO: 'GameType::where.. code repeated -> build function'
+			$gameType = GameType::where('name','=', $gameTypeInput)->first();
+			if($gameType==null) {
+				return [ 'status' => 'fail',
+						 'message' => 'Task published'
+				];
+			}
+			$game = new Game($gameType);
+			$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
+			
+			$gameTypeName = $game->gameType->name;
+			$taskType = TaskType::where('name', '=', $gameTypeName)->first();
+			$tasks = [];
+			foreach ($taskData as $taskDataItem) {
+				// TODO: Which column to take ('url' in this case should not be hard coded
+				// TODO: Download image ?
+				$currTask = new Task($taskType, $taskDataItem['url']);
+				array_push($tasks, $currTask);
+			}
+			
+			// Save game and task
+			$game->save();
+			$game->tasks()->saveMany($tasks);
+			
+			return [ 'status' => 'success',
+					 'message' => 'Task published',
+					 'id'	=> $game->id
+			 ];
+		} else {
+			return [ 'status' => 'fail',
+					'message' => 'Undefined action: '.$action
+			];
+		}
+	}
+	
 	/**
 	 * Construct a new Game instance from the given row on the CSV file.
 	 * 
@@ -290,12 +338,28 @@ class GameAdminController extends BaseController {
 		}
 		
 		$game = new Game($gameType);
-		$game->level = intval($elem['Level']);
-		$game->name = $elem['Name'];
-		$game->instructions = $elem['Instructions'];
-		$extraInfo = $this->getExtraInfo($elem);
-		$game->extraInfo = serialize($extraInfo);
+		$this->fillGameInformation($game, $elem['Name'], $elem['Level'], 
+				$elem['Instructions'],  $this->getExtraInfo($elem));
 		return $game;
+	}
+	
+	/**
+	 * Utility function used for copying info into a game. Really all this does 
+	 * is make sure we fill all values on every place we do it.
+	 * 
+	 * @param $game The Game object
+	 * @param $name name field
+	 * @param $level level field (numeric)
+	 * @param $instructions Instructions field
+	 * @param $extraInfo extraInfo field (serialized)
+	 */
+	private function fillGameInformation($game, $name, $level, $instructions, $extraInfo) {
+		// TODO: Do we need game_type_id ?
+		
+		$game->name = $name;
+		$game->level = intval($level);
+		$game->instructions = $instructions;
+		$game->extraInfo = serialize($extraInfo);
 	}
 	
 	/**
