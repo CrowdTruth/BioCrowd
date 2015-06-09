@@ -279,48 +279,55 @@ class GameAdminController extends BaseController {
 	
 	// TODO: document
 	public function anyApi() {
-		// TODO: request auth token
-		$action = Input::get('action');
-		if($action=='publish') {
-			
-			$gameTypeInput = Input::get('gameType');
-			$level = Input::get('level');
-			$name = Input::get('name');
-			$instructions = Input::get('instructions');
-			$extraInfo = Input::get('extraInfo');
-			$taskData = Input::get('taskData');
-			
-			// TODO: 'GameType::where.. code repeated -> build function'
-			$gameType = GameType::where('name','=', $gameTypeInput)->first();
-			if($gameType==null) {
+		try {
+			// TODO: request auth token
+			$action = Input::get('action');
+			if($action=='publish') {
+					
+				$gameTypeInput = Input::get('gameType');
+				$level = Input::get('level');
+				$name = Input::get('name');
+				$instructions = Input::get('instructions');
+				$extraInfo = Input::get('extraInfo');
+				$taskData = Input::get('taskData');
+				$score = Input::get('score');
+					
+				// TODO: 'GameType::where.. code repeated -> build function'
+				$gameType = GameType::where('name','=', $gameTypeInput)->first();
+				if($gameType==null) {
+					return [ 'status' => 'fail',
+							'message' => 'Task published'
+					];
+				}
+				$game = new Game($gameType);
+				$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo, $score);
+					
+				$gameTypeName = $game->gameType->name;
+				$taskType = TaskType::where('name', '=', $gameTypeName)->first();
+				$tasks = [];
+				foreach ($taskData as $taskDataItem) {
+					// TODO: Which column to take ('url' in this case should not be hard coded
+					// TODO: Download image ?
+					$currTask = new Task($taskType, $taskDataItem['url']);
+					array_push($tasks, $currTask);
+				}
+					
+				// Save game and task
+				$game->save();
+				$game->tasks()->saveMany($tasks);
+					
+				return [ 'status' => 'success',
+						'message' => 'Task published',
+						'id'	=> $game->id
+				];
+			} else {
 				return [ 'status' => 'fail',
-						 'message' => 'Task published'
+						'message' => 'Undefined action: '.$action
 				];
 			}
-			$game = new Game($gameType);
-			$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
-			
-			$gameTypeName = $game->gameType->name;
-			$taskType = TaskType::where('name', '=', $gameTypeName)->first();
-			$tasks = [];
-			foreach ($taskData as $taskDataItem) {
-				// TODO: Which column to take ('url' in this case should not be hard coded
-				// TODO: Download image ?
-				$currTask = new Task($taskType, $taskDataItem['url']);
-				array_push($tasks, $currTask);
-			}
-			
-			// Save game and task
-			$game->save();
-			$game->tasks()->saveMany($tasks);
-			
-			return [ 'status' => 'success',
-					 'message' => 'Task published',
-					 'id'	=> $game->id
-			 ];
-		} else {
+		} catch(\Exception $e) {
 			return [ 'status' => 'fail',
-					'message' => 'Undefined action: '.$action
+					'message' => 'Exception:'.$e->getMessage()
 			];
 		}
 	}
@@ -353,13 +360,14 @@ class GameAdminController extends BaseController {
 	 * @param $instructions Instructions field
 	 * @param $extraInfo extraInfo field (serialized)
 	 */
-	private function fillGameInformation($game, $name, $level, $instructions, $extraInfo) {
+	private function fillGameInformation($game, $name, $level, $instructions, $extraInfo, $score) {
 		// TODO: Do we need game_type_id ?
 		
 		$game->name = $name;
 		$game->level = intval($level);
 		$game->instructions = $instructions;
 		$game->extraInfo = serialize($extraInfo);
+		$game->score = $score;
 	}
 	
 	/**

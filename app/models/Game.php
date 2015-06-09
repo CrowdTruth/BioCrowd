@@ -30,7 +30,20 @@ class Game extends Eloquent {
 			$this->game_type_id = $gameType->id;
 		}
 	}
-
+	
+	protected static function boot() {
+		parent::boot();
+		
+		static::saving(function($entity) {
+			$checkFor = [ "name", "level", "instructions", "extraInfo", "score" ];
+			foreach ($checkFor as $field) {
+				if(is_null($entity->$field)) {
+					throw new \Exception('Game does not comply with data model! -- '.$field.' missing');
+				}
+			}
+		});
+	}
+	
 	/**
 	 * Return the GameType of the current game.
 	 */
