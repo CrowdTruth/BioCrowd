@@ -30,9 +30,9 @@ class DataportController extends BaseController {
 	 */
 	public function postToFile() {
 		$gameIds = Input::get('games');
-	
+		
 		$data = $this->fetchJudgements($gameIds);
-	
+		
 		$status = 200;
 		$header = ['Content-type' => 'application/csv'];
 		// CSV --> mnshankar\CSV\CSVServiceProvider
@@ -102,6 +102,10 @@ class DataportController extends BaseController {
 		try {
 			// TODO: How many judgments we send? and how often?
 			$payload = static::fetchJudgements();
+			
+			if(count($payload)==0) {
+				return static::buildResponse('ok', 'No judgements to send', '', '');
+			}
 			// SHA1 of payload alone, since we don't have API key
 			$signature = sha1(print_r($payload, true));
 			$formData = [
@@ -110,26 +114,38 @@ class DataportController extends BaseController {
 					'signature' => $signature
 			];
 			
-			//$res = $client->post($webhook, ['body' => $query]);
-			//$json = $res->json();
-			
 			// TODO: must be a better way to convert response to array ?
 			$resRaw = $client->post($webhook, ['form_params' => $formData]);
 			$resBody = $resRaw->getBody()->__toString();
 			$json = json_decode($resBody);
 
-			return [
-				'status'  => 'ok',
-				'message' => 'Webhook successfully called. Response: '.$json->message,
-			];
+			if($json->status=='ok') {
+				return static::buildResponse('ok', 'Webhook successfully called. Response: '.$json->message,
+						$webhook, $formData);
+			} else {
+				return static::buildResponse('error', 'Error during webhook call. Response: '.$json->message,
+						$webhook, $formData);
+			}
 		} catch (Exception $e) {
-			return [
-				'status'  => 'error',
-				'message' => 'Invalid response from webhook: '.$e,
-				'URL'	=> $webhook, 
-				'query' => $query
-			];
+			return static::buildResponse('error', 'Invalid response from webhook: '.$e, $webhook, '???');
 		}
+	}
+	
+	/**
+	 * Prepare webhook for webhook call.
+	 * @param $status 'ok' or 'error'
+	 * @param $msg    Message displayed to the user
+	 * @param $url    URL called
+	 * @param $query  query data sent
+	 * @return array with return data.
+	 */
+	private static function buildResponse($status, $msg, $url, $query) {
+		return [
+				'status'  => $status,
+				'message' => $msg,
+				'URL'	=> $url,
+				'query' => $query
+		];
 	}
 	
 	/**

@@ -70,7 +70,6 @@ class CTwebhook extends ScheduledCommand {
 		} else {
 			$this->error('Error during webhook call');
 			$this->error('  URL > '.$response['URL']);
-			$this->error('  N   > '.count($response['query']['payload']));
 			$this->error('  msg > '.$response['message']);
 		}
 	}
