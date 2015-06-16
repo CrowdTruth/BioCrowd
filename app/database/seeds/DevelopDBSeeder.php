@@ -18,14 +18,14 @@ class DevelopDBSeeder extends Seeder {
 		$controller->installGameType('CellExGameType');
 		$controller->installGameType('VesExGameType');
 
-		// $this->createGames();
+		$this->createGames();
 		// Install campaign types separately ?
 		$campaignType = new CampaignType(new StoryCampaignType());
 		$campaignType->save();
 		$campaignType = new CampaignType(new QuantityCampaignType());
 		$campaignType->save();
 		
-		// $this->createCampaigns();
+		 $this->createCampaigns();
 		$this->createLevels();
 	}
 
@@ -38,16 +38,40 @@ class DevelopDBSeeder extends Seeder {
 		$game1->level = 1;
 		$game1->name = 'Cell tagging';
 		$game1->instructions = ''
-				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>Please mark all cells in one of the following ways: </p>'
-				.'<p>Way 1. With your mouse, drag and draw a shape around each cell, even if they are lying partly behind other cells/debris. When two cells are overlapping, you may draw overlapping shapes.</p>'
-				.'<p>Way 2. Click on the CENTER of each cell you want to mark. </p>'
-				.'<p>You can mix these 2 ways if you want. </p>'
-				.'<p>Do not count cells that are less then 50% visible</p>'
-				.'<p>'
-				.'Examples:'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
+				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
-				.'<img src="img/CellEx_instructions.png">';
+				.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
+				.'<div style="border:1px solid #000;"><font color="#DC18DA"><b>Purple dots</b></font> show correctly counted cells. <font color="#3C5825"><b>Count & annotate a cell only when at least half of it is visible. </b></font><br>
+						<font color="#DC18DA"><b>Mark</b></font> each cell as close to its center as possible. <br>
+						(When you cannot see the complete cell, mark where you <i>think</i> the center would be.)<br> 
+						<br>
+						<font color="#0906C5"><b>Example A</b></font>. You see <font color="#3C5825"><b>1 complete cell, 1 nearly complete cell</b></font>, and 1 small bit of a cell => <font color="#DC18DA"><b>2 purple dot</b></font> markings. <br>
+						<font color="#0906C5"><b>Example B</b></font>. You see <font color="#3C5825"><b>2 complete cells</b></font>, more then half of <font color="#3C5825"><b>1 cell</b></font>, and a little bit of 2 other cells => <font color="#DC18DA"><b>3 purple dot</b></font> markings. <br>
+						<br>
+						The <font color="#0906C5">dotted blue line</font> shows the imaginary outline of the cell beyond the border of the image.</div>'
+				.'<img width="100%" src="img/CellTagging_Green.png">'
+				.'</div>'
+				.'</div>'
+				.'</p>'
+				.'<div style="font-size: 20pt; color:#000;">Cell identification steps</div>'
+				.'<p>Step 1: Click near the Center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
+				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
+				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<div>'
+				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
+				.'<div><ul>'
+				.'<li>This menu is located to the left of (or above) your task images. </li>'
+				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
+				.'<li>To remove the last cell marking, click the <img src=img/removeLastButton.png> button.</li>'
+				.'This removes the markings in the reversed order in which they were made (last mark will be deleted first). '
+				.'<li>To undo a <i>specific</i> annotation click the <b>x</b> next to the faulty mark in the "Drawn" table which you want to remove. </li>'
+				.'<li>Once you are happy with the result, click the "Next question" button. </li>'
+				.'</ul></div>'
+				.'</div>'
+				.'';
 		$game1->extraInfo = serialize([ 'label' => 'Mark each cell by clicking it or drawing a shape around it',
 				'label1' => 'I have annotated all cells', 
 				'label2' => 'There were too many cells to annotate',
@@ -84,17 +108,41 @@ class DevelopDBSeeder extends Seeder {
 		$game2->level = 2;
 		$game2->name = 'Nucleus tagging';
 		$game2->instructions = ''
-				.'<p>In the image below one or more cells are displayed. </p>'
-				.'<p>Please mark all cells in one of the following ways: </p>'
-				.'<p>Way 1. With your mouse, drag and draw a shape around each nucleus, even if they are lying partly behind other cells/debris. 
-						When the nucleus does lie partly behind other cells and this is making two or more nuclei overlap, you may draw overlapping shapes.</p>'
-				.'<p>Way 2. Click on the CENTER of each nucleus you want to mark. </p>'
-				.'<p>You can mix these 2 ways if you want. </p>'
-				.'<p>Do not count nuclei that are less then 50% visible</p>'
-				.'<p>'
-				.'Examples:'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
+				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
-				.'<img src="img/NuclEx_instructions.png">';
+				.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
+				.'<div style="border:1px solid #000;"><font color="#DC18DA"><b>Purple dots</b></font> show correctly counted nuclei. <font color="#3C5825"><b>Count & annotate nuclei only when at least half of them is visible. </b></font><br>
+						<font color="#DC18DA"><b>Mark</b></font> each nucleus as close to its center as possible. <br>
+						(When you cannot see the complete nucleus, mark where you <i>think</i> the center would be.)<br> 
+						<br>
+						<font color="#0906C5"><b>Example A</b></font>. You see <font color="#3C5825"><b>2 cells, 2 nuclei</b></font> => <font color="#DC18DA"><b>2 purple dot</b></font> markings. <br>
+						<font color="#0906C5"><b>Example B</b></font>. You see <font color="#3C5825"><b>1 cell, 2 nuclei</b></font> => <font color="#DC18DA"><b>2 purple dot</b></font> markings. <br>
+						<font color="#0906C5"><b>Example C</b></font>. You see <font color="#3C5825"><b>2 partially visible cells, 2 more then half visible nuclei</b></font> => <font color="#DC18DA"><b>2 purple dot</b></font> markings. <br>
+						<br>
+						The <font color="#0906C5">dotted blue line</font> shows the imaginary outline of the nucleus beyond the border of the image. </div>'
+				.'<img width="100%" src="img/NucleusTagging_Green.png">'
+				.'</div>'
+				.'</div>'
+				.'</p>'
+				.'<div style="font-size: 20pt; color:#000;">Nuclei identification steps</div>'
+				.'<p>Step 1: Click near the Center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
+				.'<p>Step 3: Report the number of nuclei you have counted in the designated field. </p>'
+				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<div>'
+				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
+				.'<div><ul>'
+				.'<li>This menu is located to the left of (or above) your task images. </li>'
+				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
+				.'<li>To remove the last nucleus marking, click the <img src=img/removeLastButton.png> button.</li>'
+				.'This removes the markings in the reversed order in which they were made (last mark will be deleted first). '
+				.'<li>To undo a <i>specific</i> annotation click the <b>x</b> next to the faulty mark in the "Drawn" table which you want to remove. </li>'
+				.'<li>Once you are happy with the result, click the "Next question" button. </li>'
+				.'</ul></div>'
+				.'</div>'
+				.'';
 		$game2->extraInfo = serialize([ 'label' => 'Mark each nucleus by clicking it or drawing a shape around it',
 				'label1' => 'I have annotated all nuclei', 
 				'label2' => 'There were too many nuclei to annotate',
@@ -127,17 +175,42 @@ class DevelopDBSeeder extends Seeder {
 		$game3->level = 3;
 		$game3->name = 'Colony tagging';
 		$game3->instructions = ''
-				.'<p>In the image below one or more agar colonies are displayed. </p>'
-				.'<p>Please mark all cells in one of the following ways: </p>'
-				.'<p>Way 1. With your mouse, drag and draw a shape around each colony, even if they are touching other colonies. 
-						When the colony touches other colonies, you may draw overlapping shapes, as long as you know for sure that the colony you tagged is in fact ONE colony.</p>'
-				.'<p>Way 2. Click on the CENTER of each colony you want to mark. </p>'
-				.'<p>You can mix these 2 ways if you want. </p>'
-				.'<p>Do not count colonies that are less then 50% visible</p>'
-				.'<p>'
-				.'Examples:'
+				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
+				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
-				.'<img src="img/ColEx_instructions.png">';
+				.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
+				.'<div style="border:1px solid #000;"><font color="#DC18DA"><b>Purple dots</b></font> show correctly counted colonies. <font color="#3C5825"><b>Count & annotate a colony only when at least half of it is visible. </b></font><br>
+						<font color="#DC18DA"><b>Mark</b></font> each colony as close to its center as possible. <br>
+						(When you cannot see the complete colony, mark where you <i>think</i> the center would be.)<br>
+						Do not mark colonies that have merged into one big clump. <br>
+						Do mark colonies that are at the edge of of the petri dish of which you can see more then half of the colony present. <br>
+						<br>
+						<font color="#0906C5"><b>Example A</b></font>. You see <font color="#3C5825"><b>13 complete colonies</b></font>, 2 clumps of merged colonies, and a few line shaped clumps at the bottom => <font color="#DC18DA"><b>13 purple dot</b></font> markings. <br>
+						<font color="#0906C5"><b>Example B</b></font>. You see <font color="#3C5825"><b>2 complete colonies</b></font>, more then half of <font color="#3C5825"><b>1 colony</b></font>, a little bit of 2 other colony, and <font color="#3C5825"><b>1 colony at the edge of the petri dish</b></font> => <font color="#DC18DA"><b>4 purple dot</b></font> markings. <br>
+						<br>
+						The <font color="#0906C5">dotted blue line</font> shows the imaginary outline of the colony beyond the border of the image.</div>'
+				.'<img width="100%" src="img/ColonyTagging_Mixed.png">'
+				.'</div>'
+				.'</div>'
+				.'</p>'
+				.'<div style="font-size: 20pt; color:#000;">Colony identification steps</div>'
+				.'<p>Step 1: Click near the Center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 2: Choose the option from the given list which best describes your colony markings. </p>'
+				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
+				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<div>'
+				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
+				.'<div><ul>'
+				.'<li>This menu is located to the left of (or above) your task images. </li>'
+				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
+				.'<li>To remove the last colony marking, click the <img src=img/removeLastButton.png> button.</li>'
+				.'This removes the markings in the reversed order in which they were made (last mark will be deleted first). '
+				.'<li>To undo a <i>specific</i> annotation click the <b>x</b> next to the faulty mark in the "Drawn" table which you want to remove. </li>'
+				.'<li>Once you are happy with the result, click the "Next question" button. </li>'
+				.'</ul></div>'
+				.'</div>'
+				.'';
 		$game3->extraInfo = serialize([ 'label' => 'Mark each colony by clicking it or drawing a shape around it',
 				'label1' => 'I have annotated all colonies', 
 				'label2' => 'There were too many colonies to annotate',
@@ -168,17 +241,35 @@ class DevelopDBSeeder extends Seeder {
 		$game4->level = 1;
 		$game4->name = 'Vesicle locating';
 		$game4->instructions = ''
-				.'<p>In the image below, one or more cells which contain vesicles are displayed. </p>'
-				.'<p>If there is more then one cell completely visible, we want you to annotate the cell with the red border around it. </p>'
-				.'<p>VESICLES can be seen as tiny dots present throughout (a part of) the cell.</p>'
-				.'<p>VESICLES can be seen as larger "clumps" of color, varying in size.</p>'
-				.'<p>Different VESICLES can exhibit different behavior we will call TRENDS.</p>'
-				.'<p>Some images will have VESICLES with different fluorescent colors.</p>'
-				.'<p>Refer to the rest of the image for correct identification of the cells and to be sure of not taking background spots as Vesicles.</p>'
-				.'<p>'
-				.'Example:'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
+				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
-				.'<img src="img/VesEx_instructions.png">';
+				.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
+				.'<div style="border:1px solid #000;">Arrows point to the area the example is classifying. A few of the larger nuclei have been marked with a <i>star</i> to help identify them. <br>
+						<font color="#0906C5"><b>Example A</b></font>. Vesicles at the <i>tip</i> of the cell. <br>
+						<font color="#0906C5"><b>Example B</b></font>. Vesicles fairly <i>evenly</i> diffused throughout the cell (think of a mist or fog)<br>
+						<font color="#0906C5"><b>Example C</b></font>. Vesicles on <i>one</i> side of the nucleus. <br>
+						<font color="#0906C5"><b>Example D</b></font>. Vesicles in <i>clusters</i>(clumps of small dots stuck together). <br>
+						<font color="#0906C5"><b>Example E</b></font>. Vesicles in a <i>ring</i> around the nucleus. <br>
+						</div>'
+				.'<img width="100%" src="img/Vesicle_Locating_Mixed.png">'
+				.'</div>'
+				.'</div>'
+				.'</p>'
+				.'<div style="font-size: 20pt; color:#000;">Vesicle identification steps</div>'
+				.'<p>Step 1: First, take a look at the image and click on the icon which best describes the behavior of the vesicles.</p>'
+				.'<ul>'
+				.'<li>Vesicles can be seen as tiny dots present throughout (a part of) the cell.</li>'
+				.'<li>Vesicles can be seen as larger "clumps" of color, varying in size.</li>'
+				.'<li>Different vesicles can exhibit different behavior we will call trends.</li>'
+				.'<li>Some images will have vesicles with different fluorescent colors.</li>'
+				.'<li>Refer to the rest of the image for correct identification of the cells and to be sure of not taking background spots as vesicles.</li>'
+				.'</ul>'
+				.'<p>Step 2: Choose the option from the given list which best describes your CELL markings.</p>'
+				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
+				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'';
 		$game4->extraInfo = serialize([	'label' => 'Click on the icon below which best describes the VESICLE location', 
 										'label1' => 'Side Nucleus', 
 										'label2' => 'Ring around Nucleus' , 
