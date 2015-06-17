@@ -74,6 +74,21 @@
 							</div>
 						</div>
 						<div class="form-group">
+							{{ Form::label('bioExpert', 'Are you a biological expert?', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::label('yes', 'Yes') }}
+								{{ Form::radio('bioExpert', '1', false, ['required'=>'required']) }}
+								{{ Form::label('no', 'No') }}
+								{{ Form::radio('bioExpert', '0', false, ['required'=>'required']) }}
+							</div>
+						</div>
+						<div class="form-group">
+							{{ Form::label('expertise', 'Field of expertise:', array('class' => 'col-sm-2 control-label')) }}
+							<div class="col-sm-4">
+								{{ Form::text('expertise', '', ['required'=>'required']) }}
+							</div>
+						</div>
+						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-4">
 								{{ Form::submit('Login') }}
 							</div>

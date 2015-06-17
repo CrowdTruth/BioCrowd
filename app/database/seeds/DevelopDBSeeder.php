@@ -300,10 +300,10 @@ class DevelopDBSeeder extends Seeder {
 	
 	// TODO: unused -- remove ?
 	public function createCampaigns() {
-		$game1 = Game::where('name', '=', 'Cell tagging')->first();
-		$game2 = Game::where('name', '=', 'Nucleus tagging')->first();
-		$game3 = Game::where('name', '=', 'Colony tagging')->first();
-		$game4 = Game::where('name', '=', 'Vesicle locating')->first();
+		$game1 = Game::find(1);
+		$game2 = Game::find(2);
+		$game3 = Game::find(3);
+		$game4 = Game::find(4);
 		
 		$this->command->info('Create test StoryCampaignType');
 		$campaignType = CampaignType::where('name', '=', 'Story')->first();
@@ -449,31 +449,40 @@ class DevelopDBSeeder extends Seeder {
 			'password' => Hash::make('123456'),
 			'level' => '8',
 			'title' => 'Black belt',
-			'score' => '999'
+			'score' => '999',
+			'bioExpert' => '0',
+			'expertise' => 'software development'
 		] );
 		
 		User::create( [
 			'email' => 'loeloe87@hotmail.com',
 			'name' => 'Merel',
-			'level' => '2',
-			'title' => 'Padawan',
-			'password' => Hash::make('Merel')
+			'password' => Hash::make('Merel'),
+			'level' => '3',
+			'title' => 'White belt',
+			'score' => '460',
+			'bioExpert' => '1',
+			'expertise' => 'BioInformatics master student'
 		] );
 		
 		User::create( [
 		'email' => 'veltkamp.w.isc@nl.ibm.com',
 		'name' => 'Wouter',
 		'level' => '4',
-		'title' => 'Padawan',
-		'password' => Hash::make('Wouter')
+		'title' => 'Yellow belt',
+		'password' => Hash::make('Wouter'),
+		'bioExpert' => '0',
+		'expertise' => 'Front end designer and developer'
 		] );
 		
 		User::create( [
 		'email' => 'tessa.mulderISC@nl.ibm.com',
 		'name' => 'Tessa',
 		'level' => '4',
-		'title' => 'Padawan',
-		'password' => Hash::make('Tessa')
+		'title' => 'Yellow belt',
+		'password' => Hash::make('Tessa'),
+		'bioExpert' => '0',
+		'expertise' => 'Front end designer'
 		] );
 	}
 	

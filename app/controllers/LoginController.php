@@ -42,6 +42,8 @@ class LoginController extends BaseController {
 		$pass  = Input::get('password');
 		$pass2 = Input::get('password2');
 		$code  = Input::get('code');
+		$bioExpert = Input::get('bioExpert');
+		$expertise = Input::get('expertise');
 
 		if($pass!=$pass2) {
 			return Redirect::to('login')->with('flash_error', 'Passwords do not match.')->withInput();
@@ -56,6 +58,8 @@ class LoginController extends BaseController {
 			$user->email = $email;
 			$user->name = $name;
 			$user->password = Hash::make($pass);
+			$user->bioExpert = $bioExpert;
+			$user->expertise = $expertise;
 			$user->save();
 			
 			return $this->doLogin();
