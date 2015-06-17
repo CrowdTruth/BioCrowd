@@ -36,7 +36,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game1 = new Game($gameType);
 		$game1->level = 1;
-		$game1->name = 'Cell tagging';
+		$game1->name = 'Green Fluorescent Cells';
 		$game1->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -106,7 +106,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game2 = new Game($gameType);
 		$game2->level = 2;
-		$game2->name = 'Nucleus tagging';
+		$game2->name = 'Dark Nuclei Green Cells';
 		$game2->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -173,7 +173,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game3 = new Game($gameType);
 		$game3->level = 3;
-		$game3->name = 'Colony tagging';
+		$game3->name = 'Agar Contamination';
 		$game3->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -239,7 +239,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game4 = new Game($gameType);
 		$game4->level = 1;
-		$game4->name = 'Vesicle locating';
+		$game4->name = 'Glowing Vesicles Green Cells';
 		$game4->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
