@@ -482,21 +482,25 @@ class DevelopDBSeeder extends Seeder {
 		$level1 = new Level();
 		$level1->level = 1;
 		$level1->max_score = 200;
+		$level1->title = 'Novice';
 		$level1->save();
 		
 		$level2 = new Level();
 		$level2->level = 2;
 		$level2->max_score = 450;
+		$level2->title = 'Padawan';
 		$level2->save();
 		
 		$level3 = new Level();
 		$level3->level = 3;
 		$level3->max_score = 600;
+		$level3->title = 'White belt';
 		$level3->save();
 		
 		$level4 = new Level();
 		$level4->level = 4;
 		$level4->max_score = 800;
+		$level4->title = 'Yellow belt';
 		$level4->save();
 	}
 }

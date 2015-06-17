@@ -53,6 +53,7 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->integer('level');
 			$table->integer('max_score');
+			$table->string('title');
 			$table->timestamps();
 		});
 		
