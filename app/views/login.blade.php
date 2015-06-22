@@ -74,12 +74,22 @@
 							</div>
 						</div>
 						<div class="form-group">
-							{{ Form::label('bioExpert', 'Are you a biological expert?', array('class' => 'col-sm-2 control-label')) }}
+							{{ Form::label('bioExpert', 'What is the highest level of cell biology education you have finished?', array('class' => 'col-sm-2 control-label')) }}
 							<div class="col-sm-4">
-								{{ Form::label('yes', 'Yes') }}
-								{{ Form::radio('bioExpert', '1', false, ['required'=>'required']) }}
-								{{ Form::label('no', 'No') }}
-								{{ Form::radio('bioExpert', '0', false, ['required'=>'required']) }}
+								{{ Form::radio('cellBioExpertise', 'none', false, ['required'=>'required', 'id'=>'none']) }}
+								{{ Form::label('none', 'None', ['id'=>'none']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'highSchool', false, ['required'=>'required', 'id'=>'highSchool']) }}
+								{{ Form::label('highSchool', 'High school', ['id'=>'highSchool']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'hboBachelor', false, ['required'=>'required', 'id'=>'hboBachelor']) }}
+								{{ Form::label('hboBachelor', 'Pre-university/hbo-bachelor (Dutch)', ['id'=>'hboBachelor']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'uniBachelor', false, ['required'=>'required', 'id'=>'uniBachelor']) }}
+								{{ Form::label('uniBachelor', 'University bachelor', ['id'=>'uniBachelor']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'hboMaster', false, ['required'=>'required', 'id'=>'hboMaster']) }}
+								{{ Form::label('hboMaster', 'Pre-university/hbo master (Dutch)', ['id'=>'hboMaster']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'uniMaster', false, ['required'=>'required', 'id'=>'uniMaster']) }}
+								{{ Form::label('uniMaster', 'University Master', ['id'=>'uniMaster']) }} <BR>
+								{{ Form::radio('cellBioExpertise', 'phd', false, ['required'=>'required', 'id'=>'phd']) }}
+								{{ Form::label('phd', 'Phd', ['id'=>'phd']) }}
 							</div>
 						</div>
 						<div class="form-group">

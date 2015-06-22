@@ -450,7 +450,7 @@ class DevelopDBSeeder extends Seeder {
 			'level' => '8',
 			'title' => 'Black belt',
 			'score' => '999',
-			'bioExpert' => '0',
+			'cellBioExpertise' => 'none',
 			'expertise' => 'software development'
 		] );
 		
@@ -461,28 +461,28 @@ class DevelopDBSeeder extends Seeder {
 			'level' => '3',
 			'title' => 'White belt',
 			'score' => '460',
-			'bioExpert' => '1',
+			'cellBioExpertise' => 'uniBachelor',
 			'expertise' => 'BioInformatics master student'
 		] );
 		
 		User::create( [
-		'email' => 'veltkamp.w.isc@nl.ibm.com',
-		'name' => 'Wouter',
-		'level' => '4',
-		'title' => 'Yellow belt',
-		'password' => Hash::make('Wouter'),
-		'bioExpert' => '0',
-		'expertise' => 'Front end designer and developer'
+			'email' => 'veltkamp.w.isc@nl.ibm.com',
+			'name' => 'Wouter',
+			'level' => '4',
+			'title' => 'Yellow belt',
+			'password' => Hash::make('Wouter'),
+			'cellBioExpertise' => 'none',
+			'expertise' => 'Front end designer and developer'
 		] );
 		
 		User::create( [
-		'email' => 'tessa.mulderISC@nl.ibm.com',
-		'name' => 'Tessa',
-		'level' => '4',
-		'title' => 'Yellow belt',
-		'password' => Hash::make('Tessa'),
-		'bioExpert' => '0',
-		'expertise' => 'Front end designer'
+			'email' => 'tessa.mulderISC@nl.ibm.com',
+			'name' => 'Tessa',
+			'level' => '4',
+			'title' => 'Yellow belt',
+			'password' => Hash::make('Tessa'),
+			'cellBioExpertise' => 'none',
+			'expertise' => 'Front end designer'
 		] );
 	}
 	

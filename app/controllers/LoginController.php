@@ -42,7 +42,7 @@ class LoginController extends BaseController {
 		$pass  = Input::get('password');
 		$pass2 = Input::get('password2');
 		$code  = Input::get('code');
-		$bioExpert = Input::get('bioExpert');
+		$cellBioExpertise = Input::get('cellBioExpertise');
 		$expertise = Input::get('expertise');
 
 		if($pass!=$pass2) {
@@ -58,7 +58,7 @@ class LoginController extends BaseController {
 			$user->email = $email;
 			$user->name = $name;
 			$user->password = Hash::make($pass);
-			$user->bioExpert = $bioExpert;
+			$user->cellBioExpertise = $cellBioExpertise;
 			$user->expertise = $expertise;
 			$user->save();
 			
