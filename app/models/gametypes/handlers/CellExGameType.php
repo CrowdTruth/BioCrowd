@@ -42,7 +42,7 @@ class CellExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function getThumbnail() {
-		return 'img/factor_validation1.png';
+		return 'img/icons/image_games-02.png';
 	}
 	
 	/**
@@ -77,6 +77,8 @@ class CellExGameType extends GameTypeHandler {
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
 			->with('instructions', $game->instructions)
+			->with('examples', $game->examples)
+			->with('steps', $game->steps)
 			->with('image', $image)
 			->with('responseLabel', $responseLabel);
 	}

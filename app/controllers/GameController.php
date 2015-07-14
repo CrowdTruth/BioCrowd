@@ -20,7 +20,6 @@ class GameController extends BaseController {
 		// Get parameter which game ?
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
-		
 		// Use corresponding game controller to display game.
 		$handlerClass = $game->gameType->handler_class;
 		$handler = new $handlerClass();
@@ -80,7 +79,7 @@ class GameController extends BaseController {
 			//add the score to the users score column and add the score to the scores table.
 			ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 		}
-		return Redirect::to('gameMenu');
+		return Redirect::to('playGame?gameId='.$gameId);
 	}
 	
 	function isInWhichQuantityCampaigns($game) {

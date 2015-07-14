@@ -1,45 +1,152 @@
 @extends('layout')
 
-@section('content')
-	<div class='col-xs-9 maincolumn' style="background:none; width:72%">
-		<div class='row '>
-			<div class='col-xs-6 content_box' style='background:none' >
-				<h1 style='background:#424242; color:#F8F8F8;  border-radius:10px; border: 1px solid grey; padding:5px;  font-size:22px;'>&nbsp;&nbsp;New literature <b style="font-size:12px; position:relative; top:0px; left:158px;">Costs: 15</b> <img class='coins' style="position:relative; left:158px;" src='img/coins.png'></img></h1>
-				<h5 style='background:white; position:relative; border-radius:10px; border:solid 1px; border-top-left-radius:0px; border-top-right-radius:0px;  border-color:#919090; top:-17px; height:70%; padding:5px; solid rgb(200, 200, 200); '>
-					<span style=" position:relative;left:10px;"><br /><b><a href="#" style="color:#333;" id="link">Sea urchin neural development and the metazoan paradigm of neurogenesis.</a></b><br />Summary:Urchin embryos continue to prove useful as a means of studying embryonic signaling and gene regulatory networks, which together..</span><br />
-					<span style=" position:relative;left:10px;"><br /><b><a href="#" style="color:#333;" id="link">Enhancing stress-resistance for efficient microbial biotransformations by synthetic biology. </a></b><br />Chemical conversions mediated by microorganisms, otherwise known as microbial biotransformations, are playing an increasingly important role within the.. </span>
-					<span style=" position:relative;left:90%;"><br /><b><a href="#" style="color:#464945;" onclick="fullVersion()">More</a></b></span>
-				</h5>
-			</div>
-			<div class='col-xs-6 content_box'>
-				<h1 style='background:#424242; color:#F8F8F8;  border-radius:10px;  border: 1px solid grey; padding:5px;  font-size:22px;'>&nbsp;&nbsp;High urgency literature <b style="font-size:12px; position:relative; top:0px; left:74px;">Costs: 10</b> <img class='coins' style="position:relative; left:74px;" src='img/coins.png'></img></h1>
-				<h5 style='background:white; position:relative;  border-radius:10px; border:solid 1px; border-top-left-radius:0px; border-top-right-radius:0px;  border-color:#919090; top:-17px; height:70%; padding:5px; solid rgb(200, 200, 200); '>
-					<span style=""><br /><b style="position:relative; left:10px;"><a href="#" style="color:#333;" id="link">Body-Mass Index and mortality among Adults with Incident Type 2 Diabetes</a></b><br /><text style="position:relative; left:10px;">The relation between body weight and mortality among persons with type 2 diabetes remains unsolved..</text></span><br />
-					<span style=" position:relative;left:10px;"><br /><b><a href="#" style="color:#333;" id="link">Young blood reverses age-related impairments in cognitive function and synaptic plasticity in mice</a></b><br />As human lifespan increases, a greater fraction of the population is suffering from age-related cognitive impairments, making it important to elucidate a means to combat the effects of aging. </span>
-					<span style=" position:relative;left:90%;"><br /><b><a href="#" style="color:#333;" onclick="fullVersion()">More</a></b></span>
-				</h5>
-			</div>
-			<div class='col-xs-6 content_box' style='background:none'>
-				<h1 style='background:#424242; color:#F8F8F8; border-radius:10px;  border: 1px solid grey; margin-top:-10px; padding:5px;font-size:22px;'>&nbsp;&nbsp;Most popular literature <b style="font-size:12px; position:relative; left:73px;">Costs: 25</b> <img class='coins' style="position:relative; left:73px;" src='img/coins.png'></img></h1>
-				<h5 style='background:white; position:relative; border-radius:10px; border:solid 1px; border-top-left-radius:0px; border-top-right-radius:0px; border-color:#919090; top:-17px; height:70%; padding:5px; solid rgb(200, 200, 200); '>
-					<span style=""><br /><b style="position:relative; left:10px;"><a href="#" style="color:#333;" id="link">CellProfiler: free, versatile software for automated biological image analysis</a></b><br /><text style="position:relative; left:10px;">Careful visual examination of biological samples is quite powerful, but many..</text></span><br />
-					<span style=" position:relative;left:10px;"><br /><b><a href="#" style="color:#333;" id="link">Crowdsourcing for Usability: Using Micro-Task Markets for Rapid, Remote, and Low-Cost User Measurements</a></b><br />Collecting user input is important for many aspects of the design process, and includes techniques ranging from informal user surveys to rigorous laboratory studies. </span>
-					<span style=" position:relative;left:90%;"><br /><b><a href="#" style="color:#464945;" onclick="fullVersion()">More</a></b></span><br />
-				</h5>
-			</div>
-			<div class='col-xs-6 content_box' style='background:none'>
-				<h1 style='background:#424242; color:#F8F8F8; border-radius:10px;  border: 1px solid grey; margin-top:-10px; padding:5px; font-size:22px;'>&nbsp;&nbsp;Your personal feed <b style="font-size:12px; position:relative; left:104px">Costs: 20</b> <img class='coins' style="position:relative; left:104px;" src='img/coins.png'></img></h1>
-				<h5 style='background:white; position:relative; border-radius:10px; border:solid 1px; border-top-left-radius:0px; border-top-right-radius:0px;  border-color:#919090; top:-17px; height:70%; padding:5px; solid rgb(200, 200, 200);'>
-					<span style=""><br /><b style="position:relative; left:10px;"><a href="#" style="color:#333;" id="link">Initial therapy with FOLFOXIRI and bevacizumab for metastatic colorectal cancer.</a></b><br /><text style="position:relative; left:10px;">BACKGROUND: A fluoropyrimidine plus irinotecan or oxaliplatin, combined with..</text></span><br />
-					<span style=" position:relative;left:10px;"><br /><b><a href="#" style="color:#333;" id="link">High-dose rifapentine with moxifloxacin for pulmonary tuberculosis.</a></b><br />BACKGROUND: Tuberculosis regimens that are shorter and simpler than the current 6-month daily regimen are needed.</span>
-					<span style=" position:relative;left:90%;"><br /><b><a href="#" style="color:#464945;" onclick="fullVersion()">More</b></span><br /></a>
-				</h5>
-			</div>
-		</div>
-	</div>
+@section('extraheaders')
+	<script type="text/javascript">
+		//On window size < 480, set the ribbon logo div behind the ribbon button div, so it borders on the lower section properly.
+		$(window).resize(function() {
+			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			if (width <= 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribimg").detach();
+					$(detach).insertAfter($(this).find("#ribinfo"));
+				})
+			} else if (width > 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribinfo").detach();
+					$(detach).insertAfter($(this).find("#ribimg"));
+				})
+			}
+		});
+	
+		//Reset logo div in front of button on larger size.
+		$(document).ready(function() {
+			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			if (width <= 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribimg").detach();
+					$(detach).insertAfter($(this).find("#ribinfo"));
+				})
+			} else if (width > 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribinfo").detach();
+					$(detach).insertAfter($(this).find("#ribimg"));
+				})
+			}
+		});
+	</script>
 @stop
 
-@section('sidebar')
-	@parent
-	@include('sidebarExtras')
+@section('content')
+	<div class="section group" id="mainsection">
+			<div class="col span_6_of_8" id="main">
+
+				<div class="section group scrollto" id="ribbon">
+					<div class="col span_4_of_8" id="ribimg">
+						<img src="img/logo/logo_drexplorer_loggedin.png" height="300px"
+							id="logo" alt=""></img>
+					</div>
+					<div class="col span_4_of_8" id="ribinfo">
+						<div class="textblock"><p>
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "At
+							vero eos et accusamus et iusto odio dignissimos ducimus qui
+							blanditiis praesentium voluptatum deleniti atque corrupti quos
+							dolores et quas molestias excepturi sint occaecatie." voluptatum
+							deleniti atque corrupti quos dolores et quas.<br>
+							<strong>See how you can redeem your points
+							and claim your award!</strong> <a href="#"><img src="img/glyphs/play-02.png" height=20px></img></a>
+						</p></div>
+					</div>
+
+				</div>
+
+				<div class="section group scrollto" id="games" >
+					<div class="col span_8_of_8">
+					@foreach($levels as $number => $items)
+						@if ( $number+1 > Auth::user()->get()->level )
+							<h1 class="sectiontitle">
+							<img src='img/lock.png' style="width:26px;height:26px;position:relative;left:-10px;top:0px"></img><strong>Level {{{ $number+1 }}}</strong>
+							</h1>
+						@else
+							<h1 class="sectiontitle">
+							<strong>Level {{{ $number+1 }}}</strong>
+							</h1>
+						@endif
+						<div align="center">
+							<ul id="gameslist">
+								@foreach($items as $item)
+									@if ( $item['enabled'] )
+										<li><a data-ftrans="slide" href="{{{ $item['link'] }}}"><img
+										alt="{{{ $item['text'] }}}" src="{{{ $item['image'] }}}"
+										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></a></li>
+									@else
+										<li><a data-ftrans="slide" href=""><img
+										alt="Cell tagging" src="img/icons/image_games-03.png"
+										width="120px" /><strong>{{{ $item['text'] }}}</strong></a><img src=""
+										alt=""></img></li>
+									@endif
+								@endforeach
+							</ul>
+						</div>
+					@endforeach
+					</div>
+
+				</div>
+
+				<div class="section group scrollto" id="quickies">
+					<div class="col span_8_of_8">
+						<h1 class="sectiontitle">
+							<strong>Quickies</strong> play in less than 5 minutes
+						</h1>
+						<div align="center">
+						<ul id="quickieslist">
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/quickies-02.png" width="120px" />4
+									minutes</a></li>
+							<li ><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/quickies-03.png" width="120px" />3
+									minutes</a></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/quickies-04.png" width="120px" />3
+									minutes</a><img src="" alt=""></img></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/quickies-05.png" width="120px" />2
+									minutes</a><img src="" alt=""></img></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/quickies-06.png" width="120px" />3
+									minutes</a><img src="" alt=""></img></li>
+						</ul>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="section group scrollto" id="instructions">
+					<div class="section group">
+						<div class="col span_8_of_8">
+							<h1 class="sectiontitle">
+								<strong>Instructions</strong> How to play
+							</h1>
+						</div>
+					</div>
+					<div class="section group">
+						<div class="col span_4_of_8">
+							<img src="img/glyphs/image_video.png" width="75%" alt=""></img>
+						</div>
+						<div class="col span_4_of_8">
+							<div class="textblock">
+							<span >At vero eos et accusamus et iusto odio dignissimos
+								ducimus qui blanditiis. <strong>I want to learn more.</strong>
+							</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			@if (Auth::user()->check())
+			<!-- Begin sidebar -->
+			@include('sidebar')
+			<!-- End sidebar -->
+			@endif
+		</div>
+		
 @stop

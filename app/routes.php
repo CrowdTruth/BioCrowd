@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', [ 'before' => 'auth', function()
+Route::get('/', 'GameListController@listGames', [ 'before' => 'auth', function()
 {
 	return View::make('home');
 } ] );
@@ -21,8 +21,12 @@ Route::post('login' , 'LoginController@doLogin');
 Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
+Route::get('profile', function(){
+	return View::make('profile');
+});
+
 // Game logic
-Route::get('gameMenu', 'GameListController@listGames');
+Route::get('home', 'GameListController@listGames');
 
 // Campaign logic
 Route::get('campaignMenu', 'CampaignListController@listCampaigns');
@@ -32,11 +36,11 @@ Route::get('campaignMenu', 'CampaignListController@listCampaigns');
 //   a URL        -- URL to map (Matching URL's provided by GameListController@listGames
 //   any VIEW declared by the controller
 //   a CONTROLLER -- A controller class / function
-Route::get('playGame', 'GameController@playGame');
-Route::post('submitGame', 'GameController@submitGame');
+Route::any('playGame', 'GameController@playGame');
+Route::any('submitGame', 'GameController@submitGame');
 
-Route::get('playCampaign', 'CampaignController@playCampaign');
-Route::post('submitCampaign', 'CampaignController@submitCampaign');
+Route::any('playCampaign', 'CampaignController@playCampaign');
+Route::any('submitCampaign', 'CampaignController@submitCampaign');
 
 // Administrator module routes -- maybe even put in another file ?
 Route::controller('admin', 'AdminController');

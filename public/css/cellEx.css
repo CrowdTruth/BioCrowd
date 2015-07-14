@@ -46,16 +46,17 @@
 
 .menu_item {
   width: 43%;
-  font-size: 1em;
+  font-size: .7em;
   margin: 2% 0.5% 2% 0.5%;
   padding: 1%;
   overflow: hidden;
   float: left;
+  font-family: Verdana, Geneva, sans-serif;
 }
 
 .highlight_menuItem {
   border-radius: 4px 0 0 4px;
-  width: 80%;
+  width: 70%;
   float: left;
 }
 
@@ -88,4 +89,21 @@
   font-size: 1.5em;
   margin-top: 35%;
   margin-left: 22%;
+}
+
+
+#disabledSubmitButton {
+	background-color: #00afec;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+	border-radius: 30px;
+	border: none;
+	color: white;
+	width: 100px;
+	height: 40px;
+	font-size: 16px;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
 }

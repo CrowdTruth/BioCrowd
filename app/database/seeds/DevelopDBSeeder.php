@@ -38,7 +38,9 @@ class DevelopDBSeeder extends Seeder {
 		$game1->level = 1;
 		$game1->name = 'Green Fluorescent Cells';
 		$game1->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'';
+		$game1->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
 				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
@@ -54,15 +56,18 @@ class DevelopDBSeeder extends Seeder {
 				.'<img width="100%" src="img/CellTagging_Green.png">'
 				.'</div>'
 				.'</div>'
-				.'</p>'
+				.'';
+		$game1->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Cell identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
+				.'<b><p>Step 1: Click near the Center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
 				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
-				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<p>Step 4: Click the button which best describes the given image quality. </p></b>'
+				.'<br>'
+				.'Detailed explenation for Step 1: '
 				.'<div>'
-				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
-				.'<div><ul>'
+				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
+				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
 				.'<li>This menu is located to the left of (or above) your task images. </li>'
 				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
 				.'<li>To remove the last cell marking, click the <img src=img/removeLastButton.png> button.</li>'
@@ -108,7 +113,9 @@ class DevelopDBSeeder extends Seeder {
 		$game2->level = 2;
 		$game2->name = 'Dark Nuclei Green Cells';
 		$game2->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'';
+		$game2->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
 				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
@@ -125,15 +132,18 @@ class DevelopDBSeeder extends Seeder {
 				.'<img width="100%" src="img/NucleusTagging_Green.png">'
 				.'</div>'
 				.'</div>'
-				.'</p>'
+				.'';
+		$game2->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Nuclei identification steps</div>'
 				.'<p>Step 1: Click near the Center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
 				.'<p>Step 3: Report the number of nuclei you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<br>'
+				.'Detailed explenation for Step 1: '
 				.'<div>'
-				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
-				.'<div><ul>'
+				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
+				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
 				.'<li>This menu is located to the left of (or above) your task images. </li>'
 				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
 				.'<li>To remove the last nucleus marking, click the <img src=img/removeLastButton.png> button.</li>'
@@ -175,7 +185,9 @@ class DevelopDBSeeder extends Seeder {
 		$game3->level = 3;
 		$game3->name = 'Agar Contamination';
 		$game3->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'';
+		$game3->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
 				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
@@ -193,15 +205,18 @@ class DevelopDBSeeder extends Seeder {
 				.'<img width="100%" src="img/ColonyTagging_Mixed.png">'
 				.'</div>'
 				.'</div>'
-				.'</p>'
+				.'';
+		$game3->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Colony identification steps</div>'
 				.'<p>Step 1: Click near the Center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your colony markings. </p>'
 				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<br>'
+				.'Detailed explenation for Step 1: '
 				.'<div>'
-				.'<div style="float:left;"><img src="img/annotationMenu.png"></div>'
-				.'<div><ul>'
+				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
+				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
 				.'<li>This menu is located to the left of (or above) your task images. </li>'
 				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
 				.'<li>To remove the last colony marking, click the <img src=img/removeLastButton.png> button.</li>'
@@ -241,7 +256,9 @@ class DevelopDBSeeder extends Seeder {
 		$game4->level = 1;
 		$game4->name = 'Glowing Vesicles Green Cells';
 		$game4->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples.</p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'';
+		$game4->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
 				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
 				.'</p>'
@@ -256,7 +273,8 @@ class DevelopDBSeeder extends Seeder {
 				.'<img width="100%" src="img/Vesicle_Locating_Mixed.png">'
 				.'</div>'
 				.'</div>'
-				.'</p>'
+				.'';
+		$game4->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Vesicle identification steps</div>'
 				.'<p>Step 1: First, take a look at the image and click on the icon which best describes the behavior of the vesicles.</p>'
 				.'<ul>'

@@ -78,6 +78,6 @@ class GameListController extends GameController {
 		//push the last of the levelN arrays to the levels array
 		array_push($levels, $levelN);
 		
-		return View::make('gameMenu')->with('levels', $levels);
+		return View::make('home')->with('levels', $levels);
 	}
 }

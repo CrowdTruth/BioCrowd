@@ -1,111 +1,119 @@
 @extends('layout')
 
+@section('extraheaders')
+	<script>
+		//On window size < 480, set the ribbon logo div behind the ribbon button div, so it borders on the lower section properly.
+		$(window).resize(function() {
+			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			if (width <= 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribimg").detach();
+					$(detach).insertAfter($(this).find("#ribbutton"));
+				})
+			} else if (width > 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribbutton").detach();
+					$(detach).insertAfter($(this).find("#ribimg"));
+				})
+			}
+		});
+	
+		//Reset logo div in front of button on larger size.
+		$(document).ready(function() {
+			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+			if (width <= 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribimg").detach();
+					$(detach).insertAfter($(this).find("#ribbutton"));
+				})
+			} else if (width > 480) {
+				$("#ribbon").each(function() {
+					var detach = $(this).find("#ribbutton").detach();
+					$(detach).insertAfter($(this).find("#ribimg"));
+				})
+			}
+		});
+	</script>
+@stop
+
 @section('content')
-	<div class="panel-group" id="accordion">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapseOne"> Login </a>
-				</h4>
-			</div>
-			<div id="collapseOne" class="panel-collapse collapse in">
-				<div class="panel-body">
-					{{ Form::open(array('url' => 'login', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
-						<div class="form-group">
-							{{ Form::label('email', 'Email:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('password', 'Password:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::password('password', array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-4">
-								{{ Form::submit('Login') }}
-							</div>
-						</div>
-					{{ Form::close() }}
+	<div id="main">
+			<div class="section group scrollto" id="ribbon">
+				<div class="col span_4_of_8" id="ribimg">
+					<img src="img/logo/logo_drexplorer.png" height="300px" id="logo"></img>
 				</div>
+				<div class="col span_4_of_8" id="ribbutton">
+					 	<button onclick="location.href='#'">Start to help advance science</button>
+				</div>	
+
 			</div>
-		</div>
-		<div class="panel panel-success">
-			<div class="panel-heading">
-				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion"
-						href="#collapseTwo"> Register </a>
-				</h4>
-			</div>
-			<div id="collapseTwo" class="panel-collapse collapse">
-				<div class="panel-body">
-					{{ Form::open(array('url' => 'register', 'method' => 'POST', 'class' => 'form-horizontal', 'role' => 'form')) }}
-						<div class="form-group">
-							{{ Form::label('email', 'Email:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::text('email', Input::old('email'), array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('name', 'Name:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::text('name', Input::old('name'), array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('password', 'Password:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::password('password', array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('password2', 'Re-type password:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::password('password2', array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('code', 'Invitation code:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::text('code', Input::old('code'), array('class' => 'form-control')) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('bioExpert', 'What is the highest level of cell biology education you have finished?', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::radio('cellBioExpertise', 'none', false, ['required'=>'required', 'id'=>'none']) }}
-								{{ Form::label('none', 'None', ['id'=>'none']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'highSchool', false, ['required'=>'required', 'id'=>'highSchool']) }}
-								{{ Form::label('highSchool', 'High school', ['id'=>'highSchool']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'hboBachelor', false, ['required'=>'required', 'id'=>'hboBachelor']) }}
-								{{ Form::label('hboBachelor', 'Pre-university/hbo-bachelor (Dutch)', ['id'=>'hboBachelor']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'uniBachelor', false, ['required'=>'required', 'id'=>'uniBachelor']) }}
-								{{ Form::label('uniBachelor', 'University bachelor', ['id'=>'uniBachelor']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'hboMaster', false, ['required'=>'required', 'id'=>'hboMaster']) }}
-								{{ Form::label('hboMaster', 'Pre-university/hbo master (Dutch)', ['id'=>'hboMaster']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'uniMaster', false, ['required'=>'required', 'id'=>'uniMaster']) }}
-								{{ Form::label('uniMaster', 'University Master', ['id'=>'uniMaster']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'phd', false, ['required'=>'required', 'id'=>'phd']) }}
-								{{ Form::label('phd', 'Phd', ['id'=>'phd']) }}
-							</div>
-						</div>
-						<div class="form-group">
-							{{ Form::label('expertise', 'Field of expertise:', array('class' => 'col-sm-2 control-label')) }}
-							<div class="col-sm-4">
-								{{ Form::text('expertise', '', ['required'=>'required']) }}
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-4">
-								{{ Form::submit('Login') }}
-							</div>
-						</div>
-						{{ Form::close() }}
+			
+			<div class="section group scrollto"  id="info">
+				<div class="col span_4_of_8">
+					<div class="textblock">
+					<H1>About CrowdExplorer</H1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
+						"At vero eos et accusamus et iusto odio dignissimos ducimus
+						qui blanditiis praesentium voluptatum deleniti atque corrupti
+						quos dolores et quas molestias excepturi sint occaecatie."
+						voluptatum deleniti atque corrupti quos dolores et quas.
+						<bold>See how you can collect points</bold></p>
+					</div>	
 				</div>
+				<div class="col span_4_of_8">
+					<img src="img/glyphs/image_video.png" width="75%"></img>	
+				</div>	
 			</div>
-		</div>
+		
+			<div class="section group scrollto" id="campaigns">
+				<div class="col span_4_of_8">
+					<div id="campaignProgress">
+						<H1><strong>Active Now</strong></H1>
+						<div id="progress"><div class="bar" style="width: 50%;">50%</div></div>
+						<div id="progress"><div class="bar" style="width: 30%;">30%</div></div>
+						<div id="progress"><div class="bar" style="width: 20%;">20%</div></div>
+					</div>
+				</div>
+				<div class="col span_4_of_8">
+				<div class="textblock">
+					<H1><strong>Campaigns</strong></H1>
+					<p>"At vero eos et accusamus et iusto odio dignissimos ducimus
+					qui blanditiis praesentium voluptatum deleniti atque corrupti
+					quos dolores et quas molestias excepturi sint occaecatie."</p>
+					</div>
+				</div>	
+			</div>
+				<div class="section group scrollto" id="games">
+					<div class="col span_8_of_8">
+						<h1 class="sectiontitle">
+							<strong>Level 1</strong>
+						</h1>
+						<div align="center">
+						<ul id="gameslist ">
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/image_games-02.png"
+									width="120px" />Cell tagging</a></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/image_games-03.png"
+									width="120px" />Lorem Ipsum</a></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/image_games-03.png"
+									width="120px" />Lorem Ipsum</a><img src=""
+								alt=""></img></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/image_games-03.png"
+									width="120px" />Lorem Ipsum</a><img src=""
+								alt=""></img></li>
+							<li><a data-ftrans="slide" href="#"><img
+									alt="Cell tagging" src="img/icons/image_games-03.png"
+									width="120px" />Lorem Ipsum</a><img src=""
+								alt=""></img></li>
+						</ul>
+						</div>
+					</div>
+
+				</div>
+
+
 	</div>
 @stop

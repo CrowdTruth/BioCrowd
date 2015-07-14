@@ -76,6 +76,8 @@ class InitDatabase extends Migration {
 			$table->integer('level')->default(1);
 			$table->string('name');
 			$table->longText('instructions');
+			$table->longText('examples');
+			$table->longText('steps');
 			$table->text('extraInfo');
 			$table->integer('score');
 		});
