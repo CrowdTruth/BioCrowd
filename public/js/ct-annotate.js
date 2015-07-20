@@ -228,6 +228,7 @@ function ct_annotate_draw() {
 			ct_annotate.ctx.closePath();
 		}
 	}
+	prepareResponse();
 }
 
 /**

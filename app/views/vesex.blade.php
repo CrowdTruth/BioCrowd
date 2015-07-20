@@ -276,18 +276,33 @@ $(document).ready(function(){
 		
 		function calculateAnsweredFormItems() {
 			var calculatedAnswerArray = new Array();
-
-			if(typeof(document.getElementById("location").value) !== "undefined"){
+			
+			if(document.getElementById("location").value != "undefined"){
 				calculatedAnswerArray.push('1');
 			}
-			if(document.getElementById("markingDescription").checked){
-				calculatedAnswerArray.push('2');
+
+			var markingDescriptionCheckBoxes = document.getElementsByClassName('markingDescription');
+
+			for (var i = 0; i < markingDescriptionCheckBoxes.length; i++) {
+				if(markingDescriptionCheckBoxes[i].checked){
+					calculatedAnswerArray.push('2');
+				}        
 			}
-			if(document.getElementById("qualityDescription").checked){
-				calculatedAnswerArray.push('3');
+
+			var qualityCheckBoxes = document.getElementsByClassName('qualityDescription');
+
+			for (var i = 0; i < qualityCheckBoxes.length; i++) {
+				if(qualityCheckBoxes[i].checked){
+					calculatedAnswerArray.push('3');
+				}        
 			}
-			if(document.getElementById("commentFormPlease").checked || document.getElementById("noCommentFormPlease").checked){
-				calculatedAnswerArray.push('4');
+			
+			var commentsCheckBoxes = document.getElementsByClassName('commentsFormItem');
+
+			for (var i = 0; i < commentsCheckBoxes.length; i++) {
+				if(commentsCheckBoxes[i].checked){
+					calculatedAnswerArray.push('4');
+				}        
 			}
 			
 			return calculatedAnswerArray;
@@ -296,7 +311,6 @@ $(document).ready(function(){
 @stop
 
 @section('gameForm')
-
 <div class="section group" id="dropdown_container">
 	<div class="col span_8_of_8">
 		<div class="section group" id="progress_container">
@@ -341,14 +355,14 @@ $(document).ready(function(){
 						<div class="textblock">
 							<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div>Please select all which apply to your selection from STEP 1.</div>
-							{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('markingDescription', $responseLabel[3]) }}<BR/>
-							{{ Form::radio('markingDescription', 'allVesicles', false, ['onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('markingDescription', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
-							{{ Form::radio('markingDescription', 'noCell', false, ['onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('markingDescription', $responseLabel[5]) }}<BR/>
-							{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('markingDescription', 'Other') }}<BR/>
+							{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
+							{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::label('mixed', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
+							{{ Form::radio('markingDescription', 'noCell', false, ['id' => 'noCell', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::label('noCell', $responseLabel[5]) }}<BR/>
+							{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::label('other', 'Other') }}<BR/>
 							<div id="hiddenOtherExpand" style="display: none">
 								<BR/>
 								{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
@@ -360,16 +374,16 @@ $(document).ready(function(){
 						<div class="textblock">
 							<H1>Step 3: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div>Image Sharpness</div>
-							{{ Form::radio('qualityDescription', 'good', false, ['onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('qualityDescription', 'Good') }} <BR/>
-							{{ Form::radio('qualityDescription', 'medium', false, ['onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('qualityDescription', 'Medium') }} <BR/>
-							{{ Form::radio('qualityDescription', 'poor', false, ['onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('qualityDescription', 'Poor') }} <BR/>
-							{{ Form::radio('qualityDescription', 'blank', false, ['onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('qualityDescription', 'Blank (Black) Image') }}<BR/>
-							{{ Form::radio('qualityDescription', 'noImage', false, ['onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('qualityDescription', 'No Image') }}
+							{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('good', 'Good') }} <BR/>
+							{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('medium', 'Medium') }} <BR/>
+							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('poor', 'Poor') }} <BR/>
+							{{ Form::radio('qualityDescription', 'blank', false, ['id' => 'blank', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('blank', 'Blank (Black) Image') }}<BR/>
+							{{ Form::radio('qualityDescription', 'noImage', false, ['id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('noImage', 'No Image') }}
 						</div>						
 					</div>
 					<div id="question4" class="question">
