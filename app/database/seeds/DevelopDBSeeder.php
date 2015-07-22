@@ -36,7 +36,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game1 = new Game($gameType);
 		$game1->level = 1;
-		$game1->name = 'Green Fluorescent Cells';
+		$game1->name = 'Fluorescent Cells (Green)';
 		$game1->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -64,7 +64,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p></b>'
 				.'<br>'
-				.'Detailed explenation for Step 1: '
+				.'Detailed explanation for Step 1: '
 				.'<div>'
 				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
 				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
@@ -111,7 +111,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game2 = new Game($gameType);
 		$game2->level = 2;
-		$game2->name = 'Dark Nuclei Green Cells';
+		$game2->name = 'Dark Nuclei (Green)';
 		$game2->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -140,7 +140,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<p>Step 3: Report the number of nuclei you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
 				.'<br>'
-				.'Detailed explenation for Step 1: '
+				.'Detailed explanation for Step 1: '
 				.'<div>'
 				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
 				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
@@ -213,7 +213,7 @@ class DevelopDBSeeder extends Seeder {
 				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
 				.'<br>'
-				.'Detailed explenation for Step 1: '
+				.'Detailed explanation for Step 1: '
 				.'<div>'
 				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
 				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
@@ -254,7 +254,7 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game4 = new Game($gameType);
 		$game4->level = 1;
-		$game4->name = 'Glowing Vesicles Green Cells';
+		$game4->name = 'Glowing Vesicles (Green)';
 		$game4->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';

@@ -64,7 +64,7 @@
 					@foreach($levels as $number => $items)
 						@if ( $number+1 > Auth::user()->get()->level )
 							<h1 class="sectiontitle">
-							<img src='img/lock.png' style="width:26px;height:26px;position:relative;left:-10px;top:0px"></img><strong>Level {{{ $number+1 }}}</strong>
+								<strong style="padding-right: 10px;">Level {{{ $number+1 }}}</strong><img src='img/lock.png' style="width:26px;height:26px;position:relative;"></img>
 							</h1>
 						@else
 							<h1 class="sectiontitle">
@@ -81,8 +81,7 @@
 									@else
 										<li><a data-ftrans="slide" href=""><img
 										alt="Cell tagging" src="img/icons/image_games-03.png"
-										width="120px" /><strong>{{{ $item['text'] }}}</strong></a><img src=""
-										alt=""></img></li>
+										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></a></li>
 									@endif
 								@endforeach
 							</ul>

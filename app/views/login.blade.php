@@ -61,22 +61,22 @@
 					</div>	
 				</div>
 				<div class="col span_4_of_8">
-					<img src="img/glyphs/image_video.png" width="75%"></img>	
+					<img src="img/glyphs/image_video.png" width="75%" style="padding-left: 15px;"></img>	
 				</div>	
 			</div>
 		
 			<div class="section group scrollto" id="campaigns">
 				<div class="col span_4_of_8">
+					<H1 class="sectiontitle"><strong>Active Now</strong></H1>
 					<div id="campaignProgress">
-						<H1><strong>Active Now</strong></H1>
 						<div id="progress"><div class="bar" style="width: 50%;">50%</div></div>
 						<div id="progress"><div class="bar" style="width: 30%;">30%</div></div>
 						<div id="progress"><div class="bar" style="width: 20%;">20%</div></div>
 					</div>
 				</div>
 				<div class="col span_4_of_8">
+				<H1 class="sectiontitle"><strong>Campaigns</strong></H1>
 				<div class="textblock">
-					<H1><strong>Campaigns</strong></H1>
 					<p>"At vero eos et accusamus et iusto odio dignissimos ducimus
 					qui blanditiis praesentium voluptatum deleniti atque corrupti
 					quos dolores et quas molestias excepturi sint occaecatie."</p>
