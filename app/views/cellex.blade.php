@@ -295,7 +295,7 @@
 				}	
 			})
 		
-				$('.closeTutorial').on({
+			$('.closeTutorial').on({
 				'click':function(){    	
 			    	$('#info_container').slideUp(500);		    	
 			    	$('#dropdown_container').slideDown(500);
@@ -369,26 +369,26 @@
 			var calculatedAnswerArray = new Array();
 			
 			if(document.getElementById("response").value != "[]" || document.getElementById("noCells").checked){
-				calculatedAnswerArray.push('1');
+				calculatedAnswerArray.push(1);
 			}
 
 			var markingDescriptionCheckBoxes = document.getElementsByClassName('markingDescription');
 
 			for (var i = 0; i < markingDescriptionCheckBoxes.length; i++) {
 				if(markingDescriptionCheckBoxes[i].checked){
-					calculatedAnswerArray.push('2');
+					calculatedAnswerArray.push(2);
 				}        
 			}
 
 			if(document.getElementById("cell_number").value != ""){
-				calculatedAnswerArray.push('3');
+				calculatedAnswerArray.push(3);
 			}
 
 			var qualityCheckBoxes = document.getElementsByClassName('qualityDescription');
 
 			for (var i = 0; i < qualityCheckBoxes.length; i++) {
 				if(qualityCheckBoxes[i].checked){
-					calculatedAnswerArray.push('4');
+					calculatedAnswerArray.push(4);
 				}        
 			}
 			
@@ -396,13 +396,37 @@
 
 			for (var i = 0; i < commentsCheckBoxes.length; i++) {
 				if(commentsCheckBoxes[i].checked){
-					calculatedAnswerArray.push('5');
+					calculatedAnswerArray.push(5);
 				}        
 			}
 			
 			return calculatedAnswerArray;
 		}
+		</script>
+		
+		<script>
+		debugger;
+		//hide current question div and show first required empty question form div
+		function putUnansweredQuestionOnTop() {
+			var totalAmountOfQuestions = 5;
+			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
+			$('.question_active').hide().removeClass(function() {
+			debugger;
+				for(var i = 2; i <= totalAmountOfQuestions; i++) {
+					var itsInThere = calculateAnsweredFormItems.indexOf(i);
+					if (itsInThere == -1){
+						$('#question'+i).addClass('question_active').show();
+						if(i != totalAmountOfQuestions) {
+							$('.goNextQuestion').show();
+							$('.goFinish').hide();
+						}
+						return 'question_active';
+					}
+				}
+			})
+		}
 	</script>
+	
 @stop
 
 @section('gameForm')
@@ -506,7 +530,7 @@
 					<tr>				
 						<td style="width: 33%; text-align: center;"><button type='button' class="goMarking">Back to Marking</button></td>
 						<td style="width: 33%; text-align: center;"><button type='button' class="goPreviousQuestion">Previous Question</button></td>
-						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'prepareResponse();' ]) }}</td>
+						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop(), prepareResponse();' ]) }}</td>
 					</tr>
 				</table>						
 			</div>
