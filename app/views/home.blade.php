@@ -47,13 +47,9 @@
 					</div>
 					<div class="col span_4_of_8" id="ribinfo">
 						<div class="textblock"><p>
-							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed "At
-							vero eos et accusamus et iusto odio dignissimos ducimus qui
-							blanditiis praesentium voluptatum deleniti atque corrupti quos
-							dolores et quas molestias excepturi sint occaecatie." voluptatum
-							deleniti atque corrupti quos dolores et quas.<br>
-							<strong>See how you can redeem your points
-							and claim your award!</strong> <a href="#"><img src="img/glyphs/play-02.png" height=20px></img></a>
+							{{ Lang::get('gamelabels.gameOverviewText') }}<br>
+							<!-- strong>See how you can redeem your points
+							and claim your award!</strong> <a href="#"><img src="img/glyphs/play-02.png" height=20px></img></a -->
 						</p></div>
 					</div>
 

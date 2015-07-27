@@ -361,7 +361,7 @@
 		function calculateProgressPercentage(){
 			var totalAmountOfQuestions = 5;
 			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
-			document.getElementById("cellExProgressBar").innerHTML = ((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100)+'\%';
+			document.getElementById("cellExProgressBar").innerHTML = Math.round(((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100))+'\%';
 			document.getElementById("cellExProgressBar").style.width = ((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100)+'\%';
 		}
 		

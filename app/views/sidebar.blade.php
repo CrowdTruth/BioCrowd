@@ -3,14 +3,20 @@
 		<div class="sidebarparent">
 			<div id="minimize"><img src="img/glyphs/image_minimize_sidebar-01.png" width="50px"></img></div>
 				<div id="level" class="sidebarchild" align="center">
+				<div style="position: relative"><div style="font-size: 4em; color: white; position: absolute; top: 30px; left: 100px;">{{Auth::user()->get()->level}}</div></div>
 					<img src="img/glyphs/image_level.png" width="120px" id="levelimg"
 							alt=""></img>
 					<div id="progress">
-						<div class="bar" style="width: 80%;">80%</div>
+						<div class="bar" style="width: 80%;"><?php 
+						$userScore = Auth::user()->get()->score;
+						$userLevel = Auth::user()->get()->level;
+						$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
+						$percentage = round(($userScore/$max_score)*100);?>
+						{{$percentage}}%</div>
 					</div>
 
-					<span>Level completed</span> <span>Complete 3 more games to
-							level up</span> <span>and become an expert</span>
+					<span>Complete {{round(($max_score-$userScore)/Game::orderBy('score', 'desc')->where('level', '<=', $userLevel)->first(['score'])['score'])}} more high-level games to
+							level up</span>
 				</div>
 				<div id="achievements" class="sidebarchild" align="center">
 					<H1>

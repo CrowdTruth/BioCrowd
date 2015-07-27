@@ -270,7 +270,7 @@ $(document).ready(function(){
 		function calculateProgressPercentage(){
 			var totalAmountOfQuestions = 4;
 			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
-			document.getElementById("vesExProgressBar").innerHTML = ((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100)+'\%';
+			document.getElementById("vesExProgressBar").innerHTML = Math.round(((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100))+'\%';
 			document.getElementById("vesExProgressBar").style.width = ((calculateAnsweredFormItems.length/totalAmountOfQuestions)*100)+'\%';
 		}
 		

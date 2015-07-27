@@ -21,9 +21,9 @@ Route::post('login' , 'LoginController@doLogin');
 Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
-Route::get('profile', function(){
-	return View::make('profile');
-});
+Route::post('changePass' , 'ProfileController@changePassword');
+
+Route::get('profile' , 'ProfileController@getView');
 
 // Game logic
 Route::get('home', 'GameListController@listGames');
