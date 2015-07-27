@@ -53,10 +53,12 @@ class GameController extends BaseController {
 		
 		if($campaignIdArray){
 			if(count($campaignIdArray) == 1){
+				//flatten the campaignIdArray to a campaignId
+				$campaignId = $campaignIdArray[0];
 				// Use corresponding game controller to process request.
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
-				$handler->processResponse($game,$campaignIdArray);
+				$handler->processResponse($game,$campaignId);
 				//add the score to the users score column and add the score to the scores table. 
 				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 			} else {

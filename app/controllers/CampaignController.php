@@ -33,7 +33,7 @@ class CampaignController extends GameController {
 		$gameOrigin = Input::get('gameOrigin',false);
 		
 		if(count($campaignIdArray)<=1){
-			$campaignId = $campaignIdArray;
+			$campaignId = $campaignIdArray[0];
 			$campaign = Campaign::where('id',$campaignId)->first();
 			//set a boolean for if the campaignIdArray is longer then 1, and thus has to loop through all campaignId's. 
 			//This is important because the handler should have a way of telling if it should redirect to any page yet. 
