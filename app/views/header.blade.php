@@ -18,7 +18,7 @@
 @if (!Auth::user()->check())
 	<div class="section group" id="banner" align='center'>
 		<div class="col span_4_of_8">
-			<a href="http://game.crowdtruth.org/biocrowd"><img src="img/logo/logo_games-02.png" width="400px"></a>
+			<a href="{{ Lang::get('gamelabels.gameUrl') }}"><img src="img/logo/logo_games-02.png" width="400px"></a>
 		</div>
 	
 		<div class="col span_4_of_8" >
