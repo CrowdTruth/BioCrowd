@@ -1,7 +1,7 @@
 @if (Auth::user()->check())
 	<div class="section group" id="banner" align='center'>
 		<div class="col span_3_of_8">
-			<a href="/" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
+			<a href="http://game.crowdtruth.org/biocrowd" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
 		</div>
 		<div class="col span_5_of_8">
 					<a href="#"><img src="img/glyphs/logo_twitter.png" height=45px></img></a>
@@ -18,7 +18,7 @@
 @if (!Auth::user()->check())
 	<div class="section group" id="banner" align='center'>
 		<div class="col span_4_of_8">
-			<a href="/"><img src="img/logo/logo_games-02.png" width="400px"></a>
+			<a href="http://game.crowdtruth.org/biocrowd"><img src="img/logo/logo_games-02.png" width="400px"></a>
 		</div>
 	
 		<div class="col span_4_of_8" >

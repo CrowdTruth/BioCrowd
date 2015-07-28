@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'url' => 'http://game.crowdtruth.org/biocrowd',
+	'url' => 'http://localhost',
 
 	/*
 	|--------------------------------------------------------------------------
