@@ -1,7 +1,7 @@
 @if (Auth::user()->check())
 	<div class="section group" id="banner" align='center'>
 		<div class="col span_3_of_8">
-			<a href="http://game.crowdtruth.org/biocrowd" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
+			<a href="{{ Lang::get('gamelabels.gameUrl') }}" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
 		</div>
 		<div class="col span_5_of_8">
 					<a href="#"><img src="img/glyphs/logo_twitter.png" height=45px></img></a>
