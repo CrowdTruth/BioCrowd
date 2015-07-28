@@ -909,3 +909,21 @@
 	bottom: 13px;
 	padding-left: 10px;
 }
+
+#gameLogo {
+	font-size: 45px;
+	font-family: 'Arvo', serif;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	text-decoration: none;
+	position: relative;
+}
+
+#logoColor1 {
+	color: #575757;
+}
+
+#logoColor2 {
+	color: #1FAD4B;
+}
