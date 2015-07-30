@@ -36,4 +36,30 @@ class ProfileController extends BaseController {
 			return Redirect::to('profile')->with('flash_error', 'Invalid email/password combination.')->withInput();
 		}
 	}
+	
+	public function editProfile() {
+		$email = Auth::user()->get()->email;
+		$pass  = Input::get('password');
+		$newemail = Input::get('email');
+		$name  = Input::get('name');
+		$cellBioExpertise  = Input::get('cellBioExpertise');
+		$expertise = Input::get('expertise');
+		
+		//Check if the email already exists
+		if(Auth::user()->get()->email == $newemail){
+			if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
+				$user = User::find(Auth::user()->get()->id);
+				$user->email = $newemail;
+				$user->name = $name;
+				$user->cellBioExpertise = $cellBioExpertise;
+				$user->expertise = $expertise;
+				$user->save();
+				return Redirect::to('profile')->with('flash_error', 'Your account information has been changed')->withInput();
+			} else {
+				return Redirect::to('profile')->with('flash_error', 'Invalid password given')->withInput();
+			}
+		} else if(User::where('email', $newemail)->first()){
+			return Redirect::to('profile')->with('flash_error', 'E-mail adress '.$newemail.' is already in use. Try another one. ')->withInput();
+		}
+	}
 }

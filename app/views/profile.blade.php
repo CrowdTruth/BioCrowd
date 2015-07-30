@@ -49,6 +49,13 @@
 			}
 		});
 	</script>
+	
+	<script>
+	$(document).ready(function() {
+		var checkedBioExpertise = "<?php Print(Auth::user()->get()->cellBioExpertise); ?>";
+		$('#'+checkedBioExpertise ).attr('checked', true);
+	});
+	</script>
 @stop
 
 @section('content')
@@ -64,21 +71,48 @@
 
 							</div>
 							<div class="profilebody">
+								{{ Form::open(['url' => 'editProfile']) }}
+								<?php $cellBioExpertise = Auth::user()->get()->cellBioExpertise; ?>
 								<table>
 									<tr>
-										<td>Username</td>
-										<td><input type="text" value="{{Auth::user()->get()->name}}"
-											placeholder=""></td>
-									</tr>
-									<tr>
 										<td>E-mail</td>
-										<td><input type="text" value="{{Auth::user()->get()->email}}"></td>
+										<td>{{ Form::text('email', Auth::user()->get()->email, ['required' => 'required']) }}</td>
 									</tr>
 									<tr>
-										<td>Facebook connect</td>
-										<td><input type="button" value="Connect"></td>
+										<td>Username</td>
+										<td>{{ Form::text('name', Auth::user()->get()->name, ['required' => 'required']) }}</td>
+									</tr>
+									<tr>
+										<td>Password</td>
+										<td>{{ Form::password('password', array('placeholder' => 'Password')) }}</td>
+									</tr>
+									<tr>
+										<td>What is the highest level of cell biology education you have finished?</td>
+										<td>{{ Form::radio('cellBioExpertise', 'none', false, ['id'=>'none']) }}
+											{{ Form::label('none', 'None', ['id'=>'none']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'highSchool', false, ['id'=>'highSchool']) }}
+											{{ Form::label('highSchool', 'High school', ['id'=>'highSchool']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'hboBachelor', false, ['id'=>'hboBachelor']) }}
+											{{ Form::label('hboBachelor', 'Pre-university/hbo-bachelor (Dutch)', ['id'=>'hboBachelor']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'uniBachelor', false, ['id'=>'uniBachelor']) }}
+											{{ Form::label('uniBachelor', 'University bachelor', ['id'=>'uniBachelor']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'hboMaster', false, ['id'=>'hboMaster']) }}
+											{{ Form::label('hboMaster', 'Pre-university/hbo master (Dutch)', ['id'=>'hboMaster']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'uniMaster', false, ['id'=>'uniMaster']) }}
+											{{ Form::label('uniMaster', 'University Master', ['id'=>'uniMaster']) }} <BR>
+											{{ Form::radio('cellBioExpertise', 'phd', false, ['id'=>'phd']) }}
+											{{ Form::label('phd', 'Phd', ['id'=>'phd']) }}</td>
+									</tr>
+									<tr>
+										<td>Field of expertise:</td>
+										<td>{{ Form::text('expertise', Auth::user()->get()->expertise, ['placeholder' => 'Expertise']) }}</td>
+									</tr>
+									<tr>
+										<td></td>
+										<td>{{ Form::submit('Save changes', array('class' => 'editProfileButton')) }}</td>
 									</tr>
 								</table>
+								{{Form::close()}}
 							</div>
 						</div>
 					</div>

@@ -5,3 +5,11 @@
 	color: white;
 	width: 80%;
 }
+
+.editProfileButton {
+	border: none;
+	border-radius: 8px;
+	background-color: blue;
+	color: white;
+	width: 80%;
+}

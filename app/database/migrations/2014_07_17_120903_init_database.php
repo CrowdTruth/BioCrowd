@@ -21,8 +21,8 @@ class InitDatabase extends Migration {
 			$table->string('title')->default('Novice');
 			$table->integer('score')->default(0);
 			$table->string('password');
-			$table->string('cellBioExpertise');
-			$table->string('expertise');
+			$table->string('cellBioExpertise')->nullable();
+			$table->string('expertise')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});

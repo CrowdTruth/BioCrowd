@@ -52,8 +52,11 @@ class LoginController extends BaseController {
 			return Redirect::to('login')->with('flash_error', 'Invalid invitation code.')->withInput();
 		}
 		try {
-			// Validate user exists
-			// Validate password not-null
+			//to do: Validate the user exists with an e-mail activation of the account
+			//Check if the email already exists
+			if(User::where('email', $email)->first()){
+				return Redirect::to('login')->with('flash_error', 'E-mail adress '.$email.' is already in use. Try another one. ')->withInput();
+			}
 			$user = new User;
 			$user->email = $email;
 			$user->name = $name;

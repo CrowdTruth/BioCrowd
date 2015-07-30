@@ -64,15 +64,15 @@
 						<table class="formtable">
 							<tr>
 								<td><strong>{{ Form::label('email', 'Email:') }}</strong></td>
-								<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email')) }}</td>
+								<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'required' => 'required')) }}</td>
 							</tr>
 							<tr>
 								<td><strong>{{ Form::label('name', 'Name:') }}</strong></td>
-								<td>{{ Form::text('name', Input::old('name'), array('placeholder' => 'Name')) }}</td>
+								<td>{{ Form::text('name', Input::old('name'), array('placeholder' => 'Name', 'required' => 'required')) }}</td>
 							</tr>
 							<tr>
 								<td><strong>{{ Form::label('password', 'Password:') }}</strong></td>
-								<td>{{ Form::password('password', array('placeholder' => 'Password')) }}</td>
+								<td>{{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required'))}}</td>
 							</tr>
 							<tr>
 								<td><strong>{{ Form::label('password2', 'Re-type password:') }}</strong></td>
@@ -86,24 +86,24 @@
 								<td colspan='2'><strong>{{ Form::label('bioExpert', 'What is the highest level of cell biology education you have finished?') }}</strong></td>
 							</tr>
 							<tr>
-								<td colspan='2'>{{ Form::radio('cellBioExpertise', 'none', false, ['required'=>'required', 'id'=>'none']) }}
+								<td colspan='2'>{{ Form::radio('cellBioExpertise', 'none', false, ['id'=>'none']) }}
 								{{ Form::label('none', 'None', ['id'=>'none']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'highSchool', false, ['required'=>'required', 'id'=>'highSchool']) }}
+								{{ Form::radio('cellBioExpertise', 'highSchool', false, ['id'=>'highSchool']) }}
 								{{ Form::label('highSchool', 'High school', ['id'=>'highSchool']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'hboBachelor', false, ['required'=>'required', 'id'=>'hboBachelor']) }}
+								{{ Form::radio('cellBioExpertise', 'hboBachelor', false, ['id'=>'hboBachelor']) }}
 								{{ Form::label('hboBachelor', 'Pre-university/hbo-bachelor (Dutch)', ['id'=>'hboBachelor']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'uniBachelor', false, ['required'=>'required', 'id'=>'uniBachelor']) }}
+								{{ Form::radio('cellBioExpertise', 'uniBachelor', false, ['id'=>'uniBachelor']) }}
 								{{ Form::label('uniBachelor', 'University bachelor', ['id'=>'uniBachelor']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'hboMaster', false, ['required'=>'required', 'id'=>'hboMaster']) }}
+								{{ Form::radio('cellBioExpertise', 'hboMaster', false, ['id'=>'hboMaster']) }}
 								{{ Form::label('hboMaster', 'Pre-university/hbo master (Dutch)', ['id'=>'hboMaster']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'uniMaster', false, ['required'=>'required', 'id'=>'uniMaster']) }}
+								{{ Form::radio('cellBioExpertise', 'uniMaster', false, ['id'=>'uniMaster']) }}
 								{{ Form::label('uniMaster', 'University Master', ['id'=>'uniMaster']) }} <BR>
-								{{ Form::radio('cellBioExpertise', 'phd', false, ['required'=>'required', 'id'=>'phd']) }}
+								{{ Form::radio('cellBioExpertise', 'phd', false, ['id'=>'phd']) }}
 								{{ Form::label('phd', 'Phd', ['id'=>'phd']) }}</td>
 							</tr>
 							<tr>
 								<td><strong>{{ Form::label('expertise', 'Field of expertise:') }}</strong></td>
-								<td>{{ Form::text('expertise', '', ['placeholder' => 'Expertise', 'required'=>'required']) }}</td>
+								<td>{{ Form::text('expertise', '', ['placeholder' => 'Expertise']) }}</td>
 							</tr>
 						</table>
 					</div>

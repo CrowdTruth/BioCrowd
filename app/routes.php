@@ -22,6 +22,7 @@ Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
 Route::post('changePass' , 'ProfileController@changePassword');
+Route::post('editProfile', 'ProfileController@editProfile');
 
 Route::get('profile' , 'ProfileController@getView');
 
