@@ -3,7 +3,7 @@
 		<div class="sidebarparent">
 			<div id="minimize"><img src="img/glyphs/image_minimize_sidebar-01.png" width="50px"></img></div>
 				<div id="level" class="sidebarchild" align="center">
-				<div style="position: relative"><div style="font-size: 4em; color: white; position: absolute; top: 30px; left: 100px;">{{Auth::user()->get()->level}}</div></div>
+				<div style="position: relative"><div style="font-size: 2em; color: white; position: absolute; top: 20px; left: 78px;">Level</div><div style="font-size: 4em; color: white; position: absolute; top: 40px; left: 100px;">{{Auth::user()->get()->level}}</div></div>
 					<img src="img/glyphs/image_level.png" width="120px" id="levelimg"
 							alt=""></img>
 					<div id="progress">
