@@ -7,11 +7,12 @@
 					<img src="img/glyphs/image_level.png" width="120px" id="levelimg"
 							alt=""></img>
 					<div id="progress">
-						<div class="bar" style="width: 80%;"><?php 
+						<?php 
 						$userScore = Auth::user()->get()->score;
 						$userLevel = Auth::user()->get()->level;
 						$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
 						$percentage = round(($userScore/$max_score)*100);?>
+						<div class="bar" style="width: {{$percentage}}%;">
 						{{$percentage}}%</div>
 					</div>
 
