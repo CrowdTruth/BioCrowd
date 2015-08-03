@@ -38,8 +38,6 @@ Route::get('campaignMenu', 'CampaignListController@listCampaigns');
 //   any VIEW declared by the controller
 //   a CONTROLLER -- A controller class / function
 Route::any('playGame', 'GameController@playGame');
-//Route::get('playGame/{gameId}', array('as' => 'playGame', function($gameId) { return View::make('home.playGame')->with('target', $gameId); }));
-
 
 Route::any('submitGame', 'GameController@submitGame');
 

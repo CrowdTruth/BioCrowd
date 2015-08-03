@@ -83,7 +83,6 @@ class GameController extends BaseController {
 			ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 		}
 		return Redirect::to('playGame?gameId='.$gameId)->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
-		//return Redirect::route('playGame', array('gameId' => $gameId))->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
 	}
 	
 	function isInWhichQuantityCampaigns($game) {
