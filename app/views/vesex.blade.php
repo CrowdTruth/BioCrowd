@@ -1,7 +1,7 @@
 @extends('baseGameView')
 
 @section('extraheaders')
-<link href="/css/vesEx.css" rel="stylesheet">
+<link href="css/vesEx.css" rel="stylesheet">
 <script type="text/javascript">
 function formExtention(){
 	if(annotationForm.distributed.checked == true){
