@@ -12,6 +12,7 @@
 <script src="js/jquery/jquery-1.7.1.min.js"></script>
 <script src="js/popbox/popbox.js"></script>
 <script src="js/popbox/popbox.min.js"></script>
+<link href="/css/cellEx.css" rel="stylesheet">
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
