@@ -1,7 +1,7 @@
 @extends('baseGameView')
 
 @section('extraheaders')
-
+<link href="/css/cellEx.css" rel="stylesheet">
 	<script src="js/ct-annotate.js"></script>
 	
 	<script>
