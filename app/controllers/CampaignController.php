@@ -27,7 +27,6 @@ class CampaignController extends GameController {
 		//get the gameId to put it into the scores table
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
-		
 		//get the campaignIdArray
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 		$gameOrigin = Input::get('gameOrigin',false);

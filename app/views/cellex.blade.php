@@ -162,15 +162,15 @@
 		$('#completed_game_popup').hide();
 		$('.examplePopup').hide();
 
-		//var x = "<!--?php echo ( isset( $_POST['consecutiveGame'] ) && $_POST['consecutiveGame'] != '') ? $_POST['consecutiveGame'] : '';?-->";
+		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
 		
-		//if($(x) == ('consecutiveGame')){
-		//	$('.question_active').hide();
-		//	$('#info_container').hide();
-		//	$('#completed_game_popup').show();
-		//} else {
-		//	$('#completed_game_popup').hide();
-		//}
+		if(consecutiveGame == "consecutiveGame"){
+			$('.question_active').hide();
+			$('#info_container').hide();
+			$('#completed_game_popup').show();
+		} else {
+			$('#completed_game_popup').hide();
+		}
 
 		//add function to open the examples popup
 		$('.openExamples').on({
@@ -256,13 +256,9 @@
 		$('.goPlayAgain').on({
 			'click' : function() {	
 				$('#question1').addClass('question_active').show();
-				$('.goMarking').hide();
-				$('.goPreviousQuestion').hide();
+				$('#dropdown_container').show();
 				$('#completed_game_container').hide();
-				$('#completed_game_popup').hide();
-				$('.goFinish').hide();
-				$('#game_container').show();
-				$('.goNextQuestion').show();			
+				$('#completed_game_popup').hide();		
 			}
 		});
 	})
@@ -405,31 +401,31 @@
 		</script>
 		
 		<script>
-		debugger;
 		//hide current question div and show first required empty question form div
 		function putUnansweredQuestionOnTop() {
 			var totalAmountOfQuestions = 5;
 			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
-			$('.question_active').hide().removeClass(function() {
-			debugger;
-				for(var i = 2; i <= totalAmountOfQuestions; i++) {
-					var itsInThere = calculateAnsweredFormItems.indexOf(i);
-					if (itsInThere == -1){
-						$('#question'+i).addClass('question_active').show();
-						if(i != totalAmountOfQuestions) {
-							$('.goNextQuestion').show();
-							$('.goFinish').hide();
-						}
-						return 'question_active';
+			for(var i = 2; i <= totalAmountOfQuestions; i++) {
+				var itsInThere = calculateAnsweredFormItems.indexOf(i);
+				if (itsInThere == -1){
+					$('.question_active').hide().removeClass("question_active");
+					$('#question'+i).addClass('question_active').show();
+					if(i != totalAmountOfQuestions) {
+						$('.goNextQuestion').show();
+						$('.goFinish').hide();
 					}
+					return;
 				}
-			})
+			}
 		}
 	</script>
 	
 @stop
 
 @section('gameForm')
+@if (Session::has('consecutiveGame'))
+		<?php Session::get('consecutiveGame') ?>
+@endif
 <div class="section group" id="dropdown_container">
 	<div class="col span_8_of_8">
 		<div class="section group" id="progress_container">
@@ -440,7 +436,6 @@
 				<div align="center"><button type='button' class="viewTutorial">Tutorial</button></div>
 			</div>		
 		</div>
-
 		<div class="section group" id="game_container">
 			<div class="col span_3_of_8" id="question_container">
 				<form action="">
@@ -566,13 +561,13 @@
 				<td colspan="3"><span style="color: #003f69; font-size: 36px; font-family: 'Lubalin for IBM'; font-weight: 600;">You finished the game</span></td>
 			</tr>
 			<tr  style="color: #003f69; font-size: 28px; font-family: 'Helvetica Neue'; font-weight: bold;">
-				<td><span>You:</span></td>
-				<td><span>40</span></td>
-				<td rowspan="2">+5</td>
+				<td><span>You received a score of:</span></td>
+				<td><span>{{Session::get('score')}}</span></td>
+				<!-- td rowspan="2">+5</td>
 			</tr>
 			<tr  style="color: #003f69; font-size: 28px; font-family: 'Helvetica Neue'; font-weight: bold;">
 				<td><span>Crowd:</span></td>
-				<td><span>35</span></td>
+				<td><span>35</span></td-->
 			</tr>
 		</table>
 		<div align="center"> 
@@ -582,7 +577,7 @@
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="location.href='playGame?gameId={{ $gameId }}'">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="#">Play Again</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goGameSelect"  onclick="location.href='/'">Game Select</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>

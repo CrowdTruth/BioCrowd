@@ -50,6 +50,7 @@ class GameController extends BaseController {
 		// Get the userId
 		$userId = Auth::user()->get()->id;
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
+		$consecutiveGame = 'consecutiveGame';
 		
 		if($campaignIdArray){
 			if(count($campaignIdArray) == 1){
@@ -81,7 +82,8 @@ class GameController extends BaseController {
 			//add the score to the users score column and add the score to the scores table.
 			ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 		}
-		return Redirect::to('playGame?gameId='.$gameId);
+		return Redirect::to('playGame?gameId='.$gameId)->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
+		//return Redirect::route('playGame', array('gameId' => $gameId))->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
 	}
 	
 	function isInWhichQuantityCampaigns($game) {
