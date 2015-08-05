@@ -39,7 +39,6 @@
 					<td>
 						<div class="col span_4_of_8" id="startbutton" style="width: 90%">
 							<button onclick="location.href='#'" class="startgame"  style="float: right">Start game</button>
-							<button class="closeTutorial">close tutorial</button>
 						</div>
 					</td>
 				</tr>

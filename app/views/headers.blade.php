@@ -15,10 +15,8 @@
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
-	debugger;
 		$(document).ready(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-			debugger;
 			if (!document.getElementById('sidebar')) {
 				$('.sidebarbutton').hide();
 			} else {

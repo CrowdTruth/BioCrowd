@@ -171,8 +171,8 @@
 		} else {
 			$('#completed_game_popup').hide();
 		}
-
-		//add function to open the examples popup
+		
+		//add function to open and close the examples popup
 		$('.openExamples').on({
 			'click' : function() {
 				if ($('.examplePopup').is(":visible")) {
@@ -182,13 +182,6 @@
 					$('.examplePopup').show();
 					$('.openExamples').text('Hide Examples');
 				}
-			}
-		});
-
-		//add function to close the examples popup
-		$('.closeExamples').on({
-			'click' : function() {
-				$('.examplePopup').hide();
 			}
 		});
 
@@ -284,21 +277,19 @@
 			    }
 			});
 			
-			$('.viewTutorial').on({
-				'click':function(){    	
-			    	$('#info_container').slideDown(500);
-			    	$('#closeTutorial').show();	    	
-				}	
-			})
-		
-			$('.closeTutorial').on({
-				'click':function(){    	
-			    	$('#info_container').slideUp(500);		    	
-			    	$('#dropdown_container').slideDown(500);
-				}	
-			})
-			
-			
+			//add function to open and close the tutorial popup
+			$('.openCloseTutorial').on({
+				'click' : function() {
+					if ($('#info_container').is(':hidden')) {
+						$('#info_container').slideDown(500);
+						$('.openCloseTutorial').text('Close Tutorial');
+					} else {
+						$('#info_container').slideUp(500);
+						$('#dropdown_container').slideDown(500);
+						$('.openCloseTutorial').text('Open Tutorial');
+					}
+				}
+			});
 		});
 	</script>
 	
@@ -419,7 +410,7 @@
 				<div id="game_progress">
 					<div class="bar" id="cellExProgressBar" style="width: 0%;">0%</div>						
 				</div>
-				<div align="center"><button type='button' class="viewTutorial">Tutorial</button></div>
+				<div align="center"><button type='button' class="openCloseTutorial">Tutorial</button></div>
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
