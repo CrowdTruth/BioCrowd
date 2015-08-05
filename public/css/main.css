@@ -899,6 +899,10 @@
 		line-height: 16px;
 	}
 	
+	body {
+		font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+	}
+	
 /*Font alternates*/
 	.nodeclink a, .nodeclink2 a {
 		text-decoration: none;
