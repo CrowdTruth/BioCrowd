@@ -18,7 +18,7 @@
 			(annotationForm.blankImage.checked == false) &&
 			(annotationForm.other.checked == false) &&
 			(count == 0)) {
-			//If the "noCells" checkbox is unchecked and there are no annotations, disable the submit button
+			//If the "noCells" checkbox, the "noImgae" checkbox, the "blankImage" checkbox and the "other" checkbox are unchecked and there are no annotations, disable the submit button
 			document.getElementById("disabledSubmitButton").disabled = true;
 		} else {
 			document.getElementById("disabledSubmitButton").disabled = false;
@@ -438,13 +438,13 @@
 						<div class="textblock">
 							<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div id="markingDescription">
-								{{ Form::radio('markingDescription', 'allCells', false , ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
+								{{ Form::radio('markingDescription', 'allCells', false , ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
 								{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
-								{{ Form::radio('markingDescription', 'tooManyCells', false , ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'tooManyCells', false , ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('tooManyCells', $responseLabel[2]) }} <BR/>
-								{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('noCells', $responseLabel[3]) }} <BR/>
-								{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('other', $responseLabel[4]) }}<BR/>
 								<div id="hiddenOtherExpand" style="display: none">
 									<BR/>
@@ -477,7 +477,7 @@
 							{{ Form::label('medium', 'Medium') }} <BR/>
 							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('poor', 'Poor') }} <BR/>
-							{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'blankImage', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
 							{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('noImage', 'No Image') }}

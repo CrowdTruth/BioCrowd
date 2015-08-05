@@ -31,6 +31,21 @@ function setFormItem(value){
 	document.getElementById(value).style.border = "1px solid #369";
 }
 
+/**
+ * Update annotation count and enable/disable submit button accordingly -- at least
+ * one annotation must be made (or the no-annotation check box must be clicked).
+ */
+function updateDisabledSubmitButtonVesEx() {
+	if((annotationForm.noCells.checked == false) && 
+		(annotationForm.noImage.checked == false) && 
+		(annotationForm.blankImage.checked == false) &&
+		(annotationForm.other.checked == false)) {
+		//If the "noCells" checkbox, the "noImgae" checkbox, the "blankImage" checkbox and the "other" checkbox are unchecked, disable the submit button
+		document.getElementById("disabledSubmitButtonVesEx").disabled = true;
+	} else {
+		document.getElementById("disabledSubmitButtonVesEx").disabled = false;
+	}
+}
 
 /**
 * Expand the TextArea for "Other" in the annotationform
@@ -57,6 +72,11 @@ function showCommentForm() {
 $(document).ready(function(){
 	document.getElementById("disabledSubmitButtonVesEx").disabled = true;
 });
+
+window.onload = function() {
+	setFormItem(document.getElementById("location").value);
+	calculateProgressPercentage();
+};
 
 </script>
 
@@ -108,15 +128,15 @@ $(document).ready(function(){
 		$('#completed_game_popup').hide();
 		$('.examplePopup').hide();
 
-		//var x = "<!--?php echo ( isset( $_POST['consecutiveGame'] ) && $_POST['consecutiveGame'] != '') ? $_POST['consecutiveGame'] : '';?-->";
+		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
 		
-		//if($(x) == ('consecutiveGame')){
-		//	$('.question_active').hide();
-		//	$('#info_container').hide();
-		//	$('#completed_game_popup').show();
-		//} else {
-		//	$('#completed_game_popup').hide();
-		//}
+		if(consecutiveGame == "consecutiveGame"){
+			$('.question_active').hide();
+			$('#info_container').hide();
+			$('#completed_game_popup').show();
+		} else {
+			$('#completed_game_popup').hide();
+		}
 
 		//add function to open and close the examples popup
 		$('.openExamples').on({
@@ -195,13 +215,9 @@ $(document).ready(function(){
 		$('.goPlayAgain').on({
 			'click' : function() {	
 				$('#question1').addClass('question_active').show();
-				$('.goMarking').hide();
-				$('.goPreviousQuestion').hide();
+				$('#dropdown_container').show();
 				$('#completed_game_container').hide();
-				$('#completed_game_popup').hide();
-				$('.goFinish').hide();
-				$('#game_container').show();
-				$('.goNextQuestion').show();			
+				$('#completed_game_popup').hide();		
 			}
 		});
 	})
@@ -244,6 +260,7 @@ $(document).ready(function(){
 	</script>
 	
 	<script>
+	debugger;
 		function calculateProgressPercentage(){
 			var totalAmountOfQuestions = 4;
 			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
@@ -253,16 +270,16 @@ $(document).ready(function(){
 		
 		function calculateAnsweredFormItems() {
 			var calculatedAnswerArray = new Array();
-			
-			if(document.getElementById("location").value != "undefined"){
-				calculatedAnswerArray.push('1');
+			var test = document.getElementById("location").value;
+			if(document.getElementById("location").value != '' || document.getElementById("noCells").checked){
+				calculatedAnswerArray.push(1);
 			}
 
 			var markingDescriptionCheckBoxes = document.getElementsByClassName('markingDescription');
 
 			for (var i = 0; i < markingDescriptionCheckBoxes.length; i++) {
 				if(markingDescriptionCheckBoxes[i].checked){
-					calculatedAnswerArray.push('2');
+					calculatedAnswerArray.push(2);
 				}        
 			}
 
@@ -270,7 +287,7 @@ $(document).ready(function(){
 
 			for (var i = 0; i < qualityCheckBoxes.length; i++) {
 				if(qualityCheckBoxes[i].checked){
-					calculatedAnswerArray.push('3');
+					calculatedAnswerArray.push(3);
 				}        
 			}
 			
@@ -278,16 +295,39 @@ $(document).ready(function(){
 
 			for (var i = 0; i < commentsCheckBoxes.length; i++) {
 				if(commentsCheckBoxes[i].checked){
-					calculatedAnswerArray.push('4');
+					calculatedAnswerArray.push(4);
 				}        
 			}
 			
 			return calculatedAnswerArray;
 		}
 	</script>
+	
+	<script>
+		//hide current question div and show first required empty question form div
+		function putUnansweredQuestionOnTop() {
+			var totalAmountOfQuestions = 5;
+			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
+			for(var i = 2; i <= totalAmountOfQuestions; i++) {
+				var itsInThere = calculateAnsweredFormItems.indexOf(i);
+				if (itsInThere == -1){
+					$('.question_active').hide().removeClass("question_active");
+					$('#question'+i).addClass('question_active').show();
+					if(i != totalAmountOfQuestions) {
+						$('.goNextQuestion').show();
+						$('.goFinish').hide();
+					}
+					return;
+				}
+			}
+		}
+	</script>
 @stop
 
 @section('gameForm')
+@if (Session::has('consecutiveGame'))
+		<?php Session::get('consecutiveGame') ?>
+@endif
 <div class="section group" id="dropdown_container">
 	<div class="col span_8_of_8">
 		<div class="section group" id="progress_container">
@@ -332,13 +372,13 @@ $(document).ready(function(){
 						<div class="textblock">
 							<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div>Please select all which apply to your selection from STEP 1.</div>
-							{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
-							{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('mixed', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
-							{{ Form::radio('markingDescription', 'noCell', false, ['id' => 'noCell', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('noCell', $responseLabel[5]) }}<BR/>
-							{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::radio('markingDescription', 'noCells', false, ['id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::label('noCells', $responseLabel[5]) }}<BR/>
+							{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('other', 'Other') }}<BR/>
 							<div id="hiddenOtherExpand" style="display: none">
 								<BR/>
@@ -351,15 +391,15 @@ $(document).ready(function(){
 						<div class="textblock">
 							<H1>Step 3: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div>Image Sharpness</div>
-							{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
 							{{ Form::label('good', 'Good') }} <BR/>
-							{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
 							{{ Form::label('medium', 'Medium') }} <BR/>
-							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
 							{{ Form::label('poor', 'Poor') }} <BR/>
-							{{ Form::radio('qualityDescription', 'blank', false, ['id' => 'blank', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
-							{{ Form::label('blank', 'Blank (Black) Image') }}<BR/>
-							{{ Form::radio('qualityDescription', 'noImage', false, ['id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'blankImage', false, ['id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+							{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
+							{{ Form::radio('qualityDescription', 'noImage', false, ['id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
 							{{ Form::label('noImage', 'No Image') }}
 						</div>						
 					</div>
@@ -367,9 +407,9 @@ $(document).ready(function(){
 						<div class="textblock">
 							<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('comments', 'Yes') }} <BR/>
+							{{ Form::label('commentFormPlease', 'Yes') }} <BR/>
 							{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('comments', 'No') }} <BR/>	
+							{{ Form::label('noCommentFormPlease', 'No') }} <BR/>	
 							<div id="hiddenCommentForm" style="display: none">
 								<BR/>
 								{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
@@ -382,7 +422,7 @@ $(document).ready(function(){
 					<tr>				
 						<td style="width: 33%; text-align: center;"><button type='button' class="goMarking">Back to Marking</button></td>
 						<td style="width: 33%; text-align: center;"><button type='button' class="goPreviousQuestion">Previous Question</button></td>
-						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish']) }}</td>
+						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop()']) }}</td>
 					</tr>
 				</table>					
 			</div>
@@ -423,13 +463,13 @@ $(document).ready(function(){
 				<td colspan="3"><span style="color: #003f69; font-size: 36px; font-family: 'Lubalin for IBM'; font-weight: 600;">You finished the game</span></td>
 			</tr>
 			<tr  style="color: #003f69; font-size: 28px; font-family: 'Helvetica Neue'; font-weight: bold;">
-				<td><span>You:</span></td>
-				<td><span>40</span></td>
-				<td rowspan="2">+5</td>
+				<td><span>You received a score of:</span></td>
+				<td><span>{{Session::get('score')}}</span></td>
+				<!-- td rowspan="2">+5</td>
 			</tr>
 			<tr  style="color: #003f69; font-size: 28px; font-family: 'Helvetica Neue'; font-weight: bold;">
 				<td><span>Crowd:</span></td>
-				<td><span>35</span></td>
+				<td><span>35</span></td -->
 			</tr>
 		</table>
 		<div align="center"> 
@@ -439,7 +479,7 @@ $(document).ready(function(){
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="location.href='playGame?gameId={{ $gameId }}'">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="location.href='#'">Play Again</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goGameSelect"  onclick="location.href='/'">Game Select</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>

@@ -18,7 +18,7 @@
 			(annotationForm.blankImage.checked == false) &&
 			(annotationForm.other.checked == false) &&
 			(count == 0)) {
-			//If the "noCells" checkbox is unchecked and there are no annotations, disable the submit button
+			//If the "noCells" checkbox, the "noImgae" checkbox, the "blankImage" checkbox and the "other" checkbox are unchecked and there are no annotations, disable the submit button
 			document.getElementById("disabledSubmitButton").disabled = true;
 		} else {
 			document.getElementById("disabledSubmitButton").disabled = false;
