@@ -317,6 +317,7 @@
 		#ribbon {
 			background-image: url("../img/backgrounds/image_background-03.png");
 			background-size: 480px, 600px;
+			min-height: 600px;
 		}
 	}
 
@@ -331,6 +332,15 @@
 		min-width: 200px;
 		margin: 0px;
 		padding: 0px;
+	}
+	
+	@media ( max-width : 565px) {
+		#ribbon {
+			min-height: 600px;
+		}
+		#ribimg {
+			min-height: 0px;
+		}
 	}
 	
 	#logo {
