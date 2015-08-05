@@ -279,7 +279,7 @@
 						"height" : "200px",
 					});
 					$('html, body').animate({
-                        scrollTop: $("#dropdown_container").offset().top
+                        scrollTop: $("#ribbon").height()+$("#banner").height()
                     },2000);
 			    }
 			});
@@ -337,20 +337,6 @@
 			});
 		  
 		} );
-	</script>
-	
-	<script>
-		$('.startgame').on({
-		    'click': function(){ 	
-		    	$('#info_container').slideUp(500);		    	
-		    	$('#dropdown_container').slideDown(500);
-		    	$('.closeTutorial').show();
-		    	$('.startgame').hide();
-				$('#ribbon').css({
-					"height" : "200px",
-				});
-		    }
-		});
 	</script>
 	
 	<script>
