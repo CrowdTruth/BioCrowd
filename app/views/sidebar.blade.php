@@ -10,7 +10,13 @@
 						<?php 
 						$userScore = Auth::user()->get()->score;
 						$userLevel = Auth::user()->get()->level;
-						$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
+						//This is to ensure that max_score is never null
+						$highestLevel = Level::orderBy('level', 'desc')->first(['level'])['level'];
+						if($userLevel > $highestLevel){
+							$max_score = $userScore;
+						} else {
+							$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
+						}
 						$percentage = round(($userScore/$max_score)*100);?>
 						<div class="bar" style="width: {{$percentage}}%;">
 						{{$percentage}}%</div>
