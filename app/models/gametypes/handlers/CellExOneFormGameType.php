@@ -95,14 +95,12 @@ class CellExOneFormGameType extends GameTypeHandler {
 		$otherExpand = Input::get('otherExpand');
 		$totalCells = Input::get('totalCells');
 		$qualityDescription = Input::get('qualityDescription');
-		$comments = Input::get('comments');
 		$comment = Input::get('comment');
 		
 		$responseArray["markingDescription"] = $markingDescription;
 		$responseArray["otherExpand"] = $otherExpand;
 		$responseArray["totalCells"] = $totalCells;
 		$responseArray["qualityDescription"] = $qualityDescription;
-		$responseArray["comments"] = $comments;
 		$responseArray["comment"] = $comment;
 		
 		$tempCoords = json_decode(Input::get('response'));

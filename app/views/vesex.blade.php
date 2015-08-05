@@ -58,17 +58,6 @@ function expandOtherTextArea() {
 	}
 }
 
-/**
-* Show the TextArea for "Comment" in the annotationForm
-*/
-function showCommentForm() {
-	if(annotationForm.commentFormPlease.checked == false){
-		document.getElementById("hiddenCommentForm").style.display = "none";
-	} else {
-		document.getElementById("hiddenCommentForm").style.display = "block";
-	}
-}
-
 $(document).ready(function(){
 	document.getElementById("disabledSubmitButtonVesEx").disabled = true;
 });
@@ -290,13 +279,9 @@ window.onload = function() {
 					calculatedAnswerArray.push(3);
 				}        
 			}
-			
-			var commentsCheckBoxes = document.getElementsByClassName('commentsFormItem');
 
-			for (var i = 0; i < commentsCheckBoxes.length; i++) {
-				if(commentsCheckBoxes[i].checked){
-					calculatedAnswerArray.push(4);
-				}        
+			if(document.getElementById("comment").value != ""){
+				calculatedAnswerArray.push(4);
 			}
 			
 			return calculatedAnswerArray;
@@ -406,14 +391,9 @@ window.onload = function() {
 					<div id="question4" class="question">
 						<div class="textblock">
 							<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('commentFormPlease', 'Yes') }} <BR/>
-							{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('noCommentFormPlease', 'No') }} <BR/>	
-							<div id="hiddenCommentForm" style="display: none">
-								<BR/>
+							<div id="commentForm">
 								{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-								{{Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.'])}}
+								{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
 							</div>
 						</div>				
 					</div>

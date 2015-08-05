@@ -108,14 +108,12 @@ class VesExGameType extends GameTypeHandler {
 		$markingDescription = Input::get('markingDescription');
 		$otherExpand = Input::get('otherExpand');
 		$qualityDescription = Input::get('qualityDescription');
-		$comments = Input::get('comments');
 		$comment = Input::get('comment');
 		
 		$responseArray["location"] = $location;
 		$responseArray["markingDescription"] = $markingDescription;
 		$responseArray["otherExpand"] = $otherExpand;
 		$responseArray["qualityDescription"] = $qualityDescription;
-		$responseArray["comments"] = $comments;
 		$responseArray["comment"] = $comment;
 		
 		$response = $this->encodeJudgement($responseArray);

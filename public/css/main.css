@@ -486,7 +486,7 @@
 	}
 	
 	/*.comment_input textarea {*/ /* MEREL */
-	#hiddenCommentForm textarea { /* MEREL */
+	#commentForm textarea { /* MEREL */
 		height: 75px;
 		width: 300px;
 		border: none;
