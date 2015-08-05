@@ -1,6 +1,7 @@
 @extends('layout')
 
 @section('extraheaders')
+	<link href="css/gamemenu.css" rel="stylesheet">
 	<script type="text/javascript">
 		//On window size < 480, set the ribbon logo div behind the ribbon button div, so it borders on the lower section properly.
 		$(window).resize(function() {
