@@ -15,37 +15,49 @@
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
+	debugger;
 		$(document).ready(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-			if (width <= 610 && $('#sidebar').is(":visible")) {
-				$('#sidebar').hide();
-				$("#main").removeClass("span_6_of_8")
-				$('.sidebarbutton').show();
-				$('#minimize').show();
-			} else if (width > 610) {
-				$('#sidebar').show();
-				$("#main").addClass("span_6_of_8")
+			debugger;
+			if (!document.getElementById('sidebar')) {
 				$('.sidebarbutton').hide();
-				$('#minimize').hide();
+			} else {
+				if (width <= 610 && $('#sidebar').is(":visible")) {
+					$('#sidebar').hide();
+					$("#main").removeClass("span_6_of_8");
+					$('.sidebarbutton').show();
+					$('#minimize').show();
+				} else if (width > 610) {
+					$('#sidebar').show();
+					$("#main").addClass("span_6_of_8");
+					$('.sidebarbutton').hide();
+					$('#minimize').hide();
+				}
 			}
 	
 		});
 	
 		$(window).resize(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
-			if (width <= 610) {
-				$('#sidebar').hide();
-				$("#main").removeClass("span_6_of_8")
-				$('.sidebarbutton').show();
-				$('#minimize').show();
-				$('#sidebar').removeClass('visible')
-			} else if (width > 610) {
-				$('#sidebar').show();
-				$("#main").addClass("span_6_of_8")
+			if (!document.getElementById('sidebar')) {
 				$('.sidebarbutton').hide();
-				$('#sidebar').removeAttr('style');
-				$('#sidebar').removeClass('visible')
-				$('#minimize').hide();
+			} else {
+				if (width <= 610) {
+					$('#sidebar').hide();
+					$("#main").removeClass("span_6_of_8");
+					$('.sidebarbutton').show();
+					$('#minimize').show();
+					$('#sidebar').removeClass('visible');
+				} else if (width <= 610 && $('#sidebar').length > 0) {
+					$('.sidebarbutton').hide();
+				} else if (width > 610) {
+					$('#sidebar').show();
+					$("#main").addClass("span_6_of_8");
+					$('.sidebarbutton').hide();
+					$('#sidebar').removeAttr('style');
+					$('#sidebar').removeClass('visible');
+					$('#minimize').hide();
+				}
 			}
 		});
 	
@@ -57,7 +69,7 @@
 						"right" : "-300px"
 					}, "slow", function() {
 						$('#sidebar').hide();
-						$('#sidebar').removeClass('visible')
+						$('#sidebar').removeClass('visible');
 					});
 	
 				} else {
@@ -78,7 +90,7 @@
 					}, "slow", function() {
 	
 						//	$('#sidebar').show
-						$('#sidebar').addClass('visible')
+						$('#sidebar').addClass('visible');
 	
 					});
 					hidden.animate({

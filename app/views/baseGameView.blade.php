@@ -5,7 +5,6 @@
 		<!--/////////////////////////////////////////GAME CONTENT/////////////////////////////////////////////////////////////////////-->
 		<!-- Bootstrap v3.0.3 -->
 		<!-- Instructions -->
-		<div id="sidebar" style="display: none;"></div>
 		<div class="section group nobg" id="ribbon">
 			<div class="col span_3_of_8" id="ribimg">
 				<img src="img/logo/logo_drexplorer_game.png" height="300px" id="logo"
