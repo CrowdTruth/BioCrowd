@@ -161,8 +161,6 @@ class StoryCampaignType extends CampaignTypeHandler {
 					//go to the campaign menu
 					return Redirect::to('campaignMenu');
 				} else {
-					Log::error('we are here!');
-					Log::info(Redirect::to('playCampaign?campaignIdArray='.$campaign->id));
 					//go to the next game in this campaign
 					return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
 				}
@@ -216,7 +214,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
 			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
 				//add the score to the users score column and add the score to the scores table.
-				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->name." and received a score of".$campaign->score,$game->id,$campaign->id);
+				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
 			}
 		}
 	}

@@ -19,7 +19,7 @@ class CampaignListController extends CampaignController {
 		$campaigns = DB::table('campaigns')
 			->groupBy('id')
 			->orderBy('endDate')
-			->select('campaigns.id as campaignId','campaigns.name as name','campaigns.badgeName as badgeName','image',DB::raw('count(*) as nCampains'))
+			->select('campaigns.id as campaignId','campaigns.tag as tag','campaigns.badgeName as badgeName','image',DB::raw('count(*) as nCampains'))
 			->get();
 		
 		//set the enabled variable to default true
@@ -51,7 +51,7 @@ class CampaignListController extends CampaignController {
 			$item = [
 			'link' => 'playCampaign?campaignIdArray='.$campaign->campaignId,
 			'image' => $campaign->image,
-			'text' => $campaign->name,
+			'text' => $campaign->tag,
 			'badgeName' => $campaign->badgeName,
 			'numberPerformed' => $numberPerformed,
 			'numberOfGamesInThisCampaign' => $numberOfGamesInThisCampaign,

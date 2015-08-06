@@ -488,6 +488,7 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'StoryCampaignType';
+		$campaign->tag = 'Army Campaign';
 		$campaign->badgeName = 'StoryCampaignType';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
@@ -595,6 +596,7 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Campaign');
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'QuantityCampaignType';
+		$campaign->tag = 'Tutorial';
 		$campaign->badgeName = 'QuantityCampaignType';
 		$campaign->description = '<p>In this campaign you will do as many games as possible. </p>';
 		$campaign->image = 'img/army_mission.png';

@@ -455,6 +455,15 @@
 				<td><span>Crowd:</span></td>
 				<td><span>35</span></td-->
 			</tr>
+			@if(Session::get('campaignScoreTag'))
+				<tr>
+					<td colspan="3"><span style="color: #003f69; font-size: 36px; font-family: 'Lubalin for IBM'; font-weight: 600;">You finished the campaign {{Session::get('campaignScoreTag')['campaignTag']}}</span></td>
+				</tr>
+				</tr>
+					<td><span>You received a score of:</span></td>
+					<td><span>{{Session::get('campaignScoreTag')['campaignScore']}}</span></td>
+				</tr>
+			@endif
 		</table>
 		<div align="center"> 
 			<a href="#"><img src="img/glyphs/logo_twitter.png" height=45px></img></a>

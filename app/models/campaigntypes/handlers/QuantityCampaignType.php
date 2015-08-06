@@ -90,13 +90,13 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
-		$this->updateCampaignProgress($campaign,$game);
+		$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
 		
 		//Only redirect if $done is true
 		if($done){
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game menu
 			if($gameOrigin){
-				return Redirect::to('playGame?gameId='.$game->id);
+				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', $campaignScoreTag);
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
 				$nextGame = $this->selectNextGameInCampaignForThisUser($campaign);
 				//return to next cammpaign or campaign overview page if the campaign is done.
@@ -264,7 +264,8 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
 			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
 				//add the score to the users score column and add the score to the scores table.
-				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->name." and received a score of".$campaign->score,$game->id,$campaign->id);
+				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
+				return ['campaignScore' => $campaign->score, 'campaignTag' => $campaign->tag];
 			}
 		}
 	}

@@ -147,6 +147,7 @@ class InitDatabase extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name');
+			$table->string('tag');
 			$table->string('badgeName');
 			$table->longText('description');
 			$table->string('image');
