@@ -51,7 +51,7 @@
 			<div class="section group scrollto"  id="info">
 				<div class="col span_4_of_8">
 					<div class="textblock">
-					<H1>About CrowdExplorer</H1>
+					<H1>About {{ Lang::get('gamelabels.gamename') }}</H1>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 						"At vero eos et accusamus et iusto odio dignissimos ducimus
 						qui blanditiis praesentium voluptatum deleniti atque corrupti
