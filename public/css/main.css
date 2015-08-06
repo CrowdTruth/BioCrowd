@@ -123,8 +123,8 @@
 		width: 11.1%;
 	}
 	
-	/*  GO FULL WIDTH BELOW 480 PIXELS */
-	@media only screen and (max-width: 480px) {
+	/*  GO FULL WIDTH BELOW 508 PIXELS */
+	@media only screen and (max-width: 508px) {
 		.col {
 			margin: 1% 0 1% 0%;
 		}
@@ -267,19 +267,19 @@
 		display: inline-block;
 	}
 	
-	@media only screen and (min-width: 725px) {
+	@media only screen and (min-width: 508px) {
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 16px;
+			bottom: 18px;
 		}
 	}
 	
-	@media (max-width: 480px) and (min-width: 365px) {
+	@media (max-width: 508px) {
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 16px;
+			bottom: 18px;
 		}
 	}
 	
@@ -313,7 +313,7 @@
 		background-size: 960px, 300px;
 	}
 	
-	@media ( max-width : 480px) {
+	@media ( max-width : 508px) {
 		#ribbon {
 			background-image: url("../img/backgrounds/image_background-03.png");
 			background-size: 480px, 600px;
