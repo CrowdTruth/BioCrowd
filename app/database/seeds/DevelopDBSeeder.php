@@ -41,7 +41,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		/*$game1 = new Game($gameType);
 		$game1->level = 1;
-		$game1->name = 'Fluorescent Cells (Green)';
+		$game1->name = 'Cell Tagging (Green)';
+		$game1->tag = 'Cell Seeker';
 		$game1->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -116,7 +117,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game2 = new Game($gameType);
 		$game2->level = 2;
-		$game2->name = 'Dark Nuclei (Green)';
+		$game2->name = 'Nucleus Tagging (Green)';
+		$game2->tag = 'Nucly';
 		$game2->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -188,7 +190,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		/*$game3 = new Game($gameType);
 		$game3->level = 3;
-		$game3->name = 'Agar Contamination';
+		$game3->name = 'Colony Tagging';
+		$game3->tag = 'Colony Catcher';
 		$game3->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -259,7 +262,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game4 = new Game($gameType);
 		$game4->level = 1;
-		$game4->name = 'Glowing Vesicles (Green)';
+		$game4->name = 'Vesicle Locating';
+		$game4->tag = 'Vesicle Adventure';
 		$game4->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -327,7 +331,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game1 = new Game($gameType);
 		$game1->level = 1;
-		$game1->name = 'Fluorescent Cells (Green)';
+		$game1->name = 'Cell Tagging';
+		$game1->tag = 'Cell Seeker';
 		$game1->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
@@ -402,7 +407,8 @@ class DevelopDBSeeder extends Seeder {
 		
 		$game3 = new Game($gameType);
 		$game3->level = 3;
-		$game3->name = 'Agar Contamination';
+		$game3->name = 'Colony Tagging';
+		$game3->tag = 'Colony Catcher';
 		$game3->instructions = ''
 				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';

@@ -75,6 +75,7 @@ class InitDatabase extends Migration {
 			$table->foreign('game_type_id')->references('id')->on('game_types');
 			$table->integer('level')->default(1);
 			$table->string('name');
+			$table->string('tag');
 			$table->longText('instructions');
 			$table->longText('examples');
 			$table->longText('steps');
