@@ -459,7 +459,7 @@
 				<tr>
 					<td colspan="3"><span style="color: #003f69; font-size: 36px; font-family: 'Lubalin for IBM'; font-weight: 600;">You finished the campaign {{Session::get('campaignScoreTag')['campaignTag']}}</span></td>
 				</tr>
-				</tr>
+				</tr style="color: #003f69; font-size: 28px; font-family: 'Helvetica Neue'; font-weight: bold;">
 					<td><span>You received a score of:</span></td>
 					<td><span>{{Session::get('campaignScoreTag')['campaignScore']}}</span></td>
 				</tr>
