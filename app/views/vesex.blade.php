@@ -116,6 +116,7 @@ window.onload = function() {
 		$('#completed_game_container').hide();
 		$('#completed_game_popup').hide();
 		$('.examplePopup').hide();
+		$('#skipImageDiv').hide();
 
 		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
 		
@@ -206,7 +207,8 @@ window.onload = function() {
 				$('#question1').addClass('question_active').show();
 				$('#dropdown_container').show();
 				$('#completed_game_container').hide();
-				$('#completed_game_popup').hide();		
+				$('#completed_game_popup').hide();	
+				$('#skipImageDiv').show();	
 			}
 		});
 	})
@@ -223,6 +225,7 @@ window.onload = function() {
 			    	$('#dropdown_container').slideDown(500);
 			    	$('.closeTutorial').show();
 			    	$('.startgame').hide();
+			    	$('#skipImageDiv').show();
 					$('#ribbon').css({
 						"height" : "200px",
 					});
@@ -466,6 +469,18 @@ window.onload = function() {
 		</table>				 
 	</div>
 
+</div>
+
+<div class="section group">
+	<div class="col span_8_of_8">
+		<table style="width:100%">
+			<tr style="width:100%">
+				<td style="width: 20%; text-align: left;"><button class="goHome" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><button class="goGameSelect" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
+				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;<button class="goNextImage" title="Want to skip this image? Click here for the next one"   onclick="location.href='Game1.html'">Next image</button></div></td>
+			</tr>
+		</table>
+	</div>	
 </div>
 
 @stop
