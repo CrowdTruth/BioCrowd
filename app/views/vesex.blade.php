@@ -475,9 +475,9 @@ window.onload = function() {
 	<div class="col span_8_of_8">
 		<table style="width:100%">
 			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><button class="goHome" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button class="goGameSelect" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
-				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;<button class="goNextImage" title="Want to skip this image? Click here for the next one"   onclick="location.href='Game1.html'">Next image</button></div></td>
+				<td style="width: 20%; text-align: left;"><button class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><button class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
+				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;<button class="goNextImage bioCrowdButton" title="Want to skip this image? Click here for the next one"   onclick="location.href='Game1.html'">Next image</button></div></td>
 			</tr>
 		</table>
 	</div>	

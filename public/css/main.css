@@ -500,19 +500,6 @@
 		display: list-item;
 	}
 	
-		.startgame, .closeTutorial {
-		min-height: 50px;
-		padding: 2px;
-		width: 120px;
-		font-size: 18px;
-		border-radius: 30px;
-		border: none;
-		color: white;
-		background-color: #81cff3;
-		display: block;
-		margin: auto;
-	}
-	
 	#info, #info_container {
 	padding-top: 0;
 	background-color: #17ad4b;
@@ -940,4 +927,20 @@
 
 #logoColor2 {
 	color: #1FAD4B;
+}
+
+.bioCrowdButton{
+	background-color: #00afec;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 5px;
+	border-radius: 30px;
+	border: none;
+	color: white;
+	width: 100px;
+	height: 40px;
+	font-size: 16px;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
 }

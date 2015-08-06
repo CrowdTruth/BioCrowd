@@ -404,14 +404,9 @@
 					<div id="question5" class="question">
 						<div class="textblock">
 							<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							{{ Form::radio('comments', 'yesComments', false, ['id' => 'commentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('commentFormPlease', 'Yes') }} <BR/>
-							{{ Form::radio('comments', 'noComments', false, ['id' => 'noCommentFormPlease', 'class' => 'commentsFormItem', 'onClick' => 'showCommentForm(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('noCommentFormPlease', 'No') }} <BR/>	
-							<div id="hiddenCommentForm" style="display: none">
-								<BR/>
+							<div id="commentForm">
 								{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-								{{Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.'])}}
+								{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
 							</div>
 						</div>
 					</div>
@@ -472,7 +467,7 @@
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="#">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goGameSelect"  onclick="location.href='/'">Game Select</button></td>
 				<td style="width: 33%; text-align: center;"><button class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
@@ -485,8 +480,8 @@
 	<div class="col span_8_of_8">
 		<table style="width:100%">
 			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><button class="goHome" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button class="goGameSelect" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
+				<td style="width: 20%; text-align: left;"><button class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><button class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
 				<td style="width: 60%; text-align: right;">Want to skip this image?&nbsp;&nbsp;<button class="goNextImage" title="Want to skip this image? Click here for the next one"   onclick="location.href='Game1.html'">Next image</button></td>
 			</tr>
 		</table>
