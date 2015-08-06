@@ -303,12 +303,8 @@
 				}        
 			}
 			
-			var commentsCheckBoxes = document.getElementsByClassName('commentsFormItem');
-
-			for (var i = 0; i < commentsCheckBoxes.length; i++) {
-				if(commentsCheckBoxes[i].checked){
-					calculatedAnswerArray.push(5);
-				}        
+			if(document.getElementById("comment").value != ""){
+				calculatedAnswerArray.push(5);
 			}
 			
 			return calculatedAnswerArray;
