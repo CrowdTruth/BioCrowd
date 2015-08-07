@@ -92,6 +92,9 @@
 					$(detach).insertAfter($(this).find("#ribimg"));
 				})
 			}
+			if($window.width() > 508){
+				$('#logic_container').height($('#game_container').height());
+			}
 		});
 	
 		//Reset logo div in front of button on larger size.
@@ -145,7 +148,7 @@
 		$('.question').hide();
 		$('.question_active').show();
 		$('.goMarking').hide();
-		$('.goPreviousQuestion').hide();
+		$('.goPreviousQuestion').css('visibility','hidden');
 		$('.goFinish').hide();
 		$('#completed_game_container').hide();
 		$('#completed_game_popup').hide();
@@ -181,9 +184,9 @@
 				$('.question_active').hide().removeClass(function() {
 					$('#question1').addClass('question_active').show();
 					$('.goMarking').hide();
-					$('.goPreviousQuestion').hide();
+					$('.goPreviousQuestion').css('visibility','hidden');
 					if ($(this).is("#question5")) {
-						$('.goNextQuestion').show();
+						$('.goNextQuestion').css('visibility', 'visible');
 						$('.goFinish').hide();
 					}
 					return 'question_active';
@@ -198,13 +201,13 @@
 
 					if ($(this).is("#question4")) {
 						$(this).next().addClass('question_active').show();
-						$('.goNextQuestion').hide();
+						$('.goNextQuestion').css('visibility', 'hidden');
 						$('.goFinish').show();
 						return 'question_active';
 					} else {
 						$(this).next().addClass('question_active').show();
 						$('.goMarking').show();
-						$('.goPreviousQuestion').show();
+						$('.goPreviousQuestion').css('visibility','visible');;
 						return 'question_active';
 					}
 				})
@@ -218,11 +221,11 @@
 					if ($(this).is("#question2")) {
 						$('#question1').addClass('question_active').show();
 						$('.goMarking').hide();
-						$('.goPreviousQuestion').hide();
+						$('.goPreviousQuestion').css('visibility','hidden');
 						return 'question_active';
 					} else if ($(this).is("#question5")) {
 						$('#question4').addClass('question_active').show();
-						$('.goNextQuestion').show();
+						$('.goNextQuestion').css('visibility', 'visible');
 						$('.goFinish').hide();
 						return 'question_active';
 					} else {
@@ -266,6 +269,9 @@
 					$('html, body').animate({
                         scrollTop: $("#ribbon").height()+$("#banner").height()
                     },2000);
+					if($window.width() > 508){
+						$('#logic_container').height($('#game_container').height());
+					}
 			    }
 			});
 			
@@ -376,13 +382,27 @@
 					$('.question_active').hide().removeClass("question_active");
 					$('#question'+i).addClass('question_active').show();
 					if(i != totalAmountOfQuestions) {
-						$('.goNextQuestion').show();
+						$('.goNextQuestion').css('visibility', 'visible');
 						$('.goFinish').hide();
 					}
 					return;
 				}
 			}
 		}
+	</script>
+	
+	<script>
+	function showDrawnList1(){
+		$('.ct_object_list').css("cssText", "display: inline-block !important;");
+		$('#showDrawnList').css("cssText", "display: none !important;");
+		$('#hideDrawnList').css("cssText", "display: inline-block !important;");
+	}
+
+	function hideDrawnList1(){
+		$('.ct_object_list').css("cssText", "display: none !important;");
+		$('#showDrawnList').css("cssText", "display: inline-block !important;");
+		$('#hideDrawnList').css("cssText", "display: none !important;");
+	}
 	</script>
 	
 @stop
@@ -402,94 +422,20 @@
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
-			<div class="col span_3_of_8" id="question_container">
-				<form action="">
-					<div id="question1" class="question question_active">
-						<div class="textblock">
-							<H1>Step 1: {{$responseLabel[0]}} <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							<span>By clicking on it or drawing a shape around it</span>
-						</div>
-						<BR>
-						<div align="center">
-							<ul id="selector" style="-webkit-margin-before: 0em; -webkit-margin-after: 0em;">
-							<li><img id="selector_circle"  src="img/game_images/images_question-03.png" alt="circular selection"  width="100px" class="active_selector" onClick='updateShapeSelection("ellipse")'></li>
-							<li><img id="selector_square" src="img/game_images/images_question-02.png" alt="square selection" width="100px" onClick='updateShapeSelection("rectangle")'></li>
-							</ul>
-						</div>
-						<div style="display:none;">
-							{{ Form::hidden('gameId', $gameId) }}
-							{{ Form::hidden('taskId', $taskId) }}
-							{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
-						</div>
-					</div>
-					<div id="question2" class="question" >
-						<div class="textblock">
-							<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							<div id="markingDescription">
-								{{ Form::radio('markingDescription', 'allCells', false , ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
-								{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
-								{{ Form::radio('markingDescription', 'tooManyCells', false , ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-								{{ Form::label('tooManyCells', $responseLabel[2]) }} <BR/>
-								{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-								{{ Form::label('noCells', $responseLabel[3]) }} <BR/>
-								{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-								{{ Form::label('other', $responseLabel[4]) }}<BR/>
-								<div id="hiddenOtherExpand" style="display: none">
-									<BR/>
-									{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-									{{ Form::textarea('otherExpand') }}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div id="question3" class="question">
-						<div class="textblock">
-							<H1>Step 3 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							<span>{{$responseLabel[5]}}</span>
-						</div>
-						<div align="center">
-						<ul id="cell_counter" style="-webkit-margin-before: 0em; -webkit-margin-after: 0em;">
-						<li><img id="remove" class="cell_increment" src="img/game_images/images_question-08.png" alt="increment down" width="30px"></li>
-						<li>{{Form::number('totalCells','',['required', 'id' => 'cell_number'])}}</li>
-						<li><img id="add" class="cell_increment"  src="img/game_images/images_question-06.png" alt="increment up"  width="30px"></li>
-						</ul>
-						</div>							
-					</div>
-					<div id="question4" class="question">
-						<div class="textblock">
-							<H1>Step 4: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							<div>Image Sharpness</div>
-							{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('good', 'Good') }} <BR/>
-							{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('medium', 'Medium') }} <BR/>
-							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('poor', 'Poor') }} <BR/>
-							{{ Form::radio('qualityDescription', 'blankImage', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
-							{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-							{{ Form::label('noImage', 'No Image') }}
-						</div>				
-					</div>
-					<div id="question5" class="question">
-						<div class="textblock">
-							<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
-							<div id="commentForm">
-								{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-								{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
-							</div>
-						</div>
-					</div>
-				</form>
-				<table>
-					<tr>				
-						<td style="width: 33%; text-align: center;"><button type='button' class="goMarking">Back to Marking</button></td>
-						<td style="width: 33%; text-align: center;"><button type='button' class="goPreviousQuestion">Previous Question</button></td>
-						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop(), prepareResponse();' ]) }}</td>
+			<div class="col span_3_of_8" id="logic_container" align="center">
+				<table style="height:100%;">
+					<tr>
+						<td style="width:1%;"><button type="button" style="width: auto;" class="bioCrowdButton goPreviousQuestion"><</button></td>
+						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
 					</tr>
-				</table>						
+				</table>
 			</div>
 			<div class="col span_2_of_8" id="question_container">
+				<div style="text-align:-webkit-center;">
+					<button class="drawnList" style="display: none;" type="button" id="showDrawnList" onClick="showDrawnList1()">Show drawn list \/</button>
+					<button class="drawnList" style="display: none;" type="button" id="hideDrawnList" onClick="hideDrawnList1()">Hide drawn list /\</button>
+				</div>
 				<div class="ct_object_list" style="display:block">
 					<div class="path_list_title_container">
 						<div class="path_list_title_text">Drawn</div>
@@ -498,10 +444,97 @@
 						<div class="ct_empty_menuItem_list">0 Drawn</div>
 					</div>
 				</div>
+				<div style="text-align:-webkit-center;">
 				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()']) }}
+				<button type='button' class="goMarking">Back to Marking</button>
+				</div>
 			</div>
-			<div class="col span_3_of_8" id="logic_container" align="center">
-				<canvas id="annotationCanvas"></canvas>
+			<div class="col span_3_of_8" id="question_container">
+				<form action="">
+					<table>
+						<tr>
+						<td colspan="2">
+							<div id="question1" class="question question_active">
+								<div class="textblock">
+									<H1>Step 1: {{$responseLabel[0]}} <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<span>By clicking on it or drawing a shape around it</span>
+								</div>
+								<BR>
+								<div align="center">
+									<ul id="selector" style="-webkit-margin-before: 0em; -webkit-margin-after: 0em;">
+									<li><img id="selector_circle"  src="img/game_images/images_question-03.png" alt="circular selection"  width="100px" class="active_selector" onClick='updateShapeSelection("ellipse")'></li>
+									<li><img id="selector_square" src="img/game_images/images_question-02.png" alt="square selection" width="100px" onClick='updateShapeSelection("rectangle")'></li>
+									</ul>
+								</div>
+								<div style="display:none;">
+									{{ Form::hidden('gameId', $gameId) }}
+									{{ Form::hidden('taskId', $taskId) }}
+									{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
+								</div>
+							</div>
+							<div id="question2" class="question" >
+								<div class="textblock">
+									<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<div id="markingDescription">
+										{{ Form::radio('markingDescription', 'allCells', false , ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
+										{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
+										{{ Form::radio('markingDescription', 'tooManyCells', false , ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+										{{ Form::label('tooManyCells', $responseLabel[2]) }} <BR/>
+										{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+										{{ Form::label('noCells', $responseLabel[3]) }} <BR/>
+										{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+										{{ Form::label('other', $responseLabel[4]) }}<BR/>
+										<div id="hiddenOtherExpand" style="display: none">
+											<BR/>
+											{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
+											{{ Form::textarea('otherExpand') }}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="question3" class="question">
+								<div class="textblock">
+									<H1>Step 3 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<span>{{$responseLabel[5]}}</span>
+								</div>
+								<div align="center">
+								<ul id="cell_counter" style="-webkit-margin-before: 0em; -webkit-margin-after: 0em;">
+								<li><img id="remove" class="cell_increment" src="img/game_images/images_question-08.png" alt="increment down" width="30px"></li>
+								<li>{{Form::number('totalCells','',['required', 'id' => 'cell_number'])}}</li>
+								<li><img id="add" class="cell_increment"  src="img/game_images/images_question-06.png" alt="increment up"  width="30px"></li>
+								</ul>
+								</div>							
+							</div>
+							<div id="question4" class="question">
+								<div class="textblock">
+									<H1>Step 4: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<div>Image Sharpness</div>
+									{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+									{{ Form::label('good', 'Good') }} <BR/>
+									{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+									{{ Form::label('medium', 'Medium') }} <BR/>
+									{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+									{{ Form::label('poor', 'Poor') }} <BR/>
+									{{ Form::radio('qualityDescription', 'blankImage', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+									{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
+									{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+									{{ Form::label('noImage', 'No Image') }}
+								</div>				
+							</div>
+							<div id="question5" class="question">
+								<div class="textblock">
+									<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<div id="commentForm">
+										{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
+										{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
+									</div>
+									{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop(), prepareResponse();' ]) }}
+								</div>
+							</div></td>
+							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
+						</tr>
+					</table>
+				</form>					
 			</div>
 		</div>
 		<div class="section group" id="completed_game_container">

@@ -944,3 +944,42 @@
 	-moz-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
 	box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
 }
+
+.drawnList{
+	background-color: #00afec;
+	vertical-align: middle;
+	margin: 5px;
+	border-radius: 30px;
+	border: none;
+	color: white;
+	width: 100px;
+	height: 40px;
+	font-size: 16px;
+	-webkit-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	-moz-box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+	box-shadow: 0px 0px 3px 0px rgba(255, 255, 255, 0.2);
+}
+
+@media (min-width: 508px) {
+	#MovingArrowButtonSmallScreen{
+		display: none !important;
+	}
+	
+	#hideDrawnList {
+		display: inline-block !important;
+	}
+}
+
+@media (max-width: 508px) {
+	#MovingArrowButtonBigScreen {
+		display: none !important;
+	}
+	
+	.ct_object_list {
+		display: none !important;
+	}
+	
+	#showDrawnList {
+		display: inline-block !important;
+	}
+}

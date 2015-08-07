@@ -7,6 +7,8 @@
   height: 130px;
   background: black;
   width: 90%;
+  max-width: 219px;
+  margin: auto;
 }
 
 .path_list_title_container {
