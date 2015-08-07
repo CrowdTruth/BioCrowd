@@ -52,12 +52,10 @@
 				<div class="col span_4_of_8">
 					<div class="textblock">
 					<H1>About {{ Lang::get('gamelabels.gamename') }}</H1>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-						"At vero eos et accusamus et iusto odio dignissimos ducimus
-						qui blanditiis praesentium voluptatum deleniti atque corrupti
-						quos dolores et quas molestias excepturi sint occaecatie."
-						voluptatum deleniti atque corrupti quos dolores et quas.
-						<bold>See how you can collect points</bold></p>
+					<p>Welcome to BioCrowd, the platform that helps scientists analyse data with the help of crowdsourcing! 
+Biocrowd aims to motivate experts to do these crowdsourcing tasks by transforming the tasks into minigames. 
+The data on BioCrowd is if a biological nature. Most data annotations in BioCrowd are needed for cancer research. 
+When you start playing the minigames of BioCrowd you will be part of a community that receives points and badges all while helping cancer research along!</bold></p>
 					</div>	
 				</div>
 				<div class="col span_4_of_8">
@@ -77,9 +75,9 @@
 				<div class="col span_4_of_8">
 				<H1 class="sectiontitle"><strong>Campaigns</strong></H1>
 				<div class="textblock">
-					<p>"At vero eos et accusamus et iusto odio dignissimos ducimus
-					qui blanditiis praesentium voluptatum deleniti atque corrupti
-					quos dolores et quas molestias excepturi sint occaecatie."</p>
+					<p>Some annotations have a more pressing need to be done. This is where campaigns come in; 
+					If you do all the games of a campaign you will get a bonus score for finishing the campaign. 
+					Try the tutorial campaign, it entails playing all minigames at least once. </p>
 					</div>
 				</div>	
 			</div>
