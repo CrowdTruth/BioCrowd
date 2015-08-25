@@ -47,6 +47,7 @@ class GameController extends BaseController {
 		// Get parameter which game ?
 		$gameId = Input::get('gameId');
 		$game = Game::find($gameId);
+		$flag = Input::get('flag');
 		// Get the userId
 		$userId = Auth::user()->get()->id;
 		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
@@ -60,8 +61,11 @@ class GameController extends BaseController {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
 				$handler->processResponse($game,$campaignId);
-				//add the score to the users score column and add the score to the scores table. 
-				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+				//If the task was not flagged as skipped, give the user score.
+				if($flag != "skipped"){
+					//add the score to the users score column and add the score to the scores table. 
+					ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+				}
 			} else {
 				$handlerClass = $game->gameType->handler_class;
 				$handler = new $handlerClass();
@@ -70,8 +74,11 @@ class GameController extends BaseController {
 					// Use corresponding game controller to process request.
 					$handler->processResponse($game,$campaignId);
 				}
-				//add the score to the users score column and add the score to the scores table.
-				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+				//If the task was not flagged as skipped, give the user score. 
+				if($flag != "skipped"){
+					//add the score to the users score column and add the score to the scores table.
+					ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+				}
 			}
 		} else { 
 			$campaignId = null;
@@ -79,10 +86,17 @@ class GameController extends BaseController {
 			$handlerClass = $game->gameType->handler_class;
 			$handler = new $handlerClass();
 			$handler->processResponse($game,$campaignId);
-			//add the score to the users score column and add the score to the scores table.
-			ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+			//If the task was not flagged as skipped, give the user score.
+			if($flag != "skipped"){
+				//add the score to the users score column and add the score to the scores table.
+				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
+			}
 		}
-		return Redirect::to('playGame?gameId='.$gameId)->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
+		if($flag != "skipped"){
+			return Redirect::to('playGame?gameId='.$gameId)->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
+		} else {
+			return Redirect::to('playGame?gameId='.$gameId)->with('flag', $flag);
+		}
 	}
 	
 	function isInWhichQuantityCampaigns($game) {

@@ -156,6 +156,7 @@
 		$('#skipImageDiv').hide();
 
 		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
+		var flag = "<?php echo Session::get('flag');?>";
 		
 		if(consecutiveGame == "consecutiveGame"){
 			$('.question_active').hide();
@@ -164,6 +165,26 @@
 		} else {
 			$('#completed_game_popup').hide();
 		}
+
+		$( window ).load(function() {
+			if(flag == "skipped"){
+				$('#info_container').slideUp(500);		    	
+		    	$('#dropdown_container').slideDown(500);
+		    	$('.closeTutorial').show();
+		    	$('.startgame').hide();
+		    	$('#skipImageDiv').show();
+				$('#ribbon').css({
+					"height" : "200px",
+				});
+				$('html, body').animate({
+	                scrollTop: $("#ribbon").height()+$("#banner").height()
+	            },2000);
+				if($window.width() > 508){
+					$('#logic_container').height($('#game_container').height());
+				}
+			}
+		});
+		
 		
 		//add function to open and close the examples popup
 		$('.openExamples').on({
@@ -405,11 +426,37 @@
 	}
 	</script>
 	
+	<script>
+	function makeQuestionsNonRequired(){
+		var markingDescriptionElements = document.getElementsByClassName("markingDescription");
+		for(var i = 0; i < markingDescriptionElements.length; i++){
+			markingDescriptionElements[i].required = false;
+		}
+
+		document.getElementById("cell_number").required = false;
+		
+		var qualityDescriptionElements = document.getElementsByClassName("qualityDescription");
+		for(var i = 0; i < qualityDescriptionElements.length; i++){
+			qualityDescriptionElements[i].required = false;
+		}
+	}
+	</script>
+	
+	<script>
+	function flagThisTask(){
+		document.getElementById("flag").value="skipped";
+		
+	}
+	</script>
+	
 @stop
 
 @section('gameForm')
 @if (Session::has('consecutiveGame'))
 		<?php Session::get('consecutiveGame') ?>
+@endif
+@if (Session::has('flag'))
+		<?php Session::get('flag') ?>
 @endif
 <div class="section group" id="dropdown_container">
 	<div class="col span_8_of_8">
@@ -470,6 +517,7 @@
 									{{ Form::hidden('gameId', $gameId) }}
 									{{ Form::hidden('taskId', $taskId) }}
 									{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
+									{{ Form::hidden('flag', '', [ 'id' => 'flag' ] ) }}
 								</div>
 							</div>
 							<div id="question2" class="question" >
@@ -533,8 +581,7 @@
 							</div></td>
 							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
 						</tr>
-					</table>
-				</form>					
+					</table>					
 			</div>
 		</div>
 		<div class="section group" id="completed_game_container">
@@ -579,9 +626,9 @@
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><button class="goGameSelect"  onclick="location.href='/'">Game Select</button></td>
-				<td style="width: 33%; text-align: center;"><button class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
+				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><button type="button" class="goGameSelect"  onclick="location.href='/'">Game Select</button></td>
+				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 
 	</div>
@@ -592,9 +639,11 @@
 	<div class="col span_8_of_8">
 		<table style="width:100%">
 			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><button class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
-				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;<button class="goNextImage bioCrowdButton" title="Want to skip this image? Click here for the next one"   onclick="location.href='Game1.html'">Next image</button></div></td>
+				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
+				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
+				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse();', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				</form>
 			</tr>
 		</table>
 	</div>	

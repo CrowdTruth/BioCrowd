@@ -33,7 +33,9 @@ class ScoreController {
 		if($user->score > $maxScoreForThisLevel){
 			//if it does need to be higher, up the user's level
 			$user->level = $user->level+1;
-			$user->title = Level::where('level',$user->level)->first(['title'])['title'];
+			if(Level::where('level',$user->level)->first(['title'])['title']){
+				$user->title = Level::where('level',$user->level)->first(['title'])['title'];
+			}
 			$user->save();
 		}
 	}

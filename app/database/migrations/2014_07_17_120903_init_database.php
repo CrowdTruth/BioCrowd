@@ -131,6 +131,7 @@ class InitDatabase extends Migration {
 			$table->integer('campaign_id')->unsigned()->nullable();
 			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
 			$table->longText('response');
+			$table->string('flag')->nullable();
 			$table->timestamps();
 		});
 		

@@ -91,6 +91,7 @@ class CellExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
+		$flag = Input::get('flag');
 		$markingDescription = Input::get('markingDescription');
 		$otherExpand = Input::get('otherExpand');
 		$totalCells = Input::get('totalCells');
@@ -114,6 +115,7 @@ class CellExGameType extends GameTypeHandler {
 		$judgement->game_id = $game->id;
 		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
+		$judgement->flag = $flag;
 		$judgement->save();
 	}
 	

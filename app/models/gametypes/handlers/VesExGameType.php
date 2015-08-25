@@ -104,6 +104,7 @@ class VesExGameType extends GameTypeHandler {
 		//Put the post data into php variables
 		$userId = Auth::user()->get()->id;
 		$taskId = Input::get('taskId');
+		$flag = Input::get('flag');
 		$location = Input::get('location');
 		$markingDescription = Input::get('markingDescription');
 		$otherExpand = Input::get('otherExpand');
@@ -125,6 +126,7 @@ class VesExGameType extends GameTypeHandler {
 		$judgement->game_id = $game->id;
 		$judgement->campaign_id = $campaignId;
 		$judgement->response = $response;
+		$judgement->flag = $flag;
 		$judgement->save();
 	}
 	
