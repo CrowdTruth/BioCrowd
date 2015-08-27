@@ -62,7 +62,7 @@ class GameController extends BaseController {
 				$handler = new $handlerClass();
 				$handler->processResponse($game,$campaignId);
 				//If the task was not flagged as skipped, give the user score.
-				if($flag != "skipped"){
+				if(($flag != "skipped") && ($flag != "incomplete")){
 					//add the score to the users score column and add the score to the scores table. 
 					ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 				}
@@ -75,7 +75,7 @@ class GameController extends BaseController {
 					$handler->processResponse($game,$campaignId);
 				}
 				//If the task was not flagged as skipped, give the user score. 
-				if($flag != "skipped"){
+				if(($flag != "skipped") && ($flag != "incomplete")){
 					//add the score to the users score column and add the score to the scores table.
 					ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 				}
@@ -87,12 +87,12 @@ class GameController extends BaseController {
 			$handler = new $handlerClass();
 			$handler->processResponse($game,$campaignId);
 			//If the task was not flagged as skipped, give the user score.
-			if($flag != "skipped"){
+			if(($flag != "skipped") && ($flag != "incomplete")){
 				//add the score to the users score column and add the score to the scores table.
 				ScoreController::addScore($game->score,$userId,'You have finished Game '.$game->name.' and received a score of'.$game->score,$gameId);
 			}
 		}
-		if($flag != "skipped"){
+		if(($flag != "skipped") && ($flag != "incomplete")){
 			return Redirect::to('playGame?gameId='.$gameId)->with('consecutiveGame', $consecutiveGame)->with('score', $game->score);
 		} else {
 			return Redirect::to('playGame?gameId='.$gameId)->with('flag', $flag);

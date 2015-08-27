@@ -8,6 +8,7 @@ ct_annotate.all_rects = [];
 ct_annotate.min_size = 10; // Minimum size for an annotation to be drawn as a non-dot
 ct_annotate.mouseOverMenuItem = null;
 ct_annotate.scroll = true;
+ct_annotate.userDrew = false;
 
 /**
  * Load canvas with image to be annotated.
@@ -116,6 +117,7 @@ function ct_annotate_mouseDown(e) {
  * Finalize drawing of annotation. Add it to list of known annotations.
  */
 function ct_annotate_mouseUp(e) {
+	ct_annotate.userDrew = true;
 	ct_annotate.drag = false;
 	ct_annotate.all_rects.push([ ct_annotate.curr_rect.start_x, ct_annotate.curr_rect.start_y, 
 				ct_annotate.curr_rect.size_width, ct_annotate.curr_rect.size_height ]);
@@ -228,7 +230,7 @@ function ct_annotate_draw() {
 			ct_annotate.ctx.closePath();
 		}
 	}
-	prepareResponse();
+	prepareResponse(ct_annotate.userDrew);
 }
 
 /**
