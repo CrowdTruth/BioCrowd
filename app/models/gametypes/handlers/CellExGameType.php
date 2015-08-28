@@ -51,11 +51,21 @@ class CellExGameType extends GameTypeHandler {
 	public function getView($game) {
 		$tasks = $game->tasks;
 		$userId = Auth::user()->get()->id;
+		$gameId = $game->id;
 		// Which image to use ?
 		// Select image with minimum number of judgements from current user
 		$image = null;
 		$taskId = null;
 		$minJudgementCounts = -1;
+		
+		//Make all variables for giving the response to the cellex view
+		$markingDescription = '';
+		$otherExpand = '';
+		$totalCells = '';
+		$qualityDescription = '';
+		$comment = '';
+		$Coordinates = [];
+		
 		//First, try to pick a task out of the judgements with flag attribute "incomplete"
 		$judgements = Judgement::where('user_id','=',$userId)->where('flag', '=', 'incomplete')->get();
 		foreach($judgements as $judgement){
@@ -73,8 +83,19 @@ class CellExGameType extends GameTypeHandler {
 				}
 			}
 		}
-		//if that doesn't work (image == null), try to pick a task out of the tasks regardless of the flag attribute. 
-		if($image == null){
+		//if the image is not null, the task that will be given to the cellEx is incomplete
+		//and we need to pass the existing information in the DB to the cellEx view. 
+		if($image != null){
+			$judgement = Judgement::where('user_id', $userId)->where('task_id', $taskId)->where('flag', 'incomplete')->orderBy('id', 'DESC')->first();
+			$response = unserialize($judgement->response);
+			$markingDescription = $response['markingDescription'];
+			$otherExpand = $response['otherExpand'];
+			$totalCells = $response['totalCells'];
+			$qualityDescription = $response['qualityDescription'];
+			$comment = $response['comment'];
+			$Coordinates = $response['Coordinates'];
+		} else {
+		//if the image is null, try to pick a task out of the tasks regardless of the flag attribute. 
 			foreach ($tasks as $task) {
 				$nJudgements = Judgement::where('task_id','=',$task->id)
 										->where('user_id','=',$userId)->count();
@@ -101,7 +122,13 @@ class CellExGameType extends GameTypeHandler {
 			->with('examples', $game->examples)
 			->with('steps', $game->steps)
 			->with('image', $image)
-			->with('responseLabel', $responseLabel);
+			->with('responseLabel', $responseLabel)
+			->with('markingDescription', $markingDescription)
+			->with('otherExpand', $otherExpand)
+			->with('totalCells', $totalCells)
+			->with('qualityDescription', $qualityDescription)
+			->with('comment', $comment)
+			->with('Coordinates', $Coordinates);
 	}
 	
 	/**
@@ -114,6 +141,8 @@ class CellExGameType extends GameTypeHandler {
 		$gameId = $game->id;
 		$flag = Input::get('flag');
 		$userDrew = Input::get('userDrew');
+		$otherExpandWasChanged = Input::get('otherExpandWasChanged');
+		$commentWasChanged = Input::get('commentWasChanged');
 		$markingDescription = Input::get('markingDescription');
 		$otherExpand = Input::get('otherExpand');
 		$totalCells = Input::get('totalCells');
@@ -129,11 +158,11 @@ class CellExGameType extends GameTypeHandler {
 		$tempCoords = json_decode(Input::get('response'));
 		//If the user Drew in this instance, and removed all drawings (removing counts as drawing too)
 		//and if the tempCoords is empty, set the tempCoords to null.
-		if($userDrew && $tempCoords == []){
+		if(($userDrew != 'false') && ($tempCoords == [])){
 			$tempCoords = null;
 		}
 		$responseArray["Coordinates"] = $tempCoords;
-		Log::error($responseArray);
+		Log::error($tempCoords);
 		$response = $this->encodeJudgement($responseArray);
 		
 		if($flag != 'incomplete') {
@@ -143,9 +172,14 @@ class CellExGameType extends GameTypeHandler {
 			if($existingJudgement){
 				$oldResponseArray = $this->decodeJudgement($existingJudgement->response);
 				$newResponseArray = $this->makeNewResponseArray($responseArray, $oldResponseArray);
-				if(($userDrew) && ($tempCoords == null)){
+				if(($userDrew != 'false') && ($tempCoords == null)){
 					$newResponseArray["Coordinates"] = $tempCoords;
-					Log::error('complete');
+				}
+			if(($otherExpandWasChanged != 'false') && ($otherExpand == "")){
+					$newResponseArray["otherExpand"] = $otherExpand;
+				}
+				if(($commentWasChanged != 'false') && ($comment == "")){
+					$newResponseArray["comment"] = $comment;
 				}
 				$newResponse = $this->encodeJudgement($newResponseArray);
 				$existingJudgement->response = $newResponse;
@@ -170,9 +204,14 @@ class CellExGameType extends GameTypeHandler {
 			if($existingJudgement){
 				$oldResponseArray = $this->decodeJudgement($existingJudgement->response);
 				$newResponseArray = $this->makeNewResponseArray($responseArray, $oldResponseArray);
-				if(($userDrew) && ($tempCoords == null)){
+				if(($userDrew != 'false') && ($tempCoords == null)){
 					$newResponseArray["Coordinates"] = $tempCoords;
-					Log::error('incomplete');
+				}
+				if(($otherExpandWasChanged != 'false') && ($otherExpand == "")){
+					$newResponseArray["otherExpand"] = $otherExpand;
+				}
+				if(($commentWasChanged != 'false') && ($comment == "")){
+					$newResponseArray["comment"] = $comment;
 				}
 				$newResponse = $this->encodeJudgement($newResponseArray);
 				$existingJudgement->response = $newResponse;

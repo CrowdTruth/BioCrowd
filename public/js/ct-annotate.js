@@ -77,6 +77,7 @@ ct_annotate.getAnnotations = function () {
  * Remove the last annotation made.
  */
 ct_annotate.removeLast = function () {
+	ct_annotate.userDrew = true;
 	ct_annotate.all_rects.pop();
 	ct_annotate_draw();
 	ct_annotate_createMenuItems();
@@ -88,6 +89,7 @@ ct_annotate.removeLast = function () {
  * Remove the n-th annotation made.
  */
 ct_annotate.removeN = function (n) {
+	ct_annotate.userDrew = true;
 	ct_annotate.all_rects.splice(n, 1);
 	ct_annotate_draw();
 	// Notify of removed annotation
@@ -124,6 +126,16 @@ function ct_annotate_mouseUp(e) {
 	ct_annotate_draw();
 	ct_annotate_createMenuItems();
 	// Notify of new annotation
+	ct_annotate.canvas.dispatchEvent(new Event('annotationChanged'));
+}
+
+ct_annotate.loadAnnotations = function (coordinates) {
+	for(var i=0; i < coordinates.length; i++){
+		ct_annotate.all_rects.push([ coordinates[i][0], coordinates[i][1], 
+		                             coordinates[i][2], coordinates[i][3] ]);
+	}
+	ct_annotate_createMenuItems();
+	ct_annotate_draw();
 	ct_annotate.canvas.dispatchEvent(new Event('annotationChanged'));
 }
 
@@ -187,7 +199,7 @@ function ct_annotate_draw() {
 		ct_annotate.ctx.stroke();
 		ct_annotate.ctx.closePath();
 	} else {
-		//if there is menu item being moused over, first draw the red shapes (moused over)
+		//if there is a menu item being moused over, first draw the red shapes (moused over)
 		if(ct_annotate.mouseOverMenuItem != null){
 			//draw the shape that is moused over in the menu (red)
 			for(var i=0; i<ct_annotate.all_rects.length; i++){
