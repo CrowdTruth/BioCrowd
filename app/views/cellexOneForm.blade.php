@@ -31,19 +31,13 @@
 	function expandOtherTextArea() {
 		if(annotationForm.other.checked == false){
 			document.getElementById("hiddenOtherExpand").style.display = "none";
+			document.getElementById('otherExpand').value = "";
+			otherExpandWasChanged = true;
+			var input = $("#otherExpand").val();
+			var attribute = 'otherExpand';
+			updateDB(attribute, input);
 		} else {
 			document.getElementById("hiddenOtherExpand").style.display = "block";
-		}
-	}
-	
-	/**
-	* Show the TextArea for "Comment" in the annotationForm
-	*/
-	function showCommentForm() {
-		if(annotationForm.commentFormPlease.checked == false){
-			document.getElementById("hiddenCommentForm").style.display = "none";
-		} else {
-			document.getElementById("hiddenCommentForm").style.display = "block";
 		}
 	}
 	
@@ -63,11 +57,16 @@
 	/**
 	 * Prepare response to be submitted.
 	 */
-	function prepareResponse() {
+	function prepareResponse(updateDB) {
 		response = ct_annotate.getAnnotations();
 		response = JSON.stringify(response);
 		$('#response').val(response);
 		calculateProgressPercentage();
+		if(updateDB){
+			var input = response;
+			var attribute = 'response';
+	    	this.updateDB(attribute, input);
+		}
 	}
 	
 	$(document).ready(function(){
@@ -149,12 +148,10 @@
 	</script>
 	
 	<script>
-	debugger;
 	//hides all the question divs, and shows the currently active one 
 	//hides the buttons for back to marking and back to previous question
 	//hides the completed game screen div
 	$(document).ready(function() {
-		debugger;
 		$('.goMarking').hide();
 		$('.goPreviousQuestion').hide();
 		$('.goNextQuestion').hide();
@@ -191,6 +188,38 @@
 					$('#logic_container').height($('#game_container').height());
 				}
 			}
+		});
+
+		$(".markingDescription").change(function() {
+		    var input = $('.markingDescription:checked').attr('value');
+		    var attribute = 'markingDescription';
+		    updateDB(attribute, input);
+		});
+
+		$("#otherExpand").keyup(function() {
+			otherExpandWasChanged = true;
+		    var input = $(this).val();
+		    var attribute = 'otherExpand';
+		    updateDB(attribute, input);
+		});
+
+		$("#cell_number").keyup(function() {
+		    var input = $(this).val();
+		    var attribute = 'totalCells';
+		    updateDB(attribute, input);
+		});
+
+		$(".qualityDescription").change(function() {
+		    var input = $('.qualityDescription:checked').attr('value');
+		    var attribute = 'qualityDescription';
+		    updateDB(attribute, input);
+		});
+
+		$("#comment").keyup(function() {
+			commentWasChanged = true;
+		    var input = $(this).val();
+		    var attribute = 'comment';
+		    updateDB(attribute, input);
 		});
 		
 		//add function to open and close the examples popup
@@ -269,6 +298,9 @@
 			}
 		    change( 1 );
 		    calculateProgressPercentage();
+		    var input = el.val();
+		    var attribute = 'totalCells';
+		    updateDB(attribute, input);
 		  } );
 		  $('#remove').click( function() {
 			if(el.val() == ""){
@@ -276,6 +308,9 @@
 			}
 		    change( -1 );
 		    calculateProgressPercentage();
+		    var input = el.val();
+		    var attribute = 'totalCells';
+		    updateDB(attribute, input);
 		  } );
 		  
 		  $('#add').mouseup(function () {
@@ -357,6 +392,44 @@
 			document.getElementById("flag").value="skipped";
 		}
 		</script>
+		
+		<script>
+		function updateDB(attribute, input){
+			var gameId = "<?php echo $gameId?>";
+			var taskId = "<?php echo $taskId?>";
+			var campaignIdArray = "<?php echo serialize($campaignIdArray);?>";
+			$.ajax({   
+				type: 'POST',   
+				url: 'submitGame', 
+				data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&userDrew='+ct_annotate.userDrew+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
+			});
+		}
+		</script>
+		
+		<script>
+		$(document).ready(function() {
+			otherExpandWasChanged = false;
+			commentWasChanged = false;
+			//set the variables of the radio boxes
+			var markingDescription = "<?php echo $markingDescription;?>";
+			if(document.getElementById(markingDescription)){
+				document.getElementById(markingDescription).checked = true;
+			}
+			if(annotationForm.other.checked == true){
+				document.getElementById("hiddenOtherExpand").style.display = "block";
+			}
+			var qualityDescription = "<?php echo $qualityDescription;?>";
+			if(document.getElementById(qualityDescription)){
+				document.getElementById(qualityDescription).checked = true;
+			}
+	
+			$( window ).load(function() {
+				//load the coordinates into the canvas
+				var Coordinates = <?php echo json_encode($Coordinates);?>;
+				ct_annotate.loadAnnotations(Coordinates);
+			});
+		});
+		</script>
 	
 @stop
 
@@ -400,18 +473,18 @@
 						<div class="textblock">
 							<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div id="markingDescription">
-								{{ Form::radio('markingDescription', 'allCells', false , ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
+								{{ Form::radio('markingDescription', 'allCells', false, ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
 								{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
-								{{ Form::radio('markingDescription', 'tooManyCells', false , ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'tooManyCells', false, ['id' => 'tooManyCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('tooManyCells', $responseLabel[2]) }} <BR/>
-								{{ Form::radio('markingDescription', 'noCells', false , [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'noCells', false, [ 'id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('noCells', $responseLabel[3]) }} <BR/>
-								{{ Form::radio('markingDescription', 'other', false , [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+								{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount();expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 								{{ Form::label('other', $responseLabel[4]) }}<BR/>
 								<div id="hiddenOtherExpand" style="display: none">
 									<BR/>
 									{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-									{{ Form::textarea('otherExpand') }}
+									{{ Form::textarea('otherExpand', $otherExpand) }}
 								</div>
 							</div>
 						</div>
@@ -424,7 +497,7 @@
 						<div align="center">
 						<ul id="cell_counter" style="-webkit-margin-before: 0em; -webkit-margin-after: 0em;">
 						<li><img id="remove" class="cell_increment" src="img/game_images/images_question-08.png" alt="increment down" width="30px"></li>
-						<li>{{Form::number('totalCells','',['required', 'id' => 'cell_number'])}}</li>
+						<li>{{Form::number('totalCells',$totalCells,['required', 'id' => 'cell_number'])}}</li>
 						<li><img id="add" class="cell_increment"  src="img/game_images/images_question-06.png" alt="increment up"  width="30px"></li>
 						</ul>
 						</div>							
@@ -450,7 +523,7 @@
 							<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 							<div id="commentForm">
 								{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-								{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
+								{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
 							</div>
 						</div>
 					</div>
@@ -458,7 +531,7 @@
 					<tr>				
 						<td style="width: 33%; text-align: center;"><button type='button' class="goMarking">Back to Marking</button></td>
 						<td style="width: 33%; text-align: center;"><button type='button' class="goPreviousQuestion">Previous Question</button></td>
-						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'OnClick' => 'prepareResponse();' ]) }}</td>
+						<td style="width: 33%; text-align: center;"><button type='button' class="goNextQuestion">Next Question</button>{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'OnClick' => 'prepareResponse(false);' ]) }}</td>
 					</tr>
 				</table>						
 			</div>
@@ -535,7 +608,7 @@
 				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
 				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse();', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 			</tr>
 		</table>
 	</div>	

@@ -169,7 +169,6 @@
 		var flag = "<?php echo Session::get('flag');?>";
 		
 		if(consecutiveGame == "consecutiveGame"){
-			$('.question_active').hide();
 			$('#info_container').hide();
 			$('#completed_game_popup').show();
 		} else {
@@ -526,9 +525,11 @@
 			document.getElementById(qualityDescription).checked = true;
 		}
 
-		//load the coordinates into the canvas
-		var Coordinates = <?php echo json_encode($Coordinates);?>;
-		ct_annotate.loadAnnotations(Coordinates);
+		$( window ).load(function() {
+			//load the coordinates into the canvas
+			var Coordinates = <?php echo json_encode($Coordinates);?>;
+			ct_annotate.loadAnnotations(Coordinates);
+		});
 	});
 	</script>
 	
