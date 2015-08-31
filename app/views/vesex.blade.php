@@ -17,9 +17,16 @@ function formExtention(){
 function setFormItem(value){
 	//set the value of the hidden form item "location"
 	document.getElementById("location").value = value;
-
+	
 	//set the submitbutton to enabled
 	document.getElementById("disabledSubmitButtonVesEx").disabled = false;
+
+	//only send the location to the database if it was changed. 
+	if(locationWasChanged){
+		var input = $('#location').attr('value');
+		var attribute = 'location';
+		updateDB(attribute, input);
+	}
 
 	//set the border color of all children to white
 	var childrenArray = document.getElementById("vesicleClassificationButtonsList").children;
@@ -39,11 +46,14 @@ function updateDisabledSubmitButtonVesEx() {
 	if((annotationForm.noCells.checked == false) && 
 		(annotationForm.noImage.checked == false) && 
 		(annotationForm.blankImage.checked == false) &&
-		(annotationForm.other.checked == false)) {
+		(annotationForm.other.checked == false) &&
+		(document.getElementById("location").value == "")) {
 		//If the "noCells" checkbox, the "noImgae" checkbox, the "blankImage" checkbox and the "other" checkbox are unchecked, disable the submit button
 		document.getElementById("disabledSubmitButtonVesEx").disabled = true;
+		return false;
 	} else {
 		document.getElementById("disabledSubmitButtonVesEx").disabled = false;
+		return false;
 	}
 }
 
@@ -53,6 +63,11 @@ function updateDisabledSubmitButtonVesEx() {
 function expandOtherTextArea() {
 	if(annotationForm.other.checked == false){
 		document.getElementById("hiddenOtherExpand").style.display = "none";
+		document.getElementById('otherExpand').value = "";
+		otherExpandWasChanged = true;
+		var input = $("#otherExpand").val();
+		var attribute = 'otherExpand';
+		updateDB(attribute, input);
 	} else {
 		document.getElementById("hiddenOtherExpand").style.display = "block";
 	}
@@ -63,6 +78,8 @@ $(document).ready(function(){
 });
 
 window.onload = function() {
+	//when loading, tell the css what the location value is and calculate the progress percentage. 
+	//If the page reloads in Firefox this is needed. 
 	setFormItem(document.getElementById("location").value);
 	calculateProgressPercentage();
 };
@@ -116,6 +133,32 @@ window.onload = function() {
 		$('#completed_game_popup').hide();
 		$('.examplePopup').hide();
 		$('#skipImageDiv').hide();
+		
+		$(".markingDescription").change(function() {
+		    var input = $('.markingDescription:checked').attr('value');
+		    var attribute = 'markingDescription';
+		    updateDB(attribute, input);
+		});
+
+		$("#otherExpand").keyup(function() {
+			otherExpandWasChanged = true;
+		    var input = $(this).val();
+		    var attribute = 'otherExpand';
+		    updateDB(attribute, input);
+		});
+
+		$(".qualityDescription").change(function() {
+		    var input = $('.qualityDescription:checked').attr('value');
+		    var attribute = 'qualityDescription';
+		    updateDB(attribute, input);
+		});
+
+		$("#comment").keyup(function() {
+			commentWasChanged = true;
+		    var input = $(this).val();
+		    var attribute = 'comment';
+		    updateDB(attribute, input);
+		});
 
 		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
 		var flag = "<?php echo Session::get('flag');?>";
@@ -253,7 +296,6 @@ window.onload = function() {
 	</script>
 	
 	<script>
-	debugger;
 		function calculateProgressPercentage(){
 			var totalAmountOfQuestions = 4;
 			var calculateAnsweredFormItems = this.calculateAnsweredFormItems();
@@ -345,6 +387,46 @@ window.onload = function() {
 		document.getElementById("flag").value="skipped";
 	}
 	</script>
+	
+	<script>
+	function updateDB(attribute, input){
+		var gameId = "<?php echo $gameId?>";
+		var taskId = "<?php echo $taskId?>";
+		var campaignIdArray = "<?php echo serialize($campaignIdArray);?>";
+		$.ajax({   
+			type: 'POST',   
+			url: 'submitGame', 
+			data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
+		});
+	}
+	</script>
+	
+	<script>
+	$(document).ready(function() {
+		locationWasChanged = false;
+		otherExpandWasChanged = false;
+		commentWasChanged = false;
+		//set the variables of the radio boxes
+		var markingDescription = "<?php echo $markingDescription;?>";
+		if(document.getElementById(markingDescription)){
+			document.getElementById(markingDescription).checked = true;
+		}
+		if(annotationForm.other.checked == true){
+			document.getElementById("hiddenOtherExpand").style.display = "block";
+		}
+		var qualityDescription = "<?php echo $qualityDescription;?>";
+		if(document.getElementById(qualityDescription)){
+			document.getElementById(qualityDescription).checked = true;
+		}
+	});
+	</script>
+	
+	<script>
+	function setLocationWasChangedToTrue(){
+		locationWasChanged = true;
+	}
+	</script>
+	
 @stop
 
 @section('gameForm')
@@ -402,22 +484,21 @@ window.onload = function() {
 									<BR>
 									<div class='vesicleClassificationButtons'>
 										<ul id='vesicleClassificationButtonsList'> <!-- TO DO: make the images vertical align bottom, so the BRs are no longer necessary -->
-											<li width='88px' id='clustered'>Clustered<BR/><img style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg' onmousedown='setFormItem("clustered"), calculateProgressPercentage()'></li>
-											<li width='88px' id='tip'>Tip<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg' onmousedown='setFormItem("tip"), calculateProgressPercentage()'></li>
-											<li width='88px' id='fog'>Fog<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg' onmousedown='setFormItem("fog"), calculateProgressPercentage()'></li>
-											<li width='88px' id='sideNucleus'>{{$responseLabel[1]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg' onmousedown='setFormItem("sideNucleus"), calculateProgressPercentage()'></li>
-											<li width='88px' id='ringAroundNucleus'>{{$responseLabel[2]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg' onmousedown='setFormItem("ringAroundNucleus"), calculateProgressPercentage()'></li>
-											<li width='88px' id='black'>Black<BR/><img style='padding:5px' src='img/VesExButtonIcons/Black.jpg' onmousedown='setFormItem("black"), calculateProgressPercentage()'></li>
-											<li width='88px' id='noneOfThese'>None of these<BR/><img id='noneOfThese' style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg' onmousedown='setFormItem("noneOfThese"), calculateProgressPercentage()'></li>
-											<li width='88px' id='noImage'>No image<BR/><img style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg' onmousedown='setFormItem("noImage"), calculateProgressPercentage()'></li>
-											<li width='88px' id='dontKnow'>I don't know<BR/><img style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg' onmousedown='setFormItem("dontKnow"), calculateProgressPercentage()'></li>
+											<li width='88px' id='clustered'>Clustered<BR/><img style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("clustered"), calculateProgressPercentage()'></li>
+											<li width='88px' id='tip'>Tip<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("tip"), calculateProgressPercentage()'></li>
+											<li width='88px' id='fog'>Fog<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("fog"), calculateProgressPercentage()'></li>
+											<li width='88px' id='sideNucleus'>{{$responseLabel[1]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("sideNucleus"), calculateProgressPercentage()'></li>
+											<li width='88px' id='ringAroundNucleus'>{{$responseLabel[2]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("ringAroundNucleus"), calculateProgressPercentage()'></li>
+											<li width='88px' id='black'>Black<BR/><img style='padding:5px' src='img/VesExButtonIcons/Black.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("black"), calculateProgressPercentage()'></li>
+											<li width='88px' id='noneOfThese'>None of these<BR/><img id='noneOfThese' style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("noneOfThese"), calculateProgressPercentage()'></li>
+											<li width='88px' id='noImage'>No image<BR/><img style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("noImage"), calculateProgressPercentage()'></li>
+											<li width='88px' id='dontKnow'>I don't know<BR/><img style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("dontKnow"), calculateProgressPercentage()'></li>
 										</ul>
 								    </div>
 									<div style="display:none;">
 										{{ Form::hidden('gameId', $gameId) }}
 										{{ Form::hidden('taskId', $taskId) }}
-										{{ Form::hidden('response','', [ 'id' => 'response' ] ) }}
-										{{ Form::hidden('location', '', ['id' => 'location']) }}
+										{{ Form::hidden('location', $location, ['id' => 'location']) }}
 										{{ Form::hidden('flag', '', [ 'id' => 'flag' ] ) }}
 									</div>
 								</div>
@@ -436,7 +517,7 @@ window.onload = function() {
 										<div id="hiddenOtherExpand" style="display: none">
 											<BR/>
 											{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-											{{ Form::textarea('otherExpand') }}
+											{{ Form::textarea('otherExpand', $otherExpand) }}
 										</div>
 									</div>
 								</div>
@@ -461,7 +542,7 @@ window.onload = function() {
 										<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
 										<div id="commentForm">
 											{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-											{{ Form::textarea('comment', '', ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
+											{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
 										</div>
 										{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop()']) }}
 									</div>
@@ -529,7 +610,7 @@ window.onload = function() {
 				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
 				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse();', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask()', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 			</tr>
 		</table>
 	</div>	

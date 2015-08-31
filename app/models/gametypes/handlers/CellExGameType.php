@@ -234,7 +234,6 @@ class CellExGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function makeNewResponseArray($response, $oldResponse){
-		//TODO: add a flag to decide whether to override the coordinates attribute because the user removed all coordinates. 
 		$newResponse = $oldResponse;
 		foreach($response as $responseAttribute => $value){
 			if($value != null){

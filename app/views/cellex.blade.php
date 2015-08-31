@@ -510,9 +510,7 @@
 	</script>
 	
 	<script>
-	debugger;
 	$(document).ready(function() {
-		debugger;
 		otherExpandWasChanged = false;
 		commentWasChanged = false;
 		//set the variables of the radio boxes
@@ -520,8 +518,7 @@
 		if(document.getElementById(markingDescription)){
 			document.getElementById(markingDescription).checked = true;
 		}
-		var otherExpand = "<?php echo $otherExpand;?>";
-		if(otherExpand != ""){
+		if(annotationForm.other.checked == true){
 			document.getElementById("hiddenOtherExpand").style.display = "block";
 		}
 		var qualityDescription = "<?php echo $qualityDescription;?>";
