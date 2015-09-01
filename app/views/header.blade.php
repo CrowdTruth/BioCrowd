@@ -15,7 +15,7 @@
 		@if (!Auth::user()->check())
 		<div id="bannerlogin" >
 			<input class="button login" id="login" name="" type="button" value="Login"/>
-			<div class="popup login triangle-isosceles top" align="center">
+			<div class="popup login login_triangle top" align="center">
 				<div align="right" class="nodeclink2">
 					<a href="#" class="close " style="">X</a>
 				</div>
@@ -41,7 +41,7 @@
 			<input class="button signup" id="signup" name="" type="button" value="Sign up"/>
 
 
-			<div class="popup signup triangle-isosceles top" align="center">
+			<div class="popup signup signup_triangle top" align="center">
 				<div align="right" class="nodeclink2">
 					<a href="#" class="close " style="">X</a>
 				</div>

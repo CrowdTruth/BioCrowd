@@ -184,7 +184,7 @@
 
 	/* text boxes
 	creates triangle */
-	.triangle-isosceles {
+	.signup_triangle {
 		position: relative;
 		padding: 15px;
 		margin: 1em 0 3em;
@@ -194,7 +194,7 @@
 		border-radius: 10px;
 	}
 	
-	.triangle-isosceles:after {
+	.signup_triangle:after {
 		content: "";
 		position: absolute;
 		bottom: -15px; /* value = - border-top-width - border-bottom-width */
@@ -208,9 +208,43 @@
 		width: 0;
 	}
 	
-	.triangle-isosceles.top:after {
+	.signup_triangle.top:after {
 		top: -15px; /* value = - border-top-width - border-bottom-width */
 		right: 50px; /* controls horizontal position */
+		bottom: auto;
+		left: auto;
+		border-width: 0 15px 15px;
+		/* vary these values to change the angle of the vertex */
+		border-color: white transparent;
+	}
+	
+	.login_triangle {
+		position: relative;
+		padding: 15px;
+		margin: 1em 0 3em;
+		color: #000;
+		-webkit-border-radius: 10px;
+		-moz-border-radius: 10px;
+		border-radius: 10px;
+	}
+	
+	.login_triangle:after {
+		content: "";
+		position: absolute;
+		bottom: -15px; /* value = - border-top-width - border-bottom-width */
+		left: 5px; /* controls horizontal position */
+		border-width: 15px 15px 0;
+		/* vary these values to change the angle of the vertex */
+		border-style: solid;
+		border-color: #f3961c transparent;
+		/* reduce the damage in FF3.0 */
+		display: block;
+		width: 0;
+	}
+	
+	.login_triangle.top:after {
+		top: -15px; /* value = - border-top-width - border-bottom-width */
+		right: 139px; /* controls horizontal position */
 		bottom: auto;
 		left: auto;
 		border-width: 0 15px 15px;

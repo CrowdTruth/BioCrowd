@@ -114,6 +114,7 @@
 				});
 			});
 			$(".button.signup").click(function(e) {
+				$(".popup").hide();
 				$("body").append('');
 				$(".popup.signup").show();
 				$(".close").click(function(e) {
