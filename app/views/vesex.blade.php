@@ -445,27 +445,11 @@ window.onload = function() {
 		</div>
 		<div class="section group" id="game_container">
 			<div class="col span_3_of_8" id="logic_container" align="center">
-			<table style="height:100%;">
-				<tr>
-					<td style="width:1%;"><button type="button" style="width: auto;" class="bioCrowdButton goPreviousQuestion"><</button></td>
-					<td>
-						<?php $imageWidth = getimagesize($image)[0];
-							$imageHeight = getimagesize($image)[1];
-							$maxWidth = 810;
-							$maxHeight = 420;?>
-							@if(($imageWidth > $maxWidth) && ($imageHeight > $maxHeight)) 
-								@if($imageWidth >= $imageHeight)
-									<img id="annotatableImage" src="{{ $image }}" width="810px" />
-								@elseif($imageHeight >= $imageWidth)
-									<img id="annotatableImage" src="{{ $image }}" height="420px" />
-								@endif
-							@elseif($imageWidth > $maxWidth)
-								<img id="annotatableImage" src="{{ $image }}" width="810px" />
-							@elseif($imageHeight > $maxHeight)
-								<img id="annotatableImage" src="{{ $image }}" height="420px" />
-							@else
-								<img id="annotatableImage" src="{{ $image }}" />
-							@endif
+				<table style="height:100%;">
+					<tr>
+						<td style="width:1%;"><button type="button" style="width: auto;" class="bioCrowdButton goPreviousQuestion"><</button></td>
+						<td>
+							<img id="annotatableImage" src="{{ $image }}" width="100%" />
 						</td>
 						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
 					</tr>
