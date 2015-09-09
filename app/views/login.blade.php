@@ -52,10 +52,12 @@
 				<div class="col span_4_of_8">
 					<div class="textblock">
 					<H1>About {{ Lang::get('gamelabels.gamename') }}</H1>
-					<p>Welcome to BioCrowd, the platform that helps scientists analyse data with the help of crowdsourcing! 
-Biocrowd aims to motivate experts to do these crowdsourcing tasks by transforming the tasks into minigames. 
-The data on BioCrowd is if a biological nature. Most data annotations in BioCrowd are needed for cancer research. 
-When you start playing the minigames of BioCrowd you will be part of a community that receives points and badges all while helping cancer research along!</bold></p>
+					<p>BioCrowd is a crowdsourcing platform where biology experts annotate microscopic images. Different annotation tasks 
+					are represented in various mini-games, such as counting of cells, localization of colonies and classification of vesicle locations. 
+					These are domain specific tasks that require expertise beyond what the general crowd can provide. We employ a variety of gaming 
+					elements such as badges, points and levels in order to motivate and optimize the experts effort. BioCrowd is part of our CrowdTruth 
+					pipeline where machine processing, paid crowdsourcing and nichesourcing come together. BioCrowd aims to engage an active community 
+					of experts, to advance biology and specifically cancer research.</bold></p>
 					</div>	
 				</div>
 				<div class="col span_4_of_8">
