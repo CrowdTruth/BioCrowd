@@ -11,7 +11,7 @@ class DevelopDBSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 		
-		$this->createTestUsers();
+		//$this->createTestUsers();
 		
 		// Install games separately ?
 		$controller = new GameAdminController;

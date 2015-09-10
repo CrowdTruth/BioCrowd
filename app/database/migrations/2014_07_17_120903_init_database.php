@@ -12,7 +12,7 @@ class InitDatabase extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('users', function($table)
+		/*Schema::create('users', function($table)
 		{
 			$table->increments('id');
 			$table->string('email')->unique();
@@ -25,7 +25,7 @@ class InitDatabase extends Migration {
 			$table->string('expertise')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
-		});
+		});*/
 
 		Schema::create('admin_users', function($table)
 		{
@@ -245,6 +245,6 @@ class InitDatabase extends Migration {
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');
 		Schema::drop('admin_permissions');
-		Schema::drop('users');
+		//Schema::drop('users');
 	}
 }
