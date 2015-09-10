@@ -392,12 +392,12 @@ window.onload = function() {
 	function updateDB(attribute, input){
 		var gameId = "<?php echo $gameId?>";
 		var taskId = "<?php echo $taskId?>";
-		
-		//$.ajax({   
-		//	type: 'POST',   
-		//	url: 'submitGame', 
-		//	data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
-		//});
+		var campaignIdArray = "<?php echo serialize($campaignIdArray);?>";
+		$.ajax({   
+			type: 'POST',   
+			url: 'submitGame', 
+			data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
+		});
 	}
 	</script>
 	
