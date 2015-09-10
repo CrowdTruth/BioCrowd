@@ -53,9 +53,11 @@ class GameController extends BaseController {
 		try{
 			$campaignIdArray = unserialize(Input::get('campaignIdArray'));
 			Log::error('unserialized');
+			Log::error($campaignIdArray);
 		} catch(Exception $e){
-			$campaignIdArray = json_decode(Input::get('campaignIdArray'));
+			$campaignIdArray = unserialize(json_decode(Input::get('campaignIdArray')));
 			Log::error('json_decoded');
+			Log::error($campaignIdArray);
 		}
 		$consecutiveGame = 'consecutiveGame';
 		

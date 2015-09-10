@@ -397,7 +397,7 @@
 		function updateDB(attribute, input){
 			var gameId = "<?php echo $gameId?>";
 			var taskId = "<?php echo $taskId?>";
-			var campaignIdArray = "<?php echo json_encode($campaignIdArray);?>";
+			var campaignIdArray = "<?php echo serialize($campaignIdArray);?>";
 			$.ajax({   
 				type: 'POST',   
 				url: 'submitGame', 
