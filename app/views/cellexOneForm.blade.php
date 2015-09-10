@@ -512,7 +512,7 @@
 							{{ Form::label('medium', 'Medium') }} <BR/>
 							{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('poor', 'Poor') }} <BR/>
-							{{ Form::radio('qualityDescription', 'blank', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+							{{ Form::radio('qualityDescription', 'blankImage', false, [ 'id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
 							{{ Form::radio('qualityDescription', 'noImage', false, [ 'id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 							{{ Form::label('noImage', 'No Image') }}
