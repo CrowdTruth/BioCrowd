@@ -393,11 +393,12 @@ window.onload = function() {
 		var gameId = "<?php echo $gameId?>";
 		var taskId = "<?php echo $taskId?>";
 		var campaignIdArray = "<?php echo serialize($campaignIdArray);?>";
-		$.ajax({   
-			type: 'POST',   
-			url: 'submitGame', 
-			data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
-		});
+		//$.ajax({   
+		//	type: 'POST',   
+		//	url: 'submitGame', 
+		//	data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
+		//});
+		alert(updateDB works now);
 	}
 	</script>
 	
