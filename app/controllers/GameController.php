@@ -50,7 +50,13 @@ class GameController extends BaseController {
 		$flag = Input::get('flag');
 		// Get the userId
 		$userId = Auth::user()->get()->id;
-		$campaignIdArray = unserialize(Input::get('campaignIdArray'));
+		try{
+			$campaignIdArray = unserialize(Input::get('campaignIdArray'));
+			Log::error('unserialized');
+		} catch(Exception $e){
+			$campaignIdArray = json_decode(Input::get('campaignIdArray'));
+			Log::error('json_decoded');
+		}
 		$consecutiveGame = 'consecutiveGame';
 		
 		if($campaignIdArray){
