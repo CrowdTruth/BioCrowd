@@ -392,7 +392,7 @@ window.onload = function() {
 	function updateDB(attribute, input){
 		var gameId = "<?php echo $gameId?>";
 		var taskId = "<?php echo $taskId?>";
-		var campaignIdArray = JSON.stringify("<?php echo serialize($campaignIdArray);?>");
+		var campaignIdArray = "<?php echo implode(",", $campaignIdArray);?>";
 		$.ajax({   
 			type: 'POST',   
 			url: 'submitGame', 
