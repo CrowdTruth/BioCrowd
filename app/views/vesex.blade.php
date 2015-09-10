@@ -398,7 +398,6 @@ window.onload = function() {
 		//	url: 'submitGame', 
 		//	data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
 		//});
-		alert(updateDB works now);
 	}
 	</script>
 	
