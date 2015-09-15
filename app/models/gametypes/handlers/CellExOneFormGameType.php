@@ -117,7 +117,7 @@ public function getView($game) {
 		return View::make('cellexOneForm')
 			->with('gameId', $game->id)
 			->with('taskId', $taskId)
-			->with('gameName', $game->name)
+			->with('gameName', $game->tag)
 			->with('instructions', $game->instructions)
 			->with('examples', $game->examples)
 			->with('steps', $game->steps)
