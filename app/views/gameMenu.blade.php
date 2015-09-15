@@ -27,7 +27,7 @@
 							</div>
 						@else
 							<div class='col-xs-6' style='background:none; margin-bottom:10px; margin-top:10px;'>
-								<a href="" style="color:#333"><center><img class='gameIconDis' src='{{{ $item['image'] }}}'><br />{{{ $item['text'] }}}</img></center></a>
+								<div style="color:#333"><center><img class='gameIconDis' src='{{{ $item['image'] }}}'><br />{{{ $item['text'] }}}</img></center></div>
 							</div>
 						@endif
 					@endforeach
