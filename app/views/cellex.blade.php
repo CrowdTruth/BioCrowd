@@ -726,7 +726,7 @@
 				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
 				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Game Select</button></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Next image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				{{ Form::submit('Skip image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 				</form>
 			</tr>
 		</table>
