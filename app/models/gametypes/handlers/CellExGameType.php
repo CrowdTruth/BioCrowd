@@ -162,7 +162,6 @@ class CellExGameType extends GameTypeHandler {
 			$tempCoords = null;
 		}
 		$responseArray["Coordinates"] = $tempCoords;
-		Log::error($tempCoords);
 		$response = $this->encodeJudgement($responseArray);
 		
 		if($flag != 'incomplete') {
