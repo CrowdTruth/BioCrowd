@@ -232,19 +232,6 @@ class CellExGameType extends GameTypeHandler {
 	/**
 	 * See GameTypeHandler
 	 */
-	public function makeNewResponseArray($response, $oldResponse){
-		$newResponse = $oldResponse;
-		foreach($response as $responseAttribute => $value){
-			if($value != null){
-				$newResponse[$responseAttribute] = $value;
-			}
-		}
-		return $newResponse;
-	}
-	
-	/**
-	 * See GameTypeHandler
-	 */
 	public function encodeJudgement($judgement) {
 		return serialize($judgement);
 	}
@@ -268,5 +255,26 @@ class CellExGameType extends GameTypeHandler {
 	 */
 	public function validateData($data) {
 		return true;
+	}
+	
+	/**
+	 * Make a new response array based on a given old response array and the current
+	 * response array, by looping through all attributes of the old response array
+	 * and checking if the current response array has a value for that attribute.
+	 * If it does, overwrite that attribute for the new response array.
+	 * This only works if the old response array and the current response array
+	 * have the same attributes!
+	 *
+	 * @param $response Current response which will be used for overwriting some attributes of the old response
+	 * @param $oldResponse Old that will be the base for the new response array
+	 */
+	function makeNewResponseArray($response, $oldResponse){
+		$newResponse = $oldResponse;
+		foreach($response as $responseAttribute => $value){
+			if($value != null){
+				$newResponse[$responseAttribute] = $value;
+			}
+		}
+		return $newResponse;
 	}
 }
