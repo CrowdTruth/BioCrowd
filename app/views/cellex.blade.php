@@ -711,7 +711,7 @@
 		<table  id="table_completed_game_buttons">
 			<tr>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><button type="button" class="goGameSelect"  onclick="location.href='/'">Select Game</button></td>
+				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"></a><button type="button" class="goGameSelect">Select Game</button></a></td>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 
