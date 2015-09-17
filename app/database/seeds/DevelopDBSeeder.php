@@ -25,6 +25,8 @@ class DevelopDBSeeder extends Seeder {
 		$campaignType->save();
 		$campaignType = new CampaignType(new QuantityCampaignType());
 		$campaignType->save();
+		$campaignType = new CampaignType(new RandomGamesCampaignType());
+		$campaignType->save();
 		
 		 $this->createCampaigns();
 		$this->createLevels();
@@ -617,7 +619,35 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game4);
-		$campaign_games->save();		
+		$campaign_games->save();
+
+		$this->command->info('Create test RandomGamesCampaignType');
+		$campaignType = CampaignType::where('name', '=', 'RandomGames')->first();
+		
+		$this->command->info('Create test RandomGamesCampaign');
+		$campaign = new Campaign($campaignType);
+		$campaign->name = 'RandomGamesCampaignType';
+		$campaign->tag = 'Random Game Mania';
+		$campaign->badgeName = 'RandomGamesCampaignType';
+		$campaign->description = '<p>In this campaign you will do random games. </p>';
+		$campaign->image = 'img/icons/RandomGame_icon.png';
+		$campaign->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game1);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game2);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game4);
+		$campaign_games->save();
 	}
 	
 	public function createTestUsers() {

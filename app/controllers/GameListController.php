@@ -75,6 +75,18 @@ class GameListController extends GameController {
 				$gameNumber++;
 			}
 		}
+		//Put the game of type RandomGamesCampaignType in an item and add it to the last level, if it exists
+		$campaign = Campaign::where('name', 'RandomGamesCampaignType')->first();
+		if($campaign){
+			$item = [
+			'link' => 'playCampaign?campaignId='.$campaign->id,
+			'image' => $campaign->image,
+			'text' => $campaign->tag,
+			'enabled' => $enabled
+			];
+			array_push($levelN, $item);
+		}
+		
 		//push the last of the levelN arrays to the levels array
 		array_push($levels, $levelN);
 		

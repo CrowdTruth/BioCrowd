@@ -78,7 +78,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		if(isset($responseLabel) && $responseLabel != null){
 			$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
 		}
-		$view = $view->with('campaignIdArray', $campaignId);
+		$view = $view->with('campaignIdArray', [$campaignId]); //campaignIdArray should contain all campaignId's of all campaigns of which the progress should be updated
 		return $view;
 	}
 	
@@ -102,7 +102,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 				//return to next cammpaign or campaign overview page if the campaign is done.
 				if($nextGame){
 					//go to the next game in this campaign. This should always be the case, as the games circulate. 
-					return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+					return Redirect::to('playCampaign?campaignId='.$campaign->id);
 				} else {
 					//this should never happen TO DO: make it so that the $nextGame is false if the amount of played games for this campaign
 					//divided by the played games for this campaign is equal?

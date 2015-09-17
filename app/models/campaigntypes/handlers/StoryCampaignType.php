@@ -116,7 +116,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 		if(isset($responseLabel) && $responseLabel != null){
 			$view = $view->with('responseLabel', $responseLabel); //to overwrite any responselabel of the non-campaignMode game
 		}
-		$view = $view->with('campaignIdArray', $campaignId);
+		$view = $view->with('campaignIdArray', [$campaignId]); //campaignIdArray should contain all campaignId's of all campaigns of which the progress should be updated. 
 		return $view;
 	}
 	
@@ -162,7 +162,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 					return Redirect::to('campaignMenu');
 				} else {
 					//go to the next game in this campaign
-					return Redirect::to('playCampaign?campaignIdArray='.$campaign->id);
+					return Redirect::to('playCampaign?campaignId='.$campaign->id);
 				}
 			}
 		}

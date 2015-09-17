@@ -11,8 +11,8 @@ class CampaignController extends GameController {
 	
 	public function playCampaign() {
 		// Get parameter which campaign ?
-		$campaignIdArray = Input::get('campaignIdArray');
-		$campaign = Campaign::find($campaignIdArray);
+		$campaignId = Input::get('campaignId');
+		$campaign = Campaign::find($campaignId);
 		
 		// Use corresponding game controller to display game.
 		$handlerClass = $campaign->campaignType->handler_class;

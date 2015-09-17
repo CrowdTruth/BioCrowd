@@ -154,7 +154,7 @@ class InitDatabase extends Migration {
 			$table->string('image');
 			$table->timestamp('startDate');
 			$table->timestamp('endDate');
-			$table->integer('score');
+			$table->integer('score')->default(0);
 			$table->integer('targetNumberAnnotations');
 			$table->integer('campaign_type_id')->unsigned();
 			$table->foreign('campaign_type_id')->references('id')->on('campaign_types');
