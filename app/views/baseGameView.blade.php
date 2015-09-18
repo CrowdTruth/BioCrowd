@@ -32,7 +32,7 @@
 			<table style="height:300px">
 				<tr style="width: 100%; height: 50%;">
 					<td>
-						{{ $steps }}
+						<div class="textblock">{{ $steps }}</div>
 					</td>
 				</tr>
 				<tr style="width: 100%; height: 50%;">
