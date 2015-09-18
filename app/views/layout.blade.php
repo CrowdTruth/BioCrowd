@@ -14,7 +14,6 @@
 	@yield('extraheaders')
 	<!-- End extraheaders -->
 </head>
-	</head>
 	<body>
 		<div class="wrap">
 			<!-- Begin header -->
@@ -34,9 +33,6 @@
 				<a href="http://crowdtruth.org/"><img src="img/logo/CrowdTruth_gs-01.png" height="30px"></a>
 				<a href="https://www-927.ibm.com/ibm/cas/"><img src="img/logo/logo_ibm_g-01.png" height="30px"></a>			
 			</div>
-		</div>
-		<div class="G-analytics">
-			{{ Lang::get('gamelabels.googleAnalytics') }}
 		</div>
     </body>
 </html>

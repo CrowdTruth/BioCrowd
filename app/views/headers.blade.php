@@ -124,4 +124,5 @@
 		});
 	</script>
 @endif
+{{ Lang::get('gamelabels.googleAnalytics') }}
 	
