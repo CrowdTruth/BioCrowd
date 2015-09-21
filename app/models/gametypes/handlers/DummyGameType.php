@@ -53,7 +53,7 @@ class DummyGameType extends GameTypeHandler {
 	 * See GameTypeHandler
 	 */
 	public function processResponse($game) {
-		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
+		return 'We should do something with your answer...<a href="{{ Lang::get('gamelabels.gameUrl') }}">home</a>';
 	}
 	
 	/**

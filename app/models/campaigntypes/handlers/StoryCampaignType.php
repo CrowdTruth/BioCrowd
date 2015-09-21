@@ -137,7 +137,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 		if($done){//only redirect if there are no other responses that need processing
 			if($gameOrigin && $done){ //The user game from the game menu, so redirect to the game menu. 
 				//this should never happen with StoryCampaignTypes
-				return Redirect::to('gameMenu');
+				return Redirect::to(Lang::get('gamelabels.gameUrl'));
 			} else { //the user didn't come from the game menu, so figure out whether to go to the next game in this campaign or to the campaign menu
 				//Retrieve the array of games that this campaign entails
 				$crude_game_array = CampaignGames::where('campaign_id',$campaign->id)->select('game_id')->get()->toArray();

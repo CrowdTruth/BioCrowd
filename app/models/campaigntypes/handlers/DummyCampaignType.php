@@ -53,7 +53,7 @@ class DummyCampaignType extends CampaignTypeHandler {
 	 * See CampaignTypeHandler
 	 */
 	public function processResponse($campaign) {
-		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
+		return 'We should do something with your answer...<a href="{{ Lang::get('gamelabels.gameUrl') }}">home</a>';
 	}
 	
 	/**

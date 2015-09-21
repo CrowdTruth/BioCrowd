@@ -113,6 +113,10 @@ public function getView($game) {
 		$responseLabel[3] = $extraInfo['label3'];
 		$responseLabel[4] = $extraInfo['label4'];
 		$responseLabel[5] = $extraInfo['label5'];
+		$responseLabel[6] = $extraInfo['step1'];
+		$responseLabel[7] = $extraInfo['step2'];
+		$responseLabel[8] = $extraInfo['step3'];
+		$responseLabel[9] = $extraInfo['step4'];
 		
 		return View::make('cellexOneForm')
 			->with('gameId', $game->id)

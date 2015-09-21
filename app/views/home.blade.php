@@ -76,9 +76,9 @@
 										alt="{{{ $item['text'] }}}" src="{{{ $item['image'] }}}"
 										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></a></li>
 									@else
-										<li><a data-ftrans="slide" href=""><img
+										<li><div style="color:white;"><img
 										alt="Cell tagging" src="img/icons/image_games-03.png"
-										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></a></li>
+										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></div></li>
 									@endif
 								@endforeach
 							</ul>

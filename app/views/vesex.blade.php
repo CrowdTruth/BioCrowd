@@ -462,7 +462,7 @@ window.onload = function() {
 							<td>
 								<div id="question1" class="question question_active" style="display:inline-block;">
 									<div class="textblock">
-										<H1>Step 1: Classify this picture <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+										<H1>Step 1: Classify this picture <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"></H1>
 										<span>{{$responseLabel[0]}}</span>
 									</div>
 									<BR>
@@ -488,7 +488,7 @@ window.onload = function() {
 								</div>
 								<div id="question2" class="question" >
 									<div class="textblock">
-										<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+										<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
 										<div>Please select all which apply to your selection from STEP 1.</div>
 										{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 										{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
@@ -507,7 +507,7 @@ window.onload = function() {
 								</div>
 								<div id="question3" class="question">
 									<div class="textblock">
-										<H1>Step 3: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+										<H1>Step 3: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"></H1>
 										<div>Image Sharpness</div>
 										{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
 										{{ Form::label('good', 'Good') }} <BR/>
@@ -523,7 +523,7 @@ window.onload = function() {
 								</div>
 								<div id="question4" class="question">
 									<div class="textblock">
-										<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+										<H1>Optional: Would you like to make any comments on this image?</H1>
 										<div id="commentForm">
 											{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
 											{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}

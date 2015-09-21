@@ -17,7 +17,8 @@
 						} else {
 							$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
 						}
-						$percentage = round(($userScore/$max_score)*100);?>
+						$previous_max_score = Level::where('level', $userLevel-1)->first(['max_score'])['max_score'];
+						$percentage = round((($userScore-$previous_max_score)/($max_score-$previous_max_score))*100);?>
 						<div class="bar" style="width: {{$percentage}}%;">
 						{{$percentage}}%</div>
 					</div>

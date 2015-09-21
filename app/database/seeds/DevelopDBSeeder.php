@@ -67,7 +67,7 @@ class DevelopDBSeeder extends Seeder {
 				.'';
 		$game1->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Cell identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 1: Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
 				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
@@ -96,6 +96,10 @@ class DevelopDBSeeder extends Seeder {
 				'label8' => 'Poor',
 				'label9' => 'Blank (Black) Image',
 				'label10' => 'No Image',
+				'step1' => 'Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. ',
+				'step2' => 'Choose the option from the given list which best describes your cell markings. ',
+				'step3' => 'Report the number of cells you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$game1->score = '10';
 		$game1->save();
@@ -144,8 +148,8 @@ class DevelopDBSeeder extends Seeder {
 				.'';
 		$game2->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Nuclei identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. </p>'
-				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
+				.'<p>Step 1: Click near the center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 2: Choose the option from the given list which best describes your nuclei markings. </p>'
 				.'<p>Step 3: Report the number of nuclei you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
 				.'<br>'
@@ -173,6 +177,10 @@ class DevelopDBSeeder extends Seeder {
 				'label8' => 'Poor',
 				'label9' => 'Blank (Black) Image',
 				'label10' => 'No Image',
+				'step1' => 'Click near the center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. ',
+				'step2' => 'Choose the option from the given list which best describes your nuclei markings. ',
+				'step3' => 'Report the number of nuclei you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$game2->score = '20';
 		$game2->save();
@@ -218,7 +226,7 @@ class DevelopDBSeeder extends Seeder {
 				.'';
 		$game3->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Colony identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 1: Click near the center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your colony markings. </p>'
 				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
@@ -242,6 +250,10 @@ class DevelopDBSeeder extends Seeder {
 				'label3' => 'No colonies visible',
 				'label4' => 'Other',
 				'label5' => 'Enter the total number of colonies here:',
+				'step1' => 'Click near the center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. ',
+				'step2' => 'Choose the option from the given list which best describes your colony markings. ',
+				'step3' => 'Report the number of colonies you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$game3->score = '30';
 		$game3->save();
@@ -295,16 +307,18 @@ class DevelopDBSeeder extends Seeder {
 				.'<li>Some images will have vesicles with different fluorescent colors.</li>'
 				.'<li>Refer to the rest of the image for correct identification of the cells and to be sure of not taking background spots as vesicles.</li>'
 				.'</ul>'
-				.'<p>Step 2: Choose the option from the given list which best describes your CELL markings.</p>'
-				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
-				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
+				.'<p>Step 2: Choose the option from the given list which best describes your vesicle location classification.</p>'
+				.'<p>Step 3: Click the button which best describes the given image quality. </p>'
 				.'';
 		$game4->extraInfo = serialize([	'label' => 'Click on the icon below which best describes the VESICLE location', 
 										'label1' => 'Side Nucleus', 
 										'label2' => 'Ring around Nucleus' , 
-										'label3' => 'My selection applies to All the VESICLES in this image',
-										'label4' => 'One or more CELLS in this image contained VESICLES which behaved differently than my selection',
-										'label5' => 'No CELL visible'
+										'label3' => 'My selection applies to all the vesicles in this image',
+										'label4' => 'One or more cells in this image contained vesicles which behaved differently than my selection',
+										'label5' => 'No cell visible',
+										'step1' => 'Take a look at the image and click on the icon which best describes the behavior of the vesicles',
+										'step2' => 'Choose the option from the given list which best describes your vesicle location classification.',
+										'step3' => 'Click the button which best describes the given image quality. ',
 										]);
 		$game4->score = '10';
 		$game4->save();
@@ -357,7 +371,7 @@ class DevelopDBSeeder extends Seeder {
 				.'';
 		$game1->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Cell identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 1: Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
 				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
@@ -386,6 +400,10 @@ class DevelopDBSeeder extends Seeder {
 				'label8' => 'Poor',
 				'label9' => 'Blank (Black) Image',
 				'label10' => 'No Image',
+				'step1' => 'Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your cell markings.',
+				'step3' => 'Report the number of cells you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$game1->score = '10';
 		$game1->save();
@@ -435,7 +453,7 @@ class DevelopDBSeeder extends Seeder {
 																		.'';
 		$game3->steps = ''
 				.'<div style="font-size: 20pt; color:#000;">Colony identification steps</div>'
-				.'<p>Step 1: Click near the Center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
+				.'<p>Step 1: Click near the center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
 				.'<p>Step 2: Choose the option from the given list which best describes your colony markings. </p>'
 				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
 				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
@@ -459,6 +477,10 @@ class DevelopDBSeeder extends Seeder {
 				'label3' => 'No colonies visible',
 				'label4' => 'Other',
 				'label5' => 'Enter the total number of colonies here:',
+				'step1' => 'Click near the center of al visible colonies or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your colony markings.',
+				'step3' => 'Report the number of colonies you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$game3->score = '30';
 		$game3->save();
@@ -507,7 +529,11 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many buildings to annotate',
 				'label3' => 'There are no tents/buildings in this image',
 				'label4' => 'Other',
-				'label5' => 'Enter the total number of buildings here:'
+				'label5' => 'Enter the total number of buildings here:',
+				'step1' => 'Click near the center of al visible buildings or drag the mouse to draw a box around the buildings. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your building markings.',
+				'step3' => 'Report the number of buildings you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$story1->save();
 		
@@ -522,7 +548,11 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many rooms to annotate',
 				'label3' => 'There are no rooms in this image',
 				'label4' => 'Other',
-				'label5' => 'Enter the total number of rooms here:'
+				'label5' => 'Enter the total number of rooms here:',
+				'step1' => 'Click near the center of al visible rooms or drag the mouse to draw a box around the rooms. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your room markings.',
+				'step3' => 'Report the number of rooms you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$story2->save();
 		
@@ -538,7 +568,11 @@ class DevelopDBSeeder extends Seeder {
 				'label3' => 'There are no enemies in this image',
 				'label4' => 'Other',
 		
-				'label5' => 'Enter the total number of rooms here:'
+				'label5' => 'Enter the total number of enemies here:',
+				'step1' => 'Click near the center of al visible enemies or drag the mouse to draw a box around the enemies. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your enemy markings.',
+				'step3' => 'Report the number of enemies you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$story3->save();
 		
@@ -552,7 +586,11 @@ class DevelopDBSeeder extends Seeder {
 				'label2' => 'There were too many mistakes to annotate',
 				'label3' => 'There are no mistakes in this image',
 				'label4' => 'Other',
-				'label5' => 'Enter the total number of enemies here:'
+				'label5' => 'Enter the total number of enemies here:',
+				'step1' => 'Click near the center of al visible enemies or drag the mouse to draw a box around the enemies. Keep a mental count while you are tagging.',
+				'step2' => 'Choose the option from the given list which best describes your enemy markings.',
+				'step3' => 'Report the number of enemies you have counted in the designated field. ',
+				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
 		$story4->save();
 		

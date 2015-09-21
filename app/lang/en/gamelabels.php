@@ -8,7 +8,7 @@ return array(
 		The growth rate of cells is a relevant factor in experiments that are done in the field of <b>cancer research</b>. 
 		Another relevant factor for these experiments is the <b>location of vesicles</b>, which can indicate transport of debris from the cancer inducing factor, 
 		after successful treatment. <br>
-		We would like to ask you to help us with these tasks. In return, you will receive <b>points for your score</b>, so you can <b>level up, 
+		If you help us with these tasks, you will receive <b>points for your score</b>, so you can <b>level up, 
 		gain badges</b> and <b>practice your cell biology</b> skills at the same time!',
 	'googleAnalytics' => '<script>
 	  (function(i,s,o,g,r,a,m){i[\'GoogleAnalyticsObject\']=r;i[r]=i[r]||function(){

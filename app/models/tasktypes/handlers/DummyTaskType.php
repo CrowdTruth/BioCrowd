@@ -53,7 +53,7 @@ class DummyTaskType extends TaskTypeHandler {
 	 * See TaskTypeHandler
 	 */
 	public function processResponse($task) {
-		return 'We should do something with your answer...<a href="/gameMenu">home</a>';
+		return 'We should do something with your answer...<a href="{{ Lang::get('gamelabels.gameUrl') }}">home</a>';
 	}
 	
 	/**

@@ -587,7 +587,7 @@
 						<td colspan="2">
 							<div id="question1" class="question question_active">
 								<div class="textblock">
-									<H1>Step 1: {{$responseLabel[0]}} <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<H1>Step 1: {{$responseLabel[0]}} <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"></H1>
 									<span>By clicking on it or drawing a shape around it</span>
 								</div>
 								<BR>
@@ -606,7 +606,7 @@
 							</div>
 							<div id="question2" class="question" >
 								<div class="textblock">
-									<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
 									<div id="markingDescription">
 										{{ Form::radio('markingDescription', 'allCells', false, ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
 										{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
@@ -626,7 +626,7 @@
 							</div>
 							<div id="question3" class="question">
 								<div class="textblock">
-									<H1>Step 3 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<H1>Step 3 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"></H1>
 									<span>{{$responseLabel[5]}}</span>
 								</div>
 								<div align="center">
@@ -639,7 +639,7 @@
 							</div>
 							<div id="question4" class="question">
 								<div class="textblock">
-									<H1>Step 4: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<H1>Step 4: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[9]}}"></H1>
 									<div>Image Sharpness</div>
 									{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 									{{ Form::label('good', 'Good') }} <BR/>
@@ -655,7 +655,7 @@
 							</div>
 							<div id="question5" class="question">
 								<div class="textblock">
-									<H1>Optional: Would you like to make any comments on this image? <img src="img/glyphs/image_questionmark-02.png" width="30px" title="insert additional information here"></H1>
+									<H1>Optional: Would you like to make any comments on this image?</H1>
 									<div id="commentForm">
 										{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
 										{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
@@ -711,7 +711,7 @@
 		<table  id="table_completed_game_buttons">
 			<tr>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"></a><button type="button" class="goGameSelect">Select Game</button></a></td>
+				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect">Select Game</button></a></td>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 

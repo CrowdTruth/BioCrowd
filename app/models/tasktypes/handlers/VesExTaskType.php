@@ -75,7 +75,7 @@ class VesExTaskType extends TaskTypeHandler {
 		$judgement->response = $response;
 		$judgement->save();
 		
-		return Redirect::to('gameMenu');
+		return Redirect::to(Lang::get('gamelabels.gameUrl'));
 	}
 	
 	// TODO: document (or remove if not used)

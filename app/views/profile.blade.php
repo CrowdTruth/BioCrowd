@@ -199,6 +199,7 @@
 				</div>
 			</div>
 			<div class="col span_3_of_8" id="profile_background">
+				<a href="logout"><button style="float:right" class="bioCrowdButton">Log out</button></a>
 				<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
 			</div>
 		</div>
