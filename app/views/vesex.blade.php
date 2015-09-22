@@ -570,6 +570,14 @@ window.onload = function() {
 					<td><span>{{Session::get('campaignScoreTag')['campaignScore']}}</span></td>
 				</tr>
 			@endif
+			@if(strpos(Auth::user()->get()->email, '@anonymous-user.com'))
+				<tr>
+					<td><span>Your score will only be saved for the duration of this session. </span></td>
+				</tr>
+				<tr>
+					<td><span>If you want to keep your progress after the session ends, please set your e-mail and password on the <a href="profile">profile</a> page. </span></td>
+				</tr>
+			@endif
 		</table>
 		<div align="center"> 
 			<a href="#"><img src="img/glyphs/logo_twitter.png" height=45px></img></a>

@@ -44,35 +44,13 @@ class ProfileController extends BaseController {
 		$name  = Input::get('name');
 		$cellBioExpertise  = Input::get('cellBioExpertise');
 		$expertise = Input::get('expertise');
-		try {
-			//Check if the email already exists by trying to get it from the database. If that fails, the e-mail adress is not in use yet.
-			if(User::where('email', $newemail)->first()){
-				//The email is in use. 
-				//Check if the user filled in their own e-mail. If so, continue without updating the e-mail field of the database. 
-				Log::error('user email:');
-				Log::error(Auth::user()->get()->email);
-				Log::error('nieuwe email:');
-				Log::error($newemail);
-				if(Auth::user()->get()->email == $newemail){
-					if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
-						$user = User::find(Auth::user()->get()->id);
-						$user->name = $name;
-						$user->cellBioExpertise = $cellBioExpertise;
-						$user->expertise = $expertise;
-						$user->save();
-						return Redirect::to('profile')->with('flash_error', 'Your account information has been changed')->withInput();
-					} else {
-						return Redirect::to('profile')->with('flash_error', 'Invalid password given. If you want to change your password, do so in the "Password" section. Guest users have no current password and can leave this field empty. ')->withInput();
-					}
-				} else {
-					//If the user filled in an existing e-mail, but not their own e-mail adress, return with a message to inform the user about this
-					return Redirect::to('profile')->with('flash_error', 'E-mail adress '.$newemail.' is already in use. Try another one. ')->withInput();
-				}
-			} else {
-				//The email is new. Change all info including the e-mail adress
+		//Check if the email already exists by trying to get it from the database. If that fails, the e-mail adress is not in use yet.
+		if(User::where('email', $newemail)->first()){
+			//The email is in use. 
+			//Check if the user filled in their own e-mail. If so, continue without updating the e-mail field of the database. 
+			if(Auth::user()->get()->email == $newemail){
 				if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
 					$user = User::find(Auth::user()->get()->id);
-					$user->email = $newemail;
 					$user->name = $name;
 					$user->cellBioExpertise = $cellBioExpertise;
 					$user->expertise = $expertise;
@@ -81,10 +59,23 @@ class ProfileController extends BaseController {
 				} else {
 					return Redirect::to('profile')->with('flash_error', 'Invalid password given. If you want to change your password, do so in the "Password" section. Guest users have no current password and can leave this field empty. ')->withInput();
 				}
+			} else {
+				//If the user filled in an existing e-mail, but not their own e-mail adress, return with a message to inform the user about this
+				return Redirect::to('profile')->with('flash_error', 'E-mail adress '.$newemail.' is already in use. Try another one. ')->withInput();
 			}
-		}
-		catch (Exception $e) {
-			Log::error($e);
+		} else {
+			//The email is new. Change all info including the e-mail adress
+			if( Auth::user()->attempt( [ 'email' => $email, 'password' => $pass ] )){
+				$user = User::find(Auth::user()->get()->id);
+				$user->email = $newemail;
+				$user->name = $name;
+				$user->cellBioExpertise = $cellBioExpertise;
+				$user->expertise = $expertise;
+				$user->save();
+				return Redirect::to('profile')->with('flash_error', 'Your account information has been changed')->withInput();
+			} else {
+				return Redirect::to('profile')->with('flash_error', 'Invalid password given. If you want to change your password, do so in the "Password" section. Guest users have no current password and can leave this field empty. ')->withInput();
+			}
 		}
 	}
 }
