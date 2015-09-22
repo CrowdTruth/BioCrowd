@@ -43,7 +43,14 @@
 				<img src="img/logo/logo_drexplorer.png" height="300px" id="logo"></img>
 			</div>
 			<div class="col span_4_of_8" id="ribbutton">
-				 	<button onclick="location.href='#'">Start to help advance science</button>
+				{{ Form::open(array('url' => 'register', 'method' => 'POST', 'role' => 'form')) }}
+					{{ Form::hidden('email', Session::getId().'@anonymous-user.com') }}
+					{{ Form::hidden('name', 'guest_user') }}
+					{{ Form::hidden('password','')}}
+					{{ Form::hidden('password2','') }}
+					{{ Form::hidden('code', 'm0ng0') }}
+					{{ Form::submit('Start to help advance science', array('class' => 'anonymous-loginButton')) }}
+				{{ Form::close() }}
 			</div>	
 
 		</div>

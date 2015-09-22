@@ -1014,3 +1014,19 @@
 		display: inline-block !important;
 	}
 }
+
+.anonymous-loginButton {
+	min-height: 50px;
+    padding: 2px;
+    width: 60%;
+    font-size: 18px;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    background-color: #42697b;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 125px;
+    margin-bottom: 100px;
+}
