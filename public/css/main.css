@@ -251,7 +251,7 @@
 
 	.sectiontitle {
 		color: white;
-		padding-left: 15px;
+		padding-left: 5%;
 	}
 	
 	#title {
@@ -1029,4 +1029,12 @@
     margin-right: auto;
     margin-top: 125px;
     margin-bottom: 100px;
+}
+
+.loginSignupFields {
+	border-radius: 10px;
+    height: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
 }

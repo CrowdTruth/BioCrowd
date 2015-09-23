@@ -21,10 +21,13 @@ Route::post('login' , 'LoginController@doLogin');
 Route::post('register' , 'LoginController@doRegister');
 Route::get ('logout', 'LoginController@requestLogout');
 
-Route::post('changePass' , 'ProfileController@changePassword');
-Route::post('editProfile', 'ProfileController@editProfile');
-
-Route::get('profile' , 'ProfileController@getView');
+//Create group of routes that require authentication
+Route::group(array('before' => 'auth'), function() {
+	Route::post('changePass' , 'ProfileController@changePassword');
+	Route::post('editProfile', 'ProfileController@editProfile');
+	
+	Route::get('profile' , 'ProfileController@getView');
+});
 
 // Game logic
 Route::get('home', 'GameListController@listGames');

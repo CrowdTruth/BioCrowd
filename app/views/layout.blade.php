@@ -31,6 +31,7 @@
 			<!-- End content -->
 			<div class="footer">
 				<a href="http://crowdtruth.org/"><img src="img/logo/CrowdTruth_gs-01.png" height="30px"></a>
+				<a href="http://www.vu.nl/en/index.asp"><img src="img/logo/vu-logo.png" height="50px"></a>
 				<a style="float: right;" href="https://www-927.ibm.com/ibm/cas/"><img src="img/logo/logo_ibm_g-01.png" height="30px"></a>			
 			</div>
 		</div>

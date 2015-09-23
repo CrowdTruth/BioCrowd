@@ -25,7 +25,7 @@
 						<table class="formtable">
 							<tr>
 								<td><strong>{{ Form::label('email', 'Email:') }}</strong></td>
-								<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email')) }}</td>
+								<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'class' => 'loginSignupFields')) }}</td>
 							</tr>
 							<tr>
 								<td><strong>{{ Form::label('password', 'Password:') }}</strong></td>
@@ -51,29 +51,34 @@
 					<table class="formtable">
 						<tr>
 							<td><strong>{{ Form::label('email', 'Email:') }}</strong></td>
-							<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'required' => 'required')) }}</td>
+							<td><strong>*</strong></td>
+							<td>{{ Form::text('email', Input::old('email'), array('placeholder' => 'Email', 'required' => 'required', 'class' => 'loginSignupFields')) }}</td>
 						</tr>
 						<tr>
 							<td><strong>{{ Form::label('name', 'Name:') }}</strong></td>
-							<td>{{ Form::text('name', Input::old('name'), array('placeholder' => 'Name', 'required' => 'required')) }}</td>
+							<td><strong>*</strong></td>
+							<td>{{ Form::text('name', Input::old('name'), array('placeholder' => 'Name', 'required' => 'required', 'class' => 'loginSignupFields')) }}</td>
 						</tr>
 						<tr>
 							<td><strong>{{ Form::label('password', 'Password:') }}</strong></td>
+							<td><strong>*</strong></td>
 							<td>{{ Form::password('password', array('placeholder' => 'Password', 'required' => 'required'))}}</td>
 						</tr>
 						<tr>
 							<td><strong>{{ Form::label('password2', 'Re-type password:') }}</strong></td>
-							<td>{{ Form::password('password2', array('placeholder' => 'Re-type password')) }}</td>
+							<td><strong>*</strong></td>
+							<td>{{ Form::password('password2', array('placeholder' => 'Re-type password', 'required' => 'required')) }}</td>
 						</tr>
 						<tr>
 							<td><strong>{{ Form::label('code', 'Invitation code:') }}</strong></td>
-							<td>{{ Form::text('code', Input::old('code'), array('placeholder' => 'Invitation code')) }}</td>
+							<td><strong>*</strong></td>
+							<td>{{ Form::text('code', Input::old('code'), array('placeholder' => 'Invitation code', 'required' => 'required', 'class' => 'loginSignupFields')) }}</td>
 						</tr>
 						<tr>
-							<td colspan='2'><strong>{{ Form::label('bioExpert', 'What is the highest level of cell biology education you have finished?') }}</strong></td>
+							<td colspan='3'><strong>{{ Form::label('bioExpert', 'What is the highest level of cell biology education you have finished?') }}</strong></td>
 						</tr>
 						<tr>
-							<td colspan='2'>{{ Form::radio('cellBioExpertise', 'none', false, ['id'=>'none']) }}
+							<td colspan='3'>{{ Form::radio('cellBioExpertise', 'none', false, ['id'=>'none']) }}
 							{{ Form::label('none', 'None', ['id'=>'none']) }} <BR>
 							{{ Form::radio('cellBioExpertise', 'highSchool', false, ['id'=>'highSchool']) }}
 							{{ Form::label('highSchool', 'High school', ['id'=>'highSchool']) }} <BR>
@@ -90,7 +95,8 @@
 						</tr>
 						<tr>
 							<td><strong>{{ Form::label('expertise', 'Field of expertise:') }}</strong></td>
-							<td>{{ Form::text('expertise', '', ['placeholder' => 'Expertise']) }}</td>
+							<td></td>
+							<td>{{ Form::text('expertise', '', ['placeholder' => 'Expertise', 'class' => 'loginSignupFields']) }}</td>
 						</tr>
 					</table>
 				</div>

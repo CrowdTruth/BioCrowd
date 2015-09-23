@@ -91,7 +91,7 @@
 				<div class="section group scrollto" id="quickies">
 					<div class="col span_8_of_8">
 						<h1 class="sectiontitle">
-							<strong>Quickies</strong> play in less than 5 minutes
+							<strong>Quick Play</strong> play in less than 5 minutes
 						</h1>
 						<div align="center">
 						<ul id="quickieslist">

@@ -51,6 +51,19 @@ class LoginController extends BaseController {
 		if($code!=self::$INVITE_CODE) {
 			return Redirect::to('login')->with('flash_error', 'Invalid invitation code.')->withInput();
 		}
+		$atposition = strpos($email,'@');
+		$dotposition = strpos($email,'.');
+		if(!$atposition || !$dotposition || ($atposition > $dotposition)) {
+			return Redirect::to('login')->with('flash_error', 'e-mail adress does not exist. ')->withInput();
+		}
+		$nameLength = strlen($name);
+		$passLength = strlen($pass);
+		if(!($nameLength >= 2)) {
+			return Redirect::to('login')->with('flash_error', 'Your name must be at least 2 characters long')->withInput();
+		}
+		if(!($passLength >= 4)) {
+			return Redirect::to('login')->with('flash_error', 'Your password must be at least 4 characters long')->withInput();
+		}
 		try {
 			//to do: Validate the user exists with an e-mail activation of the account
 			//Check if the email already exists
