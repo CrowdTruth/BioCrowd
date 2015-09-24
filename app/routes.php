@@ -29,6 +29,9 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('profile' , 'ProfileController@getView');
 });
 
+//Create a leaderboard page
+Route::get('leaderboard', 'LeaderboardController@getView');
+
 // Game logic
 Route::get('home', 'GameListController@listGames');
 
