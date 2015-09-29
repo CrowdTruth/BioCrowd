@@ -218,6 +218,16 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
+		Schema::create('ranks', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('currentRank');
+			$table->integer('previousRank');
+			$table->timestamps();
+		});
+		
 	}
 
 	/**
@@ -227,6 +237,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		Schema::drop('ranks');
 		Schema::drop('campaign_has_story');
 		Schema::drop('stories');
 		Schema::drop('campaign_has_game');

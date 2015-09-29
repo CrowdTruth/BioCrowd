@@ -28,7 +28,7 @@ class DevelopDBSeeder extends Seeder {
 		$campaignType = new CampaignType(new RandomGamesCampaignType());
 		$campaignType->save();
 		
-		 $this->createCampaigns();
+		$this->createCampaigns();
 		$this->createLevels();
 	}
 

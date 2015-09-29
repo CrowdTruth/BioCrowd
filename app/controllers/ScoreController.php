@@ -28,6 +28,9 @@ class ScoreController {
 		$user->score = $newUserScore;
 		$user->save();
 		
+		//update the ranks table
+		ScoreController::calculateRanks();
+		
 		//check the level of the user and see if it needs to be higher
 		//what is the max score for the level of this user
 		$maxScoreForThisLevel = Level::where('level',$user->level)->first(['max_score'])['max_score'];
@@ -38,6 +41,50 @@ class ScoreController {
 				$user->title = Level::where('level',$user->level)->first(['title'])['title'];
 			}
 			$user->save();
+		}
+	}
+	
+	static public function calculateRanks() {
+		$allUsersOrderedOnScore = User::orderBy('score','desc')->get();
+		$i=1;
+		foreach($allUsersOrderedOnScore as $user){
+			//check if a user is already in the rank table
+			if(Rank::where('user_id',$user->id)->count() >= 1){
+				//if the user already exists, only edit this ranking. 
+				$rank = Rank::where('user_id',$user->id)->first();
+				$rank->currentRank = $i;
+				$rank->save();
+			} else {
+				Log::error('new Rank');
+				//if the user isn't in the ranking table yet, add a new rank. 
+				$rank = new Rank;
+				$rank->user_id = $user->id;
+				$rank->currentRank = $i;
+				$rank->save();
+			}
+			$i++;
+		}
+	}
+	
+	static public function updatePreviousRanks() {
+		$allUsersOrderedOnScore = User::orderBy('score','desc')->get();
+		$i=1;
+		foreach($allUsersOrderedOnScore as $user){
+			//check if a user is already in the rank table
+			if(Rank::where('user_id',$user->id)->count() >= 1){
+				//if the user already exists, only edit this ranking.
+				$rank = Rank::where('user_id',$user->id)->first();
+				$rank->previousRank = $i;
+				$rank->save();
+			} else {
+				Log::error('new Rank');
+				//if the user isn't in the ranking table yet, add a new rank.
+				$rank = new Rank;
+				$rank->user_id = $user->id;
+				$rank->previousRank = $i;
+				$rank->save();
+			}
+			$i++;
 		}
 	}
 }
