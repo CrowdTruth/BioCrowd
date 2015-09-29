@@ -13,12 +13,7 @@ class ScoreController {
 	 * @param $campaignId The id of the Campaign for which to add the score, defaults to null
 	 */
 	static public function addScore($scoreGained, $userId, $description, $gameId = null, $campaignId = null) {
-		//first, add the score to this user's score column in the database
-		$user = User::find($userId);
-		$oldUserScore = $user->score;
-		$user->score = ($scoreGained + $oldUserScore);
-		$user->save();
-		//Then, create a new entry in the "scores" table in the database
+		//First, create a new entry in the "scores" table in the database
 		$score = new Score();
 		$score->user_id = $userId;
 		$score->game_id = $gameId;
@@ -26,6 +21,12 @@ class ScoreController {
 		$score->score_gained = $scoreGained;
 		$score->description = $description;
 		$score->save();
+		
+		//Then, calculate the score for this user and update it to this user's score column in the database
+		$user = User::find($userId);
+		$newUserScore = Score::where('user_id',$userId)->sum('score_gained');
+		$user->score = $newUserScore;
+		$user->save();
 		
 		//check the level of the user and see if it needs to be higher
 		//what is the max score for the level of this user
