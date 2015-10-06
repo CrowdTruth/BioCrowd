@@ -184,7 +184,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 	
 	function updateCampaignProgress($campaign,$game){
 		$userId = Auth::user()->get()->id;
-		//get the amount of tasks performed by this user
+		//get the amount of games performed by this user for this campaign
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
 		global $numberPerformed;
 		if(count($testvariable) < 1){
