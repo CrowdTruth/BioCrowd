@@ -33,6 +33,8 @@ Route::group(array('before' => 'auth'), function() {
 Route::get('leaderboard', 'LeaderboardController@getView');
 Route::get('scoresday', 'LeaderboardController@top20Today');
 Route::get('scoresweek', 'LeaderboardController@top20Week');
+Route::get('scoresmonth', 'LeaderboardController@top20Month');
+
 
 // Game logic
 Route::get('home', 'GameListController@listGames');
