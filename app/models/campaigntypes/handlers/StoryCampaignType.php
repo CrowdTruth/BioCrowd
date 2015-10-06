@@ -132,7 +132,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 		if(!$gameOrigin){
 			$this->updateCampaignProgress($campaign,$game);
 		}
-		//if the user came here from a game instead of a campaign, redirect to the game menu
+		//Count the amount of games in this campaign for determinating if the user has finished this campaign. If the user has finished it, the user should be redirected to the campaign menu. 
 		$amountOfGamesInThisCampaign = count(CampaignGames::where('campaign_id', $campaign->id)->get());
 		if($done){//only redirect if there are no other responses that need processing
 			if($gameOrigin && $done){ //The user game from the game menu, so redirect to the game menu. 

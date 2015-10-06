@@ -97,7 +97,7 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
 		//Only redirect if $done is true
 		if($done){
-			//if the user came here from the game menu instead of the campaign menu, redirect to the game menu
+			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
 			if($gameOrigin){
 				return Redirect::to('playGame?gameId='.$game->id);
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
