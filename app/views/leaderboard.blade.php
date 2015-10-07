@@ -33,7 +33,11 @@ $(document).ready(function() {
 							Level
 							</td>
 							<td>
-							Score
+							@if($setting == 'scores')
+								Score
+							@elseif($setting == 'judgements')
+								#Judgements
+							@endif
 							</td>
 						</tr>
 						@if($rows != null)
@@ -55,7 +59,11 @@ $(document).ready(function() {
 										{{$row->level}}
 										</td>
 										<td>
-										{{$row->score}}
+										@if($setting == 'scores')
+											{{$row->score}}
+										@elseif($setting == 'judgements')
+											{{$row->nJudgements}}
+										@endif
 										</td>
 									</tr>
 								@else
@@ -75,14 +83,18 @@ $(document).ready(function() {
 										{{$row['level']}}
 										</td>
 										<td>
-										{{$row['score']}}
+										@if($setting == 'scores')
+											{{$row['score']}}
+										@elseif($setting == 'judgements')
+											{{$row['nJudgements']}}
+										@endif
 										</td>
 									</tr>
 								@endif
 							@endforeach
 							@if(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank != '')
 								<tr style="background-color: yellow;">
-								<td>
+									<td>
 									{{$userRank}}
 									</td>
 									<td>
@@ -92,8 +104,16 @@ $(document).ready(function() {
 									{{Auth::user()->get()->level}}
 									</td>
 									<td>
-									{{Auth::user()->get()->score}}
+									@if($setting == 'scores')
+										{{Auth::user()->get()->score}}
+									@elseif($setting == 'judgements')
+										{{$userNJudgements}}
+									@endif
 									</td>
+								</tr>
+							@elseif(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank == '')
+								<tr style="background-color: yellow;">
+									<td colspan="4">You don't have a rank yet. Play a game to earn your place in the leaderboard! </td>
 								</tr>
 							@endif
 						@endif
