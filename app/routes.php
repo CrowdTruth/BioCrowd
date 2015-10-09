@@ -35,6 +35,9 @@ Route::get('scoresday', 'LeaderboardController@top20Today');
 Route::get('scoresweek', 'LeaderboardController@top20Week');
 Route::get('scoresmonth', 'LeaderboardController@top20Month');
 Route::get('20judge', 'LeaderboardController@top20Judge');
+Route::get('judgeday', 'LeaderboardController@top20JudgeDay');
+Route::get('judgeweek', 'LeaderboardController@top20JudgeWeek');
+Route::get('judgemonth', 'LeaderboardController@top20JudgeMonth');
 
 // Game logic
 Route::get('home', 'GameListController@listGames');

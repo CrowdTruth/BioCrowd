@@ -141,7 +141,7 @@ class LeaderboardController extends BaseController {
 		$setting = 'judgements';
 		//Calculate the amount of finished judgements for every user and put them in an array
 		$rows = Judgement::select(DB::raw('user_id,name,level,COUNT(X.user_id) as nJudgements'))
-							->from(DB::raw('(SELECT distinct user_id,task_id from judgements WHERE flag = \'\') as X'))
+							->from(DB::raw('(SELECT distinct user_id,task_id,updated_at from judgements WHERE flag = \'\') as X'))
 							->groupBy('user_id')
 							->orderBy('nJudgements','desc')
 							->leftJoin('users', 'X.user_id', '=', 'users.id')
@@ -171,4 +171,114 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
 	}
 	
+	public function top20JudgeDay() {
+		//Set the setting to determine what will be rated
+		$setting = 'judgements';
+		//get the Carbon model
+		$carbon = App::make('Carbon\Carbon');
+		//Calculate the amount of finished judgements for every user and put them in an array
+		$rows = Judgement::select(DB::raw('user_id,name,level,COUNT(X.user_id) as nJudgements'))
+							->from(DB::raw('(SELECT distinct user_id,task_id,updated_at from judgements WHERE flag = \'\' AND (date(updated_at) = \''.$carbon->now()->toDateString().'\')) as X'))
+							->groupBy('user_id')
+							->orderBy('nJudgements','desc')
+							->leftJoin('users', 'X.user_id', '=', 'users.id')
+							->get()->toArray();
+	
+		$userRank = null;
+		$userNJudgements = null;
+		if($rows){
+			//if the $rows array is full of scores, make $rows null.
+			$i=0;
+			//go over all rows to add the ranks in the array
+			foreach($rows as $todayScore){
+				$rank = $i+1;
+				$rows[$i]['currentRank']=$rank;
+				//If the user is logged in and the user id is equal to the id of the user that is now logged in, fill the $userRank and $userNJudgements variables
+				if((Auth::user()->check()) && ($rows[$i]['user_id'] == Auth::user()->get()->id)){
+					$userRank = $rank;
+					$userNJudgements = $rows[$i]['nJudgements'];
+				}
+				$i++;
+			}
+			//Take the first 20 entries of the list
+			$rows = array_slice($rows, 0, 20);
+		}
+	
+		//Make the standard view with the top 20 scores of today
+		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
+	}
+	
+	public function top20JudgeWeek() {
+		//Set the setting to determine what will be rated
+		$setting = 'judgements';
+		//get the Carbon model
+		$carbon = App::make('Carbon\Carbon');
+		//Calculate the amount of finished judgements for every user and put them in an array
+		$rows = Judgement::select(DB::raw('user_id,name,level,COUNT(X.user_id) as nJudgements'))
+		->from(DB::raw('(SELECT distinct user_id,task_id,updated_at from judgements WHERE flag = \'\' AND (date(updated_at) BETWEEN (\''.$carbon->now()->subWeek()->addDay()->toDateString().'\') AND (\''.$carbon->now()->addDay()->toDateString().'\'))) as X'))
+		->groupBy('user_id')
+		->orderBy('nJudgements','desc')
+		->leftJoin('users', 'X.user_id', '=', 'users.id')
+		->get()->toArray();
+	
+		$userRank = null;
+		$userNJudgements = null;
+		if($rows){
+			//if the $rows array is full of scores, make $rows null.
+			$i=0;
+			//go over all rows to add the ranks in the array
+			foreach($rows as $todayScore){
+				$rank = $i+1;
+				$rows[$i]['currentRank']=$rank;
+				//If the user is logged in and the user id is equal to the id of the user that is now logged in, fill the $userRank and $userNJudgements variables
+				if((Auth::user()->check()) && ($rows[$i]['user_id'] == Auth::user()->get()->id)){
+					$userRank = $rank;
+					$userNJudgements = $rows[$i]['nJudgements'];
+				}
+				$i++;
+			}
+			//Take the first 20 entries of the list
+			$rows = array_slice($rows, 0, 20);
+		}
+	
+		//Make the standard view with the top 20 scores of today
+		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
+	}
+	
+	public function top20JudgeMonth() {
+		//Set the setting to determine what will be rated
+		$setting = 'judgements';
+		//get the Carbon model
+		$carbon = App::make('Carbon\Carbon');
+		//Calculate the amount of finished judgements for every user and put them in an array
+		$rows = Judgement::select(DB::raw('user_id,name,level,COUNT(X.user_id) as nJudgements'))
+		->from(DB::raw('(SELECT distinct user_id,task_id,updated_at from judgements WHERE flag = \'\' AND (date(updated_at) BETWEEN (\''.$carbon->now()->subMonth()->addDay()->toDateString().'\') AND (\''.$carbon->now()->addDay()->toDateString().'\'))) as X'))
+		->groupBy('user_id')
+		->orderBy('nJudgements','desc')
+		->leftJoin('users', 'X.user_id', '=', 'users.id')
+		->get()->toArray();
+	
+		$userRank = null;
+		$userNJudgements = null;
+		if($rows){
+			//if the $rows array is full of scores, make $rows null.
+			$i=0;
+			//go over all rows to add the ranks in the array
+			foreach($rows as $todayScore){
+				$rank = $i+1;
+				$rows[$i]['currentRank']=$rank;
+				//If the user is logged in and the user id is equal to the id of the user that is now logged in, fill the $userRank and $userNJudgements variables
+				if((Auth::user()->check()) && ($rows[$i]['user_id'] == Auth::user()->get()->id)){
+					$userRank = $rank;
+					$userNJudgements = $rows[$i]['nJudgements'];
+				}
+				$i++;
+			}
+			//Take the first 20 entries of the list
+			$rows = array_slice($rows, 0, 20);
+		}
+	
+		//Make the standard view with the top 20 scores of today
+		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
+	}
 }
