@@ -1040,3 +1040,21 @@
 .leaderboardBackground {
 	background-color: #e3f3fa;
 }
+
+/*Remove all link styles from the leaderboard in the sidebar*/
+#sidebarLeaderboard a:link{
+	color: black;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:visited{
+	color: black;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:hoover{
+	color: black;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:active{
+	color: black;
+	text-decoration: none;
+}

@@ -44,19 +44,85 @@
 					</div>
 					<button>See all campaigns</button>
 				</div>
-
-				<div id="score" class="sidebarchild" align="center">
-					<table>
-						<tr>
-							<td><img src="img/glyphs/scorecompare-02.png" width="90%"></img></td>
-							<td><span >+2</span></td>
-							<td><img src="img/glyphs/scorecompare-03.png" width="90%"></img></td>
-						</tr>
-					</table>
-					<div id="claimcontainer">
-					<div id="claimbutton"><img src="img/glyphs/scorecompare-04.png" width="25px"></img><span>Claim High Urgency Literature</span></div>
-					<div id="claimbutton"><img src="img/glyphs/scorecompare-05.png" width="25px"></img><span>Claim New Literature</span></div>
-					<div id="claimbutton"><img src="img/glyphs/scorecompare-05.png" width="25px"></img><span>Claim Most Popular Literature</span></div>
+				
+				<div id="sidebarLeaderboard" class="sidebarchild" align="center">
+					<?php
+					$rowsAndRank = App::make("LeaderboardController")->sidebarLeaderboard();
+					//$rowsAndRank = LeaderboardController::sidebarLeaderboard();
+					$rows = $rowsAndRank[0];
+					$userRank = $rowsAndRank[1];?>
+					<div>
+						<a href="leaderboard">
+							<div>
+								<b>Leaderboard top 5: </b> 
+								<?php $userInfoIsOnPageAlready = false?>
+								<table>
+									<tr>
+										<td>
+										Rank
+										</td>
+										<td>
+										Name
+										</td>
+										<td>
+										Level
+										</td>
+										<td>
+										Score
+										</td>
+									</tr>
+									@if($rows != null)
+										@foreach ($rows as $row)
+											@if(Auth::user()->check() && ($row->user_id == Auth::user()->get()->id))
+												<tr style="background-color: yellow;">
+												<?php $userInfoIsOnPageAlready = true?>
+											@else
+												<tr>
+											@endif
+												<td>
+												{{$row->currentRank}}
+												</td>
+												<td>
+												{{$row->name}}
+												</td>
+												<td>
+												{{$row->level}}
+												</td>
+												<td>
+												{{$row->score}}
+												</td>
+											</tr>
+										@endforeach
+										@if(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank != '')
+											<tr style="background-color: yellow;">
+												<td>
+												{{$userRank}}
+												</td>
+												<td>
+												{{Auth::user()->get()->name}}
+												</td>
+												<td>
+												{{Auth::user()->get()->level}}
+												</td>
+												<td>
+												@if($setting == 'scores')
+													{{Auth::user()->get()->score}}
+												@elseif($setting == 'judgements')
+													{{$userNJudgements}}
+												@endif
+												</td>
+											</tr>
+										@elseif(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank == '')
+											<tr style="background-color: yellow;">
+												<td colspan="4">You don't have a rank yet. Play a game to earn your place in the leaderboard! </td>
+											</tr>
+										@endif
+									@endif
+									<!-- If the user is logged in, show the user's rank here if it's not in the top 20 already, If the user is in the top 20, highlight the user's row-->
+								</table>
+							</div>
+						</a>
+					</div>
 				</div>
 			</div>
 

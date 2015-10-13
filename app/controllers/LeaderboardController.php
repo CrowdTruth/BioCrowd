@@ -5,7 +5,7 @@
 class LeaderboardController extends BaseController {
 	
 	/**
-	 * Returns the view "profile"
+	 * Returns the view "leaderboard"
 	 */
 	public function getView() {
 		//Set the setting to determine what will be rated
@@ -25,6 +25,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "scoresday"
+	 */
 	public function top20Today() {
 		//Set the setting to determine what will be rated
 		$setting = 'scores';
@@ -62,6 +65,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "scoresweek"
+	 */
 	public function top20Week() {
 		//Set the setting to determine what will be rated
 		$setting = 'scores';
@@ -99,6 +105,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "scoresmonth"
+	 */
 	public function top20Month() {
 		//Set the setting to determine what will be rated
 		$setting = 'scores';
@@ -136,6 +145,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "20judge"
+	 */
 	public function top20Judge() {
 		//Set the setting to determine what will be rated
 		$setting = 'judgements';
@@ -171,6 +183,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "judgeday"
+	 */
 	public function top20JudgeDay() {
 		//Set the setting to determine what will be rated
 		$setting = 'judgements';
@@ -208,6 +223,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "judgeweek"
+	 */
 	public function top20JudgeWeek() {
 		//Set the setting to determine what will be rated
 		$setting = 'judgements';
@@ -245,6 +263,9 @@ class LeaderboardController extends BaseController {
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
 	}
 	
+	/**
+	 * Returns the view "judgemonth"
+	 */
 	public function top20JudgeMonth() {
 		//Set the setting to determine what will be rated
 		$setting = 'judgements';
@@ -280,5 +301,24 @@ class LeaderboardController extends BaseController {
 	
 		//Make the standard view with the top 20 scores of today
 		return View::make('leaderboard')->with('rows', $rows)->with('userRank',$userRank)->with('userNJudgements',$userNJudgements)->with('setting',$setting);
+	}
+	
+	/**
+	 * Returns the view "sidebarLeaderboard"
+	 */
+	public function sidebarLeaderboard() {
+		//Make the standard view with the top 20
+		$rows = DB::table('users')
+		->join('ranks', 'users.id', '=', 'ranks.user_id')
+		->select(['user_id','name','level','score','currentRank'])
+		->orderBy('currentRank')
+		->take(5)
+		->get();
+		$userRank = null;
+		//if the user is logged in and the user is in the ranks table, set the userRank
+		if(Auth::user()->check() && Rank::where('user_id',Auth::user()->get()->id)->select('currentRank')->first()){
+			$userRank = Rank::where('user_id',Auth::user()->get()->id)->select('currentRank')->first()->currentRank;
+		}
+		return [$rows,$userRank];
 	}
 }
