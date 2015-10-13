@@ -6,13 +6,19 @@ $(document).ready(function() {
 	$("#leaderboardContentSelector").change(function() {
 		window.location = this.value;
 	});
+
+	$(".leaderboardBackground").height($("#mainsection").height());
 });
 </script>
 @stop
 
 @section('content')
 	<div class="section group" id="mainsection">
-		<div class="col span_6_of_8" id="main">
+		@if(Auth::user()->check())
+			<div class="col span_6_of_8" id="main">
+		@else
+			<div class="col span_8_of_8" id="main">
+		@endif
 			<div class="leaderboardBackground">
 				<div>
 					{{Form::open(['url' => 'leaderboard'])}}
@@ -116,6 +122,12 @@ $(document).ready(function() {
 									<td colspan="4">You don't have a rank yet. Play a game to earn your place in the leaderboard! </td>
 								</tr>
 							@endif
+						@else
+							<tr style="background-color: yellow;">
+								<td colspan="4">
+									There are no entries for the chosen time period and rank type. 
+								</td>
+							</tr>
 						@endif
 						<!-- If the user is logged in, show the user's rank here if it's not in the top 20 already, If the user is in the top 20, highlight the user's row-->
 						

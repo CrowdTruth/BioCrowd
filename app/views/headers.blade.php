@@ -1,8 +1,8 @@
-<!-- link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-theme.css" rel="stylesheet">
+<!--link href="css/bootstrap.css" rel="stylesheet"-->
+<!--link href="css/bootstrap-theme.css" rel="stylesheet">
 <link href="css/gamestyle.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script -->
+<script src="js/bootstrap.min.js"></script-->
 
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 <link href="js/popbox/popbox.css" rel="stylesheet">

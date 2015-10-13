@@ -105,11 +105,7 @@
 												{{Auth::user()->get()->level}}
 												</td>
 												<td>
-												@if($setting == 'scores')
-													{{Auth::user()->get()->score}}
-												@elseif($setting == 'judgements')
-													{{$userNJudgements}}
-												@endif
+												{{Auth::user()->get()->score}}
 												</td>
 											</tr>
 										@elseif(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank == '')

@@ -692,10 +692,6 @@
 		top: 50%
 	}
 	
-	.sidebarparent:last-child {
-		margin-bottom: 50px;
-	}
-	
 	.sidebarchild {
 		border: 1px solid black;
 		border-radius: 12px;
