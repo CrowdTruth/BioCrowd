@@ -41,7 +41,7 @@
 	<div class="section group" id="mainsection">
 			<div class="col span_6_of_8" id="main">
 
-				<div class="section group scrollto" id="ribbon">
+				<div class="section group scrollto home" id="ribbon">
 					<div class="col span_4_of_8" id="ribimg">
 						<img src="img/logo/logo_drexplorer_loggedin.png" height="300px"
 							id="logo" alt=""></img>

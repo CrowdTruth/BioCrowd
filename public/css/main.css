@@ -28,7 +28,6 @@
 		background-color: #17ad4b;
 	}
 
-	/* MEREL */
 	/*#completed_game_popup {
 		z-index: 9;
 		background-color: #ffffff;
@@ -53,7 +52,52 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	
+	.alert {
+    padding: 0px;
+    margin-bottom: 0px;
+	}
 
+/* 	Elements  */
+	label {
+		display: inline;
+	}
+	
+	* {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+	}
+	*:before,
+	*:after {
+	  -webkit-box-sizing: content-box;
+	     -moz-box-sizing: content-box;
+	          box-sizing: content-box;
+	}
+	
+	img {
+	  vertical-align: baseline;
+	}
+	
+	body{
+		font-size: 16px;
+	}
+	
+	table {
+		border-collapse: separate;
+	}
+	
+	tr {
+		border: none !important;
+	}
+	
+	p {
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	}
 
 /*columns
 	http://www.responsivegridsystem.com/
@@ -352,8 +396,15 @@
 	}
 
 	#ribbon.nobg {
-	background-image: none;
-	background-color: #e3f4fa;
+		background-image: none;
+		background-color: #e3f4fa;
+	}
+	
+	#ribbon.home {
+		background-color: #E4F4FC;
+		background-image: url("../img/backgrounds/image_background-02.png");
+    	background-repeat: no-repeat;
+    	background-position: bottom; 
 	}
 	
 	#ribimg {
@@ -515,15 +566,14 @@
 		background-color: #17ad4b;
 	}
 	
-	/*.comment_input textarea {*/ /* MEREL */
-	#commentForm textarea { /* MEREL */
+	#commentForm textarea { 
 		height: 75px;
 		width: 300px;
 		border: none;
 		display: list-item;
 	}
 	
-	#hiddenOtherExpand textarea { /* MEREL */
+	#hiddenOtherExpand textarea {
 		height: 75px;
 		width: 300px;
 		border: none;
@@ -923,7 +973,6 @@
 	}
 
 
-/* MEREL */
 #userNameInBanner{
 	font-size: 20px;
 	font-family: 'Arvo', serif;

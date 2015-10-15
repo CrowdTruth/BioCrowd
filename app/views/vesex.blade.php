@@ -493,7 +493,7 @@ window.onload = function() {
 										{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 										{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
 										{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-										{{ Form::label('mixed', $responseLabel[4], false, ['required'=>'required' ]) }}<BR/>
+										{{ Form::label('mixed', $responseLabel[4]) }}<BR/>
 										{{ Form::radio('markingDescription', 'noCells', false, ['id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 										{{ Form::label('noCells', $responseLabel[5]) }}<BR/>
 										{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}

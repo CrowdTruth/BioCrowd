@@ -27,7 +27,7 @@ $(document).ready(function() {
 				</div>
 				<div>
 				<?php $userInfoIsOnPageAlready = false?>
-					<table>
+					<table class="table table-striped">
 						<tr>
 							<td>
 							Rank

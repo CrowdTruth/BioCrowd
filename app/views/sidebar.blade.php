@@ -4,8 +4,8 @@
 			<div id="minimize"><img src="img/glyphs/image_minimize_sidebar-01.png" width="50px"></img></div>
 				<div id="level" class="sidebarchild" align="center">
 					<div style="position: absolute; top: 14px; width:100%">
-						<div style="font-size: 2em; color: white; left: 34.6%; text-align:center;">Level</div>
-						<div style="font-size: 4em; color: white; left: 44.4%; text-align:center;">{{Auth::user()->get()->level}}</div>
+						<div style="font-size: 1.5em; color: white; left: 34.6%; text-align:center;">Level</div>
+						<div style="font-size: 3em; color: white; left: 44.4%; text-align:center;">{{Auth::user()->get()->level}}</div>
 					</div>
 					<img src="img/glyphs/image_level.png" width="120px" id="levelimg"
 							alt=""></img>
