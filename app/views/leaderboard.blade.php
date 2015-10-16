@@ -22,7 +22,7 @@ $(document).ready(function() {
 			<div class="leaderboardBackground">
 				<div>
 					{{Form::open(['url' => 'leaderboard'])}}
-					{{Form::select('type', array('leaderboard' => 'Top 20 scores of all time', 'scoresday' => 'Top 20 scores of today', 'scoresweek' => 'Top 20 scores of the week', 'scoresmonth' => 'Top 20 scores of the month','20judge' => 'Top 20 #judgements','judgeday' => 'Top 20 #judgements of today','judgeweek' => 'Top 20 #judgements of the week','judgemonth' => 'Top 20 #judgements of the month'), Route::getCurrentRoute()->getPath(), ['id'=>'leaderboardContentSelector'])}}
+					{{Form::select('type', array('leaderboard' => 'Top 20 scores of all time', 'scoresday' => 'Top 20 scores of today', 'scoresweek' => 'Top 20 scores of the week', 'scoresmonth' => 'Top 20 scores of the month','20judge' => 'Top 20 #judgements','judgeday' => 'Top 20 #judgements of today','judgeweek' => 'Top 20 #judgements of the week','judgemonth' => 'Top 20 #judgements of the month'), Route::getCurrentRoute()->getPath(), ['id'=>'leaderboardContentSelector', 'class'=>'btn btn-default dropdown-toggle', 'type'=>'button', 'data-toggle'=>'dropdown'])}}
 					{{Form::close()}}
 				</div>
 				<div>
