@@ -664,10 +664,73 @@ class DevelopDBSeeder extends Seeder {
 		
 		$this->command->info('Create test RandomGamesCampaign');
 		$campaign = new Campaign($campaignType);
-		$campaign->name = 'RandomGamesCampaignType';
+		$campaign->name = 'RandomGamesCampaign';
 		$campaign->tag = 'Random Game Mania';
-		$campaign->badgeName = 'RandomGamesCampaignType';
+		$campaign->badgeName = 'Random Games Campaign';
 		$campaign->description = '<p>In this campaign you will do random games. </p>';
+		$campaign->image = 'img/icons/RandomGame_icon.png';
+		$campaign->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game1);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game2);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game4);
+		$campaign_games->save();
+		
+		$this->command->info('Create test RandomGamesCampaign');
+		$campaign = new Campaign($campaignType);
+		$campaign->name = 'RandomGamesCampaignLevel1';
+		$campaign->tag = 'Random Game Mania Level 1';
+		$campaign->badgeName = 'Random Games Campaign Level 1';
+		$campaign->description = '<p>In this campaign you will do random games of level 1. </p>';
+		$campaign->image = 'img/icons/RandomGame_icon.png';
+		$campaign->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game2);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games->save();
+		
+		$this->command->info('Create test RandomGamesCampaign');
+		$campaign = new Campaign($campaignType);
+		$campaign->name = 'RandomGamesCampaignLevel2';
+		$campaign->tag = 'Random Game Mania Level 2';
+		$campaign->badgeName = 'Random Games Campaign Level 2';
+		$campaign->description = '<p>In this campaign you will do random games up to level 2. </p>';
+		$campaign->image = 'img/icons/RandomGame_icon.png';
+		$campaign->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game1);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game2);
+		$campaign_games->save();
+		
+		$this->command->info('Create test CampaignGames');
+		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games->save();
+		
+		$this->command->info('Create test RandomGamesCampaign');
+		$campaign = new Campaign($campaignType);
+		$campaign->name = 'RandomGamesCampaignLevel3';
+		$campaign->tag = 'Random Game Mania Level 3';
+		$campaign->badgeName = 'Random Games Campaign Level 3';
+		$campaign->description = '<p>In this campaign you will do random games up to level 3. </p>';
 		$campaign->image = 'img/icons/RandomGame_icon.png';
 		$campaign->save();
 		

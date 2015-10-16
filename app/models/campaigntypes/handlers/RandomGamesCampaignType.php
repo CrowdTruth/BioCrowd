@@ -52,11 +52,13 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 	 */
 	public function getView($campaign) {
 		
-		//Retrieve the amount of games on the platform that exist in total
-		$numberOfGames = count(Game::all());
+		//Retrieve an array of all games in this campaign
+		$crude_game_array = CampaignGames::select('game_id')->where('campaign_id',$campaign->id)->get()->toArray();
+		$game_array = array_column($crude_game_array, 'game_id');
 		
 		//select the next gameId in this campaign for this user
-		$gameId = rand(1,$numberOfGames);
+		$randomGameIndex = array_rand($game_array);
+		$gameId = $game_array[$randomGameIndex];
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);

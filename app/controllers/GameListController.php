@@ -50,6 +50,17 @@ class GameListController extends GameController {
 				$game = $gamesAvl[$gameNumber];
 				//if the level of this game is not equal to the level of the last game, push the levelN array to the Levels array and start a new levelN array. 
 				if($game->level != $currentLevel){
+					//per level, at the end of all games in that level, add a random campaign for that level, if it exists
+					$campaign = Campaign::where('name', 'RandomGamesCampaignLevel'.$currentLevel)->first();
+					if($campaign){
+						$item = [
+								'link' => 'playCampaign?campaignId='.$campaign->id,
+								'image' => $campaign->image,
+								'text' => $campaign->tag,
+								'enabled' => $enabled
+						];
+						array_push($levelN, $item);
+					}
 					array_push($levels, $levelN);
 					$levelN = [];
 					break 1;
@@ -74,17 +85,21 @@ class GameListController extends GameController {
 				}
 				$gameNumber++;
 			}
-		}
-		//Put the game of type RandomGamesCampaignType in an item and add it to the last level, if it exists
-		$campaign = Campaign::where('name', 'RandomGamesCampaignType')->first();
-		if($campaign){
-			$item = [
-			'link' => 'playCampaign?campaignId='.$campaign->id,
-			'image' => $campaign->image,
-			'text' => $campaign->tag,
-			'enabled' => $enabled
-			];
-			array_push($levelN, $item);
+			
+			//If this level is the highest level there is
+			if($currentLevel == $highestLevel){
+				//put the randomGamesCampaign of the highest level here, if it exists
+				$campaign = Campaign::where('name', 'RandomGamesCampaignLevel'.$currentLevel)->first();
+				if($campaign){
+					$item = [
+							'link' => 'playCampaign?campaignId='.$campaign->id,
+							'image' => $campaign->image,
+							'text' => $campaign->tag,
+							'enabled' => $enabled
+					];
+					array_push($levelN, $item);
+				}
+			}
 		}
 		
 		//push the last of the levelN arrays to the levels array
