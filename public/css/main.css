@@ -736,6 +736,13 @@
 		border-bottom-left-radius: 12px;
 	}
 	
+	.sidebarbutton {
+		display: inline;
+		float: right;
+		position: relative;
+		top: 25px;
+	}
+	
 	.sidebarparent {
 		position: relative; width : 95%;
 		margin-left: 2.5%;
