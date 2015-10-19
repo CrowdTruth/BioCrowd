@@ -639,7 +639,7 @@
 							</div>
 							<div id="question4" class="question">
 								<div class="textblock">
-									<H1>Step 4: What best describes the image quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[9]}}"></H1>
+									<H1>Step 4: What best describes the image sharpness quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[9]}}"></H1>
 									<div>Image Sharpness</div>
 									{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 									{{ Form::label('good', 'Good') }} <BR/>
@@ -655,7 +655,7 @@
 							</div>
 							<div id="question5" class="question">
 								<div class="textblock">
-									<H1>Optional: Would you like to make any comments on this image?</H1>
+									<H1>Would you like to make any comments on this image? [Optional]</H1>
 									<div id="commentForm">
 										{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
 										{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
@@ -719,7 +719,7 @@
 		<table  id="table_completed_game_buttons">
 			<tr>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect">Select Game</button></a></td>
+				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect">Select Other Game</button></a></td>
 				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 
@@ -732,7 +732,7 @@
 		<table style="width:100%">
 			<tr style="width:100%">
 				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Game</button></td>			
+				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Other Game</button></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
 				{{ Form::submit('Skip image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 				</form>
