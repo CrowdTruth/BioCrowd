@@ -119,22 +119,6 @@ class InitDatabase extends Migration {
 			$table->foreign('game_id')->references('id')->on('games');
 		});
 		
-		Schema::create('judgements', function($table)
-		{
-			$table->increments('id');
-			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('task_id')->unsigned();
-			$table->foreign('task_id')->references('id')->on('tasks');
-			$table->integer('game_id')->unsigned();
-			$table->foreign('game_id')->references('id')->on('games');
-			$table->integer('campaign_id')->unsigned()->nullable();
-			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
-			$table->longText('response');
-			$table->string('flag')->nullable();
-			$table->timestamps();
-		});
-		
 		Schema::create('campaign_types', function($table)
 		{
 			$table->increments('id');
@@ -160,6 +144,22 @@ class InitDatabase extends Migration {
 			$table->foreign('campaign_type_id')->references('id')->on('campaign_types');
 			$table->boolean('sendsEmail');
 			$table->string('emailCondition');
+			$table->timestamps();
+		});
+		
+		Schema::create('judgements', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('task_id')->unsigned();
+			$table->foreign('task_id')->references('id')->on('tasks');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
+			$table->integer('campaign_id')->unsigned()->nullable();
+			$table->foreign('campaign_id')->references('id')->on('campaigns')->nullable();
+			$table->longText('response');
+			$table->string('flag')->nullable();
 			$table->timestamps();
 		});
 		
@@ -243,9 +243,9 @@ class InitDatabase extends Migration {
 		Schema::drop('campaign_has_game');
 		Schema::drop('campaign_progress');
 		Schema::drop('scores');
+		Schema::drop('judgements');
 		Schema::drop('campaigns');
 		Schema::drop('campaign_types');
-		Schema::drop('judgements');
 		Schema::drop('game_has_task');
 		Schema::drop('workflows');
 		Schema::drop('tasks');

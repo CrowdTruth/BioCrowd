@@ -538,11 +538,11 @@ class DevelopDBSeeder extends Seeder {
 		$campaign->save();
 		
 		$this->command->info('Create test CampaignGames');
-		$campaign_games = new CampaignGames($campaign, $game2);
+		$campaign_games = new CampaignGames($campaign, $game1);
 		$campaign_games->save();
 		
 		$this->command->info('Create test CampaignGames');
-		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games = new CampaignGames($campaign, $game4);
 		$campaign_games->save();
 		
 		$this->command->info('Create test RandomGamesCampaign');
@@ -563,7 +563,7 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games->save();
 		
 		$this->command->info('Create test CampaignGames');
-		$campaign_games = new CampaignGames($campaign, $game3);
+		$campaign_games = new CampaignGames($campaign, $game4);
 		$campaign_games->save();
 		
 		$this->command->info('Create test RandomGamesCampaign');
