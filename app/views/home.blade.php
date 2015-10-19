@@ -58,6 +58,9 @@
 
 				<div class="section group scrollto" id="games" >
 					<div class="col span_8_of_8">
+					<div align="center">
+						<a href="playCampaign?campaignId=3"><button class="bioCrowdButton" style="background-color:#FECD08; color: black; font-weight: bold;">Random Game</button></a>
+					</div>
 					@foreach($levels as $number => $items)
 						@if ( $number+1 > Auth::user()->get()->level )
 							<h1 class="sectiontitle">
