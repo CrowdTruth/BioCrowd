@@ -17,7 +17,6 @@ class DevelopDBSeeder extends Seeder {
 		$controller = new GameAdminController;
 		$controller->installGameType('CellExGameType');
 		$controller->installGameType('VesExGameType');
-		$controller->installGameType('CellExOneFormGameType');
 
 		$this->createGames();
 		// Install campaign types separately ?
@@ -41,7 +40,7 @@ class DevelopDBSeeder extends Seeder {
 		$taskType = new TaskType(new CellExTaskType());
 		$taskType->save();
 		
-		/*$game1 = new Game($gameType);
+		$game1 = new Game($gameType);
 		$game1->level = 1;
 		$game1->name = 'Cell Tagging (Green)';
 		$game1->tag = 'Cell Seeker';
@@ -119,7 +118,7 @@ class DevelopDBSeeder extends Seeder {
 			$this->command->info('Create test GameHasTask');
 			$gameHasTask = new GameHasTask($game1, $task);
 			$gameHasTask->save();
-		}*/
+		}
 		
 		$game2 = new Game($gameType);
 		$game2->level = 2;
@@ -198,7 +197,7 @@ class DevelopDBSeeder extends Seeder {
 			$gameHasTask->save();
 		}
 		
-		/*$game3 = new Game($gameType);
+		$game3 = new Game($gameType);
 		$game3->level = 3;
 		$game3->name = 'Colony Tagging';
 		$game3->tag = 'Colony Catcher';
@@ -269,7 +268,7 @@ class DevelopDBSeeder extends Seeder {
 			$this->command->info('Create test GameHasTask');
 			$gameHasTask = new GameHasTask($game3, $task);
 			$gameHasTask->save();
-		}*/
+		}
 		
 		$this->command->info('Create test VesExGameType');
 		$gameType = GameType::where('name', '=', 'VesEx')->first();
@@ -337,164 +336,6 @@ class DevelopDBSeeder extends Seeder {
 			//Fill the GameHasTask table accordingly
 			$this->command->info('Create test GameHasTask');
 			$gameHasTask = new GameHasTask($game4, $task);
-			$gameHasTask->save();
-		}
-		
-		
-		//Create one form game type: 
-		$this->command->info('Create test CellExOneFormGameType');
-		$gameType = GameType::where('name', '=', 'CellExOneForm')->first();
-		
-		$game1 = new Game($gameType);
-		$game1->level = 1;
-		$game1->name = 'Cell Tagging';
-		$game1->tag = 'Cell Seeker';
-		$game1->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
-				.'';
-		$game1->examples = ''
-				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
-				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
-				.'</p>'
-				.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
-				.'<div style="border:1px solid #000;"><font color="#DC18DA"><b>Purple dots</b></font> show correctly counted cells. <font color="#3C5825"><b>Count & annotate a cell only when at least half of it is visible. </b></font><br>
-						<font color="#DC18DA"><b>Mark</b></font> each cell as close to its center as possible. <br>
-						(When you cannot see the complete cell, mark where you <i>think</i> the center would be.)<br> 
-						<br>
-						<font color="#0906C5"><b>Example A</b></font>. You see <font color="#3C5825"><b>1 complete cell, 1 nearly complete cell</b></font>, and 1 small bit of a cell => <font color="#DC18DA"><b>2 purple dot</b></font> markings. <br>
-						<font color="#0906C5"><b>Example B</b></font>. You see <font color="#3C5825"><b>2 complete cells</b></font>, more then half of <font color="#3C5825"><b>1 cell</b></font>, and a little bit of 2 other cells => <font color="#DC18DA"><b>3 purple dot</b></font> markings. <br>
-						<br>
-						The <font color="#0906C5">dotted blue line</font> shows the imaginary outline of the cell beyond the border of the image.</div>'
-				.'<img width="100%" src="img/CellTagging_Green.png">'
-				.'</div>'
-				.'</div>'
-				.'';
-		$game1->steps = ''
-				.'<div style="font-size: 20pt; color:#000;">Cell identification steps</div>'
-				.'<p>Step 1: Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. </p>'
-				.'<p>Step 2: Choose the option from the given list which best describes your cell markings. </p>'
-				.'<p>Step 3: Report the number of cells you have counted in the designated field. </p>'
-				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
-				.'<br>'
-				.'Detailed explanation for Step 1: '
-				.'<div>'
-				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
-				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
-				.'<li>This menu is located to the left of (or above) your task images. </li>'
-				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
-				.'<li>To remove the last cell marking, click the <img src=img/removeLastButton.png> button.</li>'
-				.'This removes the markings in the reversed order in which they were made (last mark will be deleted first). '
-				.'<li>To undo a <i>specific</i> annotation click the <b>x</b> next to the faulty mark in the "Drawn" table which you want to remove. </li>'
-				.'<li>Once you are happy with the result, click the "Next question" button. </li>'
-				.'</ul></div>'
-				.'</div>'
-				.'';
-		$game1->extraInfo = serialize([ 'label' => 'Mark each cell by clicking it or drawing a shape around it',
-				'label1' => 'I have annotated all cells', 
-				'label2' => 'There were too many cells to annotate',
-				'label3' => 'No cell visible',
-				'label4' => 'Other',
-				'label5' => 'Enter the total number of cells here:',
-				'label6' => 'Good',
-				'label7' => 'Medium',
-				'label8' => 'Poor',
-				'label9' => 'Blank (Black) Image',
-				'label10' => 'No Image',
-				'step1' => 'Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging.',
-				'step2' => 'Choose the option from the given list which best describes your cell markings.',
-				'step3' => 'Report the number of cells you have counted in the designated field. ',
-				'step4' => 'Click the button which best describes the given image quality. ',
-				]);
-		$game1->score = '10';
-		$game1->save();
-		
-		$this->command->info('Create test TaskType');
-		$taskType = new TaskType(new CellExTaskType());
-		$taskType->save();
-		
-		$images = glob('public/img/cellExAndNuclEx/*');
-		foreach($images as $image){
-			$image = substr($image,7);
-			$this->command->info('Create test CellExTask with image: '.$image);
-			$data = $image;
-			$task = new Task($taskType, $data);
-			$task->save();
-			//Fill the GameHasTask table accordingly
-			$this->command->info('Create test GameHasTask');
-			$gameHasTask = new GameHasTask($game1, $task);
-			$gameHasTask->save();
-		}
-		
-		$game3 = new Game($gameType);
-		$game3->level = 3;
-		$game3->name = 'Colony Tagging';
-		$game3->tag = 'Colony Catcher';
-		$game3->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
-				.'';
-		$game3->examples = ''
-				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
-				.'<div style="font-size: 20pt; color:#000;">Examples:</div>'
-						.'</p>'
-								.'<div style="background-color:#FFF; border:1px solid #000; padding:10px;">'
-										.'<div style="border:1px solid #000;"><font color="#DC18DA"><b>Purple dots</b></font> show correctly counted colonies. <font color="#3C5825"><b>Count & annotate a colony only when at least half of it is visible. </b></font><br>
-						<font color="#DC18DA"><b>Mark</b></font> each colony as close to its center as possible. <br>
-						(When you cannot see the complete colony, mark where you <i>think</i> the center would be.)<br>
-						Do not mark colonies that have merged into one big clump. <br>
-						Do mark colonies that are at the edge of of the petri dish of which you can see more then half of the colony present. <br>
-						<br>
-						<font color="#0906C5"><b>Example A</b></font>. You see <font color="#3C5825"><b>13 complete colonies</b></font>, 2 clumps of merged colonies, and a few line shaped clumps at the bottom => <font color="#DC18DA"><b>13 purple dot</b></font> markings. <br>
-						<font color="#0906C5"><b>Example B</b></font>. You see <font color="#3C5825"><b>2 complete colonies</b></font>, more then half of <font color="#3C5825"><b>1 colony</b></font>, a little bit of 2 other colony, and <font color="#3C5825"><b>1 colony at the edge of the petri dish</b></font> => <font color="#DC18DA"><b>4 purple dot</b></font> markings. <br>
-						<br>
-						The <font color="#0906C5">dotted blue line</font> shows the imaginary outline of the colony beyond the border of the image.</div>'
-												.'<img width="100%" src="img/ColonyTagging_Mixed.png">'
-														.'</div>'
-																.'</div>'
-																		.'';
-		$game3->steps = ''
-				.'<div style="font-size: 20pt; color:#000;">Colony identification steps</div>'
-				.'<p>Step 1: Click near the center of al visible colonies or drag the mouse to draw a box around the colonies. Keep a mental count while you are tagging. </p>'
-				.'<p>Step 2: Choose the option from the given list which best describes your colony markings. </p>'
-				.'<p>Step 3: Report the number of colonies you have counted in the designated field. </p>'
-				.'<p>Step 4: Click the button which best describes the given image quality. </p>'
-				.'<br>'
-				.'Detailed explanation for Step 1: '
-				.'<div>'
-				.'<div class="col span_2_of_8"><img src="img/annotationMenu.png"></div>'
-				.'<div class="col span_6_of_8"><ul style="-webkit-margin-before: 0em;-webkit-margin-after: 0em;">'
-				.'<li>This menu is located to the left of (or above) your task images. </li>'
-				.'<li>The "Drawn" table keeps track of your markings. (mouse clicks or drags)</li>'
-				.'<li>To remove the last colony marking, click the <img src=img/removeLastButton.png> button.</li>'
-				.'This removes the markings in the reversed order in which they were made (last mark will be deleted first). '
-				.'<li>To undo a <i>specific</i> annotation click the <b>x</b> next to the faulty mark in the "Drawn" table which you want to remove. </li>'
-				.'<li>Once you are happy with the result, click the "Next question" button. </li>'
-				.'</ul></div>'
-				.'</div>'
-				.'';
-		$game3->extraInfo = serialize([ 'label' => 'Mark each colony by clicking it or drawing a shape around it',
-				'label1' => 'I have annotated all colonies',
-				'label2' => 'There were too many colonies to annotate',
-				'label3' => 'No colonies visible',
-				'label4' => 'Other',
-				'label5' => 'Enter the total number of colonies here:',
-				'step1' => 'Click near the center of al visible colonies or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging.',
-				'step2' => 'Choose the option from the given list which best describes your colony markings.',
-				'step3' => 'Report the number of colonies you have counted in the designated field. ',
-				'step4' => 'Click the button which best describes the given image quality. ',
-				]);
-		$game3->score = '30';
-		$game3->save();
-		
-		$images = glob('public/img/colEx/*');
-		foreach($images as $image){
-			$image = substr($image,7);
-			$this->command->info('Create test Game: ColEx with image: '.$image);
-			$data = $image;
-			$task = new Task($taskType, $data);
-			$task->save();
-			//Fill the GameHasTask table accordingly
-			$this->command->info('Create test GameHasTask');
-			$gameHasTask = new GameHasTask($game3, $task);
 			$gameHasTask->save();
 		}
 	}
