@@ -93,13 +93,11 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
 		//Put the campaignScoreTag in the session if it's not null, so that future campaign updates will remember that this campaign was finished. 
 		if($campaignScoreTag){
-			Log::error($campaignScoreTag);
 			Session::put('campaignScoreTag', $campaignScoreTag);
 		}
 		
 		//Only redirect if $done is true
 		if($done){
-			Log::error($campaignScoreTag);
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
 			//add the campaignScoreTag that was put into the session variable when it exists, so that the score gained is showed in the next game view.
 			if($gameOrigin){
