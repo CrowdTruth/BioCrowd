@@ -91,18 +91,25 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
 		$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
+		//Put the campaignScoreTag in the session if it's not null, so that future campaign updates will remember that this campaign was finished. 
+		if($campaignScoreTag){
+			Log::error($campaignScoreTag);
+			Session::put('campaignScoreTag', $campaignScoreTag);
+		}
 		
 		//Only redirect if $done is true
 		if($done){
+			Log::error($campaignScoreTag);
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
+			//add the campaignScoreTag that was put into the session variable when it exists, so that the score gained is showed in the next game view.
 			if($gameOrigin){
-				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', $campaignScoreTag);
+				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', $campaignScoreTag));
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
 				$nextGame = $this->selectNextGameInCampaignForThisUser($campaign);
 				//return to next cammpaign or campaign overview page if the campaign is done.
 				if($nextGame){
 					//go to the next game in this campaign. This should always be the case, as the games circulate. 
-					return Redirect::to('playCampaign?campaignId='.$campaign->id);
+					return Redirect::to('playCampaign?campaignId='.$campaign->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', $campaignScoreTag));
 				} else {
 					//this should never happen TO DO: make it so that the $nextGame is false if the amount of played games for this campaign
 					//divided by the played games for this campaign is equal?
@@ -259,14 +266,14 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			//edit the number_performed in the campaignProgress model and save to the database
 			$campaignProgress->number_performed = $numberPerformed+1;
 			$campaignProgress->save();
-			
-			//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
-			$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
-			if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
-				//add the score to the users score column and add the score to the scores table.
-				ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
-				return ['campaignScore' => $campaign->score, 'campaignTag' => $campaign->tag];
-			}
+		}
+		
+		//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
+		$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
+		if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
+			//add the score to the users score column and add the score to the scores table.
+			ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
+			return ['campaignScore' => $campaign->score, 'campaignTag' => $campaign->tag];
 		}
 	}
 }

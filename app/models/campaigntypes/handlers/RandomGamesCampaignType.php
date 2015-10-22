@@ -100,12 +100,11 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 		//Only redirect if $done is true
 		if($done){
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
+			//add the campaignScoreTag that was put into the session variable when it exists, so that the score gained is showed in the next game view. 
 			if($gameOrigin){
-				return Redirect::to('playGame?gameId='.$game->id);
+				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
-				//get the campaignId of the RandomGamesCampaignType campaign
-				$campaign = Campaign::where('name', 'RandomGamesCampaignType')->first();
-				return Redirect::to('playCampaign?campaignId='.$campaign->id);
+				return Redirect::to('playCampaign?campaignId='.$campaign->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			}
 		}
 	}
