@@ -46,14 +46,15 @@
 		</div>
 		
 		@if($campaignMode)
-				{{ Form::open([ 'url' => 'submitCampaign', 'name' => 'annotationForm' ]) }}
-				{{ Form::hidden('campaignIdArray', serialize($campaignIdArray)) }}
-				@if(isset($gameOrigin) && $gameOrigin)
-				{{ Form::hidden('gameOrigin', $gameOrigin) }}
-				@endif
-			@else
-				{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
+			{{ Form::open([ 'url' => 'submitCampaign', 'name' => 'annotationForm' ]) }}
+			{{ Form::hidden('campaignIdArray', serialize($campaignIdArray)) }}
+			{{ Form::hidden('currentlyPlayedCampaignId', Input::get('campaignId')) }}
+			@if(isset($gameOrigin) && $gameOrigin)
+			{{ Form::hidden('gameOrigin', $gameOrigin) }}
 			@endif
+		@else
+			{{ Form::open([ 'url' => 'submitGame', 'name' => 'annotationForm' ]) }}
+		@endif
 		
 		@yield('gameForm')
 		

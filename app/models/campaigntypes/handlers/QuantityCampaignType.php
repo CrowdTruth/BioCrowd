@@ -90,6 +90,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
+		//get the currently played campaign id. If it's not there, it's null. 
+		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
+		//get the tag for this campaign if the campaign has been finished. If no campaign was finished, keep it null. 
 		$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
 		//Put the campaignScoreTag in the session if it's not null, so that future campaign updates will remember that this campaign was finished. 
 		if($campaignScoreTag){
@@ -107,7 +110,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 				//return to next cammpaign or campaign overview page if the campaign is done.
 				if($nextGame){
 					//go to the next game in this campaign. This should always be the case, as the games circulate. 
-					return Redirect::to('playCampaign?campaignId='.$campaign->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', $campaignScoreTag));
+					return Redirect::to('playCampaign?campaignId='.$currentlyPlayedCampaignId)->with('campaignScoreTag', Session::pull('campaignScoreTag', $campaignScoreTag));
 				} else {
 					//this should never happen TO DO: make it so that the $nextGame is false if the amount of played games for this campaign
 					//divided by the played games for this campaign is equal?

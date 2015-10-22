@@ -128,6 +128,9 @@ class StoryCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed. 
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
+		//get the currently played campaign id. If it's not there, it's null.
+		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
+		
 		//only update the campaign progress if the player came here from the campaign menu
 		if(!$gameOrigin){
 			$this->updateCampaignProgress($campaign,$game);
@@ -162,7 +165,7 @@ class StoryCampaignType extends CampaignTypeHandler {
 					return Redirect::to('campaignMenu');
 				} else {
 					//go to the next game in this campaign
-					return Redirect::to('playCampaign?campaignId='.$campaign->id);
+					return Redirect::to('playCampaign?campaignId='.$currentlyPlayedCampaignId);
 				}
 			}
 		}

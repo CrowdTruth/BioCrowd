@@ -97,6 +97,8 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
+		//get the currently played campaign id. If it's not there, it's null.
+		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
 		//Only redirect if $done is true
 		if($done){
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
@@ -104,7 +106,7 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 			if($gameOrigin){
 				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
-				return Redirect::to('playCampaign?campaignId='.$campaign->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
+				return Redirect::to('playCampaign?campaignId='.$currentlyPlayedCampaignId)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			}
 		}
 	}
