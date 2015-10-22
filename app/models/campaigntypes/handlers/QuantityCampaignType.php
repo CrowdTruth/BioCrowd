@@ -92,11 +92,15 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
 		//get the currently played campaign id. If it's not there, it's null. 
 		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
-		//get the tag for this campaign if the campaign has been finished. If no campaign was finished, keep it null. 
-		$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
-		//Put the campaignScoreTag in the session if it's not null, so that future campaign updates will remember that this campaign was finished. 
-		if($campaignScoreTag){
-			Session::put('campaignScoreTag', $campaignScoreTag);
+		//get the flag. If this game was skipped, don't update the campaign progress. 
+		$flag = Input::get('flag');
+		if($flag != "skipped"){
+			//get the tag for this campaign if the campaign has been finished. If no campaign was finished, keep it null.
+			$campaignScoreTag = $this->updateCampaignProgress($campaign,$game);
+			//Put the campaignScoreTag in the session if it's not null, so that future campaign updates will remember that this campaign was finished.
+			if($campaignScoreTag){
+				Session::put('campaignScoreTag', $campaignScoreTag);
+			}
 		}
 		
 		//Only redirect if $done is true
