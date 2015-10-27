@@ -55,7 +55,6 @@ class ScoreController {
 				$rank->currentRank = $i;
 				$rank->save();
 			} else {
-				Log::error('new Rank');
 				//if the user isn't in the ranking table yet, add a new rank. 
 				$rank = new Rank;
 				$rank->user_id = $user->id;
@@ -77,7 +76,6 @@ class ScoreController {
 				$rank->previousRank = $i;
 				$rank->save();
 			} else {
-				Log::error('new Rank');
 				//if the user isn't in the ranking table yet, add a new rank.
 				$rank = new Rank;
 				$rank->user_id = $user->id;
