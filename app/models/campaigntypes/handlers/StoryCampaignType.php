@@ -130,12 +130,13 @@ class StoryCampaignType extends CampaignTypeHandler {
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
 		//get the currently played campaign id. If it's not there, it's null.
 		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
+		$currentlyPlayedCampaign = Campaign::find($currentlyPlayedCampaignId);
 		
 		//get the flag. If this game was skipped, don't update the campaign progress.
 		$flag = Input::get('flag');
 		
-		//only update the campaign progress if the player came here from the campaign menu and if this game was not skipped. 
-		if(!$gameOrigin && $flag != "skipped"){
+		//only update the campaign progress if the player came here from the campaign menu and selected this campaign specifically and if this game was not skipped. 
+		if($currentlyPlayedCampaign->name == 'StoryCampaignType' && $flag != "skipped"){
 			$this->updateCampaignProgress($campaign,$game);
 		}
 		//Count the amount of games in this campaign for determinating if the user has finished this campaign. If the user has finished it, the user should be redirected to the campaign menu. 

@@ -239,28 +239,75 @@ class QuantityCampaignType extends CampaignTypeHandler {
 	}
 	
 	/**
-	 * Check if this user has made progress on this campaign before. 
-	 * If not make a new entry in the campaignProgress table. 
-	 * If yes, edit the entry in the campaignProgress table: up the numberPerformed by 1. 
+	 * Check if the user already has the badge for this campaign. 
+	 * If not, check if this user has played all games in this campaign the amount of times they should
+	 * If so, give them the badge. 
 	 */
 	function updateCampaignProgress($campaign,$game){
 		$userId = Auth::user()->get()->id;
+		//get all games in this campaign and how many times this user has finished them
+		$allGamesInThisCampaignNTimesPlayed = DB::table('campaign_has_game')
+			->leftJoin('judgements','campaign_has_game.game_id','=','judgements.game_id')
+			->where('campaign_has_game.campaign_id',$campaign->id)
+			->where('judgements.campaign_id',$campaign->id)
+			->where('flag','=','')
+			->orWhere('flag',null)
+			->where('user_id',$userId)
+			->orWhere('user_id',null)
+			->groupBy('campaign_has_game.game_id')
+			->select('campaign_has_game.game_id as GameId',DB::raw('count(judgements.game_id) as nTimes'))
+			->get();
+		
+		//get the amount of games for every game in this campaign
+		$allGamesInThisCampaignNTimes = CampaignGames::where('campaign_id',$campaign->id)
+			->groupBy('game_id')
+			->select('game_id as GameId',DB::raw('count(game_id) as nTimes'))
+			->get()
+			->toArray();
+		
+		//make a variable for the amount of times that the user has finished this campaign
+		$amountOfTimesFinished = 0;
+		
+		//set the loop to true to start iteration
+		$loop = true;
+		
+		//keep track of the campaignProgress (#games played in the last iteration of the while loop)
+		$numberPerformed = 0;
+		
+		//subtract all instances of the campaign that were already played from the $allGamesInThisCampaignNTimesPlayed array
+		while($loop){
+			$numberPerformed = 0;
+			for($i=0; $i<(count($allGamesInThisCampaignNTimesPlayed)); $i++){
+				for($j=0; $j<(count($allGamesInThisCampaignNTimes)); $j++){
+					if($allGamesInThisCampaignNTimes[$j]['GameId'] == $allGamesInThisCampaignNTimesPlayed[$i]->GameId){
+						if($allGamesInThisCampaignNTimesPlayed[$i]->nTimes >= $allGamesInThisCampaignNTimes[$j]['nTimes']){
+							//if the number of times that this game was played is more then the campaign needed, 
+							//subtract the nTimes that this game should be played for this campaign
+							$allGamesInThisCampaignNTimesPlayed[$i]->nTimes -= $allGamesInThisCampaignNTimes[$j]['nTimes'];
+							$numberPerformed += 1;
+						} else {
+							//if this game was played less times then this campaign needed, 
+							//set $loop to false to stop the iteration. 
+							$loop = false;
+						}
+					}
+				}
+			}
+			if($loop == true){
+				$amountOfTimesFinished += 1;
+			}
+		}
+		
+		//Update the campaignProgress table
 		//get the amount of games performed by this user for this campaign
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
-		
-		global $numberPerformed;
+		//if the testvariable is less then 1, the database gave no result and thus the user 
+		//didn't have a campaignPerformance for this campaign yet. 
 		if(count($testvariable) < 1){
-			$numberPerformed = 0;
-		} else {
-			//Find out what the next game is for this user in this campaign
-			$numberPerformed = $testvariable['number_performed'];
-		}
-			
-		if($numberPerformed == 0){
 			//Since there is no entry in the campaign_progress table yet, make a new campaignProgress model.
 			$campaignProgress = new CampaignProgress;
 			//fill it with all important information
-			$campaignProgress->number_performed = $numberPerformed+1;
+			$campaignProgress->number_performed = $numberPerformed;
 			$campaignProgress->campaign_id = $campaign->id;
 			$campaignProgress->user_id = $userId;
 			//and save it to the database
@@ -269,13 +316,12 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			//get the campaignProgress entry you need to edit
 			$campaignProgress = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->first();
 			//edit the number_performed in the campaignProgress model and save to the database
-			$campaignProgress->number_performed = $numberPerformed+1;
+			$campaignProgress->number_performed = $numberPerformed;
 			$campaignProgress->save();
 		}
 		
-		//check the amount of games in this campaign and give the user scoring if the campaign is finished (for the first time??)
-		$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaign->id)->get());
-		if ($campaignProgress->number_performed == $numberOfGamesInCampaign) { //should we put it this way or divide number_performed by 4 to give user score every time the user finishes the campaign over and over again?
+		//check if the campaign was just finished (every time the user finishes it he will receive score)
+		if ($amountOfTimesFinished >= 1 && $numberPerformed == 0) {
 			//add the score to the users score column and add the score to the scores table.
 			ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
 			return ['campaignScore' => $campaign->score, 'campaignTag' => $campaign->tag];
