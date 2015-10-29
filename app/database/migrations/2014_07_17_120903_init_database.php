@@ -185,6 +185,7 @@ class InitDatabase extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('number_performed')->default(0);
+			$table->integer('times_finished')->default(0);
 			$table->timestamps();
 		});
 		
@@ -228,6 +229,28 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});*/
 		
+		Schema::create('badges', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->nullable()->default(null)->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->string('badgeName');
+			$table->string('badgeImg');
+			$table->string('badgeText');
+			$table->timestamps();
+		 });
+		
+		Schema::create('user_has_badge', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('badge_id')->unsigned();
+			$table->foreign('badge_id')->references('id')->on('badges');
+			$table->timestamps();
+		});
+		
+		
 	}
 
 	/**
@@ -237,6 +260,8 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		Schema::drop('user_has_badge');
+		Schema::drop('badges');
 		//Schema::drop('ranks');
 		Schema::drop('campaign_has_story');
 		Schema::drop('stories');

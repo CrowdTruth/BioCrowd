@@ -298,6 +298,9 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			}
 		}
 		
+		//make an $amountOfTimesFinished_OLD variable for when the campaign progress gets updated and put it to 0 default. 
+		$amountOfTimesFinished_OLD = 0;
+		
 		//Update the campaignProgress table
 		//get the amount of games performed by this user for this campaign
 		$testvariable = CampaignProgress::where('user_id',Auth::user()->get()->id)->where('campaign_id',$campaign->id)->first(['number_performed']);
@@ -308,6 +311,7 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			$campaignProgress = new CampaignProgress;
 			//fill it with all important information
 			$campaignProgress->number_performed = $numberPerformed;
+			$campaignProgress->times_finished = $amountOfTimesFinished;
 			$campaignProgress->campaign_id = $campaign->id;
 			$campaignProgress->user_id = $userId;
 			//and save it to the database
@@ -315,16 +319,35 @@ class QuantityCampaignType extends CampaignTypeHandler {
 		} else {
 			//get the campaignProgress entry you need to edit
 			$campaignProgress = CampaignProgress::where('user_id',$userId)->where('campaign_id',$campaign->id)->first();
+			//fill the $amountOfTimesFinished_OLD variable before updating it 
+			$amountOfTimesFinished_OLD = $campaignProgress->times_finished;
 			//edit the number_performed in the campaignProgress model and save to the database
 			$campaignProgress->number_performed = $numberPerformed;
+			$campaignProgress->times_finished = $amountOfTimesFinished;
 			$campaignProgress->save();
 		}
 		
 		//check if the campaign was just finished (every time the user finishes it he will receive score)
-		if ($amountOfTimesFinished >= 1 && $numberPerformed == 0) {
+		if ($amountOfTimesFinished >= 1 && $amountOfTimesFinished_OLD!=$amountOfTimesFinished) {
+			//get which badge can be won for this campaign, if any
+			$badgeForThisCampaign = Badge::where('campaign_id',$campaign->id)->get();
+			if(count($badgeForThisCampaign) != 0){
+				$userHasBadgeForThisCampaign = UserHasBadge::where('user_id',$userId)->where('badge_id',$badgeForThisCampaign[0]->id)->get();
+			}
+			
+			//if the user didn't have a badge for this campaign yet
+			if(count($userHasBadgeForThisCampaign) == 0 ){
+				//Give the user the badge that belongs to this campaign
+				$userHasBadge = new UserHasBadge();
+				$userHasBadge->user_id = $userId;
+				$userHasBadge->badge_id = $badgeForThisCampaign[0]->id;
+				$userHasBadge->save();
+			}
+			
 			//add the score to the users score column and add the score to the scores table.
 			ScoreController::addScore($campaign->score,$userId,"You have finished Campaign ".$campaign->tag." and received a score of".$campaign->score,$game->id,$campaign->id);
 			return ['campaignScore' => $campaign->score, 'campaignTag' => $campaign->tag];
+				
 		}
 	}
 }

@@ -354,11 +354,19 @@ class DevelopDBSeeder extends Seeder {
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'StoryCampaignType';
 		$campaign->tag = 'Army Campaign';
-		$campaign->badgeName = 'StoryCampaignType';
+		$campaign->badgeName = 'Army Campaign Badge';
 		$campaign->description = '<p>In this campaign you will be working for the army. </p>';
 		$campaign->image = 'img/army_mission.png';
 		$campaign->score = '100';
 		$campaign->save();
+		
+		$this->command->info('Create test Badge');
+		$badge = new Badge();
+		$badge->campaign_id = $campaign->id;
+		$badge->badgeName = $campaign->badgeName;
+		$badge->badgeImg = $campaign->image;
+		$badge->badgeText = 'Army Campaign Badge';
+		$badge->save();
 		
 		$this->command->info('Create test Story');
 		$story1 = new Story($campaign);
@@ -478,11 +486,19 @@ class DevelopDBSeeder extends Seeder {
 		$campaign = new Campaign($campaignType);
 		$campaign->name = 'QuantityCampaignType';
 		$campaign->tag = 'Tutorial';
-		$campaign->badgeName = 'QuantityCampaignType';
+		$campaign->badgeName = 'Tutorial Badge';
 		$campaign->description = '<p>In this campaign you will do as many games as possible. </p>';
 		$campaign->image = 'img/army_mission.png';
 		$campaign->score = '100';
 		$campaign->save();
+		
+		$this->command->info('Create test Badge');
+		$badge = new Badge();
+		$badge->campaign_id = $campaign->id;
+		$badge->badgeName = $campaign->badgeName;
+		$badge->badgeImg = $campaign->image;
+		$badge->badgeText = 'Tutored';
+		$badge->save();
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game1);
