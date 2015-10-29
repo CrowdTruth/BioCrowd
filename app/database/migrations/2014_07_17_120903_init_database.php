@@ -234,9 +234,9 @@ class InitDatabase extends Migration {
 			$table->increments('id');
 			$table->integer('campaign_id')->nullable()->default(null)->unsigned();
 			$table->foreign('campaign_id')->references('id')->on('campaigns');
-			$table->string('badgeName');
-			$table->string('badgeImg');
-			$table->string('badgeText');
+			$table->string('name');
+			$table->string('image');
+			$table->string('text');
 			$table->timestamps();
 		 });
 		

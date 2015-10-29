@@ -363,9 +363,9 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Badge');
 		$badge = new Badge();
 		$badge->campaign_id = $campaign->id;
-		$badge->badgeName = $campaign->badgeName;
-		$badge->badgeImg = $campaign->image;
-		$badge->badgeText = 'Army Campaign Badge';
+		$badge->name = $campaign->badgeName;
+		$badge->image = $campaign->image;
+		$badge->text = 'Army Campaign Badge';
 		$badge->save();
 		
 		$this->command->info('Create test Story');
@@ -495,9 +495,9 @@ class DevelopDBSeeder extends Seeder {
 		$this->command->info('Create test Badge');
 		$badge = new Badge();
 		$badge->campaign_id = $campaign->id;
-		$badge->badgeName = $campaign->badgeName;
-		$badge->badgeImg = $campaign->image;
-		$badge->badgeText = 'Tutored';
+		$badge->name = $campaign->badgeName;
+		$badge->image = $campaign->image;
+		$badge->text = 'Tutored';
 		$badge->save();
 		
 		$this->command->info('Create test CampaignGames');
