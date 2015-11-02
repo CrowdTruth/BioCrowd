@@ -8,7 +8,34 @@ class ProfileController extends BaseController {
 	 * Returns the view "profile"
 	 */
 	public function getView() {
-		return View::make('profile');
+		$userId = Auth::user()->get()->id;
+		//get the last 5 badges of this user
+		$userHasBadges = UserHasBadge::where('user_id',$userId)
+		->select('name','image','text','user_has_badge.created_at')
+		->orderBy('user_has_badge.created_at','desc')
+		->take(5)
+		->join('badges','user_has_badge.badge_id','=','badges.id')
+		->get()
+		->toArray();
+		
+		//get the last 5 scores of this user
+		$userScores = Score::where('user_id',$userId)
+		->select('campaign_id','score_gained','description','created_at')
+		->orderBy('created_at','desc')
+		->take(5)
+		->get()
+		->toArray();
+		
+		//get the last 5 campaign scores of this user
+		$userCampaignScores = Score::where('user_id',$userId)
+		->select('campaign_id','score_gained','description','created_at')
+		->orderBy('created_at','desc')
+		->where('campaign_id', '!=', 'null')
+		->take(5)
+		->get()
+		->toArray();
+		
+		return View::make('profile')->with('userHasBadges',$userHasBadges)->with('userScores',$userScores)->with('userCampaignScores',$userCampaignScores);
 	}
 	
 	/**

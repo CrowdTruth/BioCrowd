@@ -64,13 +64,82 @@
 		<div class="section group" id="profile">
 			<div class="col span_5_of_8" id="profile_main">
 				<div class="textblock">
+				
+					<div class="section group" id="badges">
+						<div class="col span_8_of_8">
+							<div class="profiletitle collapsed">
+								<H1>My Badges <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+							</div>
+							<div class="profilebody" style="display: none;">
+								@if($userHasBadges)
+									<div> 
+									@foreach ($userHasBadges as $badge)
+										<img width="20%" src="{{ $badge['image'] }}" title="{{ $badge['name'] }}">
+									@endforeach
+									</div>
+								@else
+									<div>You don't have any badges yet. Finish campaigns to earn badges. </div>
+								@endif
+							</div>
+						</div>
+					</div>
+					
+					<div class="section group" id="scores">
+						<div class="col span_8_of_8">
+							<div class="profiletitle collapsed">
+								<H1>My Scores <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+							</div>
+							<div class="profilebody" style="display: none;">
+								@if($userCampaignScores)
+									Last 5 scores for Campaigns: 
+									<div> 
+									<table class="table table-striped">
+										<tr>
+											<td>Score gained</td>
+											<td>Date</td>
+										</tr>
+									@foreach ($userCampaignScores as $campaignScore)
+										<tr>
+										<td>{{ $campaignScore['score_gained'] }}</td>
+										<td>{{ $campaignScore['created_at'] }}</td>
+										</tr>
+									@endforeach
+									</table>
+									</div>
+								@else
+									<div>You don't have any Campaign scores yet. Finish campaigns to earn scores. </div>
+								@endif
+								<br>
+								@if($userScores)
+									Last 5 scores in general: 
+									<div> 
+									<table class="table table-striped">
+										<tr>
+											<td>Score gained</td>
+											<td>Date</td>
+										</tr>
+									@foreach ($userScores as $userScore)
+										<tr>
+										<td>{{ $userScore['score_gained'] }}</td>
+										<td>{{ $userScore['created_at'] }}</td>
+										</tr>
+									@endforeach
+									</table>
+									</div>
+								@else
+									<div>You don't have any scores yet. Finish campaigns and play games to earn scores. </div>
+								@endif
+							</div>
+						</div>
+					</div>
+				
 					<div class="section group" id="account">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>My Account <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div class="profiletitle collapsed">
+								<H1>My Account <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 
 							</div>
-							<div class="profilebody">
+							<div class="profilebody"  style="display: none;">
 								{{ Form::open(['url' => 'editProfile']) }}
 								<?php $cellBioExpertise = Auth::user()->get()->cellBioExpertise; ?>
 								<table>
@@ -119,10 +188,10 @@
 
 					<div class="section group" id="password">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>Password <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div class="profiletitle collapsed">
+								<H1>Password <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
-							<div class="profilebody">
+							<div class="profilebody"  style="display: none;">
 								{{ Form::open(['url' => 'changePass']) }}
 								{{ Form::hidden('email', Auth::user()->get()->email) }}
 								<table>
@@ -150,10 +219,10 @@
 
 					<div class="section group" id="notifications">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>Notifications <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div class="profiletitle collapsed">
+								<H1>Notifications <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
-							<div class="profilebody">
+							<div class="profilebody" style="display: none;">
 								<table>
 									<tr>
 										<td>Notify me of new campaigns</td>
@@ -196,11 +265,12 @@
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			<div class="col span_3_of_8" id="profile_background">
-				<a href="logout"><button style="float:right" class="bioCrowdButton">Log out</button></a>
-				<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
+			<a href="logout"><button style="float:right" class="bioCrowdButton">Log out</button></a>
+			<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
 			</div>
 		</div>
 	</div>
