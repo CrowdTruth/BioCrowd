@@ -780,6 +780,17 @@
 		min-height: 25px;
 	}
 	
+	#sidebarLeaderboard button{
+		margin-top: 10px;
+		margin-bottom: 30px;
+		width: 80%;
+		color: white;
+		background-color: #008752;
+		border-radius: 12px;
+		border: 0;
+		min-height: 25px;
+	}
+	
 	#social {
 		padding-top: 12px;
 		padding-bottom: 12px;
@@ -1103,18 +1114,18 @@
 
 /*Remove all link styles from the leaderboard in the sidebar*/
 #sidebarLeaderboard a:link{
-	color: black;
+	color: #333333;
 	text-decoration: none;
 }
 #sidebarLeaderboard a:visited{
-	color: black;
+	color: #333333;
 	text-decoration: none;
 }
 #sidebarLeaderboard a:hoover{
-	color: black;
+	color: #333333;
 	text-decoration: none;
 }
 #sidebarLeaderboard a:active{
-	color: black;
+	color: #333333;
 	text-decoration: none;
 }

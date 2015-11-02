@@ -9,6 +9,12 @@
 					</div>
 					<img src="img/glyphs/image_level.png" width="120px" id="levelimg"
 							alt=""></img>
+					<div style="position: absolute; top: 153px; width:100%">
+						<div style="font-size: 1.5em; color: white; left: 34.6%; text-align:center;">Score</div>
+						<div style="font-size: 3em; color: white; left: 44.4%; text-align:center;">{{Auth::user()->get()->score}}</div>
+					</div>
+					<img src="img/glyphs/image_score.png" width="120px" id="scoreimg"
+							alt=""></img>
 					<div id="progress">
 						<?php 
 						$userScore = Auth::user()->get()->score;
@@ -31,20 +37,76 @@
 				</div>
 				<div id="achievements" class="sidebarchild" align="center">
 					<H1>
-						<strong>Achievements</strong>
+						<strong>Campaigns</strong>
 					</H1>
-					<span>Army campaign</span>
-					<div id="progress">
-						<div class="bar" style="width: 60%;">3/5 completed</div>
-					</div>
-					<span>5 games</span>
-					<div id="progress">
-						<div class="bar" style="width: 60%;">3/5 completed</div>
-					</div>
-					<span>10 games</span>
-					<div id="progress">
-						<div class="bar" style="width: 80%;">8/10 completed</div>
-					</div>
+					<?php 
+					//get the campaign progress for the campaigns this user has the highest progress of, 
+					//and/or other running campaigns
+					$userUnfinishedCampaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)
+					->select('campaign_id','number_performed','times_finished')
+					->where('times_finished','==','0') //only show campaigns that weren't finished yet by this user 
+					->orderBy('number_performed','desc') //make sure we get to see the best progress bars by putting the highest number performed at the top. 
+					->take(3)
+					->get()->toArray();
+					
+					//make a variable to contain campaigns other then userCampainProgress contains
+					$otherCampaigns = [];
+					if(count($userUnfinishedCampaignProgress) >= 1){
+						//make an array for all campaign_id's this user ever took part in
+						$campaignProgressIds = [];
+						//make an array of all campaign_id's this user ever took part in in the new variable $userCampaignProgress
+						$userCampaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)
+						->select('campaign_id','number_performed','times_finished')
+						->orderBy('number_performed','desc') //make sure we get to see the best progress bars by putting the highest number performed at the top.
+						->take(3)
+						->get()->toArray();
+						foreach($userCampaignProgress as $campaignProgress){
+							//fill the campaignProgressId's array
+							array_push($campaignProgressIds,$campaignProgress['campaign_id']);
+						}
+						//if the user doesn't have enough unfinished campaigns in the CampaignProgress table, get some campaigns out of the campaign table
+						if(count($campaignProgressIds)>=1) {
+							$otherCampaigns = Campaign::whereNotIn('id',$campaignProgressIds)
+							->select('id','tag')
+							->take(3-count($userUnfinishedCampaignProgress))
+							->get()->toArray();
+						}
+					} else {
+						//if the user has no unfinished campaigns in the CampaignProgress table, get 3 campaigns out of the campaign table
+						$otherCampaigns = Campaign::select('id','tag')
+						->take(3)
+						->get()->toArray();
+					}
+					
+					?>
+					@foreach ($userUnfinishedCampaignProgress as $campaignProgress)
+						<?php $campaignTag = Campaign::where('id',$campaignProgress['campaign_id'])->get()[0]->tag;
+						$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaignProgress['campaign_id'])->get()->toArray());
+						?>
+						<span>{{$campaignTag}}</span>
+						<div id="progress">
+							<div class="bar" style="width: {{($numberPerformed/$numberOfGamesInCampaign)*100}}%;">{{$campaignProgress['number_performed']}}/{{$numberOfGamesInCampaign}} completed</div>
+						</div>
+					@endforeach
+					@foreach ($otherCampaigns as $sidebarCampaign)
+						<?php $campaignTag = $sidebarCampaign['tag'];
+						$campaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)
+						->where('campaign_id',$sidebarCampaign['id'])
+						->get()->toArray();
+						if(count($campaignProgress) == 0){
+							//if the user has not made any progress with any capmaign, the numberPerformed is zero. 
+							$numberPerformed = 0;
+						} else {
+							//Else, set the numberPerformed to the numberPerformed in the campaignProgress table for this user and this campaign_id. 
+							$numberPerformed = $campaignProgress[0]['number_performed'];
+						}
+						$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$sidebarCampaign['id'])->get()->toArray());
+						?>
+						<span>{{$campaignTag}}</span>
+						<div id="progress">
+							<div class="bar" style="width: {{($numberPerformed/$numberOfGamesInCampaign)*100}}%;">{{$numberPerformed}}/{{$numberOfGamesInCampaign}} completed</div>
+						</div>
+					@endforeach
 					<button>See all campaigns</button>
 				</div>
 				
@@ -57,7 +119,7 @@
 					<div>
 						<a href="leaderboard">
 							<div>
-								<b>Leaderboard top 5: </b> 
+								<h1><b>Leaderboard top 5: </b></h1> 
 								<?php $userInfoIsOnPageAlready = false?>
 								<table>
 									<tr>
@@ -119,6 +181,7 @@
 									@endif
 									<!-- If the user is logged in, show the user's rank here if it's not in the top 20 already, If the user is in the top 20, highlight the user's row-->
 								</table>
+								<a href="leaderboard"><button>Go to leaderboard</button></a>
 							</div>
 						</a>
 					</div>
