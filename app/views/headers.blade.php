@@ -15,6 +15,7 @@
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
+		@if (Route::getCurrentRoute()->getPath() != 'playGame')
 		$(document).ready(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 			if (!document.getElementById('sidebar')) {
@@ -58,6 +59,22 @@
 				}
 			}
 		});
+		@else
+			$(document).ready(function() {
+				debugger;
+				var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+				if (!document.getElementById('sidebar')) {
+					$('.sidebarbutton').show();
+				} else {
+					if ($('#sidebar').is(":visible")) {
+						$('#sidebar').hide();
+						$('.sidebarbutton').show();
+						$('#minimize').show();
+					}
+				}
+
+			});
+		@endif
 	
 		$(document).ready(function() {
 			$('.sidebarbutton, #minimize img').click(function() {
