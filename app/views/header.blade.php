@@ -2,15 +2,23 @@
 	<div class="col span_3_of_8">
 		<a href="{{ Lang::get('gamelabels.gameUrl') }}" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
 	</div>
-	<div class="col span_5_of_8" style="height:61px;">
-		<a href="#"><img src="img/glyphs/logo_twitter.png" height=45px></img></a>
-		<a href="#"><img src="img/glyphs/logo_facebook.png" height=45px></img></a>
+	<div class="col span_5_of_8" height:61px;">
 		@if (Auth::user()->check())
-		<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
-		<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>				
-		<div class="sidebarbutton" align="right">
-			<img src="img/glyphs/arrow.png" height="20px"></img>
-		</div>
+			<div style="position: relative; display: inline-block;">
+				<div style="display: inline-block;">
+					<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
+					<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>
+					<div style="position: relative; display: inline-block;">
+						<div><img id="badgesIconInBanner" height="45px" src="img/glyphs/yellow_hexagon.png" title="Click to see how many badges you have"></div>
+						<div id="badgeDropDowns">
+							{{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}
+						</div>
+					</div>
+					<div class="sidebarbutton" align="right">
+						<img src="img/glyphs/arrow.png" height="20px"></img>
+					</div>
+				</div>
+			</div>
 		@endif
 		@if (!Auth::user()->check())
 		<div id="bannerlogin" >

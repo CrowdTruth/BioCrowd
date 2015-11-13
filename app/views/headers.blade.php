@@ -114,6 +114,19 @@
 				}
 			});
 		});
+
+		$(document).ready(function() {
+			$('#badgesIconInBanner').click(function() {
+				var hidden = $('#badgeDropDowns');
+				if (hidden.hasClass('visible')) {
+					hidden.removeClass('visible');
+					hidden.slideUp(50);
+				} else {
+					hidden.addClass('visible');
+					hidden.slideDown(50);
+				}
+			});
+		});
 	</script>
 @endif
 

@@ -5,6 +5,22 @@
 	background-color: white;
 	
 	}
+	
+	#badgeDropDowns {
+			border-left-style: solid;
+		    border-left-color: black;
+		    border-right-style: solid;
+		    border-right-color: black;
+		    border-bottom-style: solid;
+		    border-bottom-color: black;
+		    position: absolute;
+		    z-index: 1000;
+		    left: 0px;
+		    text-align: center;
+		    width: 100%;
+		    display: none;
+		    background: white;
+	}
 
 	#badges ul li {
 		display: inline-block;
