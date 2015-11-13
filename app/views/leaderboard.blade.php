@@ -51,65 +51,99 @@ $(document).ready(function() {
 								@if(is_object($row))
 									@if(Auth::user()->check() && ($row->user_id == Auth::user()->get()->id))
 										<tr style="background-color: yellow;">
+											<td style="background-color: yellow;">
+											{{$row->currentRank}}
+											</td>
+											<td style="background-color: yellow;">
+											{{$row->name}}
+											</td>
+											<td style="background-color: yellow;">
+											{{$row->level}}
+											</td>
+											<td style="background-color: yellow;">
+											@if($setting == 'scores')
+												{{$row->score}}
+											@elseif($setting == 'judgements')
+												{{$row->nJudgements}}
+											@endif
+											</td>
+										</tr>
 										<?php $userInfoIsOnPageAlready = true?>
 									@else
 										<tr>
+											<td>
+											{{$row->currentRank}}
+											</td>
+											<td>
+											{{$row->name}}
+											</td>
+											<td>
+											{{$row->level}}
+											</td>
+											<td>
+											@if($setting == 'scores')
+												{{$row->score}}
+											@elseif($setting == 'judgements')
+												{{$row->nJudgements}}
+											@endif
+											</td>
+										</tr>
 									@endif
-										<td>
-										{{$row->currentRank}}
-										</td>
-										<td>
-										{{$row->name}}
-										</td>
-										<td>
-										{{$row->level}}
-										</td>
-										<td>
-										@if($setting == 'scores')
-											{{$row->score}}
-										@elseif($setting == 'judgements')
-											{{$row->nJudgements}}
-										@endif
-										</td>
-									</tr>
 								@else
 									@if(Auth::user()->check() && ($row['user_id'] == Auth::user()->get()->id))
 										<tr style="background-color: yellow;">
+											<td style="background-color: yellow;">
+											{{$row['currentRank']}}
+											</td>
+											<td style="background-color: yellow;">
+											{{$row['name']}}
+											</td>
+											<td style="background-color: yellow;">
+											{{$row['level']}}
+											</td>
+											<td style="background-color: yellow;">
+											@if($setting == 'scores')
+												{{$row['score']}}
+											@elseif($setting == 'judgements')
+												{{$row['nJudgements']}}
+											@endif
+											</td>
+										</tr>
 										<?php $userInfoIsOnPageAlready = true?>
 									@else
 										<tr>
+											<td>
+											{{$row['currentRank']}}
+											</td>
+											<td>
+											{{$row['name']}}
+											</td>
+											<td>
+											{{$row['level']}}
+											</td>
+											<td>
+											@if($setting == 'scores')
+												{{$row['score']}}
+											@elseif($setting == 'judgements')
+												{{$row['nJudgements']}}
+											@endif
+											</td>
+										</tr>
 									@endif
-									<td>
-										{{$row['currentRank']}}
-										</td>
-										<td>
-										{{$row['name']}}
-										</td>
-										<td>
-										{{$row['level']}}
-										</td>
-										<td>
-										@if($setting == 'scores')
-											{{$row['score']}}
-										@elseif($setting == 'judgements')
-											{{$row['nJudgements']}}
-										@endif
-										</td>
-									</tr>
 								@endif
 							@endforeach
 							@if(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank != '')
 								<tr style="background-color: yellow;">
-									<td>
+									<td style="background-color: yellow;">
 									{{$userRank}}
 									</td>
-									<td>
+									<td style="background-color: yellow;">
 									{{Auth::user()->get()->name}}
 									</td>
-									<td>
+									<td style="background-color: yellow;">
 									{{Auth::user()->get()->level}}
 									</td>
-									<td>
+									<td style="background-color: yellow;">
 									@if($setting == 'scores')
 										{{Auth::user()->get()->score}}
 									@elseif($setting == 'judgements')
@@ -119,12 +153,12 @@ $(document).ready(function() {
 								</tr>
 							@elseif(Auth::user()->check() && !$userInfoIsOnPageAlready && $userRank == '')
 								<tr style="background-color: yellow;">
-									<td colspan="4">You don't have a rank yet. Play a game to earn your place in the leaderboard! </td>
+									<td style="background-color: yellow;" colspan="4">You don't have a rank yet. Play a game to earn your place in the leaderboard! </td>
 								</tr>
 							@endif
 						@else
 							<tr style="background-color: yellow;">
-								<td colspan="4">
+								<td style="background-color: yellow;" colspan="4">
 									There are no entries for the chosen time period and rank type. 
 								</td>
 							</tr>
