@@ -9,10 +9,13 @@
 					<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
 					<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
-						<div><img id="badgesIconInBanner" height="45px" src="img/glyphs/yellow_hexagon.png" title="Click to see how many badges you have"></div>
+					<div id="badgesIconInBanner">
+						<div style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:2px;"> {{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+						<div><img height="45px" src="img/glyphs/yellow_hexagon.png" title="Your badge count. Click to see an overview of all badges"></div>
 						<div id="badgeDropDowns">
 							{{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}
 						</div>
+					</div>
 					</div>
 					<div class="sidebarbutton" align="right">
 						<img src="img/glyphs/arrow.png" height="20px"></img>
