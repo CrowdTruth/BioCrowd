@@ -116,8 +116,8 @@
 		});
 
 		$(document).ready(function() {
-			$('#badgesIconInBanner').click(function() {
-				var hidden = $('#badgeDropDowns');
+			$('#campaignsIconInBanner').click(function() {
+				var hidden = $('#campaignDropDowns');
 				if (hidden.hasClass('visible')) {
 					hidden.removeClass('visible');
 					hidden.slideUp(50);

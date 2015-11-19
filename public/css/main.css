@@ -6,7 +6,7 @@
 	
 	}
 	
-	#badgeDropDowns {
+	#campaignDropDowns {
 			border-left-style: solid;
 		    border-left-color: black;
 		    border-right-style: solid;
@@ -20,6 +20,14 @@
 		    width: 100%;
 		    display: none;
 		    background: white;
+	}
+
+	.dropdownItem:hover {
+		background: blue;
+	}
+	
+	.unplayedCampaign {
+		background: #E4E4E4;
 	}
 
 	#badges ul li {
@@ -369,7 +377,7 @@
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 18px;
+			top: 7px;
 		}
 	}
 	
@@ -377,7 +385,7 @@
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 18px;
+			top: 7px;
 		}
 	}
 	

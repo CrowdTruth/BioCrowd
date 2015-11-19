@@ -2,18 +2,29 @@
 	<div class="col span_3_of_8">
 		<a href="{{ Lang::get('gamelabels.gameUrl') }}" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
 	</div>
-	<div class="col span_5_of_8" height:61px;">
+	<div class="col span_5_of_8" style="height:61px;">
 		@if (Auth::user()->check())
 			<div style="position: relative; display: inline-block;">
 				<div style="display: inline-block;">
 					<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
 					<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
-					<div id="badgesIconInBanner">
-						<div style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:2px;"> {{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
-						<div><img height="45px" src="img/glyphs/yellow_hexagon.png" title="Your badge count. Click to see an overview of all badges"></div>
-						<div id="badgeDropDowns">
-							{{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}
+					<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
+						<div style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+						<div><img height="45px" style="padding-left:7px;" src="img/glyphs/yellow_hexagon.png"></div>
+						<div id="campaignDropDowns" style="text-align: center;">
+						<?php $playedCampaignTags = CampaignProgress::where('user_id',Auth::user()->get()->id)->select('campaign_id')->orderBy('campaign_id')->get(); ?>
+						<?php $playedCampaignArray = []?>
+							@foreach($playedCampaignTags as $playedCampaignTag)
+								<?php $playedCampaign = Campaign::where("id",$playedCampaignTag["campaign_id"])->get()?>
+								<a href="playCampaign?campaignId={{$playedCampaignTag["campaign_id"]}}"><div class="dropdownItem playedCampaign"> <img width=100%" src="{{$playedCampaign[0]["image"]}}" title="{{$playedCampaign[0]["tag"]}}" style="padding-left:0px;"></div></a>
+								<?php array_push($playedCampaignArray,$playedCampaignTag["campaign_id"]);?>
+							@endforeach
+						<?php $unplayedCampaignTags = Campaign::whereNotIn('id',$playedCampaignArray)->get();?>
+							@foreach($unplayedCampaignTags as $unplayedCampaignTag)
+							<?php Log::error($unplayedCampaignTag) ?>
+								<a href="playCampaign?campaignId={{$unplayedCampaignTag["id"]}}"><div class="dropdownItem unplayedCampaign"><img width=100%" src="{{$unplayedCampaignTag["image"]}}" title="{{$unplayedCampaignTag["tag"]}}" style="padding-left:0px;"></div></a>
+							@endforeach
 						</div>
 					</div>
 					</div>
@@ -24,7 +35,7 @@
 			</div>
 		@endif
 		@if (!Auth::user()->check())
-		<div id="bannerlogin" >
+		<div id="bannerlogin">
 			<input class="button login" id="login" name="" type="button" value="Login"/>
 			<div class="popup login login_triangle top" align="center">
 				<div align="right" class="nodeclink2">
