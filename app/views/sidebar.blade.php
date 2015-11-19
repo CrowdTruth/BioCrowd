@@ -85,7 +85,7 @@
 						?>
 						<span>{{$campaignTag}}</span>
 						<div id="progress">
-							<div class="bar" style="width: {{($campaignProgress['number_performed']/$numberOfGamesInCampaign)*100}}%;">{{$campaignProgress['number_performed']}}/{{$numberOfGamesInCampaign}} completed</div>
+							<div class="bar" style="width: {{($numberPerformed/$numberOfGamesInCampaign)*100}}%;">{{$campaignProgress['number_performed']}}/{{$numberOfGamesInCampaign}} completed</div>
 						</div>
 					@endforeach
 					@foreach ($otherCampaigns as $sidebarCampaign)
