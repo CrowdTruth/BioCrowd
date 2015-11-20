@@ -10,7 +10,7 @@
 					<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
 					<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
-						<div style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(UserHasBadge::where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+						<div id="campaignCount" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(CampaignProgress::where('user_id',Auth::user()->get()->id)->where('times_finished','>','0')->get()->toArray())}}</div>
 						<div><img height="45px" style="padding-left:7px;" src="img/glyphs/yellow_hexagon.png"></div>
 						<div id="campaignDropDowns" style="text-align: center;">
 						<?php $playedCampaignTags = CampaignProgress::where('user_id',Auth::user()->get()->id)->select('campaign_id')->orderBy('campaign_id')->get(); ?>

@@ -126,6 +126,15 @@
 					hidden.slideDown(50);
 				}
 			});
+			$(document).click(function (event) {
+				if($(event.target).attr('id') != $('#campaignCount').attr('id')){
+					var hidden = $('#campaignDropDowns');		
+					if (hidden.hasClass('visible')) {
+						hidden.removeClass('visible');
+						hidden.slideUp(50);
+					}
+				}
+			});
 		});
 	</script>
 @endif
