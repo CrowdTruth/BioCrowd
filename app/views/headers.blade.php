@@ -116,7 +116,7 @@
 		});
 
 		$(document).ready(function() {
-			$('#campaignsIconInBanner').click(function() {
+			$('#campaignsIconInBanner').mousedown(function() {
 				var hidden = $('#campaignDropDowns');
 				if (hidden.hasClass('visible')) {
 					hidden.removeClass('visible');
@@ -126,7 +126,7 @@
 					hidden.slideDown(50);
 				}
 			});
-			$(document).click(function (event) {
+			$(document).mousedown(function (event) {
 				if($(event.target).attr('id') != $('#campaignCount').attr('id')){
 					var hidden = $('#campaignDropDowns');		
 					if (hidden.hasClass('visible')) {
