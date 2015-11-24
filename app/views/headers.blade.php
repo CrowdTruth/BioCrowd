@@ -15,7 +15,7 @@
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
-		@if (Route::getCurrentRoute()->getPath() != 'playGame')
+		@if ((Route::getCurrentRoute()->getPath() != 'playGame') && (Route::getCurrentRoute()->getPath() != 'playCampaign'))
 		$(document).ready(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 			if (!document.getElementById('sidebar')) {

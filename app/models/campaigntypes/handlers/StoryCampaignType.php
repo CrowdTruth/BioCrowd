@@ -99,6 +99,10 @@ class StoryCampaignType extends CampaignTypeHandler {
 		$responseLabel[3] = $tempResponseLabel['label3'];
 		$responseLabel[4] = $tempResponseLabel['label4'];
 		$responseLabel[5] = $tempResponseLabel['label5'];
+		$responseLabel[6] = $tempResponseLabel['step1'];
+		$responseLabel[7] = $tempResponseLabel['step2'];
+		$responseLabel[8] = $tempResponseLabel['step3'];
+		$responseLabel[9] = $tempResponseLabel['step4'];
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);

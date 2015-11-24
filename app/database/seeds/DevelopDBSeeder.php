@@ -90,11 +90,6 @@ class DevelopDBSeeder extends Seeder {
 				'label3' => 'No cell visible',
 				'label4' => 'Other',
 				'label5' => 'Enter the total number of cells here:',
-				'label6' => 'Good',
-				'label7' => 'Medium',
-				'label8' => 'Poor',
-				'label9' => 'Blank (Black) Image',
-				'label10' => 'No Image',
 				'step1' => 'Click near the center of al visible cells or drag the mouse to draw a box around the cells. Keep a mental count while you are tagging. ',
 				'step2' => 'Choose the option from the given list which best describes your cell markings. ',
 				'step3' => 'Report the number of cells you have counted in the designated field. ',
@@ -171,11 +166,6 @@ class DevelopDBSeeder extends Seeder {
 				'label3' => 'No nuclei visible',
 				'label4' => 'Other',
 				'label5' => 'Enter the total number of nuclei here:',
-				'label6' => 'Good',
-				'label7' => 'Medium',
-				'label8' => 'Poor',
-				'label9' => 'Blank (Black) Image',
-				'label10' => 'No Image',
 				'step1' => 'Click near the center of al visible nuclei or drag the mouse to draw a box around the nuclei. Keep a mental count while you are tagging. ',
 				'step2' => 'Choose the option from the given list which best describes your nuclei markings. ',
 				'step3' => 'Report the number of nuclei you have counted in the designated field. ',
@@ -425,7 +415,7 @@ class DevelopDBSeeder extends Seeder {
 				]);
 		$story3->save();
 		
-		$this->command->info('Create test Story');
+		/*$this->command->info('Create test Story'); //removed for now because this should not be VesEx but a verification game and those are not done yet. 
 		$story4 = new Story($campaign);
 		$story4->story_string = '<p>Oh dear. Some people have made mistakes in marking the enemies. However, we don\'t know who made the mistakes. We
 						would like you to go over this marking document and add any enemies that haven\'t been marked yet and delete any
@@ -441,7 +431,7 @@ class DevelopDBSeeder extends Seeder {
 				'step3' => 'Report the number of enemies you have counted in the designated field. ',
 				'step4' => 'Click the button which best describes the given image quality. ',
 				]);
-		$story4->save();
+		$story4->save();*/
 		
 		$this->command->info('Create test CampaignStories');
 		$campaign_stories = new CampaignStories($campaign, $story1);
@@ -455,9 +445,9 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_stories = new CampaignStories($campaign, $story3);
 		$campaign_stories->save();
 		
-		$this->command->info('Create test CampaignStories');
+		/*$this->command->info('Create test CampaignStories');
 		$campaign_stories = new CampaignStories($campaign, $story4);
-		$campaign_stories->save();
+		$campaign_stories->save();*/
 		
 		$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game1);
@@ -471,9 +461,9 @@ class DevelopDBSeeder extends Seeder {
 		$campaign_games = new CampaignGames($campaign, $game3);
 		$campaign_games->save();
 		
-		$this->command->info('Create test CampaignGames');
+		/*$this->command->info('Create test CampaignGames');
 		$campaign_games = new CampaignGames($campaign, $game4);
-		$campaign_games->save();
+		$campaign_games->save();*/
 		
 		
 		
