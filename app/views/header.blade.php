@@ -9,24 +9,84 @@
 					<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
 					<a id="userNameInBanner" href="profile"><span>{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
-					<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
-						<div id="campaignCount" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(CampaignProgress::where('user_id',Auth::user()->get()->id)->where('times_finished','>','0')->get()->toArray())}}</div>
-						<div><img height="45px" style="padding-left:7px;" src="img/glyphs/yellow_hexagon.png"></div>
-						<div id="campaignDropDowns" style="text-align: center;">
-						<?php $playedCampaignTags = CampaignProgress::where('user_id',Auth::user()->get()->id)->select('campaign_id')->orderBy('campaign_id')->get(); ?>
-						<?php $playedCampaignArray = []?>
-							@foreach($playedCampaignTags as $playedCampaignTag)
-								<?php $playedCampaign = Campaign::where("id",$playedCampaignTag["campaign_id"])->get()?>
-								<a href="playCampaign?campaignId={{$playedCampaignTag["campaign_id"]}}"><div class="dropdownItem playedCampaign"> <img width=100%" src="{{$playedCampaign[0]["image"]}}" title="{{$playedCampaign[0]["tag"]}}" style="padding-left:0px;"></div></a>
-								<?php array_push($playedCampaignArray,$playedCampaignTag["campaign_id"]);?>
-							@endforeach
-						<?php $unplayedCampaignTags = Campaign::whereNotIn('id',$playedCampaignArray)->get();?>
-							@foreach($unplayedCampaignTags as $unplayedCampaignTag)
-							<?php Log::error($unplayedCampaignTag) ?>
-								<a href="playCampaign?campaignId={{$unplayedCampaignTag["id"]}}"><div class="dropdownItem unplayedCampaign"><img width=100%" src="{{$unplayedCampaignTag["image"]}}" title="{{$unplayedCampaignTag["tag"]}}" style="padding-left:0px;"></div></a>
-							@endforeach
+						<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
+							<div id="campaignCount" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(CampaignProgress::where('user_id',Auth::user()->get()->id)->where('times_finished','>','0')->get()->toArray())}}</div>
+							<div><img height="45px" style="padding-left:7px;" src="img/glyphs/yellow_hexagon.png"></div>
+							<div id="campaignDropDowns" style="text-align: center;">
+							<?php $playedCampaignTags = CampaignProgress::where('user_id',Auth::user()->get()->id)->select('campaign_id')->orderBy('campaign_id')->get(); ?>
+							<?php $playedCampaignArray = []?>
+							<!-- Check if the user has played any campaigns -->
+							@if(count($playedCampaignTags)>0)
+								<!-- If the user has played campaigns -->
+								@foreach($playedCampaignTags as $playedCampaignTag)
+									<!-- Loop through the campaigns and show them in the dropdown. Also fill an array with the game id's -->
+									<?php $playedCampaign = Campaign::where("id",$playedCampaignTag["campaign_id"])->get()?>
+									@if(count($playedCampaign)>0)
+										<a href="playCampaign?campaignId={{$playedCampaignTag["campaign_id"]}}"><div class="dropdownItem playedItem"> <img width=100%" src="{{$playedCampaign[0]["image"]}}" title="{{$playedCampaign[0]["tag"]}}" style="padding-left:0px;"></div></a>
+										<?php array_push($playedCampaignArray,$playedCampaignTag["campaign_id"]);?>
+									@endif
+								@endforeach
+								<!-- When all played campaigns are done cycling, get the unplayed campaigns -->
+							<?php $unplayedCampaignTags = Campaign::whereNotIn('id',$playedCampaignArray)->get();?>
+								@foreach($unplayedCampaignTags as $unplayedCampaignTag)
+								<!-- loop through the unplayed campaigns and show them in the dropdown to show all campaigns in total -->
+									<a href="playCampaign?campaignId={{$unplayedCampaignTag["id"]}}"><div class="dropdownItem unplayedItem"><img width=100%" src="{{$unplayedCampaignTag["image"]}}" title="{{$unplayedCampaignTag["tag"]}}" style="padding-left:0px;"></div></a>
+								@endforeach
+							@else
+								<!-- If the user hasn't played any campaigns, just show all campaigns in the dropdown as unplayed. -->
+								<?php $unplayedCampaignTags = Campaign::all();?>
+								@foreach($unplayedCampaignTags as $unplayedCampaignTag)
+									<?php $unplayedCampaign = Campaign::where("id",$unplayedCampaignTag["id"])->get();?>
+									@if(count($unplayedCampaign)>0)
+										<a href="playCampaign?campaignId={{$unplayedCampaignTag["id"]}}"><div class="dropdownItem unplayedItem"><img width=100%" src="{{$unplayedCampaignTag["image"]}}" title="{{$unplayedCampaignTag["tag"]}}" style="padding-left:0px;"></div></a>
+									@endif
+								@endforeach
+							@endif
+							</div>
 						</div>
 					</div>
+					<div style="position: relative; display: inline-block;">
+						<div id="gamesIconInBanner" title="# of games finished. Click to see an overview of all games">
+							<div id="gameCount" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+							<div><img height="45px" style="padding-left:7px;" src="img/glyphs/lightgreen_hexagon.png"></div>
+							<div id="gameDropDowns" style="text-align: center;">
+							<?php $playedGameTags = Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->select('game_id')->get(); ?>
+							<?php $playedGameArray = []?>
+							<!-- Check if the user has played any games -->
+							@if(count($playedGameTags)>0)
+								<!-- If the user has played games -->
+								@foreach($playedGameTags as $playedGameTag)
+									<!-- Loop through the games and show them in the dropdown. Also fill an array with the game id's -->
+									<?php $playedGame = Game::where("id",$playedGameTag["game_id"])->get();?>
+									@if(count($playedGame)>0)
+										<?php $playedGameType = GameType::where('id',$playedGame[0]->game_type_id)->get();?>
+										<a href="playGame?gameId={{$playedGameTag["game_id"]}}"><div class="dropdownItem playedItem"> <img width=100%" src="{{$playedGameType[0]["thumbnail"]}}" title="{{$playedGame[0]["tag"]}}" style="padding-left:0px;"></div></a>
+										<?php array_push($playedGameArray,$playedGameTag["game_id"]);?>
+									@endif
+								@endforeach
+								<!-- When all played games are done cycling, get the unplayed games -->
+								<?php $unplayedGameTags = Game::whereNotIn('id',$playedGameArray)->get();?>
+								@foreach($unplayedGameTags as $unplayedGameTag)
+									<!-- loop through the unplayed games and show them in the dropdown to show all games in total -->
+									<?php $unplayedGame = Game::where("id",$unplayedGameTag["id"])->get();?>
+									@if(count($unplayedGame)>0)
+										<?php $unplayedGameType = GameType::where('id',$unplayedGame[0]->game_type_id)->get();?>
+										<a href="playGame?gameId={{$unplayedGameTag["id"]}}"><div class="dropdownItem unplayedItem"><img width=100%" src="{{$unplayedGameType[0]["thumbnail"]}}" title="{{$unplayedGameTag["tag"]}}" style="padding-left:0px;"></div></a>
+									@endif
+								@endforeach
+							@else
+								<!-- If the user hasn't played any games, just show all games in the dropdown as unplayed. Get the icons from the gametypes table. -->
+								<?php $unplayedGameTags = Game::all();?>
+								@foreach($unplayedGameTags as $unplayedGameTag)
+									<?php $unplayedGame = Game::where("id",$unplayedGameTag["id"])->get();?>
+									@if(count($unplayedGame)>0)
+										<?php $unplayedGameType = GameType::where('id',$unplayedGame[0]->game_type_id)->get();?>
+										<a href="playGame?gameId={{$unplayedGameTag["id"]}}"><div class="dropdownItem unplayedItem"><img width=100%" src="{{$unplayedGameType[0]["thumbnail"]}}" title="{{$unplayedGameTag["tag"]}}" style="padding-left:0px;"></div></a>
+									@endif
+								@endforeach
+							@endif
+							</div>
+						</div>
 					</div>
 					<div class="sidebarbutton" align="right">
 						<img src="img/glyphs/arrow.png" height="20px"></img>

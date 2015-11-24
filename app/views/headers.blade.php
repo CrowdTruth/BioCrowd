@@ -116,7 +116,7 @@
 		});
 
 		$(document).ready(function() {
-			$('#campaignsIconInBanner').mousedown(function() {
+			$('#campaignsIconInBanner').click(function() {
 				var hidden = $('#campaignDropDowns');
 				if (hidden.hasClass('visible')) {
 					hidden.removeClass('visible');
@@ -126,9 +126,28 @@
 					hidden.slideDown(50);
 				}
 			});
-			$(document).mousedown(function (event) {
+
+			$('#gamesIconInBanner').click(function() {
+				var hidden = $('#gameDropDowns');
+				if (hidden.hasClass('visible')) {
+					hidden.removeClass('visible');
+					hidden.slideUp(50);
+				} else {
+					hidden.addClass('visible');
+					hidden.slideDown(50);
+				}
+			});
+			
+			$(document).click(function (event) {
 				if($(event.target).attr('id') != $('#campaignCount').attr('id')){
 					var hidden = $('#campaignDropDowns');		
+					if (hidden.hasClass('visible')) {
+						hidden.removeClass('visible');
+						hidden.slideUp(50);
+					}
+				}
+				if ($(event.target).attr('id') != $('#gameCount').attr('id')){
+					var hidden = $('#gameDropDowns');		
 					if (hidden.hasClass('visible')) {
 						hidden.removeClass('visible');
 						hidden.slideUp(50);

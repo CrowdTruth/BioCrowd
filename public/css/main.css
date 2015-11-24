@@ -21,12 +21,28 @@
 		    display: none;
 		    background: white;
 	}
+	
+	#gameDropDowns {
+			border-left-style: solid;
+		    border-left-color: black;
+		    border-right-style: solid;
+		    border-right-color: black;
+		    border-bottom-style: solid;
+		    border-bottom-color: black;
+		    position: absolute;
+		    z-index: 1000;
+		    left: 0px;
+		    text-align: center;
+		    width: 100%;
+		    display: none;
+		    background: white;
+	}
 
 	.dropdownItem:hover {
 		background: blue;
 	}
 	
-	.unplayedCampaign {
+	.unplayedItem {
 		background: #E4E4E4;
 	}
 
