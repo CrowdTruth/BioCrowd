@@ -57,6 +57,9 @@ Route::any('submitGame', 'GameController@submitGame');
 Route::any('playCampaign', 'CampaignController@playCampaign');
 Route::any('submitCampaign', 'CampaignController@submitCampaign');
 
+//put user action click in database
+Route::any('submitUserAction', 'ClickController@submitUserAction');
+
 // Administrator module routes -- maybe even put in another file ?
 Route::controller('admin', 'AdminController');
 Route::controller('admin-export', 'DataportController');

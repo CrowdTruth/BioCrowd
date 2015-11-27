@@ -440,18 +440,18 @@ window.onload = function() {
 				<div id="game_progress">
 					<div class="bar" id="vesExProgressBar" style="width: 0%;">0%</div>						
 				</div>
-				<div align="center"><button type='button' class="openCloseTutorial">Open Tutorial</button></div>
+				<div align="center"><button type='button' id="tutorialButton" class="openCloseTutorial">Open Tutorial</button></div>
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
 			<div class="col span_3_of_8" id="logic_container" align="center">
 				<table style="height:100%;">
 					<tr>
-						<td style="width:1%;"><button type="button" style="width: auto;" class="bioCrowdButton goPreviousQuestion"><</button></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
 						<td>
 							<img id="annotatableImage" src="{{ $image }}" width="100%" />
 						</td>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
 					</tr>
 				</table>
 			</div>
@@ -468,15 +468,15 @@ window.onload = function() {
 									<BR>
 									<div class='vesicleClassificationButtons'>
 										<ul id='vesicleClassificationButtonsList'> <!-- TO DO: make the images vertical align bottom, so the BRs are no longer necessary -->
-											<li width='88px' id='clustered'>Clustered<BR/><img style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("clustered"), calculateProgressPercentage()'></li>
-											<li width='88px' id='tip'>Tip<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("tip"), calculateProgressPercentage()'></li>
-											<li width='88px' id='fog'>Fog<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("fog"), calculateProgressPercentage()'></li>
-											<li width='88px' id='sideNucleus'>{{$responseLabel[1]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("sideNucleus"), calculateProgressPercentage()'></li>
-											<li width='88px' id='ringAroundNucleus'>{{$responseLabel[2]}}<BR/><img style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("ringAroundNucleus"), calculateProgressPercentage()'></li>
-											<li width='88px' id='black'>Black<BR/><img style='padding:5px' src='img/VesExButtonIcons/Black.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("black"), calculateProgressPercentage()'></li>
-											<li width='88px' id='noneOfThese'>None of these<BR/><img id='noneOfThese' style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("noneOfThese"), calculateProgressPercentage()'></li>
-											<li width='88px' id='noImage'>No image<BR/><img style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("noImage"), calculateProgressPercentage()'></li>
-											<li width='88px' id='dontKnow'>I don't know<BR/><img style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg' onmousedown='setLocationWasChangedToTrue(), setFormItem("dontKnow"), calculateProgressPercentage()'></li>
+											<li width='88px' id='clustered' onmousedown='setLocationWasChangedToTrue(), setFormItem("clustered"), calculateProgressPercentage()'>Clustered<BR/><img id="clustered img" style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg'></li>
+											<li width='88px' id='tip' onmousedown='setLocationWasChangedToTrue(), setFormItem("tip"), calculateProgressPercentage()'>Tip<BR/><img id="tip img" style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg'></li>
+											<li width='88px' id='fog' onmousedown='setLocationWasChangedToTrue(), setFormItem("fog"), calculateProgressPercentage()'>Fog<BR/><img id="fog img" style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg'></li>
+											<li width='88px' id='sideNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("sideNucleus"), calculateProgressPercentage()'>{{$responseLabel[1]}}<BR/><img id="sideNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg'></li>
+											<li width='88px' id='ringAroundNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("ringAroundNucleus"), calculateProgressPercentage()'>{{$responseLabel[2]}}<BR/><img id="ringAroundNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg'></li>
+											<li width='88px' id='black' onmousedown='setLocationWasChangedToTrue(), setFormItem("black"), calculateProgressPercentage()'>Black<BR/><img id="black img" style='padding:5px' src='img/VesExButtonIcons/Black.jpg'></li>
+											<li width='88px' id='noneOfThese' onmousedown='setLocationWasChangedToTrue(), setFormItem("noneOfThese"), calculateProgressPercentage()'>None of these<BR/><img id="noneOfThese img" style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg'></li>
+											<li width='88px' id='noImage' onmousedown='setLocationWasChangedToTrue(), setFormItem("noImage"), calculateProgressPercentage()'>No image<BR/><img id="noImage img" style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg'></li>
+											<li width='88px' id='dontKnow' onmousedown='setLocationWasChangedToTrue(), setFormItem("dontKnow"), calculateProgressPercentage()'>I don't know<BR/><img id="dontKnow img" style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg'></li>
 										</ul>
 								    </div>
 									<div style="display:none;">
@@ -531,7 +531,7 @@ window.onload = function() {
 										{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop()']) }}
 									</div>
 								</div></td>
-							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
+							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
 						</tr>
 					</table>				
 			</div>
@@ -586,9 +586,9 @@ window.onload = function() {
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect">Select Other Game</button></a></td>
-				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
+				<td style="width: 33%; text-align: center;"><button type="button" id="playAgainButton" class="goPlayAgain" onclick="location.href='#'">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" id="selectAnotherGameButton" class="goGameSelect">Select Other Game</button></a></td>
+				<td style="width: 33%; text-align: center;"><button type="button" id="crowdResultsButton" class="goCrowdData" onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 
 	</div>
@@ -599,10 +599,10 @@ window.onload = function() {
 	<div class="col span_8_of_8">
 		<table style="width:100%">
 			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><a href="http://game.crowdtruth.org"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games">Crowdtruth Games</button></a></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select">Select Other Game</button></a></td>			
+				<td style="width: 20%; text-align: left;"><a href="http://game.crowdtruth.org"><button type="button" id="crowdTruthGamesButton" class="goHome bioCrowdButton" title="Back to Crowdtruth Games">Crowdtruth Games</button></a></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" id="selectAnotherGameButton" class="goGameSelect bioCrowdButton" title="Back to game select">Select Other Game</button></a></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Skip image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask()', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				{{ Form::submit('Skip image', ['id' => 'skipImageButton','class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask()', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 			</tr>
 		</table>
 	</div>	

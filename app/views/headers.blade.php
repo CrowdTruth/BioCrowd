@@ -61,7 +61,6 @@
 		});
 		@else
 			$(document).ready(function() {
-				debugger;
 				var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 				if (!document.getElementById('sidebar')) {
 					$('.sidebarbutton').show();
@@ -137,16 +136,17 @@
 					hidden.slideDown(50);
 				}
 			});
-			
+
+			//if a user clicks anywhere in the document, close all dropdowns that were open except the dropdown that was clicked just now. 
 			$(document).click(function (event) {
-				if($(event.target).attr('id') != $('#campaignCount').attr('id')){
+				if($(event.target).attr('id') != $('#campaignCountDropDown').attr('id')){
 					var hidden = $('#campaignDropDowns');		
 					if (hidden.hasClass('visible')) {
 						hidden.removeClass('visible');
 						hidden.slideUp(50);
 					}
 				}
-				if ($(event.target).attr('id') != $('#gameCount').attr('id')){
+				if ($(event.target).attr('id') != $('#gameCountDropDown').attr('id')){
 					var hidden = $('#gameDropDowns');		
 					if (hidden.hasClass('visible')) {
 						hidden.removeClass('visible');
@@ -154,8 +154,42 @@
 					}
 				}
 			});
+
+			//if a user clicks anywhere in the document, and the attribute has an id, 
+			//update the database user_actions table with this new click information. 
+			$(document).click(function (event) {
+				//set targetId variable to null
+				var targetId = null;
+				
+				targetId = $(event.target).attr('id'); 
+				if(targetId != null) {
+					//if the targetId is set, use that to update the database with the id that was clicked. 
+					updateDBUserAction(targetId);
+				}
+			});
 		});
 	</script>
+	
+	<script>
+	function updateDBUserAction(id){
+		//get the current page route name
+		var page = "<?php echo Route::getCurrentRoute()->getPath()?>";
+		var url = document.URL;
+		var parameters = "";
+		if(url.indexOf('?') != -1){
+			parameters = url.substring(url.indexOf('?'));
+		}
+		
+		var pageAndParameters = page+parameters;
+		
+		$.ajax({   
+			type: 'POST',   
+			url: 'submitUserAction', 
+			data: 'page='+pageAndParameters+'&id='+id
+		});
+	}
+	</script>
+	
 @endif
 
 @if (!Auth::user()->check())

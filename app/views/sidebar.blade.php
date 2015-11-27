@@ -1,7 +1,7 @@
 @section('sidebar')
 	<div class="col span_2_of_8" id="sidebar">
 		<div class="sidebarparent">
-			<div id="minimize"><img src="img/glyphs/image_minimize_sidebar-01.png" width="50px"></img></div>
+			<div id="minimize"><img id="minimizeSidebar" src="img/glyphs/image_minimize_sidebar-01.png" width="50px"></img></div>
 				<div id="level" class="sidebarchild" align="center">
 					<div style="position: absolute; top: 14px; width:100%">
 						<div style="font-size: 1.5em; color: white; left: 34.6%; text-align:center;">Level</div>
@@ -107,7 +107,7 @@
 							<div class="bar" style="width: {{($numberPerformed/$numberOfGamesInCampaign)*100}}%;">{{$numberPerformed}}/{{$numberOfGamesInCampaign}} completed</div>
 						</div>
 					@endforeach
-					<button>See all campaigns</button>
+					<button id="seeAllCampaignsButtonInSidebar">See all campaigns</button>
 				</div>
 				
 				<div id="sidebarLeaderboard" class="sidebarchild" align="center">
@@ -181,7 +181,7 @@
 									@endif
 									<!-- If the user is logged in, show the user's rank here if it's not in the top 20 already, If the user is in the top 20, highlight the user's row-->
 								</table>
-								<a href="leaderboard"><button>Go to leaderboard</button></a>
+								<a href="leaderboard"><button id="seeLeaderboardButtonInSidebar">Go to leaderboard</button></a>
 							</div>
 						</a>
 					</div>

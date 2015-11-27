@@ -232,9 +232,11 @@
 				if ($('.examplePopup').is(":visible")) {
 					$('.examplePopup').hide();
 					$('.openExamples').text('Show Examples');
+					$('.openExamples').attr('id','openExamplesButton');
 				} else {
 					$('.examplePopup').show();
 					$('.openExamples').text('Hide Examples');
+					$('.openExamples').attr('id','closeExamplesButton');
 				}
 			}
 		});
@@ -342,10 +344,12 @@
 					if ($('#info_container').is(':hidden')) {
 						$('#info_container').slideDown(500);
 						$('.openCloseTutorial').text('Close Tutorial');
+						$('.openCloseTutorial').attr('id','closeTutorialButton');
 					} else {
 						$('#info_container').slideUp(500);
 						$('#dropdown_container').slideDown(500);
 						$('.openCloseTutorial').text('Open Tutorial');
+						$('.openCloseTutorial').attr('id','openTutorialButton');
 					}
 				}
 			});
@@ -549,16 +553,16 @@
 				<div id="game_progress">
 					<div class="bar" id="cellExProgressBar" style="width: 0%;">0%</div>						
 				</div>
-				<div align="center"><button type='button' class="openCloseTutorial">Tutorial</button></div>
+				<div align="center"><button type='button' id="tutorialButton" class="openCloseTutorial">Tutorial</button></div>
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
 			<div class="col span_3_of_8" id="logic_container" align="center">
 				<table style="height:100%;">
 					<tr>
-						<td style="width:1%;"><button type="button" style="width: auto;" class="bioCrowdButton goPreviousQuestion"><</button></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
 						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
 					</tr>
 				</table>
 			</div>
@@ -576,8 +580,8 @@
 					</div>
 				</div>
 				<div style="text-align:-webkit-center;">
-				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()']) }}
-				<button type='button' class="goMarking">Back to Marking</button>
+				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()', 'id' => 'removeLastMarking']) }}
+				<button type='button' id="backTomarkingButton" class="goMarking">Back to Marking</button>
 				</div>
 			</div>
 			<div class="col span_3_of_8" id="question_container">
@@ -663,7 +667,7 @@
 									{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop(), prepareResponse(false);' ]) }}
 								</div>
 							</div></td>
-							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingArrowButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
+							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
 						</tr>
 					</table>					
 			</div>
@@ -718,9 +722,9 @@
 		</div>
 		<table  id="table_completed_game_buttons">
 			<tr>
-				<td style="width: 33%; text-align: center;"><button type="button" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
-				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" class="goGameSelect">Select Other Game</button></a></td>
-				<td style="width: 33%; text-align: center;"><button type="button" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
+				<td style="width: 33%; text-align: center;"><button type="button" id="playAgainButton" class="goPlayAgain" onclick="location.href='#.html'">Play Again</button></td>
+				<td style="width: 33%; text-align: center;"><a href="{{ Lang::get('gamelabels.gameUrl') }}"><button type="button" id="selectAnotherGameButton" class="goGameSelect">Select Other Game</button></a></td>
+				<td style="width: 33%; text-align: center;"><button type="button" id="crowdResultsButton" class="goCrowdData"  onclick="location.href='#.html'">Crowd Results</button></td>
 			</tr>
 		</table>				 
 	</div>
@@ -731,10 +735,10 @@
 	<div class="col span_8_of_8">
 		<table style="width:100%">
 			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><button type="button" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button type="button" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Other Game</button></td>			
+				<td style="width: 20%; text-align: left;"><button type="button" id="crowdTruthGamesButton" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+				<td style="width: 20%; text-align: left;"><button type="button" id="selectAnotherGameButton" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Other Game</button></td>			
 				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Skip image', ['class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
+				{{ Form::submit('Skip image', ['id' => 'skipImageButton','class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
 				</form>
 			</tr>
 		</table>

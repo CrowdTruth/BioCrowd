@@ -45,7 +45,7 @@ class DevelopDBSeeder extends Seeder {
 		$game1->name = 'Cell Tagging (Green)';
 		$game1->tag = 'Cell Seeker';
 		$game1->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the cells in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button id="openExamplesButton" class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
 		$game1->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -120,7 +120,7 @@ class DevelopDBSeeder extends Seeder {
 		$game2->name = 'Nucleus Tagging (Green)';
 		$game2->tag = 'Nucly';
 		$game2->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the nuclei in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button id="openExamplesButton" class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
 		$game2->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -192,7 +192,7 @@ class DevelopDBSeeder extends Seeder {
 		$game3->name = 'Colony Tagging';
 		$game3->tag = 'Colony Catcher';
 		$game3->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'<p>You are given 3 microscopic images of one or more colonies. You will be identifying the colonies in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button id="openExamplesButton" class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
 		$game3->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'
@@ -268,7 +268,7 @@ class DevelopDBSeeder extends Seeder {
 		$game4->name = 'Vesicle Locating';
 		$game4->tag = 'Vesicle Adventure';
 		$game4->instructions = ''
-				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
+				.'<p>You are given 3 microscopic images of one or more human cells. You will be identifying the vesicles in the images. Don\'t worry, it\'s easier than you think. Take a look at these examples. <button id="openExamplesButton" class="openExamples" style="margin-top: 50px; margin-bottom:50px;">Show Examples</button></p>'
 				.'';
 		$game4->examples = ''
 				.'<div style="background-color:#6495ed; padding: 0px 20px 10px 20px;">'

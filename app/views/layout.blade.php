@@ -30,9 +30,9 @@
 			@yield('content')
 			<!-- End content -->
 			<div style="text-align:center;" class="footer">
-				<a style="float: left;" href="http://crowdtruth.org/"><img src="img/logo/CrowdTruth_gs-01.png" height="30px"></a>
-				<a href="http://www.vu.nl/en/index.asp"><img src="img/logo/VUlogo_NL_vrijstaand_druk.jpg" height="30px"></a>
-				<a style="float: right;" href="https://www-927.ibm.com/ibm/cas/"><img src="img/logo/logo_ibm_g-01.png" height="30px"></a>
+				<a style="float: left;" href="http://crowdtruth.org/"><img id="crowdTruthFooterLogo" src="img/logo/CrowdTruth_gs-01.png" height="30px"></a>
+				<a href="http://www.vu.nl/en/index.asp"><img id="VUFooterLogo" src="img/logo/VUlogo_NL_vrijstaand_druk.jpg" height="30px"></a>
+				<a style="float: right;" href="https://www-927.ibm.com/ibm/cas/"><img id="IBMFooterLogo" src="img/logo/logo_ibm_g-01.png" height="30px"></a>
 			</div>
 		</div>
     </body>

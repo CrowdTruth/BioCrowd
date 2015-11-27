@@ -68,7 +68,7 @@
 					<div class="section group" id="badges">
 						<div class="col span_8_of_8">
 							<div class="profiletitle collapsed">
-								<H1>My Badges <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+								<H1 id="myBadges text">My Badges <img id="myBadges img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
 							<div class="profilebody" style="display: none;">
 								@if($userHasBadges)
@@ -87,7 +87,7 @@
 					<div class="section group" id="scores">
 						<div class="col span_8_of_8">
 							<div class="profiletitle collapsed">
-								<H1>My Scores <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+								<H1 id="myScores text">My Scores <img id="myScores img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
 							<div class="profilebody" style="display: none;">
 								@if($userCampaignScores)
@@ -136,7 +136,7 @@
 					<div class="section group" id="account">
 						<div class="col span_8_of_8">
 							<div class="profiletitle collapsed">
-								<H1>My Account <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+								<H1 id="myAccount text">My Account <img id="myAccount img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 
 							</div>
 							<div class="profilebody"  style="display: none;">
@@ -189,7 +189,7 @@
 					<div class="section group" id="password">
 						<div class="col span_8_of_8">
 							<div class="profiletitle collapsed">
-								<H1>Password <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+								<H1 id="myPassword text">Password <img id="myPassword img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
 							<div class="profilebody"  style="display: none;">
 								{{ Form::open(['url' => 'changePass']) }}
@@ -220,7 +220,7 @@
 					<div class="section group" id="notifications">
 						<div class="col span_8_of_8">
 							<div class="profiletitle collapsed">
-								<H1>Notifications <img src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+								<H1 id="myNotifications text">Notifications <img id="myNotifications img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
 							<div class="profilebody" style="display: none;">
 								<table>
@@ -269,7 +269,7 @@
 				</div>
 			</div>
 			<div class="col span_3_of_8" id="profile_background">
-			<a href="logout"><button style="float:right" class="bioCrowdButton">Log out</button></a>
+			<a href="logout"><button id="logoutButton" style="float:right" class="bioCrowdButton">Log out</button></a>
 			<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
 			</div>
 		</div>

@@ -250,6 +250,15 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
+		Schema::create('user_actions', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->string('page');
+			$table->string('action');
+			$table->timestamps();
+		});
 		
 	}
 
@@ -260,6 +269,7 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		//Schema::drop('user_actions');
 		Schema::drop('user_has_badge');
 		Schema::drop('badges');
 		//Schema::drop('ranks');

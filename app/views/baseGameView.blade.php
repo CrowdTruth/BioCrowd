@@ -39,7 +39,7 @@
 					<tr style="width: 100%; height: 50%;">
 						<td>
 							<div class="col span_4_of_8" id="startbutton" style="width: 90%">
-								<button onclick="location.href='#'" class="startgame bioCrowdButton"  style="float: right">Start game</button>
+								<button onclick="location.href='#'" id="startGameButton" class="startgame bioCrowdButton"  style="float: right">Start game</button>
 							</div>
 						</td>
 					</tr>
