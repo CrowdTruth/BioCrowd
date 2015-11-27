@@ -250,7 +250,7 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
-		Schema::create('user_actions', function($table)
+		/*Schema::create('user_actions', function($table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -258,8 +258,7 @@ class InitDatabase extends Migration {
 			$table->string('page');
 			$table->string('action');
 			$table->timestamps();
-		});
-		
+		});*/
 	}
 
 	/**
