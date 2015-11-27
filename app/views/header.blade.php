@@ -6,7 +6,7 @@
 		@if (Auth::user()->check())
 			<div style="position: relative; display: inline-block;">
 				<div style="display: inline-block;">
-					<a href="profile"><img src="img/BlankImage.png" height="45px"></img></a>
+					<a href="profile"><img id="userPictureInBannerButton" src="img/BlankImage.png" height="45px"></img></a>
 					<a id="userNameInBanner" href="profile"><span id="userNameInBannerButton">{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
 						<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
