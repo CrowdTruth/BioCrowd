@@ -139,14 +139,15 @@
 
 			//if a user clicks anywhere in the document, close all dropdowns that were open except the dropdown that was clicked just now. 
 			$(document).click(function (event) {
-				if($(event.target).attr('id') != $('#campaignCountDropDown').attr('id')){
+				var a = $('#campaignCountDropDowText').attr('id');
+				if(( $(event.target).attr('id') != $('#campaignCountDropDown').attr('id') ) && ( $(event.target).attr('id') != $('#campaignCountDropDownText').attr('id') )){
 					var hidden = $('#campaignDropDowns');		
 					if (hidden.hasClass('visible')) {
 						hidden.removeClass('visible');
 						hidden.slideUp(50);
 					}
 				}
-				if ($(event.target).attr('id') != $('#gameCountDropDown').attr('id')){
+				if(( $(event.target).attr('id') != $('#gameCountDropDown').attr('id') ) && ( $(event.target).attr('id') != $('#gameCountDropDownText').attr('id') )){
 					var hidden = $('#gameDropDowns');		
 					if (hidden.hasClass('visible')) {
 						hidden.removeClass('visible');

@@ -10,7 +10,8 @@
 					<a id="userNameInBanner" href="profile"><span id="userNameInBannerButton">{{ Auth::user()->get()->name }}</span></a>
 					<div style="position: relative; display: inline-block;">
 						<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
-							<div id="campaignCountDropDown" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(CampaignProgress::where('user_id',Auth::user()->get()->id)->where('times_finished','>','0')->get()->toArray())}}</div>
+							<div id="campaignCountDropDownText" style="font-size: 8px; position:absolute; top:19px; text-align: center; width: 100%; padding-left:3px;">Campaigns</div>
+							<div id="campaignCountDropDown" style="position:absolute; text-align: center; width: 100%; top:27px; padding-left:3px;"> {{count(CampaignProgress::where('user_id',Auth::user()->get()->id)->where('times_finished','>','0')->get()->toArray())}}</div>
 							<div><img height="45px" style="padding-left:7px;" src="img/glyphs/yellow_hexagon.png"></div>
 							<div id="campaignDropDowns" style="text-align: center;">
 							<?php $playedCampaignTags = CampaignProgress::where('user_id',Auth::user()->get()->id)->select('campaign_id')->orderBy('campaign_id')->get(); ?>
@@ -47,7 +48,8 @@
 					</div>
 					<div style="position: relative; display: inline-block;">
 						<div id="gamesIconInBanner" title="# of games finished. Click to see an overview of all games">
-							<div id="gameCountDropDown" style="position:absolute; text-align: center; width: 100%; top:25px; padding-left:3px;"> {{count(Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+							<div id="gameCountDropDownText" style="font-size: 8px; position:absolute; top:19px; text-align: center; width: 100%; padding-left:3px;">Games</div>
+							<div id="gameCountDropDown" style="position:absolute; text-align: center; width: 100%; top:27px; padding-left:3px;"> {{count(Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
 							<div><img height="45px" style="padding-left:7px;" src="img/glyphs/lightgreen_hexagon.png"></div>
 							<div id="gameDropDowns" style="text-align: center;">
 							<?php $playedGameTags = Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->select('game_id')->get(); ?>
