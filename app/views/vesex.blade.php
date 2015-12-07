@@ -169,6 +169,10 @@ window.onload = function() {
 			$('#completed_game_popup').show();
 		} else {
 			$('#completed_game_popup').hide();
+			//Make a new judgement with flag incomplete to start the timer
+			otherExpandWasChanged = false;
+			commentWasChanged = false;
+			updateDB(null, null);
 		}
 
 		$( window ).load(function() {
@@ -245,14 +249,18 @@ window.onload = function() {
 			}
 		})
 		
-		//add function to back to marking button to hide current question div and show first question div	
+		//add function to remove the game recap and start the game again	
 		$('.goPlayAgain').on({
 			'click' : function() {	
 				$('#question1').addClass('question_active').show();
 				$('#dropdown_container').show();
 				$('#completed_game_container').hide();
 				$('#completed_game_popup').hide();	
-				$('#skipImageDiv').show();	
+				$('#skipImageDiv').show();
+				//Make a new judgement with flag incomplete to start the timer
+				otherExpandWasChanged = false;
+				commentWasChanged = false;
+				updateDB(null, null);
 			}
 		});
 	})
