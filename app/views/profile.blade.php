@@ -75,6 +75,9 @@
 	</script>
 	
 	<script>
+	//This function updates the user preferences table in the database
+	//regarding which sections of the profile page are expanded and which are not. 
+	//Take note that the "attribute" variable has to match a column in the user_preferences table. 
 	function updateDBSectionExpansion(attribute, input){
 		$.ajax({   
 			type: 'POST',   
