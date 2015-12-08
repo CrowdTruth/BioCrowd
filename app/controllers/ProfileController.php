@@ -35,7 +35,41 @@ class ProfileController extends BaseController {
 		->get()
 		->toArray();
 		
-		return View::make('profile')->with('userHasBadges',$userHasBadges)->with('userScores',$userScores)->with('userCampaignScores',$userCampaignScores);
+		//get the userPreference model for this user, if it exists
+		if(UserPreference::where('user_id',$userId)->first()){
+			//save all preferences in variables
+			$userPreference = UserPreference::where('user_id',$userId)->first();
+			$userPreferenceCampaignsNotification = $userPreference->campaignsNotification;
+			$userPreferenceNewsNotification = $userPreference->newsNotification;
+			$userPreferencePlayReminder = $userPreference->playReminder;
+			$userPreferenceBadegesSection = $userPreference->badgesSection;
+			$userPreferenceScoresSection = $userPreference->scoresSection;
+			$userPreferenceAccountSection = $userPreference->accountSection;
+			$userPreferencePasswordSection = $userPreference->passwordSection;
+			$userPreferenceNotificationsSection = $userPreference->notificationsSection;
+		} else {
+			$userPreferenceCampaignsNotification = 'immediately';
+			$userPreferenceNewsNotification = 'immediately';
+			$userPreferencePlayReminder = 'daily';
+			$userPreferenceBadegesSection = 'collapsed';
+			$userPreferenceScoresSection = 'collapsed';
+			$userPreferenceAccountSection = 'collapsed';
+			$userPreferencePasswordSection = 'collapsed';
+			$userPreferenceNotificationsSection = 'collapsed';
+		}
+		
+		return View::make('profile')
+		->with('userHasBadges',$userHasBadges)
+		->with('userScores',$userScores)
+		->with('userCampaignScores',$userCampaignScores)
+		->with('userPreferenceCampaignsNotification',$userPreferenceCampaignsNotification)
+		->with('userPreferenceNewsNotification',$userPreferenceNewsNotification)
+		->with('userPreferencePlayReminder',$userPreferencePlayReminder)
+		->with('userPreferenceBadegesSection',$userPreferenceBadegesSection)
+		->with('userPreferenceScoresSection',$userPreferenceScoresSection)
+		->with('userPreferenceAccountSection',$userPreferenceAccountSection)
+		->with('userPreferencePasswordSection',$userPreferencePasswordSection)
+		->with('userPreferenceNotificationsSection',$userPreferenceNotificationsSection);
 	}
 	
 	/**
@@ -103,6 +137,56 @@ class ProfileController extends BaseController {
 			} else {
 				return Redirect::to('profile')->with('flash_error', 'Invalid password given. If you want to change your password, do so in the "Password" section. Guest users have no current password and can leave this field empty. ')->withInput();
 			}
+		}
+	}
+	
+	public function editNotificationPreferences() {
+		$campaignsNotification = Input::get('campaignsNotification');
+		$newsNotification = Input::get('newsNotification');
+		$playReminder = Input::get('playReminder');
+		$userId = Auth::user()->get()->id;
+		
+		//Check if this user already has preferences set
+		if(UserPreference::where('user_id',$userId)->first()){
+			//edit the old model
+			$userPreference = UserPreference::where('user_id',$userId)->first();
+			$userPreference->campaignsNotification = $campaignsNotification;
+			$userPreference->newsNotification = $newsNotification;
+			$userPreference->playReminder = $playReminder;
+			$userPreference->save();
+			return Redirect::to('profile');
+		} else {
+			//make a new model
+			$userPreference = new UserPreference();
+			$userPreference->user_id = $userId;
+			$userPreference->campaignsNotification = $campaignsNotification;
+			$userPreference->newsNotification = $newsNotification;
+			$userPreference->playReminder = $playReminder;
+			$userPreference->save();
+			return Redirect::to('profile');
+		}
+	}
+	
+	public function saveSectionSettings() {
+		$attribute = Input::get('attribute');
+		$input = Input::get('input');
+		$userId = Auth::user()->get()->id;
+		//Check if this user already has preferences set
+		if(UserPreference::where('user_id',$userId)->first()){
+			//edit the old model
+			$userPreference = UserPreference::where('user_id',$userId)->first();
+			$userPreference->$attribute = $input;
+			$userPreference->save();
+		} else {
+			//make a new model
+			$userPreference = new UserPreference();
+			//set all notifications to the highest setting
+			$userPreference->campaignsNotification = 'immediately';
+			$userPreference->newsNotification = 'immediately';
+			$userPreference->playReminder = 'daily';
+			$userPreference->user_id = $userId;
+			$userPreference->$attribute = $input;
+			$userPreference->save();
 		}
 	}
 }

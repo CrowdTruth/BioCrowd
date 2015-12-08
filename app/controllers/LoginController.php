@@ -78,6 +78,15 @@ class LoginController extends BaseController {
 			$user->expertise = $expertise;
 			$user->save();
 			
+			//make a new userPreferences model
+			$userPreference = new UserPreference();
+			//set all notifications to the highest setting
+			$userPreference->campaignsNotification = 'immediately';
+			$userPreference->newsNotification = 'immediately';
+			$userPreference->playReminder = 'daily';
+			$userPreference->user_id = $user->id;
+			$userPreference->save();
+			
 			return $this->doLogin();
 		} catch (Exception $e) {
 			return Redirect::to('login')->with('flash_error', 'Could not create user: ' . $email . '  => ' . $e)->withInput();

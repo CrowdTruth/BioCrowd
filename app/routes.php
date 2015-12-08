@@ -25,6 +25,8 @@ Route::get ('logout', 'LoginController@requestLogout');
 Route::group(array('before' => 'auth'), function() {
 	Route::post('changePass' , 'ProfileController@changePassword');
 	Route::post('editProfile', 'ProfileController@editProfile');
+	Route::post('editNotificationPreferences', 'ProfileController@editNotificationPreferences');
+	Route::post('saveSectionSettings', 'ProfileController@saveSectionSettings');
 	
 	Route::get('profile' , 'ProfileController@getView');
 });
