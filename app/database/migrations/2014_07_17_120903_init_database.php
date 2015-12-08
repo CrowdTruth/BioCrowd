@@ -50,7 +50,7 @@ class InitDatabase extends Migration {
 			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 		
-		Schema::create('user_preferences', function($table)
+		/*Schema::create('user_preferences', function($table)
 		{
 			$table->increments('id');
 			$table->integer('user_id')->unsigned();
@@ -64,7 +64,7 @@ class InitDatabase extends Migration {
 			$table->string('passwordSection');
 			$table->string('notificationsSection');
 			$table->timestamps();
-		});
+		});*/
 		
 		Schema::create('levels', function($table)
 		{
