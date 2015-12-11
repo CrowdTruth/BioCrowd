@@ -19,7 +19,6 @@ class Score extends Eloquent {
 	/**
 	 * Public constructor.
 	 * 
-	 * @param $campaign Campaign object of the story to be created.
 	 * @param $attributes
 	 */
 	public function __construct($attributes = [])  {

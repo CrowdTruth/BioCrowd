@@ -41,7 +41,7 @@
 	<div class="section group" id="mainsection">
 			<div class="col span_6_of_8" id="main">
 
-				<div class="section group scrollto" id="ribbon">
+				<div class="section group scrollto home" id="ribbon">
 					<div class="col span_4_of_8" id="ribimg">
 						<img src="img/logo/logo_drexplorer_loggedin.png" height="300px"
 							id="logo" alt=""></img>
@@ -58,6 +58,9 @@
 
 				<div class="section group scrollto" id="games" >
 					<div class="col span_8_of_8">
+					<div align="center">
+						<a href="playCampaign?campaignId=3"><button class="bioCrowdButton" style="background-color:#FECD08; color: black; font-weight: bold;">Surprise me</button></a>
+					</div>
 					@foreach($levels as $number => $items)
 						@if ( $number+1 > Auth::user()->get()->level )
 							<h1 class="sectiontitle">
@@ -72,9 +75,9 @@
 							<ul id="gameslist">
 								@foreach($items as $item)
 									@if ( $item['enabled'] )
-										<li><a data-ftrans="slide" href="{{{ $item['link'] }}}"><img
+										<li><a data-ftrans="slide" href="{{{ $item['link'] }}}"><img id="gameMenu {{ $item['text'] }}"
 										alt="{{{ $item['text'] }}}" src="{{{ $item['image'] }}}"
-										width="120px" /><div style="max-width:120px"><strong>{{{ $item['text'] }}}</strong></div></a></li>
+										width="120px" /><div style="max-width:120px"><strong id="gameMenu {{ $item['text'] }} text">{{{ $item['text'] }}}</strong></div></a></li>
 									@else
 										<li><div style="color:white;"><img
 										alt="Cell tagging" src="img/icons/image_games-03.png"

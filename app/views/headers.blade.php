@@ -1,8 +1,8 @@
-<!-- link href="css/bootstrap.css" rel="stylesheet">
-<link href="css/bootstrap-theme.css" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<!--link href="css/bootstrap-theme.css" rel="stylesheet">
 <link href="css/gamestyle.css" rel="stylesheet">
 <script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script -->
+<script src="js/bootstrap.min.js"></script-->
 
 <link href='http://fonts.googleapis.com/css?family=Arvo' rel='stylesheet' type='text/css'>
 <link href="js/popbox/popbox.css" rel="stylesheet">
@@ -15,6 +15,7 @@
 
 @if (Auth::user()->check())
 	<script type="text/javascript">
+		@if ((Route::getCurrentRoute()->getPath() != 'playGame') && (Route::getCurrentRoute()->getPath() != 'playCampaign'))
 		$(document).ready(function() {
 			var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
 			if (!document.getElementById('sidebar')) {
@@ -58,6 +59,21 @@
 				}
 			}
 		});
+		@else
+			$(document).ready(function() {
+				var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+				if (!document.getElementById('sidebar')) {
+					$('.sidebarbutton').show();
+				} else {
+					if ($('#sidebar').is(":visible")) {
+						$('#sidebar').hide();
+						$('.sidebarbutton').show();
+						$('#minimize').show();
+					}
+				}
+
+			});
+		@endif
 	
 		$(document).ready(function() {
 			$('.sidebarbutton, #minimize img').click(function() {
@@ -97,7 +113,84 @@
 				}
 			});
 		});
+
+		$(document).ready(function() {
+			$('#campaignsIconInBanner').click(function() {
+				var hidden = $('#campaignDropDowns');
+				if (hidden.hasClass('visible')) {
+					hidden.removeClass('visible');
+					hidden.slideUp(50);
+				} else {
+					hidden.addClass('visible');
+					hidden.slideDown(50);
+				}
+			});
+
+			$('#gamesIconInBanner').click(function() {
+				var hidden = $('#gameDropDowns');
+				if (hidden.hasClass('visible')) {
+					hidden.removeClass('visible');
+					hidden.slideUp(50);
+				} else {
+					hidden.addClass('visible');
+					hidden.slideDown(50);
+				}
+			});
+
+			//if a user clicks anywhere in the document, close all dropdowns that were open except the dropdown that was clicked just now. 
+			$(document).click(function (event) {
+				var a = $('#campaignCountDropDowText').attr('id');
+				if(( $(event.target).attr('id') != $('#campaignCountDropDown').attr('id') ) && ( $(event.target).attr('id') != $('#campaignCountDropDownText').attr('id') )){
+					var hidden = $('#campaignDropDowns');		
+					if (hidden.hasClass('visible')) {
+						hidden.removeClass('visible');
+						hidden.slideUp(50);
+					}
+				}
+				if(( $(event.target).attr('id') != $('#gameCountDropDown').attr('id') ) && ( $(event.target).attr('id') != $('#gameCountDropDownText').attr('id') )){
+					var hidden = $('#gameDropDowns');		
+					if (hidden.hasClass('visible')) {
+						hidden.removeClass('visible');
+						hidden.slideUp(50);
+					}
+				}
+			});
+
+			//if a user clicks anywhere in the document, and the attribute has an id, 
+			//update the database user_actions table with this new click information. 
+			$(document).click(function (event) {
+				//set targetId variable to null
+				var targetId = null;
+				
+				targetId = $(event.target).attr('id'); 
+				if(targetId != null) {
+					//if the targetId is set, use that to update the database with the id that was clicked. 
+					updateDBUserAction(targetId);
+				}
+			});
+		});
 	</script>
+	
+	<script>
+	function updateDBUserAction(id){
+		//get the current page route name
+		var page = "<?php echo Route::getCurrentRoute()->getPath()?>";
+		var url = document.URL;
+		var parameters = "";
+		if(url.indexOf('?') != -1){
+			parameters = url.substring(url.indexOf('?'));
+		}
+		
+		var pageAndParameters = page+parameters;
+		
+		$.ajax({   
+			type: 'POST',   
+			url: 'submitUserAction', 
+			data: 'page='+pageAndParameters+'&id='+id
+		});
+	}
+	</script>
+	
 @endif
 
 @if (!Auth::user()->check())

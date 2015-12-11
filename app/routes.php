@@ -25,6 +25,8 @@ Route::get ('logout', 'LoginController@requestLogout');
 Route::group(array('before' => 'auth'), function() {
 	Route::post('changePass' , 'ProfileController@changePassword');
 	Route::post('editProfile', 'ProfileController@editProfile');
+	Route::post('editNotificationPreferences', 'ProfileController@editNotificationPreferences');
+	Route::post('saveSectionSettings', 'ProfileController@saveSectionSettings');
 	
 	Route::get('profile' , 'ProfileController@getView');
 });
@@ -34,7 +36,10 @@ Route::get('leaderboard', 'LeaderboardController@getView');
 Route::get('scoresday', 'LeaderboardController@top20Today');
 Route::get('scoresweek', 'LeaderboardController@top20Week');
 Route::get('scoresmonth', 'LeaderboardController@top20Month');
-
+Route::get('20judge', 'LeaderboardController@top20Judge');
+Route::get('judgeday', 'LeaderboardController@top20JudgeDay');
+Route::get('judgeweek', 'LeaderboardController@top20JudgeWeek');
+Route::get('judgemonth', 'LeaderboardController@top20JudgeMonth');
 
 // Game logic
 Route::get('home', 'GameListController@listGames');
@@ -53,6 +58,9 @@ Route::any('submitGame', 'GameController@submitGame');
 
 Route::any('playCampaign', 'CampaignController@playCampaign');
 Route::any('submitCampaign', 'CampaignController@submitCampaign');
+
+//put user action click in database
+Route::any('submitUserAction', 'ClickController@submitUserAction');
 
 // Administrator module routes -- maybe even put in another file ?
 Route::controller('admin', 'AdminController');

@@ -5,6 +5,46 @@
 	background-color: white;
 	
 	}
+	
+	#campaignDropDowns {
+			border-left-style: solid;
+		    border-left-color: black;
+		    border-right-style: solid;
+		    border-right-color: black;
+		    border-bottom-style: solid;
+		    border-bottom-color: black;
+		    position: absolute;
+		    z-index: 1000;
+		    left: 0px;
+		    text-align: center;
+		    width: 100%;
+		    display: none;
+		    background: white;
+	}
+	
+	#gameDropDowns {
+			border-left-style: solid;
+		    border-left-color: black;
+		    border-right-style: solid;
+		    border-right-color: black;
+		    border-bottom-style: solid;
+		    border-bottom-color: black;
+		    position: absolute;
+		    z-index: 1000;
+		    left: 0px;
+		    text-align: center;
+		    width: 100%;
+		    display: none;
+		    background: white;
+	}
+
+	.dropdownItem:hover {
+		background: blue;
+	}
+	
+	.unplayedItem {
+		background: #E4E4E4;
+	}
 
 	#badges ul li {
 		display: inline-block;
@@ -28,7 +68,6 @@
 		background-color: #17ad4b;
 	}
 
-	/* MEREL */
 	/*#completed_game_popup {
 		z-index: 9;
 		background-color: #ffffff;
@@ -53,7 +92,60 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
+	
+	.alert {
+    padding: 0px;
+    margin-bottom: 0px;
+	}
+	
+	.btn-default:hover,
+	.btn-default:focus,
+	.btn-default:active,
+	.btn-default.active,
+	.open > .dropdown-toggle.btn-default {
+	  background-color: white;
+	}
 
+/* 	Elements  */
+	label {
+		display: inline;
+	}
+	
+	* {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+	}
+	*:before,
+	*:after {
+	  -webkit-box-sizing: content-box;
+	     -moz-box-sizing: content-box;
+	          box-sizing: content-box;
+	}
+	
+	img {
+	  vertical-align: baseline;
+	}
+	
+	body{
+		font-size: 16px;
+	}
+	
+	table {
+		border-collapse: separate;
+	}
+	
+	tr {
+		border: none !important;
+	}
+	
+	p {
+	    display: block;
+	    -webkit-margin-before: 1em;
+	    -webkit-margin-after: 1em;
+	    -webkit-margin-start: 0px;
+	    -webkit-margin-end: 0px;
+	}
 
 /*columns
 	http://www.responsivegridsystem.com/
@@ -273,7 +365,7 @@
 	}
 	
 	#signup {
-		background-color: #008852;
+		background-color: #81cff3;
 	}
 	
 	#crowdtruth#banner {
@@ -301,7 +393,7 @@
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 18px;
+			top: 7px;
 		}
 	}
 	
@@ -309,7 +401,7 @@
 		#bannerlogin {
 			display: inline-block;
 			position: relative;
-			bottom: 18px;
+			top: 7px;
 		}
 	}
 	
@@ -352,8 +444,15 @@
 	}
 
 	#ribbon.nobg {
-	background-image: none;
-	background-color: #e3f4fa;
+		background-image: none;
+		background-color: #e3f4fa;
+	}
+	
+	#ribbon.home {
+		background-color: #E4F4FC;
+		background-image: url("../img/backgrounds/image_background-02.png");
+    	background-repeat: no-repeat;
+    	background-position: bottom; 
 	}
 	
 	#ribimg {
@@ -515,15 +614,14 @@
 		background-color: #17ad4b;
 	}
 	
-	/*.comment_input textarea {*/ /* MEREL */
-	#commentForm textarea { /* MEREL */
+	#commentForm textarea { 
 		height: 75px;
 		width: 300px;
 		border: none;
 		display: list-item;
 	}
 	
-	#hiddenOtherExpand textarea { /* MEREL */
+	#hiddenOtherExpand textarea {
 		height: 75px;
 		width: 300px;
 		border: none;
@@ -678,6 +776,13 @@
 		border-bottom-left-radius: 12px;
 	}
 	
+	.sidebarbutton {
+		display: inline;
+		float: right;
+		position: relative;
+		top: 25px;
+	}
+	
 	.sidebarparent {
 		position: relative; width : 95%;
 		margin-left: 2.5%;
@@ -690,10 +795,6 @@
 		position: absolute;
 		left: -50px;
 		top: 50%
-	}
-	
-	.sidebarparent:last-child {
-		margin-bottom: 50px;
 	}
 	
 	.sidebarchild {
@@ -709,6 +810,17 @@
 	}
 	
 	#achievements button {
+		margin-top: 10px;
+		margin-bottom: 30px;
+		width: 80%;
+		color: white;
+		background-color: #008752;
+		border-radius: 12px;
+		border: 0;
+		min-height: 25px;
+	}
+	
+	#sidebarLeaderboard button{
 		margin-top: 10px;
 		margin-bottom: 30px;
 		width: 80%;
@@ -927,7 +1039,6 @@
 	}
 
 
-/* MEREL */
 #userNameInBanner{
 	font-size: 20px;
 	font-family: 'Arvo', serif;
@@ -991,7 +1102,7 @@
 }
 
 @media (min-width: 508px) {
-	#MovingArrowButtonSmallScreen{
+	#MovingNextQuestionButtonSmallScreen{
 		display: none !important;
 	}
 	
@@ -1001,7 +1112,7 @@
 }
 
 @media (max-width: 508px) {
-	#MovingArrowButtonBigScreen {
+	#MovingNextQuestionButtonBigScreen {
 		display: none !important;
 	}
 	
@@ -1039,4 +1150,22 @@
 
 .leaderboardBackground {
 	background-color: #e3f3fa;
+}
+
+/*Remove all link styles from the leaderboard in the sidebar*/
+#sidebarLeaderboard a:link{
+	color: #333333;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:visited{
+	color: #333333;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:hoover{
+	color: #333333;
+	text-decoration: none;
+}
+#sidebarLeaderboard a:active{
+	color: #333333;
+	text-decoration: none;
 }

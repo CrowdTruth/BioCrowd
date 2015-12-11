@@ -1,21 +1,20 @@
 <?php
 /**
- * Level model. Level entities are saved on the levels table. 
- * Each level has a maximum score and if that is reached, 
- * the user should go up a level. 
+ * UserPreference model. UserPreference entities are saved on the user_preferences table.
+ * UserPreference can be set on the Profile page
  */
-class Rank extends Eloquent {
+class UserPreference extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'ranks';
-	
+	protected $table = 'user_preferences';
+
 	/**
 	 * Public constructor.
-	 * 
+	 *
 	 * @param $attributes
 	 */
 	public function __construct($attributes = [])  {

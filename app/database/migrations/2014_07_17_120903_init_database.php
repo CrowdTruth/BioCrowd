@@ -50,6 +50,22 @@ class InitDatabase extends Migration {
 			$table->foreign('admin_permission_id')->references('id')->on('admin_permissions');
 		});
 		
+		/*Schema::create('user_preferences', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->string('campaignsNotification');
+			$table->string('newsNotification');
+			$table->string('playReminder');
+			$table->string('badgesSection');
+			$table->string('scoresSection');
+			$table->string('accountSection');
+			$table->string('passwordSection');
+			$table->string('notificationsSection');
+			$table->timestamps();
+		});*/
+		
 		Schema::create('levels', function($table)
 		{
 			$table->increments('id');
@@ -119,22 +135,6 @@ class InitDatabase extends Migration {
 			$table->foreign('game_id')->references('id')->on('games');
 		});
 		
-		Schema::create('judgements', function($table)
-		{
-			$table->increments('id');
-			$table->integer('user_id')->unsigned();
-			$table->foreign('user_id')->references('id')->on('users');
-			$table->integer('task_id')->unsigned();
-			$table->foreign('task_id')->references('id')->on('tasks');
-			$table->integer('game_id')->unsigned();
-			$table->foreign('game_id')->references('id')->on('games');
-			$table->integer('campaign_id')->unsigned()->nullable();
-			$table->foreign('campaign_id')->references('id')->on('games')->nullable();
-			$table->longText('response');
-			$table->string('flag')->nullable();
-			$table->timestamps();
-		});
-		
 		Schema::create('campaign_types', function($table)
 		{
 			$table->increments('id');
@@ -163,6 +163,22 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});
 		
+		Schema::create('judgements', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('task_id')->unsigned();
+			$table->foreign('task_id')->references('id')->on('tasks');
+			$table->integer('game_id')->unsigned();
+			$table->foreign('game_id')->references('id')->on('games');
+			$table->integer('campaign_id')->unsigned()->nullable();
+			$table->foreign('campaign_id')->references('id')->on('campaigns')->nullable();
+			$table->longText('response');
+			$table->string('flag')->nullable();
+			$table->timestamps();
+		});
+		
 		Schema::create('scores', function($table)
 		{
 			$table->increments('id');
@@ -185,6 +201,7 @@ class InitDatabase extends Migration {
 			$table->integer('user_id')->unsigned();
 			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('number_performed')->default(0);
+			$table->integer('times_finished')->default(0);
 			$table->timestamps();
 		});
 		
@@ -228,6 +245,36 @@ class InitDatabase extends Migration {
 			$table->timestamps();
 		});*/
 		
+		Schema::create('badges', function($table)
+		{
+			$table->increments('id');
+			$table->integer('campaign_id')->nullable()->default(null)->unsigned();
+			$table->foreign('campaign_id')->references('id')->on('campaigns');
+			$table->string('name');
+			$table->string('image');
+			$table->string('text');
+			$table->timestamps();
+		 });
+		
+		Schema::create('user_has_badge', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->integer('badge_id')->unsigned();
+			$table->foreign('badge_id')->references('id')->on('badges');
+			$table->timestamps();
+		});
+		
+		/*Schema::create('user_actions', function($table)
+		{
+			$table->increments('id');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
+			$table->string('page');
+			$table->string('action');
+			$table->timestamps();
+		});*/
 	}
 
 	/**
@@ -237,15 +284,18 @@ class InitDatabase extends Migration {
 	 */
 	public function down()
 	{
+		//Schema::drop('user_actions');
+		Schema::drop('user_has_badge');
+		Schema::drop('badges');
 		//Schema::drop('ranks');
 		Schema::drop('campaign_has_story');
 		Schema::drop('stories');
 		Schema::drop('campaign_has_game');
 		Schema::drop('campaign_progress');
 		Schema::drop('scores');
+		Schema::drop('judgements');
 		Schema::drop('campaigns');
 		Schema::drop('campaign_types');
-		Schema::drop('judgements');
 		Schema::drop('game_has_task');
 		Schema::drop('workflows');
 		Schema::drop('tasks');
@@ -253,6 +303,7 @@ class InitDatabase extends Migration {
 		Schema::drop('games');
 		Schema::drop('game_types');
 		Schema::drop('levels');
+		//Schema::drop('user_preferences');
 		Schema::drop('admin_permission_admin_user');
 		Schema::drop('admin_users');
 		Schema::drop('admin_permissions');

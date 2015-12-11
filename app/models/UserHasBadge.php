@@ -1,21 +1,20 @@
 <?php
 /**
- * Level model. Level entities are saved on the levels table. 
- * Each level has a maximum score and if that is reached, 
- * the user should go up a level. 
+ * UserHasBadge model. UserHasBadge entities are saved on the user_has_badge table.
+ * UserHasBadge keeps track of which users have which Badges
  */
-class Rank extends Eloquent {
+class UserHasBadge extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'ranks';
-	
+	protected $table = 'user_has_badge';
+
 	/**
 	 * Public constructor.
-	 * 
+	 *
 	 * @param $attributes
 	 */
 	public function __construct($attributes = [])  {

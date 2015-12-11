@@ -4,20 +4,37 @@
 	<link href="css/profile.css" rel="stylesheet">
 	<script>
 		$(document).ready(function() {
+			$(".profiletitle").each(function() {
+				if($(this).hasClass("expanded")) {
+					$(this).next().slideDown();
+					$(this).children().children("img").attr({src: "img/glyphs/arrow_g-01.png", height: "15px", width: "25px"})
+				}
+			});
+			
 			$('.profiletitle').on({
 			    'click': function(){
+			    	//set the attribute to the current clicked parent's parent's id
+			    	var attribute = $(this).attr('id');
 			    	if ($(this).hasClass("collapsed")) {
+				    	//set the input to expanded
+			    		var input = 'expanded';
 					$(this).removeClass("collapsed")
-			    	$(this).next().slideDown()	
+					$(this).addClass("expanded")
+			    	$(this).next().slideDown()
 					$(this).children().children("img").attr({src: "img/glyphs/arrow_g-01.png", height: "15px", width: "25px"})
 			    	} else {
+			    		//set the input to collapsed
+				    	var input = 'collapsed';
+				    	$(this).removeClass("expanded")
 			    		$(this).addClass("collapsed")
 						$(this).next().slideUp()
 						$(this).children().children("img").attr({src: "img/glyphs/arrow_g-02.png", height: "25px", width: "15px" })
 						
 			    	}
+			    	//update the user preferences table with the new settings. 
+			    	updateDBSectionExpansion(attribute, input)
 			    }
-		
+				
 			});
 		
 		});
@@ -56,6 +73,19 @@
 		$('#'+checkedBioExpertise ).attr('checked', true);
 	});
 	</script>
+	
+	<script>
+	//This function updates the user preferences table in the database
+	//regarding which sections of the profile page are expanded and which are not. 
+	//Take note that the "attribute" variable has to match a column in the user_preferences table. 
+	function updateDBSectionExpansion(attribute, input){
+		$.ajax({   
+			type: 'POST',   
+			url: 'saveSectionSettings', 
+			data: 'attribute='+attribute+'&input='+input
+		});
+	}
+	</script>
 @stop
 
 @section('content')
@@ -64,13 +94,82 @@
 		<div class="section group" id="profile">
 			<div class="col span_5_of_8" id="profile_main">
 				<div class="textblock">
+				
+					<div class="section group" id="badges">
+						<div class="col span_8_of_8">
+							<div id="badgesSection" class="profiletitle {{$userPreferenceBadegesSection}}">
+								<H1 id="myBadges text">My Badges <img id="myBadges img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+							</div>
+							<div class="profilebody" style="display: none;">
+								@if($userHasBadges)
+									<div> 
+									@foreach ($userHasBadges as $badge)
+										<img width="20%" src="{{ $badge['image'] }}" title="{{ $badge['name'] }}">
+									@endforeach
+									</div>
+								@else
+									<div>You don't have any badges yet. Finish campaigns to earn badges. </div>
+								@endif
+							</div>
+						</div>
+					</div>
+					
+					<div class="section group" id="scores">
+						<div class="col span_8_of_8">
+							<div id="scoresSection" class="profiletitle {{$userPreferenceScoresSection}}">
+								<H1 id="myScores text">My Scores <img id="myScores img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
+							</div>
+							<div class="profilebody" style="display: none;">
+								@if($userCampaignScores)
+									Last 5 scores for Campaigns: 
+									<div> 
+									<table class="table table-striped">
+										<tr>
+											<td>Score gained</td>
+											<td>Date</td>
+										</tr>
+									@foreach ($userCampaignScores as $campaignScore)
+										<tr>
+										<td>{{ $campaignScore['score_gained'] }}</td>
+										<td>{{ $campaignScore['created_at'] }}</td>
+										</tr>
+									@endforeach
+									</table>
+									</div>
+								@else
+									<div>You don't have any Campaign scores yet. Finish campaigns to earn scores. </div>
+								@endif
+								<br>
+								@if($userScores)
+									Last 5 scores in general: 
+									<div> 
+									<table class="table table-striped">
+										<tr>
+											<td>Score gained</td>
+											<td>Date</td>
+										</tr>
+									@foreach ($userScores as $userScore)
+										<tr>
+										<td>{{ $userScore['score_gained'] }}</td>
+										<td>{{ $userScore['created_at'] }}</td>
+										</tr>
+									@endforeach
+									</table>
+									</div>
+								@else
+									<div>You don't have any scores yet. Finish campaigns and play games to earn scores. </div>
+								@endif
+							</div>
+						</div>
+					</div>
+				
 					<div class="section group" id="account">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>My Account <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div id="accountSection" class="profiletitle {{$userPreferenceAccountSection}}">
+								<H1 id="myAccount text">My Account <img id="myAccount img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 
 							</div>
-							<div class="profilebody">
+							<div class="profilebody"  style="display: none;">
 								{{ Form::open(['url' => 'editProfile']) }}
 								<?php $cellBioExpertise = Auth::user()->get()->cellBioExpertise; ?>
 								<table>
@@ -119,10 +218,10 @@
 
 					<div class="section group" id="password">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>Password <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div id="passwordSection" class="profiletitle {{$userPreferencePasswordSection}}">
+								<H1 id="myPassword text">Password <img id="myPassword img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
-							<div class="profilebody">
+							<div class="profilebody"  style="display: none;">
 								{{ Form::open(['url' => 'changePass']) }}
 								{{ Form::hidden('email', Auth::user()->get()->email) }}
 								<table>
@@ -150,57 +249,46 @@
 
 					<div class="section group" id="notifications">
 						<div class="col span_8_of_8">
-							<div class="profiletitle">
-								<H1>Notifications <img src="img/glyphs/arrow_g-01.png" height="15px" width="25px"></H1>
+							<div id="notificationsSection" class="profiletitle {{$userPreferenceNotificationsSection}}">
+								<H1 id="myNotifications text">Notifications <img id="myNotifications img" src="img/glyphs/arrow_g-02.png" height="25px" width="15px"></H1>
 							</div>
-							<div class="profilebody">
+							<div class="profilebody" style="display: none;">
+								{{Form::open(['url' => 'editNotificationPreferences'])}}
 								<table>
 									<tr>
 										<td>Notify me of new campaigns</td>
 										<td>
-											<select name="campaigns">
-												<option value="immediately">Immediately</option>
-												<option value="daily">Daily</option>
-												<option value="weekly">Weekly</option>
-												<option value="monthly">Monthly</option>														
-												<option value="never">Never</option>
-											</select>
+											{{Form::select('campaignsNotification', array('immediately' => 'Immediately', 'daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly','never' => 'Never'), $userPreferenceCampaignsNotification, ['id'=>'campaignsNotificationSelector', 'class'=>'btn btn-default dropdown-toggle', 'type'=>'button', 'data-toggle'=>'dropdown', 'style' => 'margin-bottom: 10px;'])}}
 										</td>
 														
 									</tr>
 									<tr>
-										<td>Notify me of friend's activities</td>
-										<td>													
-											<select name="friends">
-												<option value="immediately">Immediately</option>
-												<option value="daily">Daily</option>
-												<option value="weekly">Weekly</option>
-												<option value="monthly">Monthly</option>														
-												<option value="never">Never</option>
-											</select>
+										<td>Notify me of news</td>
+										<td>
+											{{Form::select('newsNotification', array('immediately' => 'Immediately', 'daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly','never' => 'Never'), $userPreferenceNewsNotification, ['id'=>'newsNotificationSelector', 'class'=>'btn btn-default dropdown-toggle', 'type'=>'button', 'data-toggle'=>'dropdown', 'style' => 'margin-bottom: 10px;'])}}
 										</td>
 									</tr>
 									<tr>
-										<td>Notify me of news</td>
-										<td>	
-											<select name="news">
-												<option value="immediately">Immediately</option>
-												<option value="daily">Daily</option>
-												<option value="weekly">Weekly</option>
-												<option value="monthly">Monthly</option>														
-												<option value="never">Never</option>
-											</select>
+										<td>Remind me to play</td>
+										<td>
+											{{Form::select('playReminder', array('daily' => 'Daily', 'weekly' => 'Weekly', 'monthly' => 'Monthly','never' => 'Never'), $userPreferencePlayReminder, ['id'=>'playReminderSelector', 'class'=>'btn btn-default dropdown-toggle', 'type'=>'button', 'data-toggle'=>'dropdown', 'style' => 'margin-bottom: 10px;'])}}	
 										</td>
 									</tr>
+									<tr>
+										<td></td>
+										<td>{{ Form::submit('Change Preferences', array('class' => 'changePreferencesButton')) }}</td>
+									</tr>
 								</table>
+								{{Form::close()}}
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			<div class="col span_3_of_8" id="profile_background">
-				<a href="logout"><button style="float:right" class="bioCrowdButton">Log out</button></a>
-				<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
+			<a href="logout"><button id="logoutButton" style="float:right" class="bioCrowdButton">Log out</button></a>
+			<img src="img/backgrounds/image_profilebackground-02.png" width="300px">
 			</div>
 		</div>
 	</div>

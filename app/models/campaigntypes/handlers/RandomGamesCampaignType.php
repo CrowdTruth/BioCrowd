@@ -52,11 +52,13 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 	 */
 	public function getView($campaign) {
 		
-		//Retrieve the amount of games on the platform that exist in total
-		$numberOfGames = count(Game::all());
+		//Retrieve an array of all games in this campaign
+		$crude_game_array = CampaignGames::select('game_id')->where('campaign_id',$campaign->id)->get()->toArray();
+		$game_array = array_column($crude_game_array, 'game_id');
 		
 		//select the next gameId in this campaign for this user
-		$gameId = rand(1,$numberOfGames);
+		$randomGameIndex = array_rand($game_array);
+		$gameId = $game_array[$randomGameIndex];
 		
 		//Put the next consecutive game in the game variable
 		$game = Game::find($gameId);
@@ -95,15 +97,16 @@ class RandomGamesCampaignType extends CampaignTypeHandler {
 	 * If this is the last response to be processed, the $done variable is true and we need to redirect to the correct menu after the response is processed.
 	 */
 	public function processResponse($campaign,$gameOrigin,$done,$game) {
+		//get the currently played campaign id. If it's not there, it's null.
+		$currentlyPlayedCampaignId = Input::get('currentlyPlayedCampaignId');
 		//Only redirect if $done is true
 		if($done){
 			//if the user came here from the game menu instead of the campaign menu, redirect to the game the user came from
+			//add the campaignScoreTag that was put into the session variable when it exists, so that the score gained is showed in the next game view. 
 			if($gameOrigin){
-				return Redirect::to('playGame?gameId='.$game->id);
+				return Redirect::to('playGame?gameId='.$game->id)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			} else { //if a user came here from the campaign menu, figure out what to redirect to
-				//get the campaignId of the RandomGamesCampaignType campaign
-				$campaign = Campaign::where('name', 'RandomGamesCampaignType')->first();
-				return Redirect::to('playCampaign?campaignId='.$campaign->id);
+				return Redirect::to('playCampaign?campaignId='.$currentlyPlayedCampaignId)->with('campaignScoreTag', Session::pull('campaignScoreTag', null));
 			}
 		}
 	}
