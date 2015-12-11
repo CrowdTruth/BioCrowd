@@ -565,33 +565,6 @@
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
-			<div class="col span_3_of_8" id="logic_container" align="center">
-				<table style="height:100%;">
-					<tr>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
-						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
-					</tr>
-				</table>
-			</div>
-			<div class="col span_2_of_8" id="question_container">
-				<div style="text-align:-webkit-center;">
-					<button class="drawnList" style="display: none;" type="button" id="showDrawnList" onClick="showDrawnList1()">Show drawn list \/</button>
-					<button class="drawnList" style="display: none;" type="button" id="hideDrawnList" onClick="hideDrawnList1()">Hide drawn list /\</button>
-				</div>
-				<div class="ct_object_list" style="display:block">
-					<div class="path_list_title_container">
-						<div class="path_list_title_text">Drawn</div>
-					</div>
-					<div class="ct_menuItem_list" id="ct_menuItem_list" style="display:block">
-						<div class="ct_empty_menuItem_list">0 Drawn</div>
-					</div>
-				</div>
-				<div style="text-align:-webkit-center;">
-				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()', 'id' => 'removeLastMarking']) }}
-				<button type='button' id="backTomarkingButton" class="goMarking">Back to Marking</button>
-				</div>
-			</div>
 			<div class="col span_3_of_8" id="question_container">
 				<form action="">
 					<table>
@@ -679,6 +652,34 @@
 						</tr>
 					</table>					
 			</div>
+			<div class="col span_3_of_8" id="logic_container" align="center">
+				<table style="height:100%;">
+					<tr>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
+						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col span_2_of_8" id="question_container">
+				<div style="text-align:-webkit-center;">
+					<button class="drawnList" style="display: none;" type="button" id="showDrawnList" onClick="showDrawnList1()">Show drawn list \/</button>
+					<button class="drawnList" style="display: none;" type="button" id="hideDrawnList" onClick="hideDrawnList1()">Hide drawn list /\</button>
+				</div>
+				<div class="ct_object_list" style="display:block">
+					<div class="path_list_title_container">
+						<div class="path_list_title_text">Drawn</div>
+					</div>
+					<div class="ct_menuItem_list" id="ct_menuItem_list" style="display:block">
+						<div class="ct_empty_menuItem_list">0 Drawn</div>
+					</div>
+				</div>
+				<div style="text-align:-webkit-center;">
+				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()', 'id' => 'removeLastMarking']) }}
+				<button type='button' id="backTomarkingButton" class="goMarking">Back to Marking</button>
+				</div>
+			</div>
+
 		</div>
 		<div class="section group" id="completed_game_container">
 		</div>
