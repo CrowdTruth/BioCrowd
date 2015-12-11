@@ -17,7 +17,7 @@
 							<h1>Story</h1>
 							{{ $story }}
 						@else
-							<h1>Instructions for game {{$gameName}}</h1>
+							<h1>{{$gameName}}</h1>
 							{{ $instructions }}
 						@endif
 					</div>

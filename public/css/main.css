@@ -439,7 +439,6 @@
 		#ribbon {
 			background-image: url("../img/backgrounds/image_background-03.png");
 			background-size: 480px, 600px;
-			min-height: 600px;
 		}
 	}
 
@@ -464,11 +463,9 @@
 	}
 	
 	@media ( max-width : 565px) {
-		#ribbon {
-			min-height: 600px;
-		}
 		#ribimg {
-			min-height: 0px;
+			height:0px;
+			display:none;
 		}
 	}
 	
@@ -481,6 +478,8 @@
 		bottom: 0;
 		left: 15px;
 	}
+	
+
 	
 	#logoimg {
 	display: block;
@@ -1061,6 +1060,21 @@
 	text-decoration: none;
 	position: relative;
 }
+
+#logoleft {
+	float:left; 
+	margin-left:5px; 
+	margin-top:5px;
+}
+
+	@media only screen and (max-width: 508px) {
+		#gameLogo{
+			font-size: 28px;
+		}
+		#logoleft {
+			margin-top:20px;
+		}		
+	}
 
 #logoColor1 {
 	color: #575757;
