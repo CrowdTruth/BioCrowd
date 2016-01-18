@@ -163,13 +163,12 @@
 		$('#completed_game_container').hide();
 		$('#completed_game_popup').hide();
 		$('.examplePopup').hide();
-		$('#skipImageDiv').hide();
 
 		var consecutiveGame = "<?php echo Session::get('consecutiveGame');?>";
 		var flag = "<?php echo Session::get('flag');?>";
 		
 		if(consecutiveGame == "consecutiveGame"){
-			$('#info_container').hide();
+			$('#dropdown_container').hide();
 			$('#completed_game_popup').show();
 		} else {
 			$('#completed_game_popup').hide();
@@ -180,12 +179,9 @@
 		}
 
 		$( window ).load(function() {
-			if(flag == "skipped"){
-				$('#info_container').slideUp(500);		    	
+			if(flag == "skipped"){		    	
 		    	$('#dropdown_container').slideDown(500);
-		    	$('.closeTutorial').show();
 		    	$('.startgame').hide();
-		    	$('#skipImageDiv').show();
 				$('#ribbon').css({
 					"height" : "200px",
 				});
@@ -235,11 +231,11 @@
 			'click' : function() {
 				if ($('.examplePopup').is(":visible")) {
 					$('.examplePopup').hide();
-					$('.openExamples').text('Show Examples');
+					$('.openExamples').text('Show detailed instructions');
 					$('.openExamples').attr('id','openExamplesButton');
 				} else {
 					$('.examplePopup').show();
-					$('.openExamples').text('Hide Examples');
+					$('.openExamples').text('Hide detailed instructions');
 					$('.openExamples').attr('id','closeExamplesButton');
 				}
 			}
@@ -312,7 +308,6 @@
 				$('#dropdown_container').show();
 				$('#completed_game_container').hide();
 				$('#completed_game_popup').hide();
-				$('#skipImageDiv').show();
 				//Make a new judgement with flag incomplete to start the timer
 				otherExpandWasChanged = false;
 				commentWasChanged = false;
@@ -321,48 +316,6 @@
 		});
 	})
 </script>
-	
-	<script>
-		$(document).ready(function() {
-			$('#dropdown_container').hide();
-			$('.closeTutorial').hide();	
-			
-			$('.startgame').on({
-			    'click': function(){ 	
-			    	$('#info_container').slideUp(500);		    	
-			    	$('#dropdown_container').slideDown(500);
-			    	$('.closeTutorial').show();
-			    	$('.startgame').hide();
-			    	$('#skipImageDiv').show();
-					$('#ribbon').css({
-						"height" : "200px",
-					});
-					$('html, body').animate({
-                        scrollTop: $("#ribbon").height()+$("#banner").height()
-                    },2000);
-					if($window.width() > 508){
-						$('#logic_container').height($('#game_container').height());
-					}
-			    }
-			});
-			
-			//add function to open and close the tutorial popup
-			$('.openCloseTutorial').on({
-				'click' : function() {
-					if ($('#info_container').is(':hidden')) {
-						$('#info_container').slideDown(500);
-						$('.openCloseTutorial').text('Close Tutorial');
-						$('.openCloseTutorial').attr('id','closeTutorialButton');
-					} else {
-						$('#info_container').slideUp(500);
-						$('#dropdown_container').slideDown(500);
-						$('.openCloseTutorial').text('Open Tutorial');
-						$('.openCloseTutorial').attr('id','openTutorialButton');
-					}
-				}
-			});
-		});
-	</script>
 	
 	<script>
 		$(document).ready( function() {
@@ -561,45 +514,19 @@
 				<div id="game_progress">
 					<div class="bar" id="cellExProgressBar" style="width: 0%;">0%</div>						
 				</div>
-				<div align="center"><button type='button' id="tutorialButton" class="openCloseTutorial">Tutorial</button></div>
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
-			<div class="col span_3_of_8" id="logic_container" align="center">
-				<table style="height:100%;">
-					<tr>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
-						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
-					</tr>
-				</table>
-			</div>
-			<div class="col span_2_of_8" id="question_container">
-				<div style="text-align:-webkit-center;">
-					<button class="drawnList" style="display: none;" type="button" id="showDrawnList" onClick="showDrawnList1()">Show drawn list \/</button>
-					<button class="drawnList" style="display: none;" type="button" id="hideDrawnList" onClick="hideDrawnList1()">Hide drawn list /\</button>
-				</div>
-				<div class="ct_object_list" style="display:block">
-					<div class="path_list_title_container">
-						<div class="path_list_title_text">Drawn</div>
-					</div>
-					<div class="ct_menuItem_list" id="ct_menuItem_list" style="display:block">
-						<div class="ct_empty_menuItem_list">0 Drawn</div>
-					</div>
-				</div>
-				<div style="text-align:-webkit-center;">
-				{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()', 'id' => 'removeLastMarking']) }}
-				<button type='button' id="backTomarkingButton" class="goMarking">Back to Marking</button>
-				</div>
-			</div>
 			<div class="col span_3_of_8" id="question_container">
 				<form action="">
 					<table>
 						<tr>
+						<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
 						<td colspan="2">
 							<div id="question1" class="question question_active">
 								<div class="textblock">
-									<H1>Step 1: {{$responseLabel[0]}} <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"></H1>
+									<H1>Step 1: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"><br>
+									{{$responseLabel[0]}}</H1>
 									<span>By clicking on it or drawing a shape around it</span>
 								</div>
 								<BR>
@@ -618,7 +545,7 @@
 							</div>
 							<div id="question2" class="question" >
 								<div class="textblock">
-									<H1>Step 2 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
+									<H1>Step 2: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
 									<div id="markingDescription">
 										{{ Form::radio('markingDescription', 'allCells', false, ['id' => 'allCells', 'class' => 'markingDescription', 'onClick' => 'updateAnnotationCount(), expandOtherTextArea(), calculateProgressPercentage();', 'required'=>'required' ] ) }}
 										{{ Form::label('allCells', $responseLabel[1]) }} <BR/>
@@ -638,7 +565,7 @@
 							</div>
 							<div id="question3" class="question">
 								<div class="textblock">
-									<H1>Step 3 <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"></H1>
+									<H1>Step 3: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"></H1>
 									<span>{{$responseLabel[5]}}</span>
 								</div>
 								<div align="center">
@@ -651,7 +578,8 @@
 							</div>
 							<div id="question4" class="question">
 								<div class="textblock">
-									<H1>Step 4: What best describes the image sharpness quality <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[9]}}"></H1>
+									<H1>Step 4: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[9]}}"><br>
+									What best describes the image sharpness quality</H1>
 									<div>Image Sharpness</div>
 									{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateAnnotationCount(), calculateProgressPercentage();', 'required'=>'required' ]) }}
 									{{ Form::label('good', 'Good') }} <BR/>
@@ -675,9 +603,49 @@
 									{{ Form::submit('Finish', ['id' => 'disabledSubmitButton', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop(), prepareResponse(false);' ]) }}
 								</div>
 							</div></td>
-							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
+							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
 						</tr>
 					</table>					
+			</div>
+			<div class="col span_3_of_8" id="logic_container" align="center">
+				<table style="padding-top:20px;">
+					<tr>
+						<td><canvas id="annotationCanvas" style="margin:auto; display:block;"></canvas></td>
+					</tr>
+				</table>
+			</div>
+			<div class="col span_2_of_8" id="question_container">
+				<table width=100% style="text-align:center;">
+					<tr>
+						<td>
+							<div style="text-align:-webkit-center;">
+								<button class="drawnList" style="display: none;" type="button" id="showDrawnList" onClick="showDrawnList1()">Show drawn list \/</button>
+								<button class="drawnList" style="display: none;" type="button" id="hideDrawnList" onClick="hideDrawnList1()">Hide drawn list /\</button>
+							</div>
+							<div class="ct_object_list" style="display:block">
+								<div class="path_list_title_container">
+									<div class="path_list_title_text">Drawn</div>
+								</div>
+								<div class="ct_menuItem_list" id="ct_menuItem_list" style="display:block">
+									<div class="ct_empty_menuItem_list">0 Drawn</div>
+								</div>
+							</div>
+							<div style="text-align:-webkit-center;">
+							{{ Form::button('Remove last', ['type' => 'button','onClick' => 'ct_annotate.removeLast()', 'id' => 'removeLastMarking']) }}
+							<button type='button' id="backTomarkingButton" class="goMarking">Back to Marking</button>
+							</div>
+						</td>
+						<td style="width:1%;">
+							<button type="button" style="width: auto;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">></button>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col span_8_of_8">
+				<div style="float:right;" id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
+					{{ Form::submit('Skip image', ['id' => 'skipImageButton','class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}
+				</div>
+				</form>
 			</div>
 		</div>
 		<div class="section group" id="completed_game_container">
@@ -736,21 +704,6 @@
 			</tr>
 		</table>				 
 	</div>
-
-</div>
-
-<div class="section group">
-	<div class="col span_8_of_8">
-		<table style="width:100%">
-			<tr style="width:100%">
-				<td style="width: 20%; text-align: left;"><button type="button" id="crowdTruthGamesButton" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
-				<td style="width: 20%; text-align: left;"><button type="button" id="selectAnotherGameButton" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Other Game</button></td>			
-				<td style="width: 60%; text-align: right;"><div id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
-				{{ Form::submit('Skip image', ['id' => 'skipImageButton','class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask(), prepareResponse(false);', 'title' => 'Want to skip this image? Click here for the next one']) }}</div></td>
-				</form>
-			</tr>
-		</table>
-	</div>	
 </div>
 
 @stop

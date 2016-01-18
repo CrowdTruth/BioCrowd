@@ -25,25 +25,9 @@
 	
 			</div>
 	
-			<div class="examplePopup" align="center">
+			<div class="examplePopup section group" align="center">
 				<div class="examples">{{ $examples }}</div>
-			</div>
-			
-			<div class="section group" id="info_container">
-				<table style="height:300px">
-					<tr style="width: 100%; height: 50%;">
-						<td>
-							<div class="textblock">{{ $steps }}</div>
-						</td>
-					</tr>
-					<tr style="width: 100%; height: 50%;">
-						<td>
-							<div class="col span_4_of_8" id="startbutton" style="width: 90%">
-								<button onclick="location.href='#'" id="startGameButton" class="startgame bioCrowdButton"  style="float: right">Start game</button>
-							</div>
-						</td>
-					</tr>
-				</table>
+				<div class="steps textblock" id="info_container">{{ $steps }}</div>
 			</div>
 			
 			@if($campaignMode)
@@ -61,6 +45,17 @@
 			
 			{{ Form::close() }}
 			<!--/////////////////////////////////////////END GAME CONTENT/////////////////////////////////////////////////////////////////////-->
+			<div class="section group">
+				<div class="col span_8_of_8">
+					<table style="width:100%">
+						<tr style="width:100%">
+							<td style="width: 20%; text-align: left;"><button type="button" id="crowdTruthGamesButton" class="goHome bioCrowdButton" title="Back to Crowdtruth Games" onclick="location.href='http://game.crowdtruth.org'">Crowdtruth Games</button></td> <!-- TODO: make this url and the name of "Crowdtruth Gams" a parameter -->
+							<td style="width: 20%; text-align: left;"><button type="button" id="selectAnotherGameButton" class="goGameSelect bioCrowdButton" title="Back to game select" onclick="location.href='{{ Lang::get('gamelabels.gameUrl') }}'">Select Other Game</button></td>			
+							<td style="width: 60%; text-align: right;"></td>
+						</tr>
+					</table>
+				</div>	
+			</div>
 		</div>
 		
 		@if (Auth::user()->check())

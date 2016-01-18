@@ -628,11 +628,15 @@
 		display: list-item;
 	}
 	
+	.examplePopup {
+		background-color: #17ad4b;
+	}
+	
 	#info, #info_container {
 	padding-top: 0;
-	background-color: #17ad4b;
 	color: white;
-}
+	text-align: left;
+	}
 
 /*login/register popup*/
 	.formtable {
