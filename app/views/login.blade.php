@@ -71,14 +71,52 @@
 				<img src="img/glyphs/image_video.png" width="75%" style="display:block; margin:auto;"></img>	
 			</div>	
 		</div>
-	
+		<?php 
+		//grab the progress of the top 3 running campaigns that aren't done
+		$campaigns = Campaign::where('targetNumberAnnotations','>','0')
+		->join('judgements', 'campaigns.id', '=', 'judgements.campaign_id')
+		//->where('flag','!=','\'skipped\'')
+		//->where('flag','!=','\'incomplete\'')
+		->join('campaign_has_game', 'campaigns.id', '=', 'campaign_has_game.campaign_id')
+		->selectRaw('campaigns.id,tag,targetNumberAnnotations,
+															(
+																(
+																	count(distinct user_id,task_id,judgements.campaign_id)
+																)/targetNumberAnnotations
+															)*100 as \'order\'')
+		->groupBy('tag')
+		->orderBy('orders')
+		->take(3)
+		->get();
+		//dd($campaigns);
+		//get all campaign id's from the campaigns that are in the $campaigns array
+		$campaignIdsArray = [];
+		foreach ($campaigns as $campaign){
+			array_push($campaignIdsArray,$campaign->id);
+		}
+		
+		$extracampaigns = [];
+		if(count($campaigns) < 3){
+			//if there are less then 3 campaigns shown this way, add some more if possible
+			$extracampaigns = Campaign::where('targetNumberAnnotations','>','0')
+			->whereNotIn('id',$campaignIdsArray)
+			->take((3-count($campaigns)))->get();
+		}
+		?>
 		<div class="section group scrollto" id="campaigns">
 			<div class="col span_4_of_8">
-				<H1 class="sectiontitle"><strong>Active Now</strong></H1>
+				<H1 class="sectiontitle"><strong>Active Campaigns</strong></H1>
 				<div id="campaignProgress">
-					<div id="progress"><div class="bar" style="width: 50%;">50%</div></div>
-					<div id="progress"><div class="bar" style="width: 30%;">30%</div></div>
-					<div id="progress"><div class="bar" style="width: 20%;">20%</div></div>
+					@foreach ($campaigns as $campaign)
+						@if ($campaign->order < 100)
+							<div>{{$campaign->tag}}</div><div id="progress"><div class="bar" style="width: {{$campaign->order}}%;">{{$campaign->order}}%</div></div>
+						@else
+							<div>{{$campaign->tag}}</div><div id="progress"><div class="bar" style="width: 100%;">100%</div></div>
+						@endif
+					@endforeach
+					@foreach ($extracampaigns as $extracampaign)
+						<div>{{$extracampaign->tag}}</div><div id="progress"><div class="bar" style="width: 0%;">0%</div></div>
+					@endforeach
 				</div>
 			</div>
 			<div class="col span_4_of_8">
