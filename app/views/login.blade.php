@@ -85,7 +85,7 @@
 																)/targetNumberAnnotations
 															)*100 as \'order\'')
 		->groupBy('tag')
-		->orderBy('orders')
+		->orderBy('order')
 		->take(3)
 		->get();
 		//dd($campaigns);
