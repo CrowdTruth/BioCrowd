@@ -1,8 +1,9 @@
 <div class="section group" id="banner" align='center'>
-	<div class="col span_3_of_8">
-		<a href="{{ Lang::get('gamelabels.gameUrl') }}" style="text-decoration: none;" ><div id="gameLogo" width="400px">{{ Lang::get('gamelabels.logoText') }}</div></a>
-	</div>
-	<div class="col span_5_of_8" style="height:61px;">
+	<div class="span_8_of_8">
+		<div id='logoleft'>
+			<a href="{{ Lang::get('gamelabels.gameUrl') }}" style="text-decoration: none; " ><div id="gameLogo" width="400">{{ Lang::get('gamelabels.logoText') }}</div></a>
+		</div>
+		<div style='float:right; margin-right:5px; margin-top:5px;'>
 		@if (Auth::user()->check())
 			<div style="position: relative; display: inline-block;">
 				<div style="display: inline-block;">
@@ -191,5 +192,6 @@
 			</div>
 		</div>
 		@endif
+		</div>
 	</div>
 </div>
