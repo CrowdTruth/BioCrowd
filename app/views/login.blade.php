@@ -73,22 +73,9 @@
 		</div>
 		<?php 
 		//grab the progress of the top 3 running campaigns that aren't done
-		$campaigns = Campaign::where('targetNumberAnnotations','>','0')
-		->join('judgements', 'campaigns.id', '=', 'judgements.campaign_id')
-		//->where('flag','!=','\'skipped\'')
-		//->where('flag','!=','\'incomplete\'')
-		->join('campaign_has_game', 'campaigns.id', '=', 'campaign_has_game.campaign_id')
-		->selectRaw('campaigns.id,tag,targetNumberAnnotations,
-															(
-																(
-																	count(distinct user_id,task_id,judgements.campaign_id)
-																)/targetNumberAnnotations
-															)*100 as \'order\'')
-		->groupBy('tag')
-		->orderBy('order')
-		->take(3)
-		->get();
-		//dd($campaigns);
+		
+		$campaigns = DB::select(DB::raw('select campaigns.id,tag,targetNumberAnnotations, ( ( count(distinct user_id,task_id,judgements.campaign_id) )/targetNumberAnnotations )*100 as \'order\' from `campaigns` inner join `judgements` on `campaigns`.`id` = `judgements`.`campaign_id` where `targetNumberAnnotations` > 0 and `flag` != \'skipped\' and `flag` != \'incomplete\' group by `tag` order by `order` asc limit 3'));
+		
 		//get all campaign id's from the campaigns that are in the $campaigns array
 		$campaignIdsArray = [];
 		foreach ($campaigns as $campaign){
