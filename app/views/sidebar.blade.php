@@ -27,13 +27,17 @@
 							$max_score = Level::where('level', $userLevel)->first(['max_score'])['max_score'];
 						}
 						$previous_max_score = Level::where('level', $userLevel-1)->first(['max_score'])['max_score'];
-						$percentage = round((($userScore-$previous_max_score)/($max_score-$previous_max_score))*100);?>
+						$percentage = round((($userScore-$previous_max_score)/($max_score-$previous_max_score))*100);
+						$scoreOfHighestLevelGame = Game::orderBy('score', 'desc')->where('level', '<=', $userLevel)->first(['score'])['score'];
+						?>
 						<div class="bar" style="width: {{$percentage}}%;">
 						{{$percentage}}%</div>
 					</div>
-
-					<span>Complete {{round(($max_score-$userScore)/Game::orderBy('score', 'desc')->where('level', '<=', $userLevel)->first(['score'])['score'])}} more high-level games to
+					@if($scoreOfHighestLevelGame)
+						<span>Complete {{round(($max_score-$userScore)/$scoreOfHighestLevelGame)}} more high-level games to
 							level up</span>
+					@endif
+						
 				</div>
 				<div id="achievements" class="sidebarchild" align="center">
 					<H1>
