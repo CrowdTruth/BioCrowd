@@ -287,7 +287,10 @@ class GameAdminController extends BaseController {
 				$gameTypeInput = Input::get('gameType');
 				$level = Input::get('level');
 				$name = Input::get('name');
+				$tag = Input::get('tag');
 				$instructions = Input::get('instructions');
+				$examples = Input::get('examples');
+				$steps = Input::get('steps');
 				$extraInfo = Input::get('extraInfo');
 				$taskData = Input::get('taskData');
 				$score = Input::get('score');
@@ -300,7 +303,7 @@ class GameAdminController extends BaseController {
 					];
 				}
 				$game = new Game($gameType);
-				$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo, $score);
+				$this->fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score);
 					
 				$gameTypeName = $game->gameType->name;
 				$taskType = TaskType::where('name', '=', $gameTypeName)->first();
@@ -345,8 +348,8 @@ class GameAdminController extends BaseController {
 		}
 		
 		$game = new Game($gameType);
-		$this->fillGameInformation($game, $elem['Name'], $elem['Level'], 
-				$elem['Instructions'],  $this->getExtraInfo($elem));
+		$this->fillGameInformation($game, $elem['Name'], '', $elem['Level'], 
+				$elem['Instructions'], '','', $this->getExtraInfo($elem),'');
 		return $game;
 	}
 	
@@ -356,16 +359,23 @@ class GameAdminController extends BaseController {
 	 * 
 	 * @param $game The Game object
 	 * @param $name name field
+	 * @param $tag tag field
 	 * @param $level level field (numeric)
-	 * @param $instructions Instructions field
+	 * @param $instructions instructions field
+	 * @param $examples examples field
+	 * @param $steps steps field
 	 * @param $extraInfo extraInfo field (serialized)
+	 * @param $score score field
 	 */
-	private function fillGameInformation($game, $name, $level, $instructions, $extraInfo, $score) {
+	private function fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score) {
 		// TODO: Do we need game_type_id ?
 		
 		$game->name = $name;
+		$game->tag = $tag;
 		$game->level = intval($level);
 		$game->instructions = $instructions;
+		$game->examples = $instructions;
+		$game->steps = $steps;
 		$game->extraInfo = serialize($extraInfo);
 		$game->score = $score;
 	}
