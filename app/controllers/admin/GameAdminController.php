@@ -374,7 +374,7 @@ class GameAdminController extends BaseController {
 		$game->tag = $tag;
 		$game->level = intval($level);
 		$game->instructions = $instructions;
-		$game->examples = $instructions;
+		$game->examples = $examples;
 		$game->steps = $steps;
 		$game->extraInfo = serialize($extraInfo);
 		$game->score = $score;
