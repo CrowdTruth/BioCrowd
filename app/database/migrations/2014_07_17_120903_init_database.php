@@ -97,6 +97,7 @@ class InitDatabase extends Migration {
 			$table->longText('steps');
 			$table->text('extraInfo');
 			$table->integer('score');
+			$table->string('description');
 		});
 		
 		Schema::create('task_types', function($table)

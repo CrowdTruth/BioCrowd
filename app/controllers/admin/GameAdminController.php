@@ -112,7 +112,7 @@ class GameAdminController extends BaseController {
 		}
 		
 		$extraInfo = $handler->parseExtraInfo(Input::all());
-		$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo);
+		$this->fillGameInformation($game, $name, $level, $instructions, $extraInfo); //TODO: add other needed params to this
 		$game->game_type_id = $gameTypeId;
 		$game->save();
 		
@@ -294,6 +294,7 @@ class GameAdminController extends BaseController {
 				$extraInfo = Input::get('extraInfo');
 				$taskData = Input::get('taskData');
 				$score = Input::get('score');
+				$description = Input::get('description');
 					
 				// TODO: 'GameType::where.. code repeated -> build function'
 				$gameType = GameType::where('name','=', $gameTypeInput)->first();
@@ -303,7 +304,7 @@ class GameAdminController extends BaseController {
 					];
 				}
 				$game = new Game($gameType);
-				$this->fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score);
+				$this->fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score, $description);
 					
 				$gameTypeName = $game->gameType->name;
 				$taskType = TaskType::where('name', '=', $gameTypeName)->first();
@@ -349,7 +350,7 @@ class GameAdminController extends BaseController {
 		
 		$game = new Game($gameType);
 		$this->fillGameInformation($game, $elem['Name'], '', $elem['Level'], 
-				$elem['Instructions'], '','', $this->getExtraInfo($elem),'');
+				$elem['Instructions'], '','', $this->getExtraInfo($elem),'','');
 		return $game;
 	}
 	
@@ -366,8 +367,9 @@ class GameAdminController extends BaseController {
 	 * @param $steps steps field
 	 * @param $extraInfo extraInfo field (serialized)
 	 * @param $score score field
+	 * @param $description description field
 	 */
-	private function fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score) {
+	private function fillGameInformation($game, $name, $tag, $level, $instructions, $examples, $steps, $extraInfo, $score, $description) {
 		// TODO: Do we need game_type_id ?
 		
 		$game->name = $name;
@@ -378,6 +380,7 @@ class GameAdminController extends BaseController {
 		$game->steps = $steps;
 		$game->extraInfo = serialize($extraInfo);
 		$game->score = $score;
+		$game->description = $description;
 	}
 	
 	/**
