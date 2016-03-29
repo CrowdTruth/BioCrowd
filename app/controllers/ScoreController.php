@@ -31,17 +31,8 @@ class ScoreController {
 		//update the ranks table
 		ScoreController::calculateRanks();
 		
-		//check the level of the user and see if it needs to be higher
-		//what is the max score for the level of this user
-		$maxScoreForThisLevel = Level::where('level',$user->level)->first(['max_score'])['max_score'];
-		if($user->score >= $maxScoreForThisLevel){
-			//if it does need to be higher, up the user's level
-			$user->level = $user->level+1;
-			if(Level::where('level',$user->level)->first(['title'])['title']){
-				$user->title = Level::where('level',$user->level)->first(['title'])['title'];
-			}
-			$user->save();
-		}
+		//update the user's level and title
+		ScoreController::updateUserLevelAndTitle($userId);
 	}
 	
 	static public function calculateRanks() {
@@ -83,6 +74,18 @@ class ScoreController {
 				$rank->save();
 			}
 			$i++;
+		}
+	}
+	
+	static public function updateUserLevelAndTitle($userId) {
+		$user = User::find($userId);
+		//compare the user score to the level table and get the highest level entry in the table that still applies to the user
+		$levelEntryForUser = Level::where('max_score','<=',$user->score)->orderBy('level','desc')->first();
+		if($levelEntryForUser) {
+			//set the user level and title according to the retrieved level entry for this user
+			$user->level = $levelEntryForUser->level;
+			$user->title = $levelEntryForUser->title;
+			$user->save();
 		}
 	}
 }
