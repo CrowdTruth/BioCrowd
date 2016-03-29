@@ -51,8 +51,8 @@ class LoginController extends BaseController {
 		if($code!=self::$INVITE_CODE) {
 			return Redirect::to('login')->with('flash_error', 'Invalid invitation code.')->withInput();
 		}
-		$atposition = strpos($email,'@');
-		$dotposition = strpos($email,'.');
+		$atposition = strrpos($email,'@');
+		$dotposition = strrpos($email,'.');
 		if(!$atposition || !$dotposition || ($atposition > $dotposition)) {
 			return Redirect::to('login')->with('flash_error', 'e-mail adress does not exist. ')->withInput();
 		}
