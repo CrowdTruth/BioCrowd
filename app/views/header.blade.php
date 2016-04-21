@@ -50,10 +50,10 @@
 					<div style="position: relative; display: inline-block;">
 						<div id="gamesIconInBanner" title="# of games finished. Click to see an overview of all games">
 							<div id="gameCountDropDownText" style="font-size: 8px; position:absolute; top:19px; text-align: center; width: 100%; padding-left:3px;">Games</div>
-							<div id="gameCountDropDown" style="position:absolute; text-align: center; width: 100%; top:27px; padding-left:3px;"> {{count(Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->get()->toArray())}}</div>
+							<div id="gameCountDropDown" style="position:absolute; text-align: center; width: 100%; top:27px; padding-left:3px;"> {{count(Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->where('flag','!=','incomplete')->where('flag','!=','skipped')->get()->toArray())}}</div>
 							<div><img height="45px" style="padding-left:7px;" src="img/glyphs/lightgreen_hexagon.png"></div>
 							<div id="gameDropDowns" style="text-align: center;">
-							<?php $playedGameTags = Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->select('game_id')->get(); ?>
+							<?php $playedGameTags = Judgement::distinct()->select('created_at')->where('user_id',Auth::user()->get()->id)->where('flag','!=','incomplete')->where('flag','!=','skipped')->select('game_id')->get(); ?>
 							<?php $playedGameArray = []?>
 							<!-- Check if the user has played any games -->
 							@if(count($playedGameTags)>0)
