@@ -127,7 +127,7 @@ class DataportController extends BaseController {
 				'status'  => 'error',
 				'message' => 'Invalid response from webhook: '.$e,
 				'URL'	=> $webhook, 
-				'query' => $query
+				'query' => $formData
 			];
 		}
 	}
