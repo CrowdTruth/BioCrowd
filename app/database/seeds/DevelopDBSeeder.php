@@ -18,16 +18,16 @@ class DevelopDBSeeder extends Seeder {
 		$controller->installGameType('CellExGameType');
 		$controller->installGameType('VesExGameType');
 
-		$this->createGames();
+		//$this->createGames();
 		// Install campaign types separately ?
-		$campaignType = new CampaignType(new StoryCampaignType());
+		/*$campaignType = new CampaignType(new StoryCampaignType());
 		$campaignType->save();
 		$campaignType = new CampaignType(new QuantityCampaignType());
 		$campaignType->save();
 		$campaignType = new CampaignType(new RandomGamesCampaignType());
-		$campaignType->save();
+		$campaignType->save();*/
 		
-		$this->createCampaigns();
+		//$this->createCampaigns();
 		$this->createLevels();
 	}
 
