@@ -332,16 +332,16 @@ class QuantityCampaignType extends CampaignTypeHandler {
 			//get which badge can be won for this campaign, if any
 			$badgeForThisCampaign = Badge::where('campaign_id',$campaign->id)->get();
 			if(count($badgeForThisCampaign) != 0){
+				//if there is a badge for this campaign, check if the user already has it
 				$userHasBadgeForThisCampaign = UserHasBadge::where('user_id',$userId)->where('badge_id',$badgeForThisCampaign[0]->id)->get();
-			}
-			
-			//if the user didn't have a badge for this campaign yet
-			if(count($userHasBadgeForThisCampaign) == 0 ){
-				//Give the user the badge that belongs to this campaign
-				$userHasBadge = new UserHasBadge();
-				$userHasBadge->user_id = $userId;
-				$userHasBadge->badge_id = $badgeForThisCampaign[0]->id;
-				$userHasBadge->save();
+				
+				if(count($userHasBadgeForThisCampaign) == 0 ){
+					//If not, give the user the badge that belongs to this campaign
+					$userHasBadge = new UserHasBadge();
+					$userHasBadge->user_id = $userId;
+					$userHasBadge->badge_id = $badgeForThisCampaign[0]->id;
+					$userHasBadge->save();
+				}
 			}
 			
 			//add the score to the users score column and add the score to the scores table.

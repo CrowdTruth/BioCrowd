@@ -235,12 +235,14 @@ class GameAdminController extends BaseController {
 				$saveCampaignsPairs[$currIdx] = [
 					'campaign' => $currCampaign,
 					'games' => [],		// Push to array and keep reference to $games
-					'stories' => []		// ...and $stories
+					'stories' => [],		// $stories
+					'badge' => ''			//...and badge
 				];
 			}
 			
 			// New game for current campaign
 			if($currCampaign!=null) {
+				//create the games
 				$game = Game::where('name','=', $elem['GameName'])->first();
 				
 				if($game==null) {
@@ -250,6 +252,13 @@ class GameAdminController extends BaseController {
 				}
 				array_push($saveCampaignsPairs[$currIdx]['games'], $game);
 				
+				//create the badge
+				if($elem['BadgeName'] != '') {
+					$badge = $this->createBadge($currCampaign, $elem);
+					$saveCampaignsPairs[$currIdx]['badge'] = $badge;
+				}
+				
+				//create the stories
 				if($currCampaign->campaignType->name=='Story') {
 					$story = $this->createStory($currCampaign, $elem);
 					array_push($saveCampaignsPairs[$currIdx]['stories'], $story);
@@ -263,6 +272,9 @@ class GameAdminController extends BaseController {
 			$campaign = $pair['campaign'];
 			$campaign->save();
 			$campaign->games()->saveMany($pair['games']);
+			if($pair['badge'] != '') {
+				$campaign->badge()->save($pair['badge']);
+			}
 			
 			if($campaign->campaignType->name=='Story') {
 				foreach($pair['stories'] as $story) {
@@ -419,9 +431,11 @@ class GameAdminController extends BaseController {
 
 		$campaign = new Campaign($campaignType);
 		$campaign->name = $elem['Name'];
+		$campaign->tag = $elem['Tag'];
 		$campaign->badgeName = $elem['BadgeName'];
 		$campaign->description = $elem['Description'];
 		$campaign->image = $elem['Image'];
+		$campaign->score = $elem['Score'];
 		
 		return $campaign;
 	}
@@ -456,6 +470,25 @@ class GameAdminController extends BaseController {
 		$extraInfo = $this->getExtraInfo($elem);
 		$story->extraInfo = serialize($extraInfo);
 		return $story;
+	}
+	
+	/**
+	 * Construct a new Badge instance from the given row on the CSV file.
+	 * Badge is associated with the given campaign.
+	 *
+	 * @param $elem A row from the CSV file.
+	 * @return a Badge instance (yet to be saved).
+	 */
+	private function createBadge($campaign, $elem) {
+		$badge = new Badge($campaign);
+		$badge->name = $elem['BadgeName'];
+		if($elem['BadgeImg'] != '') {
+			$badge->image = $elem['BadgeImg'];
+		} else {
+			$badge->image = $elem['Image'];
+		}
+		$badge->text = $elem['BadgeText'];
+		return $badge;
 	}
 	
 	/**

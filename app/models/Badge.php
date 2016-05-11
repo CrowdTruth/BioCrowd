@@ -19,7 +19,11 @@ class Badge extends Eloquent {
 	 *
 	 * @param $attributes
 	 */
-	public function __construct($attributes = [])  {
+	public function __construct($campaign = null, $attributes = [])  {
 		parent::__construct($attributes); // Eloquent
+		
+		if($campaign!=null) {
+			$this->campaign_id = $campaign->id;
+		}
 	}
 }
