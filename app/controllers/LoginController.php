@@ -37,15 +37,6 @@ class LoginController extends BaseController {
 	 * Perform user registration.
 	 */
 	public function doRegister() {
-		
-		$allUsers = User::all();
-		foreach ($allUsers as $user){
-			if($user->name == 'guest_user'){
-				$user->guest_user = 1;
-				$user->save();
-			}
-		}
-		
 		$email = Input::get('email');
 		$name  = Input::get('name');
 		$pass  = Input::get('password');
