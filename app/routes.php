@@ -28,6 +28,8 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('editNotificationPreferences', 'ProfileController@editNotificationPreferences');
 	Route::post('saveSectionSettings', 'ProfileController@saveSectionSettings');
 	
+	Route::post('convertGuestToUser', 'ProfileController@convertGuestToUser');
+	
 	Route::get('profile' , 'ProfileController@getView');
 });
 

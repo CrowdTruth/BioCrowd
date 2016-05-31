@@ -49,6 +49,7 @@
 					{{ Form::hidden('password','')}}
 					{{ Form::hidden('password2','') }}
 					{{ Form::hidden('code', 'm0ng0') }}
+					{{ Form::hidden('guest_user', 'true') }}
 					{{ Form::submit('Start to help advance science', array('class' => 'anonymous-loginButton')) }}
 				{{ Form::close() }}
 			</div>	

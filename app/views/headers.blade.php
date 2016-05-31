@@ -191,6 +191,22 @@
 	}
 	</script>
 	
+	<script>
+	$(document).ready(function() {
+		$("#closeGuestUserMessageButton").click(function(e) {
+			$("#guestUserBanner").hide();
+		});
+
+		$("#closeGuestUserMessageButton").click(function(e) {
+			$("#guestUserBanner").hide();
+		});
+
+		$("#expandGuestAccountForm").click(function(e) {
+			$("#guestAccountForm").show();
+		});
+	});
+	</script>
+	
 @endif
 
 @if (!Auth::user()->check())

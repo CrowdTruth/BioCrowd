@@ -42,6 +42,16 @@ class LoginController extends BaseController {
 		$pass  = Input::get('password');
 		$pass2 = Input::get('password2');
 		$code  = Input::get('code');
+		
+		//set the guest_user variable to false
+		$guest_user = false;
+		//if it should be true instead, change it. 
+		if (Input::has('guest_user')) {
+			if(Input::get('guest_user') == 'true') {
+				$guest_user = true;
+			}
+		}
+		
 		$cellBioExpertise = Input::get('cellBioExpertise');
 		$expertise = Input::get('expertise');
 
@@ -76,6 +86,7 @@ class LoginController extends BaseController {
 			$user->password = Hash::make($pass);
 			$user->cellBioExpertise = $cellBioExpertise;
 			$user->expertise = $expertise;
+			$user->guest_user = $guest_user;
 			$user->save();
 			
 			//make a new userPreferences model

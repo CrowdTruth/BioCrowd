@@ -608,7 +608,8 @@ class DevelopDBSeeder extends Seeder {
 			'title' => 'Black belt',
 			'score' => '999',
 			'cellBioExpertise' => 'none',
-			'expertise' => 'software development'
+			'expertise' => 'software development',
+			'guest_user' => false
 		] );
 		
 		User::create( [
@@ -619,7 +620,8 @@ class DevelopDBSeeder extends Seeder {
 			'title' => 'White belt',
 			'score' => '460',
 			'cellBioExpertise' => 'uniBachelor',
-			'expertise' => 'BioInformatics master student'
+			'expertise' => 'BioInformatics master student',
+			'guest_user' => false
 		] );
 		
 		User::create( [
@@ -629,7 +631,8 @@ class DevelopDBSeeder extends Seeder {
 			'title' => 'Yellow belt',
 			'password' => Hash::make('Wouter'),
 			'cellBioExpertise' => 'none',
-			'expertise' => 'Front end designer and developer'
+			'expertise' => 'Front end designer and developer',
+			'guest_user' => false
 		] );
 		
 		User::create( [
@@ -639,7 +642,8 @@ class DevelopDBSeeder extends Seeder {
 			'title' => 'Yellow belt',
 			'password' => Hash::make('Tessa'),
 			'cellBioExpertise' => 'none',
-			'expertise' => 'Front end designer'
+			'expertise' => 'Front end designer',
+			'guest_user' => false
 		] );
 	}
 	

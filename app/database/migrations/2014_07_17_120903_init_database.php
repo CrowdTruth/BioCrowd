@@ -23,6 +23,7 @@ class InitDatabase extends Migration {
 			$table->string('password');
 			$table->string('cellBioExpertise')->nullable();
 			$table->string('expertise')->nullable();
+			$table->boolean('guest_user');
 			$table->rememberToken();
 			$table->timestamps();
 		});*/
