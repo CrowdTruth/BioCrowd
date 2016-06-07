@@ -427,14 +427,21 @@
 	}
 	
 	.guestUserBannerText {
-		background-color: white;
 		text-align: center;
 		float: left;
+		line-height: 2;
+		margin-left: 2px;
+	}
+	
+	#guestUserBanner {
+		background-color: #ffffcc;
+		border: 3px solid lightgrey;
 	}
 	
 	#closeGuestUserMessageButton {
 		cursor: pointer;
-		margin-right: 3px;
+		margin-right: 5px;
+		margin-top: 6px;
 	}
 	
 	#guestAccountForm {
@@ -452,7 +459,7 @@
 	background-color: blue;
 	color: white;
 	width: 80%;
-}
+	}
 	
 
 /* ribbon */

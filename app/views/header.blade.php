@@ -246,5 +246,7 @@
 				</table>
 			{{ Form::close() }}
 		</div>
+		<div style="clear:both">
+		</div>
 	</div>
 @endif
