@@ -1,26 +1,26 @@
 CampaignType,Name,Tag,BadgeName,BadgeImg,BadgeText,Description,Image,Score,GameName,Story,Extra info: label,Extra info: label1,Extra info: label2,Extra info: label3,Extra info: label4,Extra info: label5,Extra info: step1,Extra info: step2,Extra info: step3,Extra info: step4
-Story,StoryCampaignType,Army Campaign,Army Campaign Badge,,Army Campaign Badge,<p>In this campaign you will be working for the army. </p>,img/army_mission.png,100,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]","<p>The enemy has a small base in the desert. It is very important to estimate the amount of troops the enemy has in that base.
+Story,StoryCampaignType,Army Campaign,Army Campaign Badge,,Army Campaign Badge,<p>In this campaign you will be working for the army. </p>,img/army_mission.png,100,Cell Seeker,"<p>The enemy has a small base in the desert. It is very important to estimate the amount of troops the enemy has in that base.
 In order to do this, you must count the amount of tents/buildings the enemy has built there. Be careful! The enemy has tried to hide their buildings by putting them in the awning of the walls. Good luck!</p>",Mark each building by clicking it or drawing a shape around it,I have annotated all buildings,There were too many buildings to annotate,There are no tents/buildings in this image,Other,Enter the total number of buildings here:,Click near the center of al visible buildings or drag the mouse to draw a box around the buildings. Keep a mental count while you are tagging.,Choose the option from the given list which best describes your building markings.,Report the number of buildings you have counted in the designated field. ,Click the button which best describes the given image quality. 
-,,,,,,,,,"Nucly[[Nucleus tagging Template(entity/BioCrowd/batch/1, , )]]","<p>The building count has given us a good sense of their numbers, well done. Now we need to know the blueprint of their main building, where we will begin our assault. We have used a satellite with X-ray vision to see the walls of the building. <Example of a room> Put a marking on each room you see. Be careful! Some rooms might lie on top of other rooms and seem to overlap in the picture. Count these as two separate rooms. </p>",Mark each room by clicking it or drawing a shape around it,I have annotated all rooms,There were too many rooms to annotate,There are no rooms in this image,Other,Enter the total number of rooms here:,Click near the center of al visible rooms or drag the mouse to draw a box around the rooms. Keep a mental count while you are tagging.,Choose the option from the given list which best describes your room markings.,Report the number of rooms you have counted in the designated field. ,Click the button which best describes the given image quality. 
-,,,,,,,,,"Colony Catcher[[Colony tagging Template(entity/BioCrowd/batch/2, , )]]","<p>The blueprint you constructed in last assignment has given us a new insight: the people that are standing in the rooms can
+,,,,,,,,,Nucly,"<p>The building count has given us a good sense of their numbers, well done. Now we need to know the blueprint of their main building, where we will begin our assault. We have used a satellite with X-ray vision to see the walls of the building. <Example of a room> Put a marking on each room you see. Be careful! Some rooms might lie on top of other rooms and seem to overlap in the picture. Count these as two separate rooms. </p>",Mark each room by clicking it or drawing a shape around it,I have annotated all rooms,There were too many rooms to annotate,There are no rooms in this image,Other,Enter the total number of rooms here:,Click near the center of al visible rooms or drag the mouse to draw a box around the rooms. Keep a mental count while you are tagging.,Choose the option from the given list which best describes your room markings.,Report the number of rooms you have counted in the designated field. ,Click the button which best describes the given image quality. 
+,,,,,,,,,Colony Catcher,"<p>The blueprint you constructed in last assignment has given us a new insight: the people that are standing in the rooms can
 be seen in the x-ray photos as well! This would give us an even more accurate count of the amount of enemies in the base.
 <Example of an enemy head> Put a marking on each enemy you see. Be careful! Some enemies might seem to overlap since
 they are on different stories of the building. Count these as two separate enemies. </p>
 ",Mark each enemy by clicking it or drawing a shape around it,I have annotated all enemies,There were too many enemies to annotate,There are no enemies in this image,Other,Enter the total number of rooms here:,Click near the center of al visible enemies or drag the mouse to draw a box around the enemies. Keep a mental count while you are tagging.,Choose the option from the given list which best describes your enemy markings.,Report the number of enemies you have counted in the designated field. ,Click the button which best describes the given image quality. 
-Quantity,QuantityCampaignType,Tutorial,Tutorial Badge,,Tutored,<p>In this campaign you will do as many games as possible. </p>,img/army_mission.png,100,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Nucly[[Nucleus tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Colony Catcher[[Colony tagging Template(entity/BioCrowd/batch/2, , )]]",,,,,,,,,,,
-,,,,,,,,,"Vesicle Adventure[[Vesicle locating Template(entity/BioCrowd/batch/3, , )]]",,,,,,,,,,,
-RandomGames,RandomGamesCampaign,Random Game Mania,,,,<p>In this campaign you will do random games. </p>,img/icons/RandomGame_icon.png,,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Nucly[[Nucleus tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Colony Catcher[[Colony tagging Template(entity/BioCrowd/batch/2, , )]]",,,,,,,,,,,
-,,,,,,,,,"Vesicle Adventure[[Vesicle locating Template(entity/BioCrowd/batch/3, , )]]",,,,,,,,,,,
-RandomGames,RandomGamesCampaignLevel1,Random Game Mania Level 1,,,,<p>In this campaign you will do random games of level 1. </p>,img/icons/RandomGame_icon.png,,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Vesicle Adventure[[Vesicle locating Template(entity/BioCrowd/batch/3, , )]]",,,,,,,,,,,
-RandomGames,RandomGamesCampaignLevel2,Random Game Mania Level 2,,,,<p>In this campaign you will do random games up to level 2. </p>,img/icons/RandomGame_icon.png,,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Nucly[[Nucleus tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Vesicle Adventure[[Vesicle locating Template(entity/BioCrowd/batch/3, , )]]",,,,,,,,,,,
-RandomGames,RandomGamesCampaignLevel3,Random Game Mania Level 3,,,,<p>In this campaign you will do random games up to level 3. </p>,img/icons/RandomGame_icon.png,,"Cell Seeker[[Cell Tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Nucly[[Nucleus tagging Template(entity/BioCrowd/batch/1, , )]]",,,,,,,,,,,
-,,,,,,,,,"Colony Catcher[[Colony tagging Template(entity/BioCrowd/batch/2, , )]]",,,,,,,,,,,
-,,,,,,,,,"Vesicle Adventure[[Vesicle locating Template(entity/BioCrowd/batch/3, , )]]",,,,,,,,,,,
+Quantity,QuantityCampaignType,Tutorial,Tutorial Badge,,Tutored,<p>In this campaign you will do as many games as possible. </p>,img/army_mission.png,100,Cell Seeker,,,,,,,,,,,
+,,,,,,,,,Nucly,,,,,,,,,,,
+,,,,,,,,,Colony Catcher,,,,,,,,,,,
+,,,,,,,,,Vesicle Adventure,,,,,,,,,,,
+RandomGames,RandomGamesCampaign,Random Game Mania,,,,<p>In this campaign you will do random games. </p>,img/icons/RandomGame_icon.png,,Cell Seeker,,,,,,,,,,,
+,,,,,,,,,Nucly,,,,,,,,,,,
+,,,,,,,,,Colony Catcher,,,,,,,,,,,
+,,,,,,,,,Vesicle Adventure,,,,,,,,,,,
+RandomGames,RandomGamesCampaignLevel1,Random Game Mania Level 1,,,,<p>In this campaign you will do random games of level 1. </p>,img/icons/RandomGame_icon.png,,Cell Seeker,,,,,,,,,,,
+,,,,,,,,,Vesicle Adventure,,,,,,,,,,,
+RandomGames,RandomGamesCampaignLevel2,Random Game Mania Level 2,,,,<p>In this campaign you will do random games up to level 2. </p>,img/icons/RandomGame_icon.png,,Cell Seeker,,,,,,,,,,,
+,,,,,,,,,Nucly,,,,,,,,,,,
+,,,,,,,,,Vesicle Adventure,,,,,,,,,,,
+RandomGames,RandomGamesCampaignLevel3,Random Game Mania Level 3,,,,<p>In this campaign you will do random games up to level 3. </p>,img/icons/RandomGame_icon.png,,Cell Seeker,,,,,,,,,,,
+,,,,,,,,,Nucly,,,,,,,,,,,
+,,,,,,,,,Colony Catcher,,,,,,,,,,,
+,,,,,,,,,Vesicle Adventure,,,,,,,,,,,
