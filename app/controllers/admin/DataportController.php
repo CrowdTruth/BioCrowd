@@ -162,7 +162,7 @@ class DataportController extends BaseController {
 			$query = $query->where('judgements.created_at', '<', $dates[1]);
 		}
 		
-		$query = $query->select('judgements.id as judgment_id','games.id as game_id', 
+		$query = $query->select('judgements.id as judgment_id','games.id as game_id','games.game_type_id as game_type_id', 
 				'level', 'name as game_name', 'tasks.data as task_data', 'user_id', 
 				'judgements.created_at as created_at', 'response');
 		
