@@ -152,8 +152,7 @@ class DataportController extends BaseController {
 		 */
 		$query = DB::table('judgements')
 			->join('games', 'games.id', '=', 'judgements.game_id')
-			->join('tasks', 'tasks.id', '=', 'judgements.task_id')
-			->join('game_types', 'game_types.id', '=', 'games.game_type_id');
+			->join('tasks', 'tasks.id', '=', 'judgements.task_id');
 		if( ! empty($gameIds)) {
 			$query = $query->whereIn('games.id', $gameIds);
 		}
@@ -163,7 +162,7 @@ class DataportController extends BaseController {
 			$query = $query->where('judgements.created_at', '<', $dates[1]);
 		}
 		
-		$query = $query->select('judgements.id as judgment_id','games.id as game_id','game_types.name as game_type_name', 
+		$query = $query->select('judgements.id as judgment_id','games.id as game_id','games.game_type_id as game_type_id', 
 				'level', 'name as game_name', 'tasks.data as task_data', 'user_id', 
 				'judgements.created_at as created_at', 'response');
 		
@@ -181,6 +180,7 @@ class DataportController extends BaseController {
 			$handlerClass = Game::find($cleanRow['game_id'])->gameType->handler_class;
 			$handler = new $handlerClass();
 			$cleanRow['response'] = $handler->decodeJudgement($cleanRow['response']);
+			$cleanRow['game_type_name'] = $handler->gameType->name;
 			
 			array_push($data, $cleanRow);
 		}
