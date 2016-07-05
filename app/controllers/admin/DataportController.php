@@ -98,6 +98,7 @@ class DataportController extends BaseController {
 	public static function callWebhook() {
 		$client = new GuzzleHttp\Client();
 		$webhook = Config::get('webhook.URL');
+		$formData = [];
 			
 		try {
 			// TODO: How many judgments we send? and how often?
