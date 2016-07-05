@@ -181,7 +181,7 @@ class DataportController extends BaseController {
 			$handlerClass = Game::find($cleanRow['game_id'])->gameType->handler_class;
 			$handler = new $handlerClass();
 			$cleanRow['response'] = $handler->decodeJudgement($cleanRow['response']);
-			$cleanRow['game_type_name'] = $handler->gameType->name;
+			$cleanRow['game_type_name'] = Game::find($cleanRow['game_id'])->gameType->name;
 			
 			array_push($data, $cleanRow);
 		}
