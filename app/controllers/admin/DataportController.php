@@ -164,7 +164,7 @@ class DataportController extends BaseController {
 		}
 		
 		$query = $query->select('judgements.id as judgment_id','judgements.flag as judgment_flag','games.id as game_id','games.game_type_id as game_type_id', 
-				'level', 'name as game_name', 'tasks.data as task_data', 'user_id', 
+				'level', 'name as game_name', 'tasks.data as task_data', 'user_id', 'tasks.unit_id as unit_id',
 				'judgements.created_at as created_at','judgements.updated_at as updated_at', 'response');
 		
 		$resultSet = $query->get();
