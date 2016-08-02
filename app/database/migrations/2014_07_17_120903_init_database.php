@@ -116,6 +116,7 @@ class InitDatabase extends Migration {
 			$table->integer('task_type_id')->unsigned();
 			$table->foreign('task_type_id')->references('id')->on('task_types');
 			$table->string('data');
+			$table->string('unit_id')->nullable();
 			$table->timestamps();
 		});
 		

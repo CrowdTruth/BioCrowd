@@ -88,6 +88,7 @@ class GameAdminController extends BaseController {
 		$name = Input::get('name');
 		$instructions = Input::get('instructions');
 		$tasksData = json_decode(Input::get('tasks'));
+		//$unit_id = json_decode(Input::get('unit_id')); TODO: add unit_id functionality here
 		
 		$handlerClass = $gameType->handler_class;
 		$handler = new $handlerClass();
@@ -120,6 +121,7 @@ class GameAdminController extends BaseController {
 		foreach($newTasks as $taskData) {
 			if($handler->validateData($taskData)) {
 				$task = new Task($game, $taskData);
+				//$task = new Task($game, $taskData, $unit_id); TODO: add unit_id functionality here
 				$task->save();
 			} else {
 				if(is_null($taskErr)) {
@@ -324,7 +326,7 @@ class GameAdminController extends BaseController {
 				foreach ($taskData as $taskDataItem) {
 					// TODO: Which column to take ('url' in this case should not be hard coded
 					// TODO: Download image ?
-					$currTask = new Task($taskType, $taskDataItem['url']);
+					$currTask = new Task($taskType, $taskDataItem['url'], $taskDataItem['unit_id']);
 					array_push($tasks, $currTask);
 				}
 					
