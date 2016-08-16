@@ -465,10 +465,14 @@
 		var gameId = "<?php echo $gameId?>";
 		var taskId = "<?php echo $taskId?>";
 		var campaignIdArray = "<?php if(isset($campaignIdArray)) { echo implode(",", $campaignIdArray); } ?>";
+		var canvasIsEmpty = false;
+		if(ct_annotate.all_rects.length == 0){
+			canvasIsEmpty = true;
+		}
 		$.ajax({   
 			type: 'POST',   
 			url: 'submitGame', 
-			data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&userDrew='+ct_annotate.userDrew+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged
+			data: 'flag=incomplete&gameId='+gameId+'&taskId='+taskId+'&campaignIdArray='+campaignIdArray+'&'+attribute+'='+input+'&userDrew='+ct_annotate.userDrew+'&otherExpandWasChanged='+otherExpandWasChanged+'&commentWasChanged='+commentWasChanged+'&canvasIsEmpty='+canvasIsEmpty
 		});
 	}
 	</script>

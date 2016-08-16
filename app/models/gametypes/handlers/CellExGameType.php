@@ -152,6 +152,7 @@ class CellExGameType extends GameTypeHandler {
 		$totalCells = Input::get('totalCells');
 		$qualityDescription = Input::get('qualityDescription');
 		$comment = Input::get('comment');
+		$canvasIsEmpty = Input::get('canvasIsEmpty');
 		
 		$responseArray["markingDescription"] = $markingDescription;
 		$responseArray["otherExpand"] = $otherExpand;
@@ -160,9 +161,10 @@ class CellExGameType extends GameTypeHandler {
 		$responseArray["comment"] = $comment;
 		
 		$tempCoords = json_decode(Input::get('response'));
+		
 		//If the user Drew in this instance, and removed all drawings (removing counts as drawing too)
-		//and if the tempCoords is empty, set the tempCoords to null.
-		if(($userDrew != 'false') && ($tempCoords == [])){
+		//set the tempCoords to null.
+		if(($userDrew == 'true') && ($canvasIsEmpty == 'true')){
 			$tempCoords = null;
 		}
 		$responseArray["Coordinates"] = $tempCoords;
@@ -175,7 +177,7 @@ class CellExGameType extends GameTypeHandler {
 			if($existingJudgement){
 				$oldResponseArray = $this->decodeJudgement($existingJudgement->response);
 				$newResponseArray = $this->makeNewResponseArray($responseArray, $oldResponseArray);
-				if(($userDrew != 'false') && ($tempCoords == null)){
+				if(($userDrew == 'true') && ($canvasIsEmpty == 'true') && ($tempCoords == null)){
 					$newResponseArray["Coordinates"] = $tempCoords;
 				}
 			if(($otherExpandWasChanged != 'false') && ($otherExpand == "")){
@@ -207,7 +209,7 @@ class CellExGameType extends GameTypeHandler {
 			if($existingJudgement){
 				$oldResponseArray = $this->decodeJudgement($existingJudgement->response);
 				$newResponseArray = $this->makeNewResponseArray($responseArray, $oldResponseArray);
-				if(($userDrew != 'false') && ($tempCoords == null)){
+				if(($userDrew == 'true') && ($canvasIsEmpty == 'true') && ($tempCoords == null)){
 					$newResponseArray["Coordinates"] = $tempCoords;
 				}
 				if(($otherExpandWasChanged != 'false') && ($otherExpand == "")){
