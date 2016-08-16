@@ -180,13 +180,34 @@ class DataportController extends BaseController {
 			// Use corresponding game controller to process request.
 			$handlerClass = Game::find($cleanRow['game_id'])->gameType->handler_class;
 			$handler = new $handlerClass();
-			$cleanRow['response'] = "";
+			
 			$cleanRow['response'] = $handler->decodeJudgement($cleanRow['response']);
+			//loop through the cleanRow['response']
+			foreach($cleanRow['response'] as $key => $value){
+				if($value == "" || (is_array($value) && static::isArrayEmpty($value)) ){
+					// if the value is an empty string or an empty array, make sure this key still remains in the array. 
+					$cleanRow['response'][$key] = "";
+				}
+			}
 			$cleanRow['game_type_name'] = Game::find($cleanRow['game_id'])->gameType->name;
 			
 			array_push($data, $cleanRow);
 		}
-		
 		return $data;
+	}
+	
+	public static function isArrayEmpty($array){
+		//set the result variable within this function to make sure that it's saved even when going into itself once more. 
+		//just returning static::isArrayEmpty($value) doesn't cut it because the scope is wrong: it will just keep running the first
+		//loop of the array that the array was in and not return what the recursive instance of the function returned. 
+		$result = true;
+		foreach($array as $key => $value){
+			if(is_array($value)){
+				$result = static::isArrayEmpty($value);
+			} else if ($value != "" || $value != null){
+				$result = false;
+			}
+		}
+		return $result;
 	}
 }
