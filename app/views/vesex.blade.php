@@ -28,14 +28,16 @@ function setFormItem(value){
 		updateDB(attribute, input);
 	}
 
-	//set the border color of all children to white
+	//set the background color of all children to white and the text color to #333
 	var childrenArray = document.getElementById("vesicleClassificationButtonsList").children;
 	for(var	i=0; i<childrenArray.length; i++){
-		childrenArray[i].style.border = "1px solid #17ad4b";
+		childrenArray[i].style.backgroundColor = "#17ad4b";
+		childrenArray[i].style.color = "#333";
 	}
 
-	//set the border of the clicked item to blue
-	document.getElementById(value).style.border = "1px solid #369";
+	//set the background color of the clicked item to blue and its text to white
+	document.getElementById(value).style.backgroundColor = "#369";
+	document.getElementById(value).style.color = "white";
 }
 
 /**
@@ -408,89 +410,83 @@ window.onload = function() {
 			</div>		
 		</div>
 		<div class="section group" id="game_container">
+			<div style="margin-left:31px"><H1>{{$gameName}}</H1></div>
 			<div class="col span_5_of_8" id="question_container">
-				<form action="">
-					<table>
-						<tr>
-							<td style="width:1%;"><button type="button" style="width: auto;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion"><</button></td>
-							<td>
-								<div id="question1" class="question question_active" style="display:inline-block;">
-									<div class="textblock">
-										<H1>Step 1: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"><br>
-										Classify this picture</H1>
-										<span>{{$responseLabel[0]}}</span>
-									</div>
-									<BR>
-									<div class='vesicleClassificationButtons'>
-										<ul id='vesicleClassificationButtonsList'> <!-- TO DO: make the images vertical align bottom, so the BRs are no longer necessary -->
-											<li width='88px' id='clustered' onmousedown='setLocationWasChangedToTrue(), setFormItem("clustered"), calculateProgressPercentage()'>Clustered<BR/><img id="clustered img" style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg'></li>
-											<li width='88px' id='tip' onmousedown='setLocationWasChangedToTrue(), setFormItem("tip"), calculateProgressPercentage()'>Tip<BR/><img id="tip img" style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg'></li>
-											<li width='88px' id='fog' onmousedown='setLocationWasChangedToTrue(), setFormItem("fog"), calculateProgressPercentage()'>Fog<BR/><img id="fog img" style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg'></li>
-											<li width='88px' id='sideNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("sideNucleus"), calculateProgressPercentage()'>{{$responseLabel[1]}}<BR/><img id="sideNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg'></li>
-											<li width='88px' id='ringAroundNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("ringAroundNucleus"), calculateProgressPercentage()'>{{$responseLabel[2]}}<BR/><img id="ringAroundNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg'></li>
-											<li width='88px' id='black' onmousedown='setLocationWasChangedToTrue(), setFormItem("black"), calculateProgressPercentage()'>Black<BR/><img id="black img" style='padding:5px' src='img/VesExButtonIcons/Black.jpg'></li>
-											<li width='88px' id='noneOfThese' onmousedown='setLocationWasChangedToTrue(), setFormItem("noneOfThese"), calculateProgressPercentage()'>None of these<BR/><img id="noneOfThese img" style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg'></li>
-											<li width='88px' id='noImage' onmousedown='setLocationWasChangedToTrue(), setFormItem("noImage"), calculateProgressPercentage()'>No image<BR/><img id="noImage img" style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg'></li>
-											<li width='88px' id='dontKnow' onmousedown='setLocationWasChangedToTrue(), setFormItem("dontKnow"), calculateProgressPercentage()'>I don't know<BR/><img id="dontKnow img" style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg'></li>
-										</ul>
-								    </div>
-									<div style="display:none;">
-										{{ Form::hidden('gameId', $gameId) }}
-										{{ Form::hidden('taskId', $taskId) }}
-										{{ Form::hidden('location', $location, ['id' => 'location']) }}
-										{{ Form::hidden('flag', '', [ 'id' => 'flag' ] ) }}
-									</div>
-								</div>
-								<div id="question2" class="question" >
-									<div class="textblock">
-										<H1>Step 2: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
-										<div>Please select all which apply to your selection from STEP 1.</div>
-										{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-										{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
-										{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-										{{ Form::label('mixed', $responseLabel[4]) }}<BR/>
-										{{ Form::radio('markingDescription', 'noCells', false, ['id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-										{{ Form::label('noCells', $responseLabel[5]) }}<BR/>
-										{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
-										{{ Form::label('other', 'Other') }}<BR/>
-										<div id="hiddenOtherExpand" style="display: none">
-											<BR/>
-											{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
-											{{ Form::textarea('otherExpand', $otherExpand) }}
-										</div>
-									</div>
-								</div>
-								<div id="question3" class="question">
-									<div class="textblock">
-										<H1>Step 3: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"><br>
-										What best describes the image sharpness quality</H1>
-										<div>Image Sharpness</div>
-										{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
-										{{ Form::label('good', 'Good') }} <BR/>
-										{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
-										{{ Form::label('medium', 'Medium') }} <BR/>
-										{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
-										{{ Form::label('poor', 'Poor') }} <BR/>
-										{{ Form::radio('qualityDescription', 'blankImage', false, ['id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
-										{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
-										{{ Form::radio('qualityDescription', 'noImage', false, ['id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
-										{{ Form::label('noImage', 'No Image') }}
-									</div>						
-								</div>
-								<div id="question4" class="question">
-									<div class="textblock">
-										<H1>Would you like to make any comments on this image? [Optional]</H1>
-										<div id="commentForm">
-											{{ Form::label('comment', 'Thank you for providing relevant information. Please make your comments here:') }}<BR/>
-											{{ Form::textarea('comment', $comment, ['placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
-										</div>
-										{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop()']) }}
-									</div>
-								</div>
-							</td>
-							<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonSmallScreen" class="bioCrowdButton goNextQuestion">></button></td>
-						</tr>
-					</table>				
+				<div id="question1" class="question question_active" style="display:inline-block;">
+					<div class="textblock">
+						<H1>Step 1: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[6]}}"></H1>
+						<div class="gameInstructionText">{{$responseLabel[0]}}</div>
+					</div>
+					<BR>
+					<div class='vesicleClassificationButtons'>
+						<ul id='vesicleClassificationButtonsList'> <!-- TO DO: make the images vertical align bottom, so the BRs are no longer necessary -->
+							<li width='88px' id='clustered' onmousedown='setLocationWasChangedToTrue(), setFormItem("clustered"), calculateProgressPercentage()'>Clustered<BR/><img id="clustered img" style='bottom: 5px; padding:5px' src='img/VesExButtonIcons/VesClusterIcon.jpg'></li>
+							<li width='88px' id='tip' onmousedown='setLocationWasChangedToTrue(), setFormItem("tip"), calculateProgressPercentage()'>Tip<BR/><img id="tip img" style='padding:5px' src='img/VesExButtonIcons/VesTipIcon.jpg'></li>
+							<li width='88px' id='fog' onmousedown='setLocationWasChangedToTrue(), setFormItem("fog"), calculateProgressPercentage()'>Fog<BR/><img id="fog img" style='padding:5px' src='img/VesExButtonIcons/VesFogIcon.jpg'></li>
+							<li width='88px' id='sideNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("sideNucleus"), calculateProgressPercentage()'>{{$responseLabel[1]}}<BR/><img id="sideNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesSideNucleusIcon.jpg'></li>
+							<li width='88px' id='ringAroundNucleus' onmousedown='setLocationWasChangedToTrue(), setFormItem("ringAroundNucleus"), calculateProgressPercentage()'>{{$responseLabel[2]}}<BR/><img id="ringAroundNucleus img" style='padding:5px' src='img/VesExButtonIcons/VesRingIcon.jpg'></li>
+							<li width='88px' id='black' onmousedown='setLocationWasChangedToTrue(), setFormItem("black"), calculateProgressPercentage()'>Black<BR/><img id="black img" style='padding:5px' src='img/VesExButtonIcons/Black.jpg'></li>
+							<li width='88px' id='noneOfThese' onmousedown='setLocationWasChangedToTrue(), setFormItem("noneOfThese"), calculateProgressPercentage()'>None of these<BR/><img id="noneOfThese img" style='padding:5px' src='img/VesExButtonIcons/NoneOfThese.jpg'></li>
+							<li width='88px' id='noImage' onmousedown='setLocationWasChangedToTrue(), setFormItem("noImage"), calculateProgressPercentage()'>No image<BR/><img id="noImage img" style='padding:5px' src='img/VesExButtonIcons/NoImage.jpg'></li>
+							<li width='88px' id='dontKnow' onmousedown='setLocationWasChangedToTrue(), setFormItem("dontKnow"), calculateProgressPercentage()'>I don't know<BR/><img id="dontKnow img" style='padding:5px' src='img/VesExButtonIcons/DontKnow.jpg'></li>
+						</ul>
+				    </div>
+					<div style="display:none;">
+						{{ Form::hidden('gameId', $gameId) }}
+						{{ Form::hidden('taskId', $taskId) }}
+						{{ Form::hidden('location', $location, ['id' => 'location']) }}
+						{{ Form::hidden('flag', '', [ 'id' => 'flag' ] ) }}
+					</div>
+				</div>
+				<div id="question2" class="question" >
+					<div class="textblock">
+						<H1>Step 2: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[7]}}"></H1>
+						<div class="gameInstructionText">Please select all which apply to your selection from step 1.</div>
+						{{ Form::radio('markingDescription', 'allVesicles', false, ['id' => 'allVesicles', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+						{{ Form::label('allVesicles', $responseLabel[3]) }}<BR/>
+						{{ Form::radio('markingDescription', 'mixed', false, ['id' => 'mixed', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+						{{ Form::label('mixed', $responseLabel[4]) }}<BR/>
+						{{ Form::radio('markingDescription', 'noCells', false, ['id' => 'noCells', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+						{{ Form::label('noCells', $responseLabel[5]) }}<BR/>
+						{{ Form::radio('markingDescription', 'other', false, [ 'id' => 'other', 'class' => 'markingDescription', 'onClick' => 'expandOtherTextArea(), updateDisabledSubmitButtonVesEx(), calculateProgressPercentage();', 'required'=>'required' ]) }}
+						{{ Form::label('other', 'Other') }}<BR/>
+						<div id="hiddenOtherExpand" style="display: none">
+							<BR/>
+							{{ Form::label('otherExpand', 'Please expand on your choice of OTHER') }}<BR/>
+							{{ Form::textarea('otherExpand', $otherExpand) }}
+						</div>
+					</div>
+				</div>
+				<div id="question3" class="question">
+					<div class="textblock">
+						<H1>Step 3: <img src="img/glyphs/image_questionmark-02.png" width="30px" title="{{$responseLabel[8]}}"></H1>
+						<div class="gameInstructionText">What best describes the image sharpness quality</div>
+						{{ Form::radio('qualityDescription', 'good', false, ['id' => 'good', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+						{{ Form::label('good', 'Good') }} <BR/>
+						{{ Form::radio('qualityDescription', 'medium', false, ['id' => 'medium', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+						{{ Form::label('medium', 'Medium') }} <BR/>
+						{{ Form::radio('qualityDescription', 'poor', false, ['id' => 'poor', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+						{{ Form::label('poor', 'Poor') }} <BR/>
+						{{ Form::radio('qualityDescription', 'blankImage', false, ['id' => 'blankImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+						{{ Form::label('blankImage', 'Blank (Black) Image') }}<BR/>
+						{{ Form::radio('qualityDescription', 'noImage', false, ['id' => 'noImage', 'class' => 'qualityDescription', 'onClick' => 'updateDisabledSubmitButtonVesEx(), calculateProgressPercentage()', 'required'=>'required' ]) }}
+						{{ Form::label('noImage', 'No Image') }}
+					</div>						
+				</div>
+				<div id="question4" class="question">
+					<div class="textblock">
+						<H1>Would you like to make any comments on this image? [Optional]</H1>
+						<div id="commentForm">
+							<div class="gameInstructionText">Thank you for providing relevant information. Please make your comments here:</div>
+							{{ Form::textarea('comment', $comment, ['id' => 'comment','placeholder' => 'Please enter your comments here.', 'onkeypress' => 'calculateProgressPercentage()']) }}
+						</div>
+						{{ Form::submit('Finish', ['id' => 'disabledSubmitButtonVesEx', 'class' => 'goFinish', 'onClick' => 'putUnansweredQuestionOnTop()']) }}
+					</div>
+				</div>
+				<div>
+					<button type="button" style="width: 80px;" id="previousQuestionButton" class="bioCrowdButton goPreviousQuestion">Previous</button>
+					<button type="button" style="float:right; width: 80px;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">Next</button>	
+				</div>
 			</div>
 			<div class="col span_3_of_8" id="logic_container" align="center">
 				<table style="height:100%;">
@@ -498,7 +494,6 @@ window.onload = function() {
 						<td>
 							<img id="annotatableImage" src="{{ $image }}" width="100%" />
 						</td>
-						<td style="width:1%;"><button type="button" style="width: auto;" id="MovingNextQuestionButtonBigScreen" class="bioCrowdButton goNextQuestion">></button></td>
 					</tr>
 				</table>
 			</div>
@@ -506,7 +501,6 @@ window.onload = function() {
 				<div style="float:right;" id="skipImageDiv">Want to skip this image?&nbsp;&nbsp;
 					{{ Form::submit('Skip image', ['id' => 'skipImageButton','class' => 'goNextImage bioCrowdButton', 'onClick' => 'makeQuestionsNonRequired(), flagThisTask()', 'title' => 'Want to skip this image? Click here for the next one']) }}</div>
 				</div>
-				</form>
 			</div>
 		</div>
 		<div class="section group" id="completed_game_container">

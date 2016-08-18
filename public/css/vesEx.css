@@ -1,6 +1,6 @@
 .vesicleClassificationButtons ul {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 21px;
 	list-style-type: none;
 	text-align: center;
 }
@@ -12,8 +12,8 @@
 }
 
 .vesicleClassificationButtons ul li:hover {
-	color: #fff;
-	background-color: #369;
+	color: #fff; /*This won't work for some vague reason*/
+	border-color: 1px solid #17ad4b; /*This won't work for some vague reason*/
 	cursor: pointer; 
 	cursor: hand;
 }
@@ -36,4 +36,10 @@
 
 #annotatableImage {
 	padding-top: 20px;
+}
+
+.gameInstructionText{
+	font-style: italic;
+	font-weight: bold;
+	margin-bottom: 10px;
 }
