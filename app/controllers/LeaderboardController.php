@@ -13,6 +13,7 @@ class LeaderboardController extends BaseController {
 		//Make the standard view with the top 20
 		$rows = DB::table('users')
 			->join('ranks', 'users.id', '=', 'ranks.user_id')
+			->where('guest_user','!=','1')
 			->select(['user_id','name','level','score','currentRank'])
 			->orderBy('currentRank')
 			->take(20)
@@ -38,6 +39,7 @@ class LeaderboardController extends BaseController {
 				->groupBy('user_id')
 				->get()->toArray() )
 					->groupBy('user_id')
+					->where('guest_user','!=','1')
 					->selectRaw('user_id,name,level,sum(score_gained) as score')
 					->whereDate('scores.updated_at','=',$carbon->now()->toDateString())
 					->orderBy('score','desc')
@@ -78,6 +80,7 @@ class LeaderboardController extends BaseController {
 				->groupBy('user_id')
 				->get()->toArray() )
 					->groupBy('user_id')
+					->where('guest_user','!=','1')
 					->selectRaw('user_id,name,level,sum(score_gained) as score')
 					->whereBetween('scores.updated_at',array($carbon->now()->subWeek()->addDay()->toDateString(),$carbon->now()->addDay()->toDateString()))
 					->orderBy('score','desc')
@@ -118,6 +121,7 @@ class LeaderboardController extends BaseController {
 				->groupBy('user_id')
 				->get()->toArray() )
 					->groupBy('user_id')
+					->where('guest_user','!=','1')
 					->selectRaw('user_id,name,level,sum(score_gained) as score')
 					->whereBetween('scores.updated_at',array($carbon->now()->subMonth()->addDay()->toDateString(),$carbon->now()->addDay()->toDateString()))
 					->orderBy('score','desc')
@@ -157,6 +161,7 @@ class LeaderboardController extends BaseController {
 							->groupBy('user_id')
 							->orderBy('nJudgements','desc')
 							->leftJoin('users', 'X.user_id', '=', 'users.id')
+							->where('guest_user','!=','1')
 							->get()->toArray();
 		
 		$userRank = null;
@@ -197,6 +202,7 @@ class LeaderboardController extends BaseController {
 							->groupBy('user_id')
 							->orderBy('nJudgements','desc')
 							->leftJoin('users', 'X.user_id', '=', 'users.id')
+							->where('guest_user','!=','1')
 							->get()->toArray();
 	
 		$userRank = null;
@@ -237,6 +243,7 @@ class LeaderboardController extends BaseController {
 		->groupBy('user_id')
 		->orderBy('nJudgements','desc')
 		->leftJoin('users', 'X.user_id', '=', 'users.id')
+		->where('guest_user','!=','1')
 		->get()->toArray();
 	
 		$userRank = null;
@@ -277,6 +284,7 @@ class LeaderboardController extends BaseController {
 		->groupBy('user_id')
 		->orderBy('nJudgements','desc')
 		->leftJoin('users', 'X.user_id', '=', 'users.id')
+		->where('guest_user','!=','1')
 		->get()->toArray();
 	
 		$userRank = null;
@@ -310,6 +318,7 @@ class LeaderboardController extends BaseController {
 		//Make the standard view with the top 20
 		$rows = DB::table('users')
 		->join('ranks', 'users.id', '=', 'ranks.user_id')
+		->where('guest_user','!=','1')
 		->select(['user_id','name','level','score','currentRank'])
 		->orderBy('currentRank')
 		->take(5)
