@@ -5,10 +5,29 @@
 		</div>
 		<div style='float:right; margin-right:5px; margin-top:5px;'>
 		@if (Auth::user()->check())
+			<div id="bannerBackButtonContainer" style="position: relative; display: inline-block;">
+				<button id="bannerBackButton" onclick="history.go(-1);">Back </button>
+			</div>
 			<div style="position: relative; display: inline-block;">
 				<div style="display: inline-block;">
 					<a href="profile"><img id="userPictureInBannerButton" src="img/BlankImage.png" height="45px"></img></a>
 					<a id="userNameInBanner" href="profile"><span id="userNameInBannerButton">{{ Auth::user()->get()->name }}</span></a>
+					<div id="levelAndBadgeInBanner" style="position: relative; display: inline-block;">
+						<div>
+							Level {{ Auth::user()->get()->level }}
+						</div>
+						<div>
+						<?php 
+						$userHasBadge = UserHasBadge::where("user_id",Auth::user()->get()->id)->orderBy("updated_at",'DESC')->first();
+						if(count($userHasBadge)>0){
+							$badge = Badge::where('id',$userHasBadge->badge_id)->get()[0];
+						}
+						?>
+						@if (isset($badge))
+							{{$badge->text}}
+						@endif
+						</div>
+					</div>
 					<div style="position: relative; display: inline-block;">
 						<div id="campaignsIconInBanner" title="# of campaigns finished. Click to see an overview of all campaigns">
 							<div id="campaignCountDropDownText" style="font-size: 8px; position:absolute; top:19px; text-align: center; width: 100%; padding-left:3px;">Campaigns</div>
