@@ -87,7 +87,7 @@
 						<?php $campaignTag = Campaign::where('id',$campaignProgress['campaign_id'])->get()[0]->tag;
 						$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$campaignProgress['campaign_id'])->get()->toArray());
 						?>
-						<span>{{$campaignTag}}</span>
+						<span class="campaignLinkSidebar"><a href="playCampaign?campaignId={{$campaignProgress['campaign_id']}}">{{$campaignTag}}</a></span>
 						<div id="progress">
 							<div class="bar" style="width: {{($campaignProgress['number_performed']/$numberOfGamesInCampaign)*100}}%;">{{$campaignProgress['number_performed']}}/{{$numberOfGamesInCampaign}} completed</div>
 						</div>
@@ -97,16 +97,19 @@
 						$campaignProgress = CampaignProgress::where('user_id',Auth::user()->get()->id)
 						->where('campaign_id',$sidebarCampaign['id'])
 						->get()->toArray();
+						$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$sidebarCampaign['id'])->get()->toArray());
 						if(count($campaignProgress) == 0){
 							//if the user has not made any progress with any capmaign, the numberPerformed is zero. 
 							$numberPerformed = 0;
+						} else if ($campaignProgress[0]["times_finished"] > 0){
+							//Else, if the user has finished the campaign at least once already, the numberPerformed is equal to the number of games in this campaign
+							$numberPerformed = $numberOfGamesInCampaign;
 						} else {
 							//Else, set the numberPerformed to the numberPerformed in the campaignProgress table for this user and this campaign_id. 
 							$numberPerformed = $campaignProgress[0]['number_performed'];
 						}
-						$numberOfGamesInCampaign = count(CampaignGames::where('campaign_id',$sidebarCampaign['id'])->get()->toArray());
 						?>
-						<span>{{$campaignTag}}</span>
+						<span class="campaignLinkSidebar"><a href="playCampaign?campaignId={{$sidebarCampaign['id']}}">{{$campaignTag}}</a></span>
 						<div id="progress">
 							<div class="bar" style="width: {{($numberPerformed/$numberOfGamesInCampaign)*100}}%;">{{$numberPerformed}}/{{$numberOfGamesInCampaign}} completed</div>
 						</div>

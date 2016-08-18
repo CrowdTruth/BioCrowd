@@ -461,6 +461,25 @@
 	width: 80%;
 	}
 	
+	#bannerBackButtonContainer {
+		margin-right: 10px; 
+		bottom: 7px; 
+	}
+	
+	#bannerBackButton { 
+		margin-right: 10px;
+		width: 80%;
+		color: white;
+		background-color: #008752;
+		border-radius: 12px;
+		border: 0;
+	}
+	
+	#levelAndBadgeInBanner {
+		color: white;
+		bottom: 7px;
+		margin: 0px 0px 0px 5px;
+	}
 
 /* ribbon */
 	#ribbon {
@@ -850,6 +869,10 @@
 		max-height: 300px;
 	}
 	
+	.campaignLinkSidebar a:link, .campaignLinkSidebar a:visited {
+		color: inherit;
+	}
+	
 	#achievements button {
 		margin-top: 10px;
 		margin-bottom: 30px;
@@ -1158,19 +1181,12 @@
 }
 
 @media (min-width: 508px) {
-	#MovingNextQuestionButtonSmallScreen{
-		display: none !important;
-	}
-	
 	#hideDrawnList {
 		display: inline-block !important;
 	}
 }
 
 @media (max-width: 508px) {
-	#MovingNextQuestionButtonBigScreen {
-		display: none !important;
-	}
 	
 	.ct_object_list {
 		display: none !important;
