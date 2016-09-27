@@ -124,11 +124,7 @@ class DataportController extends BaseController {
 				$resBody = $resRaw->getBody()->__toString();
 				$json = json_decode($resBody);
 				
-				if($json->message == "Unknown signal"){
-					$jsonmsg .= "\nUnknown signal in chunk ".$iteration.". ";
-				} else {
-					$jsonmsg .= "\n".$json->msg." in chunk ".$iteration.". ";
-				}
+				$jsonmsg .= "\n".$json->msg." in chunk ".$iteration.". ";
 			}
 
 			return [
