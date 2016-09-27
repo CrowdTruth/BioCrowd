@@ -98,30 +98,43 @@ class DataportController extends BaseController {
 	public static function callWebhook() {
 		$client = new GuzzleHttp\Client();
 		$webhook = Config::get('webhook.URL');
+		$chunksize = Config::get('webhook.chunksize');
 		$formData = [];
 			
 		try {
 			// TODO: How many judgments we send? and how often?
 			$payload = static::fetchJudgements();
-			// SHA1 of payload alone, since we don't have API key
-			$signature = sha1(print_r($payload, true));
-			$formData = [
-					'signal' => 'new_judgments',
-					'payload' => $payload,
-					'signature' => $signature
-			];
+			$payloadSize = count($payload);
+			$jsonmsg = "";
 			
-			//$res = $client->post($webhook, ['body' => $query]);
-			//$json = $res->json();
-			
-			// TODO: must be a better way to convert response to array ?
-			$resRaw = $client->post($webhook, ['form_params' => $formData]);
-			$resBody = $resRaw->getBody()->__toString();
-			$json = json_decode($resBody);
+			$chunkedPayload = array_chunk($payload,$chunksize,1);
+			foreach($chunkedPayload as $iteration => $chunk){
+				// SHA1 of payload alone, since we don't have API key
+				$signature = sha1(print_r($payload, true));
+				$formData = [
+						'signal' => 'new_judgments',
+						'payload' => $payload,
+						'signature' => $signature
+				];
+				
+				//$res = $client->post($webhook, ['body' => $query]);
+				//$json = $res->json();
+				
+				// TODO: must be a better way to convert response to array ?
+				$resRaw = $client->post($webhook, ['form_params' => $formData]);
+				$resBody = $resRaw->getBody()->__toString();
+				$json = json_decode($resBody);
+				
+				if($json->message == "Unknown signal"){
+					$jsonmsg .= "\nUnknown signal in chunk ".$iteration.". ";
+				} else {
+					$jsonmsg .= "\n".$json->msg." in chunk ".$iteration.". ";
+				}
+			}
 
 			return [
 				'status'  => 'ok',
-				'message' => 'Webhook successfully called. Response: '.$json->message,
+				'message' => 'Webhook successfully called. Response: '.$jsonmsg,
 			];
 		} catch (Exception $e) {
 			return [
