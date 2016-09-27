@@ -104,16 +104,15 @@ class DataportController extends BaseController {
 		try {
 			// TODO: How many judgments we send? and how often?
 			$payload = static::fetchJudgements();
-			$payloadSize = count($payload);
 			$jsonmsg = "";
-			
 			$chunkedPayload = array_chunk($payload,$chunksize,1);
+			
 			foreach($chunkedPayload as $iteration => $chunk){
 				// SHA1 of payload alone, since we don't have API key
-				$signature = sha1(print_r($payload, true));
+				$signature = sha1(print_r($chunk, true));
 				$formData = [
 						'signal' => 'new_judgments',
-						'payload' => $payload,
+						'payload' => $chunk,
 						'signature' => $signature
 				];
 				
