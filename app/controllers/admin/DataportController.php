@@ -124,7 +124,7 @@ class DataportController extends BaseController {
 				$resBody = $resRaw->getBody()->__toString();
 				$json = json_decode($resBody);
 				
-				$jsonmsg .= "\n".$json->messsage." in chunk ".$iteration.". ";
+				$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
 			}
 
 			return [
