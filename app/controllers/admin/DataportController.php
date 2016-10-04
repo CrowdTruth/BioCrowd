@@ -104,7 +104,8 @@ class DataportController extends BaseController {
 		try {
 			// TODO: How many judgments we send? and how often?
 			$payload = static::fetchJudgements();
-			$jsonmsg = "";
+			$jsonmsg = "URL: ".$webhook;
+			$numberOfJudgementsProcessed = 0;
 			$chunkedPayload = array_chunk($payload,$chunksize,1);
 			
 			foreach($chunkedPayload as $iteration => $chunk){
@@ -125,15 +126,20 @@ class DataportController extends BaseController {
 				$json = json_decode($resBody);
 				
 				if(isset($json)){
-					$jsonmsg .= "\nJSON IS SET!!";
-					$jsonmsg .= "\nURL: ".$webhook;
-					$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
+					$numberOfJudgementsProcessed += $json->message;
 				} else {
-				    $jsonmsg .= "\nJson is empty.";
-				    $jsonmsg .= "\nURL: ".$webhook;
+				    $jsonmsg .= "\nJson is empty in chunk".$chunk;
 				    $jsonmsg .= "\nSignature: ".$signature;
 				    $jsonmsg .= "\nChunksize: ".count($chunk);
 				}
+			}
+			
+			//If the number of processed judgements is not equal to the total number of judgements that was sent in the payload, 
+			//something went wrong and the user is notified. 
+			if($numberOfJudgementsProcessed == count($payload)){
+				$jsonmsg .= "\nAll ".$numberOfJudgementsProcessed." judgements have successfully processed. ";
+			} else {
+				$jsonmsg .= "\nOnly ".$numberOfJudgementsProcessed." judgements have successfully processed. There are some that failed. ";
 			}
 			
 			if(count($chunkedPayload)<1){
