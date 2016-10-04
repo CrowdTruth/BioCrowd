@@ -125,8 +125,8 @@ class DataportController extends BaseController {
 				$json = json_decode($resBody);
 				
 				if(isset($json)){
-				$jsonmsg .= "JSON IS SET!!";
-								$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
+					$jsonmsg .= "JSON IS SET!!";
+					$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
 				} else {
 				    $jsonmsg .= "\nJson is empty.";
 				    $jsonmsg .= "\nSignature: ".$signature;
