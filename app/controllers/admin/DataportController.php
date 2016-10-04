@@ -124,9 +124,20 @@ class DataportController extends BaseController {
 				$resBody = $resRaw->getBody()->__toString();
 				$json = json_decode($resBody);
 				
-				$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
+				if(isset($json)){
+				$jsonmsg .= "JSON IS SET!!";
+								$jsonmsg .= "\n".$json->message." in chunk ".$iteration.". ";
+				} else {
+				    $jsonmsg .= "\nJson is empty.";
+				    $jsonmsg .= "\nSignature: ".$signature;
+				    $jsonmsg .= "\nChunksize: ".count($chunk);
+				}
 			}
-
+			
+			if(count($chunkedPayload)<1){
+				$jsonmsg .= "No judgements found. ";
+			}
+			
 			return [
 				'status'  => 'ok',
 				'message' => 'Webhook successfully called. Response: '.$jsonmsg,
