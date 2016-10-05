@@ -132,7 +132,7 @@ class DataportController extends BaseController {
 						$jsonmsg .= "\nJson error message: ".$json->message;
 					}
 				} else {
-				    $jsonmsg .= "\nJson is empty in chunk".$chunk;
+				    $jsonmsg .= "\nJson is empty in chunk ".$chunk;
 				    $jsonmsg .= "\nSignature: ".$signature;
 				    $jsonmsg .= "\nChunksize: ".count($chunk);
 				}
